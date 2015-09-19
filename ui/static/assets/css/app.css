@@ -12,3 +12,20 @@ html,body,#root{
 	font-weight: bold;
 	font-size: 32pt;
 }
+.notification i{
+	font-size: 140%;
+}
+.notification .count{
+	position: relative;
+	margin-left: -14px;
+	font-size: 10pt;
+	background: #CB0000;
+	color: white;
+	padding: 2px 5px;
+	border-radius: 5px;
+	box-shadow: #222 0px 1px 2px;
+	text-shadow: black 0px 1px 0px;
+}
+#search{
+	width: 500px;
+}

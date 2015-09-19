@@ -3,7 +3,8 @@
 var app = angular.module('app.main', [
 	'ui.router',
 	'restangular',
-	// 'app.login'
+	'ui.bootstrap',
+	'app.login'
 ]);
 
 app.config(function(RestangularProvider){
