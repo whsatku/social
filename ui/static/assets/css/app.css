@@ -1,0 +1,14 @@
+html,body,#root{
+	height: 100%;
+}
+.login{
+	background: #286742;
+	height: 100%;
+}
+.login .logo{
+	text-align: center;
+	margin: 50px 0;
+	color: #99FF69;
+	font-weight: bold;
+	font-size: 32pt;
+}

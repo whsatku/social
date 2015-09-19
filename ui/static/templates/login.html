@@ -1,0 +1,26 @@
+<div class="login">
+	<div class="container">
+		<div class="col-md-4 col-md-offset-4">
+			<h1 class="logo">Youniversity</h1>
+			<div class="well">
+				<div class="picker" ng-hide="kulogin">
+					<h4>Please login</h4>
+					<a class="btn btn-primary" ng-click="kulogin=true">KU Login</a>
+					<a class="btn btn-primary" href="{{app_base}}accounts/facebook/login">Facebook Login</a>
+				</div>
+				<form ng-show="kulogin">
+					<h4>KU Login</h4>
+					<div class="form-group">
+						<label for="student_id">Student ID</label>
+						<input type="text" class="form-control" id="student_id" placeholder="56xxxxxxxx" pattern="[45][0-9]{9}">
+					</div>
+					<div class="form-group">
+						<label for="student_id">Password</label>
+						<input type="password" class="form-control" id="student_id" placeholder="56xxxxxxxx">
+					</div>
+					<button type="submit" class="btn btn-default">Submit</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
