@@ -4,7 +4,8 @@ var app = angular.module('app.main', [
 	'ui.router',
 	'restangular',
 	'ui.bootstrap',
-	'app.login'
+	'app.login',
+	'app.newsfeed'
 ]);
 
 app.config(function(RestangularProvider){
@@ -18,9 +19,13 @@ app.config(function($stateProvider, $urlRouterProvider) {
 	$urlRouterProvider.otherwise('/');
 	$stateProvider
 		.state('root', {
-			url: '/',
 			templateUrl: 'templates/root.html',
 			controller: 'MainAuthController'
+		})
+		.state('root.newsfeed', {
+			url: '/',
+			templateUrl: 'templates/newsfeed.html',
+			controller: 'NewsfeedController'
 		})
 		.state('login', {
 			url: '/login',

@@ -29,3 +29,63 @@ html,body,#root{
 #search{
 	width: 500px;
 }
+.sidebar hr{
+	margin: 0;
+}
+.sidebar .user{
+	margin-bottom: 5px;
+}
+.user{
+	font-size: 12pt;
+}
+.sidebar ul{
+	list-style: none;
+	padding: 0;
+}
+.sidebar ul a{
+	display: block;
+}
+.user .thumbnail{
+	float: left;
+	margin: 0 10px;
+}
+
+.nfpost input[type=submit]{
+	margin-top: 10px;
+}
+.newsfeed .post{
+	padding: 5px 10px;
+	border: #ccc solid 1px;
+	margin: 10px 0;
+	border-radius: 3px;
+	box-shadow: rgba(100, 100, 100, 0.1) 0px 2px 5px;
+}
+.newsfeed .metadata{
+	font-size: 8pt;
+	color: #aaa;
+}
+.newsfeed .message{
+	border-top: #ccc solid 1px;
+	margin-top: 10px;
+	padding: 5px 0;
+	font-size: 12pt;
+}
+.comments{
+	list-style: none;
+	padding: 0;
+	margin: 0 -10px;
+}
+.comments li{
+	border-top: #ccc solid 1px;
+	padding: 10px;
+}
+.comments .thumbnail{
+	margin: 0 10px;
+}
+.avatar{
+	width: 60px;
+}
+.commentform{
+	background: #eee;
+	margin-bottom: -5px;
+}
