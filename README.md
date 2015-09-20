@@ -6,12 +6,10 @@
 2. Setup requirements: `pip install -r requirements.txt`
 3. Sync database: `python manage.py migrate`
 4. Add user: `python manage.py createsuperuser`
-5. Add site: `python manage.py shell`
-
-```python
-from django.contrib.sites.models import Site
-Site.objects.create(domain='localhost:8000', name='Development server')
-```
+5. Run webserver: `python manage.py runserver`
+6. Visit the admin page at `http://localhost:8000/admin/`
+7. Fix the first site name from example.com to localhost:8000
+8. Add a new social app, using your Facebook app ID and secret
 
 ## Development
 
