@@ -7,7 +7,7 @@
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" ui-sref="root">Youniversity</a>
+			<a class="navbar-brand" ui-sref="root.newsfeed">Youniversity</a>
 		</div>
 
 		<div class="collapse navbar-collapse" id="navcollapse">
@@ -41,13 +41,13 @@
 					<a href="#">{{user}}</a>
 				</div>
 				<ul>
-					<li><a ui-sref="root">News feed</a></li>
+					<li><a ui-sref="root.newsfeed">News feed</a></li>
 				</ul>
 				<hr>
 				<h4>Groups</h4>
 				<ul>
 					<li><a href="#">Find group</a></li>
-					<li><a href="#">Group 1</a></li>
+					<li><a href="#" ui-sref="root.group.info({id: 1})">Group 1</a></li>
 					<li><a href="#">Group 2</a></li>
 					<li><a href="#">Group 3</a></li>
 				</ul>

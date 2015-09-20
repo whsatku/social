@@ -5,7 +5,8 @@ var app = angular.module('app.main', [
 	'restangular',
 	'ui.bootstrap',
 	'app.login',
-	'app.newsfeed'
+	'app.newsfeed',
+	'app.group'
 ]);
 
 app.config(function(RestangularProvider){
@@ -26,6 +27,17 @@ app.config(function($stateProvider, $urlRouterProvider) {
 			url: '/',
 			templateUrl: 'templates/newsfeed.html',
 			controller: 'NewsfeedController'
+		})
+		.state('root.group', {
+			url: '/groups/{id}',
+			abstract: true,
+			templateUrl: 'templates/group.html',
+			controller: 'GroupController'
+		})
+		.state('root.group.info', {
+			url: '/info',
+			templateUrl: 'templates/groupinfo.html',
+			controller: 'GroupInfoController'
 		})
 		.state('login', {
 			url: '/login',
