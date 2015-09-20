@@ -3,7 +3,6 @@ from django.db import models
 # Create your models here.
 
 class Group(models.Model):
-	id = models.IntegerField(primary_key=True)
 	name = models.CharField(max_length=25)
 	type =	models.IntegerField(default=0)
 	description = models.CharField(max_length=50)
@@ -15,7 +14,6 @@ class Group(models.Model):
 	permisssion = models.IntegerField(default=0)
 
 class Group_Member(models.Model):
-	id = models.IntegerField(primary_key=True)
 	group_id = models.IntegerField(default=0)
 	user_id = models.IntegerField(default=0)
 	role = models.CharField(max_length=50)
