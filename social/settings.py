@@ -29,7 +29,6 @@ ALLOWED_HOSTS = []
 
 
 # Application definition
-
 INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.auth',
@@ -44,7 +43,8 @@ INSTALLED_APPS = (
     'allauth.socialaccount.providers.facebook',
     'rest_framework',
     'authapi',
-    'ui'
+    'ui',
+    'newsfeed'
 )
 
 MIDDLEWARE_CLASSES = (
