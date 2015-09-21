@@ -117,3 +117,10 @@ AUTHENTICATION_BACKENDS = (
 
 SITE_ID = 2
 LOGIN_REDIRECT_URLNAME = '/static/index.html'
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.BasicAuthentication',
+        'social.auth.SessionCsrfExemptAuthentication',
+    )
+}
