@@ -1,4 +1,6 @@
 from django.db import models
+from django.contrib.auth.models import User
+
 
 # Create your models here.
 
@@ -13,7 +15,7 @@ class Group(models.Model):
 	#header_image = ImageField(upload_to=get_image_path, blank=True, null=True)
 	permisssion = models.IntegerField(default=0)
 
-class Group_Member(models.Model):
-	group_id = models.IntegerField(default=0)
-	user_id = models.IntegerField(default=0)
+class GroupMember(models.Model):
+	group_id = models.ForeignKey(Group, default=0)
+	user_id = models.ForeignKey(User, default=0)
 	role = models.CharField(max_length=50)
