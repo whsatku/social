@@ -15,7 +15,7 @@ class MemberViewSet(ListCreateAPIView):
             return ValidationError('group id cannot be parsed')
 
     def get_queryset(self):
-        return Group_Member.objects.filter(group_id=self.get_group_id())
+        return GroupMember.objects.filter(group_id=self.get_group_id())
 
     def create(self, *args, **kwargs):
         if not self.request.user.is_authenticated():
@@ -26,9 +26,9 @@ class MemberViewSet(ListCreateAPIView):
         except Group.DoesNotExist:
             raise NotFound('no such group')
         
-        member, created = Group_Member.objects.get_or_create(
-            group_id = self.get_group_id(),
-            user_id = self.request.user.id,
+        member, created = GroupMember.objects.get_or_create(
+            group_id = Group.objects.get(id = self.get_group_id),
+            user_id = User.objects.get( id = self.request.user.id),
             defaults = {
                 'role': 0
             }

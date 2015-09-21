@@ -3,5 +3,5 @@ from models import *
 
 class GroupMemberSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Group_Member
+        model = GroupMember
         fields = ('user_id', 'role')
