@@ -3,5 +3,3 @@ db.sqlite3
 *.pyc
 *.pyo
 docs/_build
-# note: any custom docs must be added manually
-docs/*.rst
