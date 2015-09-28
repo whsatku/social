@@ -1,5 +1,7 @@
 # Youniversity
 
+[![Docs](http://social.readthedocs.org/en/latest/?badge=latest)](https://social.readthedocs.org)
+
 ## Setup
 
 1. Setup virtual environment: `virtualenv venv; source venv/bin/activate`
