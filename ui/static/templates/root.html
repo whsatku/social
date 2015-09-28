@@ -1,6 +1,5 @@
 <nav class="navbar navbar-default">
 	<div class="container-fluid">
-		<!-- Brand and toggle get grouped for better mobile display -->
 		<div class="navbar-header">
 			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navcollapse" aria-expanded="false">
 				<span class="sr-only">Toggle navigation</span>
@@ -8,10 +7,9 @@
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" ui-sref="root">Youniversity</a>
+			<a class="navbar-brand" ui-sref="root.newsfeed">Youniversity</a>
 		</div>
 
-		<!-- Collect the nav links, forms, and other content for toggling -->
 		<div class="collapse navbar-collapse" id="navcollapse">
 			<form class="navbar-form navbar-left" role="search">
 				<div class="form-group">
@@ -33,4 +31,34 @@
 		</div>
 	</div>
 </nav>
-<div ui-view></div>
+<div ui-view="main">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-10 col-md-push-2" ui-view></div>
+			<div class="col-md-2 col-md-pull-10 sidebar" ui-view="sidebar">
+				<div class="user row">
+					<a href="#" class="thumbnail" style="width: 50px; background: red; height: 50px;"></a>
+					<a href="#">{{user}}</a>
+				</div>
+				<ul>
+					<li><a ui-sref="root.newsfeed">News feed</a></li>
+				</ul>
+				<hr>
+				<h4>Groups</h4>
+				<ul>
+					<li><a href="#">Find group</a></li>
+					<li><a href="#" ui-sref="root.group.info({id: 1})">Group 1</a></li>
+					<li><a href="#">Group 2</a></li>
+					<li><a href="#">Group 3</a></li>
+				</ul>
+				<hr>
+				<h4>Events</h4>
+				<ul>
+					<li><a href="#">Find event</a></li>
+					<li><a href="#">Event 1</a></li>
+					<li><a href="#">Event 2</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
