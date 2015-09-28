@@ -45,7 +45,8 @@ INSTALLED_APPS = (
     'rest_framework',
     'authapi',
     'ui',
-    'group'
+    'group',
+    "User"
 )
 
 MIDDLEWARE_CLASSES = (
