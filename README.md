@@ -1,6 +1,6 @@
 # Youniversity
 
-[![Docs](http://social.readthedocs.org/en/latest/?badge=latest)](https://social.readthedocs.org)
+[![Docs](https://readthedocs.org/projects/social/badge/?version=latest)](https://social.readthedocs.org)
 
 ## Setup
 
