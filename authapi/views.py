@@ -7,7 +7,7 @@ class UserViewSet(APIView):
 	This API is used to check whether the current user is logged in
 	and to retrieve information about the user.
 
-	It could be accessed at /api/auth/check
+	It could be accessed at :http:get:`/api/auth/check`
 
 	"""
 	def get(self, request):
