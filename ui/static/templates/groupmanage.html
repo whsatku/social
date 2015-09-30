@@ -1,0 +1,63 @@
+<tabset justified="true" type="pills" class="groupmanage">
+	<tab heading="Members" class="members">
+		<div class="table-responsive">
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th></th>
+						<th>Name</th>
+						<th>Type</th>
+						<th>Action</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr class="info" ng-repeat="user in [1,2,3,4,5,6,7,8,9]">
+						<td><a href="#" class="thumbnail" style="width: 40px; background: red; height: 40px;"></a></td>
+						<td><a href="#">New Member</a></td>
+						<td>Request to join</td>
+						<td>
+							<button class="btn btn-sm btn-primary">Accept</button>
+							<button class="btn btn-sm btn-danger">Deny</button>
+						</td>
+					</tr>
+					<tr ng-repeat="user in [1,2,3,4,5,6,7,8,9]">
+						<td><a href="#" class="thumbnail" style="width: 40px; background: red; height: 40px;"></a></td>
+						<td><a href="#">Mr. X</a></td>
+						<td>Member</td>
+						<td>
+							<button class="btn btn-sm btn-danger">Kick</button>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</tab>
+	<tab heading="Description &amp; Settings" class="settings">
+		<form action="">
+			<div class="form-group">
+				<h4>What's this group about</h4>
+				<textarea class="form-control" rows="3">We're a group of people who want to demonstrate how this template works.</textarea>
+			</div>
+
+			<div class="form-group">
+				<h4>Requirement to join</h4>
+				<div class="form-group">
+					<label class="radio-inline"><input type="radio" name="join" value="0" checked> Open</label>
+					<label class="radio-inline"><input type="radio" name="join" value="1"> Closed</label>
+					<label class="radio-inline"><input type="radio" name="join" value="2"> Secret</label>
+				</div>
+				<textarea class="form-control" rows="6">The group owner also able to add some messages here</textarea>
+			</div>
+
+			<div class="form-group">
+				<h4>Your activities?</h4>
+				<textarea class="form-control" rows="10">Here we are going to say something about our recent activities so people want to join us. Or for hangout group we might as well omit this section.
+				
+Also, we should be able to put some images and rich text format in this section</textarea>
+			</div>
+
+			<input type="submit" class="btn btn-primary" value="Save">
+		</form>
+
+	</tab>
+</tabset>

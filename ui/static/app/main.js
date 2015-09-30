@@ -39,9 +39,14 @@ app.config(function($stateProvider, $urlRouterProvider) {
 			templateUrl: 'templates/groupinfo.html',
 			controller: 'GroupInfoController'
 		})
+		.state('root.group.manage', {
+			url: '/manage',
+			templateUrl: 'templates/groupmanage.html',
+		})
 		.state('login', {
 			url: '/login',
-			templateUrl: 'templates/login.html'
+			templateUrl: 'templates/login.html',
+			controller: 'LoginController'
 		});
 });
 
