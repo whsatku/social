@@ -1,11 +1,12 @@
 from rest_framework.response import Response
 from rest_framework.generics import ListCreateAPIView
 from rest_framework.exceptions import ValidationError, NotAuthenticated, NotFound
-
 from models import *
 from serializers import *
 
+
 class MemberViewSet(ListCreateAPIView):
+
     serializer_class = GroupMemberSerializer
 
     def get_group_id(self):
@@ -20,7 +21,6 @@ class MemberViewSet(ListCreateAPIView):
     def create(self, *args, **kwargs):
         if not self.request.user.is_authenticated():
             raise NotAuthenticated
-
         try:
             group = Group.objects.get(id=self.get_group_id())
         except Group.DoesNotExist:
