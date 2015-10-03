@@ -38,3 +38,26 @@ class MemberViewSet(ListCreateAPIView):
             raise ValidationError('request already exists')
 
         return Response(GroupMemberSerializer(member).data)
+
+class GroupViewSet(ListCreateAPIView):
+    serializer_class = GroupMemberSerializer
+
+    def get_group_name(self):
+        try:
+            return int(self.kwargs['name'])
+        except ValueError:
+            return ValidationError('group name cannot be parsed')
+
+    def get_group_long_desc(self):
+        try:
+            return int(self.kwargs['long_description'])
+        except ValueError:
+            return ValidationError('long description cannot be parsed')
+
+    def get_group_desc(self):
+        try:
+            return int(self.kwargs['description'])
+        except ValueError:
+            return ValidationError('long description cannot be parsed')
+
+    
