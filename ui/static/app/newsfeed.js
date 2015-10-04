@@ -7,7 +7,6 @@ app.controller('NewsfeedController', function($scope, $http){
 	$scope.newsfeed = null;
 	$http.get('/api/newsfeed/post').success(function(data){
 		$scope.newsfeed = data;
-		console.log($scope.newsfeed);
 	})
 });
 
