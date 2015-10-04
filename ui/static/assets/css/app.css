@@ -38,6 +38,10 @@ html,body,#root{
 .sidebar .user{
 	margin-bottom: 5px;
 }
+.sidebar .active{
+	color: black;
+	font-weight: bold;
+}
 .user{
 	font-size: 12pt;
 }
