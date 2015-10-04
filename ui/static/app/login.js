@@ -17,8 +17,12 @@ app.controller("LoginController", function($scope, $rootScope, Restangular, $sta
 			$rootScope.user = data;
 			$state.go('root.newsfeed');
 		}, function(request){
-			if ( request.data["detail"] ) {
-				$scope.error = request.data.detail;
+			if ( request.data ) {
+				if ( request.data["detail"] ){
+					$scope.error = request.data.detail;
+				} else {
+					$scope.error = request.data;
+				}
 			}else{
 				$scope.error = request.statusText;
 			}
