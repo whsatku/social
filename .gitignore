@@ -4,3 +4,4 @@ db.sqlite3
 *.pyo
 .idea/
 docs/_build
+.DS_Store
