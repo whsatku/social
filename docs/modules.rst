@@ -6,4 +6,5 @@ Modules Index
 
    User
    authapi
+   group
    newsfeed
