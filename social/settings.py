@@ -44,7 +44,7 @@ INSTALLED_APPS = (
     'rest_framework',
     'authapi',
     'ui',
-    'newsfeed'
+    'newsfeed',
     'group',
     "User"
 )
@@ -112,9 +112,11 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 AUTHENTICATION_BACKENDS = (
+    'imapauth.backends.IMAPBackend',
     'django.contrib.auth.backends.ModelBackend',
-    'allauth.account.auth_backends.AuthenticationBackend'
+    'allauth.account.auth_backends.AuthenticationBackend',
 )
+IMAPAUTH_HOST = 'nontri.ku.ac.th'
 
 SITE_ID = 2
 LOGIN_REDIRECT_URLNAME = '/static/index.html'
