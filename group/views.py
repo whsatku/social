@@ -40,7 +40,7 @@ class MemberViewSet(ListCreateAPIView):
         return Response(GroupMemberSerializer(member).data)
 
 class GroupViewSet(ListCreateAPIView):
-    serializer_class = GroupMemberSerializer
+    serializer_class = GroupSerializer
 
     def get_group_name(self):
         try:
