@@ -4,7 +4,7 @@
 	<div class="clearfix"></div>
 </form>
 <div class="newsfeed">
-	<div class="post" ng-repeat="x in [1,2,3,4,5,6]">
+	<div class="post" ng-repeat="data in newsfeed">
 		<div class="user row">
 			<div class="col-xs-1 avatar">
 				<a href="#" class="thumbnail" style="width: 40px; background: red; height: 40px;"></a>
@@ -15,7 +15,7 @@
 			</div>
 		</div>
 		<div class="message">
-			This is an example of a news feed message
+			{{data.text}}
 		</div>
 		<div class="action">
 			<div class="btn btn-link">Like</div>
