@@ -31,9 +31,9 @@ class MemberViewSet(ListCreateAPIView):
         except Group.DoesNotExist:
             raise NotFound('no such group')
         member, created = GroupMember.objects.get_or_create(
-            group_id = Group.objects.get(id = self.get_group_id),
-            user_id = User.objects.get(id = self.request.user.id),
-            defaults = {
+            group_id=Group.objects.get(id=self.get_group_id),
+            user_id=User.objects.get(id=self.request.user.id),
+            defaults={
                 'role': 0
             }
         )
@@ -88,17 +88,28 @@ class GroupViewDetail(APIView):
 class DeleteUser(APIView):
     serializer_class = GroupMemberSerializer
 
-    def delete_member(self, request, id , format = None):
+    def get_user(self, user_id):
+        try:
+            return GroupMember.objects.get(user_id=user_id)
+        except GroupMember.DoesNotExist:
+            raise Http404
+
+
+    def delete(self, request, id, format=None):
         member = GroupMember.objects.get(id=id)
         member.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
     def post(self, request, user_id, format=None):
-        serializer = GroupMemberSerializer()
-        delete_member(self, user_id)
+        serializer = GroupMemberSerializer(data=request.data)
 
         if serializer.is_valid():
             # serializer.user = self.request.user
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def get(self, request, user_id=None, format=None):
+        group_member_object = self.get_user(user_id)
+        response = self.serializer_class(group_member_object)
+        return Response(response.data)
