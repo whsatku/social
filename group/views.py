@@ -1,6 +1,7 @@
 from rest_framework.response import Response
-from rest_framework.generics import ListCreateAPIView , APIView
+from rest_framework.generics import ListCreateAPIView
 from rest_framework.exceptions import ValidationError, NotAuthenticated, NotFound
+from rest_framework.views import APIView
 from models import *
 from serializers import *
 
