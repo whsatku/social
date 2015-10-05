@@ -1,11 +1,6 @@
 from django.contrib.auth.models import User
 from django.http import Http404
-from django.shortcuts import render
-
-# Create your views here.
 from rest_framework import status
-from rest_framework.exceptions import NotAuthenticated
-from rest_framework.generics import ListCreateAPIView
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
@@ -48,7 +43,7 @@ class PostViewDetail(APIView):
 
         return Response(response.data)
 
-    def delete(self,request,id,format=None):
-        posts=self.get_object(id)
+    def delete(self, request, id, format=None):
+        posts = self.get_object(id)
         posts.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
