@@ -5,7 +5,7 @@ from rest_framework.exceptions import NotAuthenticated
 from rest_framework.exceptions import NotFound
 from rest_framework.views import APIView
 from models import *
-sfrom serializers import *
+from serializers import *
 
 
 class MemberViewSet(ListCreateAPIView):
