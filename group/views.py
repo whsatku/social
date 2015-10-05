@@ -44,8 +44,23 @@ class MemberViewSet(ListCreateAPIView):
 class GroupViewSet(APIView):
     serializer_class = GroupSerializer
 
+    def get(self, request, id=none , format =none):
+        group = Group.objects.all()
+        response = self.serializer_class(group, many=True)
+
+        return Response(response.data)
+
     def get_group(self, id):
         try:
             return Group.objects.get(id=id)
         except Group.DoesNotExist:
             raise Http404
+
+    def post(self, request, format=None):
+        serializer = GroupSerializer(data=request.data)
+
+        if serializer.is_valid():
+            # serializer.user = self.request.user
+            serializer.save(group=Group.objects.get(id=self.request.user.id))
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
