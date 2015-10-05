@@ -1,5 +1,6 @@
 from rest_framework.response import Response
 from rest_framework.generics import ListCreateAPIView
+from rest_framework.decorators import api_view
 from rest_framework.exceptions import ValidationError
 from rest_framework.exceptions import NotAuthenticated
 from rest_framework.exceptions import NotFound
