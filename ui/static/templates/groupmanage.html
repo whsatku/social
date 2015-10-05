@@ -13,7 +13,7 @@
 				<tbody>
 					<tr class="info" ng-repeat="user in groupMember_pending">
 						<td><a href="#" class="thumbnail" style="width: 40px; background: red; height: 40px;"></a></td>
-						<td><a href="#">New Member</a></td>
+						<td><a href="#">{{user.user.username}}</a></td>
 						<td>Request to join</td>
 						<td>
 							<button ng-click="acceptMember()" class="btn btn-sm btn-primary">Accept</button>
@@ -22,7 +22,7 @@
 					</tr>
 					<tr ng-repeat="user in groupMember">
 						<td><a href="#" class="thumbnail" style="width: 40px; background: red; height: 40px;"></a></td>
-						<td><a href="#">{{user.user_id.username}}</a></td>
+						<td><a href="#">{{user.user.username}}</a></td>
 						<td>Member</td>
 						<td>
 							<button class="btn btn-sm btn-danger">Kick</button>

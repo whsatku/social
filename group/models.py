@@ -16,6 +16,6 @@ class Group(models.Model):
     permisssion = models.IntegerField(default=0)
 
 class GroupMember(models.Model):
-    group_id = models.ForeignKey(Group, default=0)
-    user_id = models.ForeignKey(User, default=0)
+    group = models.ForeignKey(Group, default=0)
+    user = models.ForeignKey(User, default=0)
     role = models.IntegerField()
