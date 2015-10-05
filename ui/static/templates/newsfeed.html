@@ -1,6 +1,6 @@
 <form class="nfpost well" ng-show="allowPost">
 	<textarea rows="4" ng-model="nftext" class="form-control" placeholder="What's on your mind?" autofocus></textarea>
-	<input type="submit" class="btn btn-primary pull-right" value="Share">
+	<input type="submit" ng-click="postStatus()" class="btn btn-primary pull-right" value="Share">
 	<div class="clearfix"></div>
 </form>
 <div class="newsfeed">

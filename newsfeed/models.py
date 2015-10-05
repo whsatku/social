@@ -7,7 +7,7 @@ from django.contrib.contenttypes.models import ContentType
 class Post(models.Model):
     user = models.ForeignKey(User, default=0)
     text = models.CharField(max_length=2000)
-    date = models.DateField()
+    date = models.DateField(auto_now_add=True)
     target_type = models.ForeignKey(ContentType)
     target_id = models.PositiveIntegerField()
     target_object = GenericForeignKey('target_type', 'target_id')
