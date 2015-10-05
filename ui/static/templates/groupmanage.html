@@ -11,12 +11,12 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr class="info" ng-repeat="user in [1,2,3,4,5,6,7,8,9]">
+					<tr class="info" ng-repeat="user in groupMember_pending">
 						<td><a href="#" class="thumbnail" style="width: 40px; background: red; height: 40px;"></a></td>
 						<td><a href="#">New Member</a></td>
 						<td>Request to join</td>
 						<td>
-							<button class="btn btn-sm btn-primary">Accept</button>
+							<button ng-click="acceptMember()" class="btn btn-sm btn-primary">Accept</button>
 							<button class="btn btn-sm btn-danger">Deny</button>
 						</td>
 					</tr>
