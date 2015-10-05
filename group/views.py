@@ -70,7 +70,7 @@ class GroupViewDetail(APIView):
         except Group.DoesNotExist:
             raise Http404
 
-    def get(self,request,group_id=None,format=None):
+    def get(self, request, group_id=None, format=None):
 
         groupObject = self.get_group(group_id)
         response = self.serializer_class(groupObject)
@@ -78,6 +78,24 @@ class GroupViewDetail(APIView):
 
     def post(self, request, group_id, format=None):
         serializer = GroupSerializer(data=request.data)
+
+        if serializer.is_valid():
+            # serializer.user = self.request.user
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class DeleteUser(APIView):
+    serializer_class = GroupMemberSerializer
+
+    def delete_member(self, request, id , format = None):
+        member = GroupMember.objects.get(id=id)
+        member.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+    def post(self, request, user_id, format=None):
+        serializer = GroupMemberSerializer()
+        delete_member(self, user_id)
 
         if serializer.is_valid():
             # serializer.user = self.request.user
