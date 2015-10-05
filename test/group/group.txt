@@ -24,7 +24,7 @@ Pre-condition
 
 test web element
     [Arguments]    ${groupID}    ${grouptitle}    ${groupname}
-    test title    ${groupID}    ${grouptitle}
+    Title Should Be    ${grouptitle}
     test group name    ${groupID}    ${groupname}
     test selected sidebar bold    ${groupID}
 
