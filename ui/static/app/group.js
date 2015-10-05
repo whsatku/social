@@ -34,7 +34,20 @@ app.controller('GroupManageController', function($scope, $http, $location){
     });
     $http.get('/api/group/'+groupID+'/member/pending').then(function(data){
         $scope.groupMember_pending = data.data;
+
+        console.log(data.data)
     });
+
+    $scope.acceptMember = acceptMember;
+    function acceptMember(){
+        data = {
+            'role' = 1;
+        }
+        $http.post('/api/group/'+groupID+'/member/accept/' , data).then(function(data){
+            console.log("hello")
+            console.log(data);
+        });
+    }
 })
 
 })();
