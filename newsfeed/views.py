@@ -8,8 +8,9 @@ from rest_framework.exceptions import NotAuthenticated
 from rest_framework.generics import ListCreateAPIView
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from newsfeed.Serializer import PostSerializer, CommentSerializer
+
 from newsfeed.models import Post
+from newsfeed.serializer import PostSerializer
 
 
 class PostViewList(APIView):
