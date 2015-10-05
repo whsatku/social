@@ -9,15 +9,39 @@ ${URL}    http://localhost:8000/static/index.html#/login
 
 
 *** Test Cases ***
-Test Invalidate Login
+Test Invalidate Login - Invalid Username
+    [Template]     Invalidate Login
+    #---------------------------------------------------------------
+    #              username                 |    password           |
+    #---------------------------------------------------------------
+                    b5655555555           Broken573
+
+Test Invalidate Login - Invalid Password
+    [Template]     Invalidate Login
+    #---------------------------------------------------------------
+    #              username                 |    password           |
+    #---------------------------------------------------------------
+     b5610545731      invalidatepassword
+
+Test Invalidate Login - Username is empty
+    [Template]     Invalidate Login
+    #---------------------------------------------------------------
+    #              username                 |    password           |
+    #---------------------------------------------------------------
+                   ${EMPTY}                      Broken573
+
+Test Invalidate Login - Password is empty
     [Template]     Invalidate Login
     #---------------------------------------------------------------
     #              username                 |    password           |
     #---------------------------------------------------------------
      b5610545731      ${EMPTY}
-                    b5655555555           Broken573
-     b5610545731      invalidatepassword
-                   ${EMPTY}                      Broken573
+
+Test Invalidate Login - Both fields are empty
+    [Template]     Invalidate Login
+    #---------------------------------------------------------------
+    #              username                 |    password           |
+    #---------------------------------------------------------------
 	${EMPTY}	${EMPTY}
 
 Test Validate Login
