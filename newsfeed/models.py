@@ -13,14 +13,14 @@ class Post(models.Model):
     target_object = GenericForeignKey('target_type', 'target_id')
 
     def __unicode__(self):
-        return "{}'s newsfeed".format(self.user.username)
+        return "{}'s newsfeed (id={})".format(self.user.username, self.id)
 
 
 class Comment(models.Model):
     post = models.ForeignKey(Post)
     user = models.ForeignKey(User)
     text = models.CharField(max_length=2000)
-    date = models.DateField()
+    date = models.DateField(auto_now_add=True)
 
     def __unicode__(self):
-        return "{}'s comment".format(self.user.username)
+        return "{}'s comment (id={})".format(self.user.username, self.id)

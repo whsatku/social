@@ -20,6 +20,8 @@ class PostSerializer(ModelSerializer):
 
 
 class CommentSerializer(ModelSerializer):
+    user = UserSerializer(read_only=True)
+    
     class Meta:
         model = Comment
         fields = ('id', 'post', 'user', 'text', 'date')
