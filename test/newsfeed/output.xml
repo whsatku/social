@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<robot generated="20151005 23:54:36.165" generator="Robot 2.9.1 (Python 2.7.6 on linux2)">
+<robot generated="20151006 00:23:10.616" generator="Robot 2.9.1 (Python 2.7.6 on linux2)">
 <suite source="/home/nookskill/Documents/wsp/social/test/newsfeed/newsfeed.txt" id="s1" name="Newsfeed">
 <kw type="setup" name="Pre-condition">
 <kw name="Open Browser" library="Selenium2Library">
@@ -8,8 +8,8 @@
 <arg>http://localhost:8000/admin</arg>
 <arg>${BROWSER}</arg>
 </arguments>
-<msg timestamp="20151005 23:54:36.261" level="INFO">Opening browser 'firefox' to base url 'http://localhost:8000/admin'</msg>
-<status status="PASS" endtime="20151005 23:54:40.629" starttime="20151005 23:54:36.260"></status>
+<msg timestamp="20151006 00:23:10.710" level="INFO">Opening browser 'firefox' to base url 'http://localhost:8000/admin'</msg>
+<status status="PASS" endtime="20151006 00:23:14.688" starttime="20151006 00:23:10.710"></status>
 </kw>
 <kw name="Input Text" library="Selenium2Library">
 <doc>Types the given `text` into text field identified by `locator`.</doc>
@@ -17,8 +17,8 @@
 <arg>//*[@id="id_username"]</arg>
 <arg>nookskill</arg>
 </arguments>
-<msg timestamp="20151005 23:54:40.631" level="INFO">Typing text 'nookskill' into text field '//*[@id="id_username"]'</msg>
-<status status="PASS" endtime="20151005 23:54:40.774" starttime="20151005 23:54:40.630"></status>
+<msg timestamp="20151006 00:23:14.690" level="INFO">Typing text 'nookskill' into text field '//*[@id="id_username"]'</msg>
+<status status="PASS" endtime="20151006 00:23:14.968" starttime="20151006 00:23:14.688"></status>
 </kw>
 <kw name="Input Text" library="Selenium2Library">
 <doc>Types the given `text` into text field identified by `locator`.</doc>
@@ -26,34 +26,34 @@
 <arg>//*[@id="id_password"]</arg>
 <arg>1q2w3e4r</arg>
 </arguments>
-<msg timestamp="20151005 23:54:40.778" level="INFO">Typing text '1q2w3e4r' into text field '//*[@id="id_password"]'</msg>
-<status status="PASS" endtime="20151005 23:54:40.871" starttime="20151005 23:54:40.776"></status>
+<msg timestamp="20151006 00:23:14.969" level="INFO">Typing text '1q2w3e4r' into text field '//*[@id="id_password"]'</msg>
+<status status="PASS" endtime="20151006 00:23:15.431" starttime="20151006 00:23:14.969"></status>
 </kw>
 <kw name="Click Element" library="Selenium2Library">
 <doc>Click element identified by `locator`.</doc>
 <arguments>
 <arg>//*[@id="login-form"]/div[3]/input</arg>
 </arguments>
-<msg timestamp="20151005 23:54:40.875" level="INFO">Clicking element '//*[@id="login-form"]/div[3]/input'.</msg>
-<status status="PASS" endtime="20151005 23:54:45.372" starttime="20151005 23:54:40.872"></status>
+<msg timestamp="20151006 00:23:15.435" level="INFO">Clicking element '//*[@id="login-form"]/div[3]/input'.</msg>
+<status status="PASS" endtime="20151006 00:23:19.527" starttime="20151006 00:23:15.433"></status>
 </kw>
 <kw name="Sleep" library="BuiltIn">
 <doc>Pauses the test executed for the given time.</doc>
 <arguments>
 <arg>1</arg>
 </arguments>
-<msg timestamp="20151005 23:54:46.377" level="INFO">Slept 1 second</msg>
-<status status="PASS" endtime="20151005 23:54:46.378" starttime="20151005 23:54:45.373"></status>
+<msg timestamp="20151006 00:23:20.530" level="INFO">Slept 1 second</msg>
+<status status="PASS" endtime="20151006 00:23:20.530" starttime="20151006 00:23:19.528"></status>
 </kw>
 <kw name="Go To" library="Selenium2Library">
 <doc>Navigates the active browser instance to the provided URL.</doc>
 <arguments>
 <arg>http://localhost:8000/static/index.html#/</arg>
 </arguments>
-<msg timestamp="20151005 23:54:46.379" level="INFO">Opening url 'http://localhost:8000/static/index.html#/'</msg>
-<status status="PASS" endtime="20151005 23:54:46.487" starttime="20151005 23:54:46.379"></status>
+<msg timestamp="20151006 00:23:20.532" level="INFO">Opening url 'http://localhost:8000/static/index.html#/'</msg>
+<status status="PASS" endtime="20151006 00:23:20.588" starttime="20151006 00:23:20.531"></status>
 </kw>
-<status status="PASS" endtime="20151005 23:54:46.488" starttime="20151005 23:54:36.259"></status>
+<status status="PASS" endtime="20151006 00:23:20.590" starttime="20151006 00:23:10.709"></status>
 </kw>
 <test id="s1-t1" name="PostStatusWithText">
 <kw name="Post Status with Text">
@@ -66,8 +66,8 @@
 <arguments>
 <arg>${title}</arg>
 </arguments>
-<msg timestamp="20151005 23:54:46.617" level="INFO">Page title is 'Youniversity'.</msg>
-<status status="PASS" endtime="20151005 23:54:46.618" starttime="20151005 23:54:46.490"></status>
+<msg timestamp="20151006 00:23:20.766" level="INFO">Page title is 'Youniversity'.</msg>
+<status status="PASS" endtime="20151006 00:23:20.767" starttime="20151006 00:23:20.595"></status>
 </kw>
 <kw name="Input Text" library="Selenium2Library">
 <doc>Types the given `text` into text field identified by `locator`.</doc>
@@ -75,44 +75,91 @@
 <arg>//textarea[@class="form-control ng-pristine ng-untouched ng-valid"]</arg>
 <arg>${status}</arg>
 </arguments>
-<msg timestamp="20151005 23:54:46.622" level="INFO">Typing text 'Testทดสอบ' into text field '//textarea[@class="form-control ng-pristine ng-untouched ng-valid"]'</msg>
-<status status="PASS" endtime="20151005 23:54:47.097" starttime="20151005 23:54:46.619"></status>
+<msg timestamp="20151006 00:23:20.768" level="INFO">Typing text 'Testทดสอบ' into text field '//textarea[@class="form-control ng-pristine ng-untouched ng-valid"]'</msg>
+<status status="PASS" endtime="20151006 00:23:21.166" starttime="20151006 00:23:20.767"></status>
 </kw>
 <kw name="Sleep" library="BuiltIn">
 <doc>Pauses the test executed for the given time.</doc>
 <arguments>
-<arg>3</arg>
+<arg>2</arg>
 </arguments>
-<msg timestamp="20151005 23:54:50.099" level="INFO">Slept 3 seconds</msg>
-<status status="PASS" endtime="20151005 23:54:50.100" starttime="20151005 23:54:47.098"></status>
+<msg timestamp="20151006 00:23:23.170" level="INFO">Slept 2 seconds</msg>
+<status status="PASS" endtime="20151006 00:23:23.171" starttime="20151006 00:23:21.167"></status>
 </kw>
 <kw name="Click Element" library="Selenium2Library">
 <doc>Click element identified by `locator`.</doc>
 <arguments>
 <arg>//input[@class="btn btn-primary pull-right"]</arg>
 </arguments>
-<msg timestamp="20151005 23:54:50.101" level="INFO">Clicking element '//input[@class="btn btn-primary pull-right"]'.</msg>
-<status status="PASS" endtime="20151005 23:54:50.195" starttime="20151005 23:54:50.100"></status>
+<msg timestamp="20151006 00:23:23.176" level="INFO">Clicking element '//input[@class="btn btn-primary pull-right"]'.</msg>
+<status status="PASS" endtime="20151006 00:23:23.290" starttime="20151006 00:23:23.173"></status>
 </kw>
-<status status="PASS" endtime="20151005 23:54:50.196" starttime="20151005 23:54:46.489"></status>
+<status status="PASS" endtime="20151006 00:23:23.291" starttime="20151006 00:23:20.593"></status>
 </kw>
-<status status="PASS" endtime="20151005 23:54:50.197" critical="yes" starttime="20151005 23:54:46.488"></status>
+<status status="PASS" endtime="20151006 00:23:23.292" critical="yes" starttime="20151006 00:23:20.591"></status>
+</test>
+<test id="s1-t2" name="PostStatusWithoutText">
+<kw name="Post Status without Text">
+<arguments>
+<arg>Youniversity</arg>
+<arg>dasda</arg>
+</arguments>
+<kw name="Reload Page" library="Selenium2Library">
+<doc>Simulates user reloading page.</doc>
+<status status="PASS" endtime="20151006 00:23:23.762" starttime="20151006 00:23:23.300"></status>
+</kw>
+<kw name="Title Should Be" library="Selenium2Library">
+<doc>Verifies that current page title equals `title`.</doc>
+<arguments>
+<arg>${title}</arg>
+</arguments>
+<msg timestamp="20151006 00:23:23.776" level="INFO">Page title is 'Youniversity'.</msg>
+<status status="PASS" endtime="20151006 00:23:23.777" starttime="20151006 00:23:23.762"></status>
+</kw>
+<kw name="Input Text" library="Selenium2Library">
+<doc>Types the given `text` into text field identified by `locator`.</doc>
+<arguments>
+<arg>//textarea[@class="form-control ng-pristine ng-untouched ng-valid"]</arg>
+<arg>${status}</arg>
+</arguments>
+<msg timestamp="20151006 00:23:23.779" level="INFO">Typing text 'dasda' into text field '//textarea[@class="form-control ng-pristine ng-untouched ng-valid"]'</msg>
+<status status="PASS" endtime="20151006 00:23:23.907" starttime="20151006 00:23:23.777"></status>
+</kw>
+<kw name="Sleep" library="BuiltIn">
+<doc>Pauses the test executed for the given time.</doc>
+<arguments>
+<arg>2</arg>
+</arguments>
+<msg timestamp="20151006 00:23:25.911" level="INFO">Slept 2 seconds</msg>
+<status status="PASS" endtime="20151006 00:23:25.913" starttime="20151006 00:23:23.908"></status>
+</kw>
+<kw name="Click Element" library="Selenium2Library">
+<doc>Click element identified by `locator`.</doc>
+<arguments>
+<arg>//input[@class="btn btn-primary pull-right"]</arg>
+</arguments>
+<msg timestamp="20151006 00:23:25.916" level="INFO">Clicking element '//input[@class="btn btn-primary pull-right"]'.</msg>
+<status status="PASS" endtime="20151006 00:23:26.015" starttime="20151006 00:23:25.914"></status>
+</kw>
+<status status="PASS" endtime="20151006 00:23:26.017" starttime="20151006 00:23:23.296"></status>
+</kw>
+<status status="PASS" endtime="20151006 00:23:26.018" critical="yes" starttime="20151006 00:23:23.294"></status>
 </test>
 <kw type="teardown" name="Close Browser" library="Selenium2Library">
 <doc>Closes the current browser.</doc>
-<status status="PASS" endtime="20151005 23:54:50.248" starttime="20151005 23:54:50.199"></status>
+<status status="PASS" endtime="20151006 00:23:26.076" starttime="20151006 00:23:26.022"></status>
 </kw>
-<status status="PASS" endtime="20151005 23:54:50.249" starttime="20151005 23:54:36.165"></status>
+<status status="PASS" endtime="20151006 00:23:26.077" starttime="20151006 00:23:10.617"></status>
 </suite>
 <statistics>
 <total>
-<stat fail="0" pass="1">Critical Tests</stat>
-<stat fail="0" pass="1">All Tests</stat>
+<stat fail="0" pass="2">Critical Tests</stat>
+<stat fail="0" pass="2">All Tests</stat>
 </total>
 <tag>
 </tag>
 <suite>
-<stat fail="0" id="s1" name="Newsfeed" pass="1">Newsfeed</stat>
+<stat fail="0" id="s1" name="Newsfeed" pass="2">Newsfeed</stat>
 </suite>
 </statistics>
 <errors>
