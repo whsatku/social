@@ -16,8 +16,8 @@ ${BROWSER}    ff
 *** Keywords ***
 Pre-condition
     Open Browser    http://localhost:8000/admin    ${BROWSER}
-    Input text    //*[@id="id_username"]    root
-    Input text    //*[@id="id_password"]    toor
+    Input text    //*[@id="id_username"]    Sompatbu
+    Input text    //*[@id="id_password"]    Broken573
     click element    //*[@id="login-form"]/div[3]/input
     sleep    1
     go to    http://localhost:8000/static/index.html#/
@@ -26,7 +26,7 @@ test web element
     [Arguments]    ${groupID}    ${grouptitle}    ${groupname}
     test title    ${groupID}    ${grouptitle}
     test group name    ${groupID}    ${groupname}
-    test selected sidebar bold ${groupID}
+    test selected sidebar bold    ${groupID}
 
 test title
     [Arguments]    ${groupID}    ${grouptitle}
