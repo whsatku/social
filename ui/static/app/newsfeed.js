@@ -10,9 +10,10 @@ app.controller('NewsfeedController', function($scope, $http){
 	})
 
 	$scope.postStatus = function() {
-		console.log("sss");
 		data = {
 			text : $scope.nftext,
+			target_type : 4,
+			target_id : 1,
 		};
 
 		$http.post('/api/newsfeed/post/', data).then(function(){
