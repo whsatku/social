@@ -1,4 +1,4 @@
-*** Settings ***
+﻿*** Settings ***
 Library    Selenium2Library
 Suite Setup    Pre-condition
 Suite Teardown    Close browser
@@ -22,7 +22,7 @@ Pre-condition
     go to    http://localhost:8000/static/index.html#/
 
 Post Status with Text
-    [Arguments]    ${title}	${status}
+    [Arguments]    ${title}    ${status}
     Title Should Be    ${title}
     Input text    //textarea[@class="form-control ng-pristine ng-untouched ng-valid"]    ${status}    
     Sleep    3
