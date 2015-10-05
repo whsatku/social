@@ -19,9 +19,8 @@ Login Page Should Be Open
     Title Should Be    Youniversity
 
 Go To Login Page
-
     Go To    ${URL}
-    sleep    2
+    sleep    3
 
 
 
