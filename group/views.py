@@ -109,7 +109,29 @@ class DeleteUser(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    def get(self, request, user_id=None, format=None):
+    def get(self, request, user_id, format=None):
         group_member_object = self.get_user(user_id)
         response = self.serializer_class(group_member_object)
         return Response(response.data)
+
+    @api_view(['GET', 'PUT', 'DELETE'])
+    def admin_detail(request, pk):
+        """
+        Retrieve, update or delete a user instance.
+        """
+        try:
+            member = GroupMember.objects.get(pk=pk)
+        except GroupMember.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+
+        if request.method == 'GET':
+            get(self, request, pk, format=None)
+
+        elif request.method == 'POST':
+            post(self, request, pk, format=None)
+
+        elif request.method == 'DELETE':
+            delete(self, request, pk, format=None)
+            
+
+
