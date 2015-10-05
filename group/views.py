@@ -6,6 +6,8 @@ from rest_framework.exceptions import NotFound
 from rest_framework.views import APIView
 from models import *
 from serializers import *
+from django.http import Http404
+from rest_framework import status
 
 
 class MemberViewSet(ListCreateAPIView):
@@ -50,17 +52,35 @@ class GroupViewSet(APIView):
 
         return Response(response.data)
 
-    def get_group(self, id):
-        try:
-            return Group.objects.get(id=id)
-        except Group.DoesNotExist:
-            raise Http404
-
     def post(self, request, format=None):
         serializer = GroupSerializer(data=request.data)
 
         if serializer.is_valid():
             # serializer.user = self.request.user
-            serializer.save(group=Group.objects.get(id=self.request.user.id))
+            serializer.save(group=Group.objects.get(id=self.request.group.id))
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class GroupViewDetail(APIView):
+    serializer_class = GroupSerializer
+
+    def get_group(self, group_id):
+        try:
+            return Group.objects.get(id=group_id)
+        except Group.DoesNotExist:
+            raise Http404
+
+    def get(self,request,group_id=None,format=None):
+
+        groupObject = self.get_group(group_id)
+        response = self.serializer_class(groupObject)
+        return Response(response.data)
+
+    def post(self, request, group_id, format=None):
+        serializer = GroupSerializer(data=request.data)
+
+        if serializer.is_valid():
+            # serializer.user = self.request.user
+            serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
