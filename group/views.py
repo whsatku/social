@@ -50,7 +50,6 @@ class PendingMemberViewSet(ListCreateAPIView):
     def get_queryset(self):
         return GroupMember.objects.filter(role=0)
 
-
 class AcceptedMemberViewSet(ListCreateAPIView):
     serializer_class = GroupMemberSerializer
 
@@ -128,7 +127,7 @@ class DeleteUser(APIView):
         response = self.serializer_class(group_member_object)
         return Response(response.data)
 
-    @api_view(['GET', 'PUT', 'DELETE'])
+    @api_view(['GET', 'POST', 'DELETE'])
     def admin_detail(request, pk):
         """
         Retrieve, update or delete a user instance.

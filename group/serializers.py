@@ -7,12 +7,12 @@ class UserSerializer(serializers.ModelSerializer):
         fields = ('id', 'username')
 
 class GroupMemberSerializer(serializers.ModelSerializer):
-    user_id = UserSerializer(read_only=True)
+    user = UserSerializer(read_only=True)
     class Meta:
         model = GroupMember
-        fields = ('user_id', 'role')
+        fields = ('user', 'role')
 
 class GroupSerializer(serializers.ModelSerializer):
     class Meta:
         model = Group
-        fields = ('name', 'description' , 'long_description' , 'type')
+        fields = ('name', 'description', 'long_description', 'type')
