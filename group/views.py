@@ -44,7 +44,7 @@ class MemberViewSet(ListCreateAPIView):
 class GroupViewSet(APIView):
     serializer_class = GroupSerializer
 
-    def get(self, request, id=none , format =none):
+    def get(self, request, id=None , format =None):
         group = Group.objects.all()
         response = self.serializer_class(group, many=True)
 
