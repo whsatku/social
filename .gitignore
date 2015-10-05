@@ -2,4 +2,5 @@ venv
 db.sqlite3
 *.pyc
 *.pyo
-.idea
+.idea/
+.DS_Store
