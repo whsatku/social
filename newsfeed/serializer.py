@@ -19,7 +19,6 @@ class PostSerializer(ModelSerializer):
                   'target_type', 'target_id', 'target_object')
 
 
-
 class CommentSerializer(ModelSerializer):
     class Meta:
         model = Comment
