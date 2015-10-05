@@ -42,6 +42,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
 		.state('root.group.manage', {
 			url: '/manage',
 			templateUrl: 'templates/groupmanage.html',
+			controller: 'GroupManageController'
 		})
 		.state('login', {
 			url: '/login',

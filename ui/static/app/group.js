@@ -26,4 +26,11 @@ app.controller('GroupInfoController', function($scope, $http, $location){
     });
 });
 
+app.controller('GroupManageController', function($scope, $http, $location){
+	var groupID = $location.path().split('/')[2];
+	$http.get('/api/group/'+groupID+'/member').success(function(data){
+        $scope.groupMember = data;
+    });
+})
+
 })();
