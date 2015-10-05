@@ -1,11 +1,15 @@
 from rest_framework.response import Response
 from rest_framework.generics import ListCreateAPIView
-from rest_framework.exceptions import ValidationError, NotAuthenticated, NotFound
-
+from rest_framework.exceptions import ValidationError
+from rest_framework.exceptions import NotAuthenticated
+from rest_framework.exceptions import NotFound
+from rest_framework.views import APIView
 from models import *
 from serializers import *
 
+
 class MemberViewSet(ListCreateAPIView):
+
     serializer_class = GroupMemberSerializer
 
     def get_group_id(self):
@@ -20,15 +24,13 @@ class MemberViewSet(ListCreateAPIView):
     def create(self, *args, **kwargs):
         if not self.request.user.is_authenticated():
             raise NotAuthenticated
-
         try:
             group = Group.objects.get(id=self.get_group_id())
         except Group.DoesNotExist:
             raise NotFound('no such group')
-        
         member, created = GroupMember.objects.get_or_create(
             group_id = Group.objects.get(id = self.get_group_id),
-            user_id = User.objects.get( id = self.request.user.id),
+            user_id = User.objects.get(id = self.request.user.id),
             defaults = {
                 'role': 0
             }
@@ -38,3 +40,27 @@ class MemberViewSet(ListCreateAPIView):
             raise ValidationError('request already exists')
 
         return Response(GroupMemberSerializer(member).data)
+
+class GroupViewSet(APIView):
+    serializer_class = GroupSerializer
+
+    def get(self, request, id=None , format =None):
+        group = Group.objects.all()
+        response = self.serializer_class(group, many=True)
+
+        return Response(response.data)
+
+    def get_group(self, id):
+        try:
+            return Group.objects.get(id=id)
+        except Group.DoesNotExist:
+            raise Http404
+
+    def post(self, request, format=None):
+        serializer = GroupSerializer(data=request.data)
+
+        if serializer.is_valid():
+            # serializer.user = self.request.user
+            serializer.save(group=Group.objects.get(id=self.request.user.id))
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
