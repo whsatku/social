@@ -7,6 +7,9 @@ PostStatusWithText
     [Template]    Post Status with Text
     Youniversity    Testทดสอบ
 
+PostStatusWithoutText
+    [Template]    Post Status without Text
+    Youniversity    dasda
 
 *** Variables ***
 ${BROWSER}    firefox
@@ -25,5 +28,14 @@ Post Status with Text
     [Arguments]    ${title}	${status}
     Title Should Be    ${title}
     Input text    //textarea[@class="form-control ng-pristine ng-untouched ng-valid"]    ${status}    
-    Sleep    3
+    Sleep    2
     Click Element    //input[@class="btn btn-primary pull-right"]
+
+Post Status without Text
+    Reload Page
+    [Arguments]    ${title}	${status}
+    Title Should Be    ${title}
+    Input text    //textarea[@class="form-control ng-pristine ng-untouched ng-valid"]    ${status}    
+    Sleep    2
+    Click Element    //input[@class="btn btn-primary pull-right"]
+
