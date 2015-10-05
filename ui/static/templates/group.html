@@ -1,7 +1,9 @@
 <div class="cover">
 	<div class="cover-in">
 		<div class="pull-right toolbar">
-			<div class="btn btn-default">Join group</div>
+			<div class="btn btn-default" ng-click="joinGroup()" ng-if="joinStatus==0">Join group</div>
+			<div class="btn btn-default" ng-if="joinStatus==1">Request pending</div>
+			<div class="btn btn-default" ng-if="joinStatus==2">Leave group</div>
 		</div>
 		<h3>Group name goes here</h3>
 	</div>
