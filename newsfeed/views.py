@@ -47,3 +47,8 @@ class PostViewDetail(APIView):
         response = self.serializer_class(postObject)
 
         return Response(response.data)
+
+    def delete(self,request,id,format=None):
+        posts=self.get_object(id)
+        posts.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
