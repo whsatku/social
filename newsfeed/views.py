@@ -21,7 +21,7 @@ class PostViewList(APIView):
         serializer = PostSerializer(data=request.data)
 
         if serializer.is_valid():
-           
+
             if self.request.user.is_authenticated():
                 serializer.save(user=User.objects.get(id=self.request.user.id))
                 return Response(serializer.data, status=status.HTTP_201_CREATED)
