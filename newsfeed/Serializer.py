@@ -8,16 +8,16 @@ class UserSerializer(ModelSerializer):
     class Meta:
         model = User
         fields = ('id', 'username')
-
+        read_only_fields = ('user')
 
 class PostSerializer(ModelSerializer):
-    user = UserSerializer(many=False)
+    user = UserSerializer()
 
     class Meta:
         model = Post
         fields = ('id', 'user', 'text', 'date',
                   'target_type', 'target_id', 'target_object')
-        # read_only_fields = ('user',)
+        read_only_fields = ('user',)
 
 
 class CommentSerializer(ModelSerializer):
