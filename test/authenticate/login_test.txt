@@ -1,20 +1,33 @@
 *** Setting ***
 Library    Selenium2Library
 Suite Setup       Open Browser To Login Page
-Suite Teardown    close browser
-
+Suite Teardown    Close browser
+Resource          resource.txt
 *** Variables ***
 ${URL}    http://localhost:8000/static/index.html#/login
 
 
 
 *** Test Cases ***
+Test Invalidate Login
+    [Template]     Invalidate Login
+    #---------------------------------------------------------------
+    #              username                 |    password           |
+    #---------------------------------------------------------------
+     ephbxiw_thurnescu_1443348859@tfbnw.net      ${EMPTY}
+                    invalidateusername           123456abc
+     ephbxiw_thurnescu_1443348859@tfbnw.net      invalidatepassword
+                   ${EMPTY}                      123456abc
+	${EMPTY}	${EMPTY}
+
 Test Validate Login
     [Template]    Validate Login
     #---------------------------------------------------------
     #              username                 |    password    |
     #---------------------------------------------------------
      ephbxiw_thurnescu_1443348859@tfbnw.net      123456abc
+
+
 
 #
 #Test Invalidate Login
@@ -39,6 +52,16 @@ Validate Login
     input text    email    ${username}
     input password    pass   ${password}
     click element     loginbutton
+
+Invalidate Login
+    [Arguments]    ${username}    ${password}
+    sleep    3
+    click element     xpath=//*[@id="root"]/div/div/div/div/div/a[2]
+    sleep  5
+    input text    email    ${username}
+    input password    pass   ${password}
+    click element     loginbutton
+    Go To Login Page
 
 #Invalidate Login
 #    [Arguments]    ${username}    ${password}

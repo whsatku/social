@@ -21,6 +21,7 @@ Login Page Should Be Open
 Go To Login Page
 
     Go To    ${URL}
+    sleep    2
 
 
 
