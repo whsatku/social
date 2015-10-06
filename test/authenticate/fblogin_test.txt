@@ -83,7 +83,8 @@ Validate Login
     input text    email    ${username}
     input password    pass   ${password}
     click element     loginbutton
-    sleep    2
+    sleep    3
+    Title Should Be    Youniversity
 
 Invalidate Login
     [Arguments]    ${username}    ${password}
@@ -93,7 +94,8 @@ Invalidate Login
     input text    email    ${username}
     input password    pass   ${password}
     click element     loginbutton
-    sleep    2
+    sleep    3
+    Wait Until Page Contains    Facebook
     Go To Login Page
 
 #Invalidate Login

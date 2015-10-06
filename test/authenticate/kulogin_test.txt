@@ -83,7 +83,8 @@ Validate Login
     input text    student_id    ${username}
     input password    password   ${password}
     click element     xpath=//*[@id="root"]/div/div/div/div/form/div/button
-    sleep    2
+    sleep    3
+    Location Should Be    http://localhost:8000/static/index.html#/
 
 Invalidate Login
     [Arguments]    ${username}    ${password}
@@ -93,7 +94,8 @@ Invalidate Login
     input text    student_id    ${username}
     input password    password   ${password}
     click element     xpath=//*[@id="root"]/div/div/div/div/form/div/button
-    sleep    2
+    sleep    3
+    Wait Until Element Is Visible    xpath=//*[@id="root"]/div/div/div/div/form/div/button
     Reload Page
 
 #Invalidate Login
