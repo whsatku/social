@@ -9,7 +9,7 @@ PostStatusWithText
 
 PostStatusWithoutText
     [Template]    Post Status without Text
-    Youniversity    dasda
+    Youniversity    
 
 *** Variables ***
 ${BROWSER}    firefox
@@ -23,6 +23,7 @@ Pre-condition
     click element    //*[@id="login-form"]/div[3]/input
     sleep    1
     go to    http://localhost:8000/static/index.html#/
+    sleep    2
 
 Post Status with Text
     [Arguments]    ${title}    ${status}
@@ -33,9 +34,9 @@ Post Status with Text
 
 Post Status without Text
     Reload Page
-    [Arguments]    ${title}	${status}
+    [Arguments]    ${title}
     Title Should Be    ${title}
-    Input text    //textarea[@class="form-control ng-pristine ng-untouched ng-valid"]    ${status}    
+    #Input text    //textarea[@class="form-control ng-pristine ng-untouched ng-valid"]    ${status}    
     Sleep    2
     Click Element    //input[@class="btn btn-primary pull-right"]
 

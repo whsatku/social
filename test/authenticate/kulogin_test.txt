@@ -9,12 +9,12 @@ ${URL}    http://localhost:8000/static/index.html#/login
 
 
 *** Test Cases ***
-Test Invalidate Login - Invalid Username
+Test Invalidate Login - Invalid Username and Password
     [Template]     Invalidate Login
     #---------------------------------------------------------------
     #              username                 |    password           |
     #---------------------------------------------------------------
-                    b5655555555           Broken573
+     b5655555555      invalidatepassword
 
 Test Invalidate Login - Invalid Password
     [Template]     Invalidate Login
@@ -22,6 +22,13 @@ Test Invalidate Login - Invalid Password
     #              username                 |    password           |
     #---------------------------------------------------------------
      b5610545731      invalidatepassword
+
+Test Invalidate Login - Invalid Username
+    [Template]     Invalidate Login
+    #---------------------------------------------------------------
+    #              username                 |    password           |
+    #---------------------------------------------------------------
+                    b5655555555           Broken573
 
 Test Invalidate Login - Username is empty
     [Template]     Invalidate Login
@@ -76,6 +83,7 @@ Validate Login
     input text    student_id    ${username}
     input password    password   ${password}
     click element     xpath=//*[@id="root"]/div/div/div/div/form/div/button
+    sleep    2
 
 Invalidate Login
     [Arguments]    ${username}    ${password}
@@ -85,8 +93,8 @@ Invalidate Login
     input text    student_id    ${username}
     input password    password   ${password}
     click element     xpath=//*[@id="root"]/div/div/div/div/form/div/button
-    Reload Page
     sleep    2
+    Reload Page
 
 #Invalidate Login
 #    [Arguments]    ${username}    ${password}

@@ -9,12 +9,12 @@ ${URL}    http://localhost:8000/static/index.html#/login
 
 
 *** Test Cases ***
-Test Invalidate Login - Invalid Username
+Test Invalidate Login - Invalid Username and Password
     [Template]     Invalidate Login
     #---------------------------------------------------------------
     #              username                 |    password           |
     #---------------------------------------------------------------
-                    invalidateusername           123456abc
+                    invalidateusername           invalidatepassword
 
 Test Invalidate Login - Invalid Password
     [Template]     Invalidate Login
@@ -22,6 +22,13 @@ Test Invalidate Login - Invalid Password
     #              username                 |    password           |
     #---------------------------------------------------------------
      ephbxiw_thurnescu_1443348859@tfbnw.net      invalidatepassword
+
+Test Invalidate Login - Invalid Username
+    [Template]     Invalidate Login
+    #---------------------------------------------------------------
+    #              username                 |    password           |
+    #---------------------------------------------------------------
+                    invalidateusername           123456abc
 
 Test Invalidate Login - Username is empty
     [Template]     Invalidate Login
@@ -76,6 +83,7 @@ Validate Login
     input text    email    ${username}
     input password    pass   ${password}
     click element     loginbutton
+    sleep    2
 
 Invalidate Login
     [Arguments]    ${username}    ${password}
@@ -85,6 +93,7 @@ Invalidate Login
     input text    email    ${username}
     input password    pass   ${password}
     click element     loginbutton
+    sleep    2
     Go To Login Page
 
 #Invalidate Login
