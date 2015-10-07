@@ -30,7 +30,7 @@ app.controller('NewsfeedController', function($scope, $http){
 		data = {
 			text : $scope.nftext,
 			target_type : 4,
-			target_id : 1,
+			target_id : -1,
 		};
 
 		if (data.text.length > 0) {
