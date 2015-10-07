@@ -92,3 +92,13 @@ class CommentViewDetail(APIView):
         comments = self.get_object(id)
         comments.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+class PostComment(APIView):
+    serializer_class = CommentSerializer
+
+    def get(self, request, id, format=None):
+        comment = Comment.objects.filter(post=id)
+        response = self.serializer_class(comment, many=True)
+
+        return Response(response.data)
