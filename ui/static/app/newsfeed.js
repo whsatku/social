@@ -27,14 +27,14 @@ app.controller('NewsfeedController', function($scope, $http){
 	})
 
 	$scope.postStatus = function() {
-		data = {
+		postData = {
 			text : $scope.nftext,
 			target_type : 4,
 			target_id : -1,
 		};
 
-		if (data.text.length > 0) {
-			$http.post('/api/newsfeed/post/', data).then(function(){
+		if (postData.text.length > 0) {
+			$http.post('/api/newsfeed/post/', postData).then(function(){
 				alert("Post Successful!");
 				console.log("Post Successful!");
 				location.reload();
@@ -50,6 +50,11 @@ app.controller('NewsfeedController', function($scope, $http){
 
 
 app.controller('CommentController', function($scope, $http){
+  $scope.comments = null;
+  $http.get('/api/newsfeed/post/'+$scope.data.id+'/comment/').success(function(commentsData){
+    $scope.comments = commentsData;
+  })
+
 	$scope.commentPost = function(post_data) {
 		console.log(post_data);
 		console.log($scope.comment);

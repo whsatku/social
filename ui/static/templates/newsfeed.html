@@ -11,7 +11,7 @@
 			</div>
 			<div class="col-xs-11">
 				<a href="#">{{data.user.username}}</a>
-				<div class="metadata">10 min ago &middot; Public</div>
+				<div class="metadata">{{data.datetime}} &middot; Public</div>
 			</div>
 		</div>
 		<div class="message">
@@ -22,15 +22,15 @@
 			<div class="btn btn-link">Comment</div>
 		</div>
 		<ul class="row comments" ng-controller="CommentController">
-			<li ng-repeat="x in [1,2,3,4]">
+			<li ng-repeat="comment in comments">
 				<div class="row">
 					<div class="col-xs-1 avatar">
 						<a href="#" class="thumbnail" style="width: 40px; background: red; height: 40px;"></a>
 					</div>
 					<div class="col-xs-11">
-						<a href="#">{{user}}</a>
-						Comment text goes here
-						<span class="metadata">10 min ago</span>
+						<a href="#">{{comment.user.username}}</a>
+						{{comment.text}}
+						<span class="metadata">{{comment.datetime}}</span>
 					</div>
 				</div>
 			</li>
