@@ -15,13 +15,13 @@ class PostSerializer(ModelSerializer):
 
     class Meta:
         model = Post
-        fields = ('id', 'user', 'text', 'date',
+        fields = ('id', 'user', 'text', 'datetime',
                   'target_type', 'target_id', 'target_object')
 
 
 class CommentSerializer(ModelSerializer):
     user = UserSerializer(read_only=True)
-    
+
     class Meta:
         model = Comment
-        fields = ('id', 'post', 'user', 'text', 'date')
+        fields = ('id', 'post', 'user', 'text', 'datetime')
