@@ -29,7 +29,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
 			controller: 'NewsfeedController'
 		})
 		.state('root.group', {
-			url: '/groups/{id}',
+			url: '/groups/{id:int}',
 			abstract: true,
 			templateUrl: 'templates/group.html',
 			controller: 'GroupController'
@@ -42,6 +42,14 @@ app.config(function($stateProvider, $urlRouterProvider) {
 		.state('root.group.manage', {
 			url: '/manage',
 			templateUrl: 'templates/groupmanage.html',
+		})
+		.state('root.lfg', {
+			url: '/groups/browse',
+			templateUrl: 'templates/groupbrowser.html',
+		})
+		.state('root.lfgcat', {
+			url: '/groups/browse/{cat}',
+			templateUrl: 'templates/groupbrowser_cat.html',
 		})
 		.state('login', {
 			url: '/login',
