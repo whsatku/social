@@ -55,17 +55,16 @@ app.controller('GroupManageController', function($scope, $http, $location){
     $scope.denyMember = denyMember;
 })
 
-<<<<<<< HEAD
-app.controller('GroupAllController', function($scope, $http){
-    $scope.allGroup = null;
-    
-    $http.get('/api/group/all/').success(function(data){
-        $scope.allGroup = data;
-    })
+
+app.controller('GroupCategoryController', function($scope, $http, $stateParams){
+    category = $stateParams.cat;
+    $http.get('/api/group/category/'+ category ).success(function(data){
+        $scope.groups = data;
+    });
 
 });
     
-=======
+
 app.controller('AdminPageController', function($scope, $http, $location){
     var groupID = $location.path().split('/')[2];
     
@@ -85,5 +84,4 @@ app.controller('AdminPageController', function($scope, $http, $location){
    
 })
 
->>>>>>> 0974b0c3e760f55e834fd8ce52a0e49eeae12054
 })();

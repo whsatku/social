@@ -10,4 +10,5 @@ urlpatterns = [
     url(r'^(?P<group_id>[0-9]+)/member/(?P<pk>[0-9]+)/$', views.MemberDetail.as_view(), name='MemberDetail'),
     url(r'^all/$', views.GroupViewSet.as_view(), name='LookForGroup'),
     url(r'^(?P<group_id>[0-9]+)/edit/$', views.EditInfo.as_view(), name='EditInfo'),
+    url(r'^category/(?P<cat>[a-zA-Z]+)/$', views.GroupByCategory.as_view(), name='GroupByCategory'),
 ]

@@ -139,3 +139,11 @@ class EditInfo(APIView):
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class GroupByCategory(APIView):
+    serializer_class = GroupSerializer
+
+    def get(self, request, cat, format=None):
+        group = Group.objects.filter(category=cat)
+        response = self.serializer_class(group, many=True)
+        return Response(response.data)
