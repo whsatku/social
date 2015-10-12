@@ -32,8 +32,6 @@ app.controller('GroupFeedController', function($scope, $http, $location){
 	$scope.postStatus = function() {
 		postData = {
 			text : $scope.nftext,
-      target_type : 15,
-      target_id : groupID,
 		};
 
 		if (postData.text.length > 0) {
