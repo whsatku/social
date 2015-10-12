@@ -39,6 +39,11 @@ app.config(function($stateProvider, $urlRouterProvider) {
 			templateUrl: 'templates/groupinfo.html',
 			controller: 'GroupInfoController'
 		})
+		.state('root.group.feed', {
+			url: '/feed',
+			templateUrl: 'templates/groupfeed.html',
+			controller: 'GroupFeedController'
+		})
 		.state('root.group.manage', {
 			url: '/manage',
 			templateUrl: 'templates/groupmanage.html',
