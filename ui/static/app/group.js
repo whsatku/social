@@ -36,12 +36,13 @@ app.controller('GroupManageController', function($scope, $http, $location){
 
     
     function acceptMember(pk){
-        console.log("acceptMember : " + pk)
+        console.log("acceptMember : " + pk);
         $http.put('/api/group/'+groupID+'/member/'+ pk).then(function(data){
             
         });
     }
     function denyMember(pk){
+        console.log("delete : " + pk);
         $http.delete('/api/group/'+groupID+'/member/'+ pk).then(function(data){
         });
     }
