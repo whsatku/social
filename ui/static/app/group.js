@@ -6,7 +6,7 @@ app.controller('GroupController', function($scope, $stateParams, Restangular, $h
     $scope.GroupApi = Restangular.one('group', $stateParams.id);
     $scope.joinStatus = 0;
     $scope.joinGroup = function(){
-        $scope.GroupApi.all('member').post().then(function(){
+        $scope.GroupApi.all('member/').post().then(function(){
             $scope.joinStatus = 1;
         }, function(xhr){
                 console.log(xhr.data);
