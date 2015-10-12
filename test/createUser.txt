@@ -1,0 +1,34 @@
+*** Settings ***
+Library           Selenium2Library
+Test Setup    LoginAdmin
+Test Teardown    close browser
+
+*** Testcase ***
+create dummy user
+    [Template]    create user
+        user1   user1-password
+        user2   user2-password
+        user3   user3-password
+        user4   user4-password
+
+*** Variables ***
+${BROWSER}    ff
+
+*** Keywords ***
+LoginAdmin
+    Open Browser    http://localhost:8000/admin    ${BROWSER}
+    Input text    //*[@id="id_username"]    root
+    Input text    //*[@id="id_password"]    toor
+    click element    //*[@id="login-form"]/div[3]/input
+    sleep    1
+    go to    http://localhost:8000/admin/auth/user/add/
+createUser
+    [Arguments]    ${username}    ${password}
+    Input text    id_username    ${username}
+    Input text    id_password1    ${password}
+    Input text    id_password2    ${password}
+    click element    //*[@id="user_form"]/div/div/input[1]
+    sleep    1
+    click element    //*[@id="user_form"]/div/div/input[1]
+    sleep    1
+    go to    http://localhost:8000/admin/auth/user/add/

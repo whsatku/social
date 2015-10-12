@@ -1,0 +1,30 @@
+*** Settings ***
+Library           Selenium2Library
+Test Setup    Pre-condition
+Test Teardown    close browser
+
+*** Test Cases ***
+TestToJoinGroup
+    [Template]    test web element
+        1    Youniversity    Group name goes here
+        2    Youniversity    Group name goes here
+        3    Youniversity    Group name goes here
+
+*** Variables ***
+${BROWSER}    ff
+
+*** Keywords ***
+join group with specific user
+    [Arguments]    ${username}    ${password}    ${group_id}
+    Login    ${username}    ${password}
+    Join Group    ${group_id}
+
+Login
+    [Arguments]    ${username}    ${password}
+        Input text    username    ${username}
+        Input text    password    ${password}
+        click element    //*[@id="login-form"]/div[3]/input
+Join Group
+    [Arguments]    ${group_id}
+        go to    http://localhost:8000/static/index.html#/groups/${group_id}/info
+        click element    //*[@id="rootcontainer"]/div/div[1]/div[1]/div/div/div
