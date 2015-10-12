@@ -2,6 +2,11 @@
 Library    Selenium2Library
 Suite Setup    Pre-condition
 Suite Teardown    Close browser
+
+*** Variables ***
+${BROWSER}    firefox
+${URL}    http://localhost:8000/static/index.html#/
+
 *** Test Cases ***
 PostStatusWithText
     [Template]    Post Status with Text
@@ -9,11 +14,9 @@ PostStatusWithText
 
 PostStatusWithoutText
     [Template]    Post Status without Text
-    Youniversity    
+    Youniversity
 
-*** Variables ***
-${BROWSER}    firefox
-${URL}    http://localhost:8000/static/index.html#/
+
 
 *** Keywords ***
 Pre-condition
