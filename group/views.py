@@ -84,7 +84,6 @@ class GroupViewDetail(APIView):
             raise Http404
 
     def get(self, request, group_id=None, format=None):
-
         groupObject = self.get_group(group_id)
         response = self.serializer_class(groupObject)
         return Response(response.data)

@@ -6,7 +6,7 @@ app.controller('GroupController', function($scope, $stateParams, Restangular, $h
     $scope.GroupApi = Restangular.one('group', $stateParams.id);
     $scope.joinStatus = 0;
     $scope.joinGroup = function(){
-        $scope.GroupApi.all('member').post().then(function(){
+        $scope.GroupApi.all('member/pending').post().then(function(){
             $scope.joinStatus = 1;
         }, function(xhr){
             alert(xhr.data);
@@ -14,14 +14,14 @@ app.controller('GroupController', function($scope, $stateParams, Restangular, $h
         });
     };
     var groupID = $location.path().split('/')[2];
-    $http.get('/api/group/'+groupID).success(function(data){
+    $http.get('/api/group/'+groupID+'/detail/').success(function(data){
         $scope.group = data;
     });
 });
 
 app.controller('GroupInfoController', function($scope, $http, $location){
     var groupID = $location.path().split('/')[2];
-    $http.get('/api/group/'+groupID).success(function(data){
+    $http.get('/api/group/'+groupID+'/detail/').success(function(data){
         $scope.group = data;
     });
 });
@@ -38,7 +38,7 @@ app.controller('GroupManageController', function($scope, $http, $location){
     
     function acceptMember(pk){
         console.log("acceptMember : " + pk)
-        $http.put('/api/group/'+groupID+'/member/'+ pk).then(function(data){
+        $http.put('/api/group/'+groupID+'/member/'+pk).then(function(data){
             console.log();
         });
     }
