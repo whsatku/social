@@ -56,6 +56,60 @@
 Also, we should be able to put some images and rich text format in this section</textarea>
 			</div>
 
+			<div class="form-group">
+				<h4>Directory</h4>
+				<div class="form-group">
+					<label class="checkbox-inline"><input type="checkbox" ng-model="directory" name="directory" value="1"> List this group in the <a ui-sref="root.lfg()">directory</a></label>
+				</div>
+				<div class="well" ng-if="directory">
+					<strong>Category</strong>
+					<div class="row">
+						<div class="col-sm-3">
+							<div class="checkbox">
+								<label><input type="checkbox" value="academic"> Academic</label>
+							</div>
+							<div class="checkbox">
+								<label><input type="checkbox" value="acting"> Acting</label>
+							</div>
+							<div class="checkbox">
+								<label><input type="checkbox" value="art"> Art</label>
+							</div>
+							<div class="checkbox">
+								<label><input type="checkbox" value="band"> Band</label>
+							</div>
+						</div>
+						<div class="col-sm-3">
+							<div class="checkbox">
+								<label><input type="checkbox" value="film"> Film</label>
+							</div>
+							<div class="checkbox">
+								<label><input type="checkbox" value="gaming"> Gaming</label>
+							</div>
+							<div class="checkbox">
+								<label><input type="checkbox" value="social"> Socializing</label>
+							</div>
+							<div class="checkbox">
+								<label><input type="checkbox" value="si"> Special interest</label>
+							</div>
+						</div>
+						<div class="col-sm-3">
+							<div class="checkbox">
+								<label><input type="checkbox" value="sports"> Sports</label>
+							</div>
+							<div class="checkbox">
+								<label><input type="checkbox" value="technology"> Technology</label>
+							</div>
+							<div class="checkbox">
+								<label><input type="checkbox" value="volunteer"> Volunteering</label>
+							</div>
+							<div class="checkbox">
+								<label><input type="checkbox" value="writing"> Writing &amp; Journalism</label>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
 			<input type="submit" class="btn btn-primary" value="Save">
 		</form>
 
