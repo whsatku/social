@@ -2,7 +2,7 @@
 	<div class="col-md-9">
 		<h4>What's this group about?</h4>
 		<div class="message">
-			<p>We're a group of people who want to demonstrate how this template works.</p>
+			<p>{{group.description}}</p>
 		</div>
 
 		<h4>Requirement to join</h4>
@@ -11,13 +11,12 @@
 				<i class="glyphicon glyphicon-info-sign"></i>
 				This is a <strong>open</strong> group. Everyone can requests to join.
 			</p>
-			<p>The group owner also able to add some messages here</p>
+			<p>{{group.short_description}}</p>
 		</div>
 
 		<h4>Your activities?</h4>
 		<div class="message">
-			<p>Here we are going to say something about our recent activities so people want to join us. Or for hangout group we might as well omit this section.</p>
-			<p>Also, we should be able to put some images and rich text format in this section</p>
+			<p>{{group.activities}}</p>
 		</div>
 	</div>
 	<div class="col-md-3">
