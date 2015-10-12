@@ -16,7 +16,8 @@ class PostSerializer(ModelSerializer):
     class Meta:
         model = Post
         fields = ('id', 'user', 'text', 'datetime',
-                  'target_type', 'target_id', 'target_object')
+                   'target_type', 'target_id')
+       #           'target_type', 'target_id', 'target_object')
 
 
 class CommentSerializer(ModelSerializer):

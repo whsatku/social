@@ -18,7 +18,7 @@ class PostViewList(APIView):
         response = self.serializer_class(post, many=True)
 
         return Response(response.data)
-        
+
     def post(self, request, format=None):
         serializer = PostSerializer(data=request.data)
 
