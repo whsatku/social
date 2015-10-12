@@ -22,7 +22,9 @@ class MemberViewSet(ListCreateAPIView):
             return ValidationError('group id cannot be parsed')
 
     def get_queryset(self):
-        return GroupMember.objects.filter(group_id=self.get_group_id())
+        this_group = Group.objects.get(id=self.get_group_id)
+        print GroupMember.objects.filter(group=this_group)
+        return GroupMember.objects.filter(group=this_group)
 
     def create(self, *args, **kwargs):
         if not self.request.user.is_authenticated():
@@ -32,8 +34,8 @@ class MemberViewSet(ListCreateAPIView):
         except Group.DoesNotExist:
             raise NotFound('no such group')
         member, created = GroupMember.objects.get_or_create(
-            group_id=Group.objects.get(id=self.get_group_id),
-            user_id=User.objects.get(id=self.request.user.id),
+            group=Group.objects.get(id=self.get_group_id),
+            user=User.objects.get(id=self.request.user.id),
             defaults={
                 'role': 0
             }
@@ -108,7 +110,7 @@ class MemberDetail(APIView):
             raise Http404
 
     def delete(self, request, group_id, pk, format=None):
-        member = GroupMember.objects.get(id=pk)
+        member = self.get_member(group_id, pk)
         member.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
@@ -116,7 +118,7 @@ class MemberDetail(APIView):
         member = self.get_member(group_id, pk)
         member.role = 1
         member.save()
-        return Response(status =status.HTTP_201_CREATED)
+        return Response(status=status.HTTP_201_CREATED)
 
     def get(self, request, group_id, pk, format=None):
         group_member_object = self.get_member(group_id, pk)
