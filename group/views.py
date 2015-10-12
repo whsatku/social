@@ -5,9 +5,10 @@ from rest_framework.exceptions import ValidationError
 from rest_framework.exceptions import NotAuthenticated
 from rest_framework.exceptions import NotFound
 from rest_framework.views import APIView
+from django.contrib.contenttypes.models import ContentType
 from newsfeed.models import Post
 from newsfeed.models import Comment
-from newsfeed.serializer import PostSerializer
+from newsfeed.serializer import GroupPostSerializer
 from newsfeed.serializer import CommentSerializer
 from models import *
 from serializers import *
@@ -129,9 +130,20 @@ class MemberDetail(APIView):
 
 
 class GroupPostView(APIView):
-    serializer_class = PostSerializer
+    serializer_class = GroupPostSerializer
+    group_model_id = 15
 
     def get(self, request, group_id, format=None):
-        post = Post.objects.filter(target_id=group_id, target_type=15)
+        post = Post.objects.filter(target_id=group_id, target_type=self.group_model_id)
         response = self.serializer_class(post, many=True)
         return Response(response.data)
+
+    def post(self, request, group_id, format=None):
+        serializer = GroupPostSerializer(data=request.data)
+
+        if serializer.is_valid():
+
+            if self.request.user.is_authenticated():
+                serializer.save(user=User.objects.get(id=self.request.user.id),target_id=group_id, target_type=ContentType.objects.get(id=self.group_model_id))
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

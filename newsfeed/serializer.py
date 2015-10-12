@@ -20,6 +20,15 @@ class PostSerializer(ModelSerializer):
        #           'target_type', 'target_id', 'target_object')
 
 
+class GroupPostSerializer(ModelSerializer):
+    user = UserSerializer(read_only=True)
+
+    class Meta:
+        model = Post
+        fields = ('id', 'user', 'text', 'datetime',
+                   'target_type', 'target_id')
+
+
 class CommentSerializer(ModelSerializer):
     user = UserSerializer(read_only=True)
 
