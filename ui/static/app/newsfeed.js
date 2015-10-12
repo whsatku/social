@@ -24,7 +24,7 @@ app.controller('NewsfeedController', function($scope, $http){
 	$scope.nftext ="";
 	$http.get('/api/newsfeed/post').success(function(data){
 		$scope.newsfeed = data;
-	})
+	});
 
 	$scope.postStatus = function() {
 		postData = {
@@ -34,10 +34,10 @@ app.controller('NewsfeedController', function($scope, $http){
 		};
 
 		if (postData.text.length > 0) {
-			$http.post('/api/newsfeed/post/', postData).then(function(){
-				alert("Post Successful!");
-				console.log("Post Successful!");
-				location.reload();
+			$http.post('/api/newsfeed/post/', postData).then(function(response){
+				console.log(response);
+        $scope.nftext="";
+				$scope.newsfeed.unshift(response.data);
 			}, function(xhr){
 					alert(xhr.data);
 					console.log(xhr.data);
@@ -49,25 +49,33 @@ app.controller('NewsfeedController', function($scope, $http){
 
 
 
-app.controller('CommentController', function($scope, $http){
-  $scope.comments = null;
-  $http.get('/api/newsfeed/post/'+$scope.data.id+'/comment/').success(function(commentsData){
-    $scope.comments = commentsData;
-  })
+app.controller('CommentController', function($rootScope, $scope, $http){
 
-	$scope.commentPost = function(post_data) {
-		console.log(post_data);
-		console.log($scope.comment);
-		data = {
+  var loadCommentsByPostId = function(postID) {
+    $http.get('/api/newsfeed/post/'+postID+'/comment/').success(function(commentsData){
+      $scope.comments = commentsData;
+    });
+  };
+
+  loadCommentsByPostId($scope.data.id);
+  $scope.comments = null;
+
+	$scope.commentPost = function(postData) {
+		commentData = {
 			text : $scope.comment,
-			post : post_data.id,
+			post : postData.id,
+      datetime : 'Just now',
+      user : {
+        username : $rootScope.user,
+      },
 		};
 
-		if (data.text.length > 0) {
-			$http.post('/api/newsfeed/comment/', data).then(function(){
-				alert("Comment Successful!");
-				console.log("Comment Successful!");
-				location.reload();
+		if (commentData.text.length > 0) {
+      $scope.comments.push(commentData);
+      $scope.comment = "";
+			$http.post('/api/newsfeed/comment/', commentData).then(function(response){
+        console.log(response);
+        loadCommentsByPostId($scope.data.id);
 			}, function(xhr){
 					alert(xhr.data);
 					console.log(xhr.data);
