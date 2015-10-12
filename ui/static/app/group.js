@@ -28,26 +28,21 @@ app.controller('GroupInfoController', function($scope, $http, $location){
 
 app.controller('GroupManageController', function($scope, $http, $location){
     var groupID = $location.path().split('/')[2];
-    var api = '/api/group/'+groupID+'/member/accepted'
     $http.get('/api/group/'+groupID+'/member/accepted').then(function(data){
         $scope.groupMember = data.data;
     });
     $http.get('/api/group/'+groupID+'/member/pending').then(function(data){
         $scope.groupMember_pending = data.data;
-
-        console.log(data.data)
     });
 
-    $scope.acceptMember = acceptMember;
-    function acceptMember(){
-        // var data = {
-        //     'role' = 1;
-        // }
-        $http.post('/api/group/'+groupID+'/member/accept/' , data).then(function(data){
-            console.log("hello")
-            console.log(data);
+    
+    function acceptMember(pk){
+        console.log("acceptMember : " + pk)
+        $http.put('/api/group/'+groupID+'/member/'+ pk).then(function(data){
+            console.log();
         });
     }
+    $scope.acceptMember = acceptMember;
 })
 
 })();
