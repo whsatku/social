@@ -1,0 +1,49 @@
+*** Settings ***
+Library           Selenium2Library
+Test Setup    Pre-condition
+Test Teardown    close browser
+
+*** Test Cases ***
+TestEditGroupDescription
+    [Template]    Edit Group Description
+        1    Test    Test2    Test3
+
+*** Variables ***
+${BROWSER}    ff
+
+*** Keywords ***
+Pre-condition
+    Open Browser    http://localhost:8000/admin    ${BROWSER}
+    Input text    //*[@id="id_username"]    best
+    Input text    //*[@id="id_password"]    123
+    click element    //*[@id="login-form"]/div[3]/input
+    sleep    1
+    go to    http://localhost:8000/static/index.html#/
+    sleep    2
+
+Edit Group Description
+    [Arguments]    ${group_id}    ${desc}    ${req}    ${act}
+    go to    http://localhost:8000/static/index.html#/groups/${group_id}/info
+    sleep    2
+    Click Element    xpath=//*[@id="rootcontainer"]/div/div[1]/ul/li[3]/a
+    sleep    2
+    Click Element    xpath=//*[@id="rootcontainer"]/div/div[1]/div[2]/div/ul/li[2]/a
+    sleep    2
+    Click Element    xpath=//*[@id="rootcontainer"]/div/div[1]/div[2]/div/ul/li[2]/a
+    sleep    2
+    Input text    xpath=//*[@id="rootcontainer"]/div/div[1]/div[2]/div/div/div[2]/form/div[1]/textarea    ${desc}
+    sleep    1
+    Input text    xpath=//*[@id="rootcontainer"]/div/div[1]/div[2]/div/div/div[2]/form/div[2]/textarea    ${req}
+    sleep    1
+    Input text    xpath=//*[@id="rootcontainer"]/div/div[1]/div[2]/div/div/div[2]/form/div[3]/textarea    ${act}
+    sleep    1
+    Click Element    xpath=//*[@id="rootcontainer"]/div/div[1]/div[2]/div/div/div[2]/form/button
+    sleep    3
+    Click Element    xpath=//*[@id="rootcontainer"]/div/div[1]/ul/li[2]/a
+    sleep    2
+    Page Should Contain    ${desc}
+    Page Should Contain    ${req}
+    Page Should Contain    ${act}
+    
+    
+    
