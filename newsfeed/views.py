@@ -14,7 +14,7 @@ class PostViewList(APIView):
     serializer_class = PostSerializer
 
     def get(self, request, id=None, format=None):
-        post = Post.objects.all()
+        post = Post.objects.order_by('-datetime')
         response = self.serializer_class(post, many=True)
 
         return Response(response.data)
