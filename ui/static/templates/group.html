@@ -5,7 +5,12 @@
 			<div class="btn btn-default" ng-if="joinStatus==1">Request pending</div>
 			<div class="btn btn-default" ng-if="joinStatus==2">Leave group</div>
 		</div>
-		<h3>Group name goes here</h3>
+		<h3>{{group.name}}</h3>
 	</div>
 </div>
+<ul class="nav nav-tabs nav-justified">
+	<li role="presentation" ui-sref-active="active"><a href="#">Feed</a></li>
+	<li role="presentation" ui-sref-active="active"><a href="#" ui-sref="root.group.info()">Group Info</a></li>
+	<li role="presentation" ui-sref-active="active"><a href="#" ui-sref="root.group.manage()">Manage</a></li>
+</ul>
 <div ui-view></div>
