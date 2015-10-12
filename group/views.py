@@ -23,7 +23,6 @@ class MemberViewSet(ListCreateAPIView):
 
     def get_queryset(self):
         this_group = Group.objects.get(id=self.get_group_id)
-        print GroupMember.objects.filter(group=this_group)
         return GroupMember.objects.filter(group=this_group)
 
     def create(self, *args, **kwargs):

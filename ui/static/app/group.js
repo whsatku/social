@@ -10,7 +10,7 @@ app.controller('GroupController', function($scope, $stateParams, Restangular, $h
             $scope.joinStatus = 1;
         }, function(xhr){
             alert(xhr.data);
-            console.log(xhr.data);
+            //console.log(xhr.data);
         });
     };
     var groupID = $location.path().split('/')[2];
