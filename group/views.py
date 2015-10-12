@@ -5,6 +5,10 @@ from rest_framework.exceptions import ValidationError
 from rest_framework.exceptions import NotAuthenticated
 from rest_framework.exceptions import NotFound
 from rest_framework.views import APIView
+from newsfeed.models import Post
+from newsfeed.models import Comment
+from newsfeed.serializer import PostSerializer
+from newsfeed.serializer import CommentSerializer
 from models import *
 from serializers import *
 from django.http import Http404
@@ -121,4 +125,13 @@ class MemberDetail(APIView):
     def get(self, request, group_id, pk, format=None):
         group_member_object = self.get_member(group_id, pk)
         response = self.serializer_class(group_member_object)
+        return Response(response.data)
+
+
+class GroupPostView(APIView):
+    serializer_class = PostSerializer
+
+    def get(self, request, group_id, format=None):
+        post = Post.objects.filter(target_id=group_id, target_type=15)
+        response = self.serializer_class(post, many=True)
         return Response(response.data)
