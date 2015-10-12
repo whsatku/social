@@ -55,4 +55,23 @@ app.controller('GroupManageController', function($scope, $http, $location){
     $scope.denyMember = denyMember;
 })
 
+app.controller('AdminPageController', function($scope, $http, $location){
+    var groupID = $location.path().split('/')[2];
+    
+    $http.get('/api/group/'+groupID).then(function(data){
+        $scope.group = data.data;
+    });
+    console.log("admin")
+    $scope.editInfo = function(){
+        console.log("hello")
+        console.log("desc : " + $scope.group.description);
+        console.log("sh_desc : " + $scope.group.short_description);
+        console.log("ac : " + $scope.group.activities);
+        console.log($scope.group);
+        $http.put('/api/group/'+groupID+'/edit/',$scope.group).success(function(data){
+                   });
+    }
+   
+})
+
 })();
