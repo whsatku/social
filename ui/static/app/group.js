@@ -50,4 +50,13 @@ app.controller('GroupManageController', function($scope, $http, $location){
     $scope.denyMember = denyMember;
 })
 
+app.controller('GroupAllController', function($scope, $http){
+    $scope.allGroup = null;
+    
+    $http.get('/api/group/all/').success(function(data){
+        $scope.allGroup = data;
+    })
+
+});
+    
 })();

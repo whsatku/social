@@ -60,7 +60,7 @@ class AcceptedMemberViewSet(ListCreateAPIView):
 class GroupViewSet(APIView):
     serializer_class = GroupSerializer
 
-    def get(self, request, id=None , format =None):
+    def get(self, request, id=None, format=None):
         group = Group.objects.all()
         response = self.serializer_class(group, many=True)
 
