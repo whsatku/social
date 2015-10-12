@@ -98,59 +98,27 @@ class GroupViewDetail(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-class DeleteUser(APIView):
+class MemberDetail(APIView):
     serializer_class = GroupMemberSerializer
 
-    def get_user(self, user_id):
+    def get_member(self, group_id, user_id):
         try:
-            return GroupMember.objects.get(user_id=user_id)
+            return GroupMember.objects.get(group=group_id, user=user_id)
         except GroupMember.DoesNotExist:
             raise Http404
 
-
-    def delete(self, request, id, format=None):
-        member = GroupMember.objects.get(id=id)
+    def delete(self, request, group_id, pk, format=None):
+        member = GroupMember.objects.get(id=pk)
         member.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
-    def post(self, request, user_id, format=None):
-        serializer = GroupMemberSerializer(data=request.data)
+    def put(self, request, group_id, pk, format=None):
+        member = self.get_member(group_id, pk)
+        member.role = 1
+        member.save()
+        return Response(status =status.HTTP_201_CREATED)
 
-        if serializer.is_valid():
-            # serializer.user = self.request.user
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-    def get(self, request, user_id, format=None):
-        group_member_object = self.get_user(user_id)
+    def get(self, request, group_id, pk, format=None):
+        group_member_object = self.get_member(group_id, pk)
         response = self.serializer_class(group_member_object)
         return Response(response.data)
-
-    @api_view(['GET', 'PUT', 'DELETE'])
-    def admin_detail(request, pk):
-        """
-        Retrieve, update or delete a user instance.
-        """
-        try:
-            member = GroupMember.objects.get(pk=pk)
-        except GroupMember.DoesNotExist:
-            return Response(status=status.HTTP_404_NOT_FOUND)
-
-        if request.method == 'GET':
-            get(self, request, pk, format=None)
-
-        elif request.method == 'PUT':
-            serializer = SnippetSerializer(snippet, data=request.data)
-            if serializer.is_valid():
-                serializer.save()
-                return Response(serializer.data)
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-        elif request.method == 'DELETE':
-            delete(self, request, pk, format=None)
-            
-
-            
-
-

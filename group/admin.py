@@ -9,7 +9,7 @@ class GroupAdmin(admin.ModelAdmin):
 
 class GroupMemberAdmin(admin.ModelAdmin):
     list_display = (
-        'group_id','user_id', 'role')
+        'group','user', 'role')
 
 
 admin.site.register(Group, GroupAdmin)
