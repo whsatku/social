@@ -127,7 +127,7 @@ class DeleteUser(APIView):
         response = self.serializer_class(group_member_object)
         return Response(response.data)
 
-    @api_view(['GET', 'POST', 'DELETE'])
+    @api_view(['GET', 'PUT', 'DELETE'])
     def admin_detail(request, pk):
         """
         Retrieve, update or delete a user instance.
@@ -140,11 +140,17 @@ class DeleteUser(APIView):
         if request.method == 'GET':
             get(self, request, pk, format=None)
 
-        elif request.method == 'POST':
-            post(self, request, pk, format=None)
+        elif request.method == 'PUT':
+            serializer = SnippetSerializer(snippet, data=request.data)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
         elif request.method == 'DELETE':
             delete(self, request, pk, format=None)
+            
+
             
 
 
