@@ -8,15 +8,27 @@ ${BROWSER}    firefox
 ${URL}    http://localhost:8000/static/index.html#/
 
 *** Test Cases ***
-PostStatusWithText
-    [Template]    Post Status with Text
-    Youniversity    Testทดสอบ
+#PostStatusWithText
+#    [Template]    Post Status with Text
+#    #------------------------------------------------
+#    #           title        |       status          |
+#    #-------------------------------------------------
+#             Youniversity            Test
+#             Youniversity            1234
+#
+#
+#PostStatusWithoutText
+#    [Template]    Post Status without Text
+#
+#    #------------------------------------------------
+#    #           title        |       status          |
+#    #-------------------------------------------------
+#            Youniversity            ${EMPTY}
 
-PostStatusWithoutText
-    [Template]    Post Status without Text
-    Youniversity
+CommentStatusWithText
+    [Template]    Comment Status with Text
 
-
+            Test     test
 
 *** Keywords ***
 Pre-condition
@@ -40,9 +52,20 @@ Post Status with Text
     Should Be Equal  ${msg}  Post Successful!
 Post Status without Text
     Reload Page
-    [Arguments]    ${title}
+    [Arguments]    ${title}    ${status}
     Title Should Be    ${title}
-    #Input text    //textarea[@class="form-control ng-pristine ng-untouched ng-valid"]    ${status}    
+    Input text    //textarea[@class="form-control ng-pristine ng-untouched ng-valid"]    ${status}
     Sleep    2
     Click Element    //input[@class="btn btn-primary pull-right"]
+
+Comment Status with Text
+    Reload Page
+    [Arguments]    ${comment}    ${status}
+    sleep  5
+    Input text     xpath = //*[@class="form-control ng-pristine ng-valid ng-touched"]  ${comment}
+    press key      xpath = //*[@id="rootcontainer"]/div/div[1]/div/div[1]/ul/li[2]/div/form/input[1]   \13
+    ${msg} =  Get Alert Message
+    Should Be Equal  ${msg}  Comment Successful!
+
+
 
