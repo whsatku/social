@@ -48,14 +48,16 @@ class MemberViewSet(ListCreateAPIView):
 class PendingMemberViewSet(ListCreateAPIView):
     serializer_class = GroupMemberSerializer
 
-    def get_queryset(self):
-        return GroupMember.objects.filter(role=0)
+    def get_queryset(self, group_id):
+        this_group = Group.objects.get(group_id)
+        return GroupMember.objects.filter(group=this_group, role=0)
 
 class AcceptedMemberViewSet(ListCreateAPIView):
     serializer_class = GroupMemberSerializer
 
-    def get_queryset(self):
-        return GroupMember.objects.filter(role=1)
+    def get_queryset(self, group_id):
+        this_group = Group.objects.get(group_id)
+        return GroupMember.objects.filter(group=this_group, role=1)
 
 class GroupViewSet(APIView):
     serializer_class = GroupSerializer
