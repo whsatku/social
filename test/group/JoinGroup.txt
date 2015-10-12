@@ -1,0 +1,45 @@
+*** Settings ***
+Library           Selenium2Library
+Test Setup    Pre-condition
+Test Teardown    close browser
+
+*** Test Cases ***
+TestToJoinGroup
+    [Template]    Join Group
+        1
+
+*** Variables ***
+${BROWSER}    ff
+
+*** Keywords ***
+Pre-condition
+    Open Browser    http://localhost:8000/admin    ${BROWSER}
+    Input text    //*[@id="id_username"]    best
+    Input text    //*[@id="id_password"]    123
+    click element    //*[@id="login-form"]/div[3]/input
+    sleep    1
+    go to    http://localhost:8000/static/index.html#/
+    sleep    2
+
+join group with specific user
+    [Arguments]    ${username}    ${password}    ${group_id}
+    Login    ${username}    ${password}
+    Join Group    ${group_id}
+
+Login
+    [Arguments]    ${username}    ${password}
+        Input text    username    ${username}
+        Input text    password    ${password}
+        click element    //*[@id="login-form"]/div[3]/input
+Join Group
+    [Arguments]    ${group_id}
+    go to    http://localhost:8000/static/index.html#/groups/${group_id}/info
+    sleep    2
+    click element    xpath=//*[@id="rootcontainer"]/div/div[1]/div[1]/div/div/div
+    sleep    2
+    Click Element    xpath=//*[@id="rootcontainer"]/div/div[1]/ul/li[3]/a
+    sleep    2
+    Click Element    xpath=//*[@id="rootcontainer"]/div/div[1]/div[2]/div/div/div[1]/div/table/tbody/tr/td[4]/button[1]
+    sleep    2
+    Wait Until Element Is Visible    xpath=//*[@id="rootcontainer"]/div/div[1]/div[2]/div/div/div[1]/div/table/tbody/tr/td[4]/button
+    

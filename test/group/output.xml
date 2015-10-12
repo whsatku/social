@@ -1,364 +1,153 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<robot generated="20151012 20:30:17.239" generator="Robot 2.9.1 (Python 2.7.10 on linux2)">
-<suite source="/home/saint/Desktop/WSP/social/test/group/createGroup.txt" id="s1" name="createGroup">
-<test id="s1-t1" name="create dummy group">
-<kw type="setup" name="LoginAdmin">
+<robot generated="20151013 00:15:58.083" generator="Robot 2.9.1 (Python 2.7.10 on win32)">
+<suite source="C:\Users\Sompatbu\Desktop\social\test\group\pending.txt" id="s1" name="Pending">
+<test id="s1-t1" name="TestToJoinGroup">
+<kw type="setup" name="Pre-condition">
 <kw name="Open Browser" library="Selenium2Library">
 <doc>Opens a new browser instance to given URL.</doc>
 <arguments>
 <arg>http://localhost:8000/admin</arg>
 <arg>${BROWSER}</arg>
 </arguments>
-<msg timestamp="20151012 20:30:17.335" level="INFO">Opening browser 'ff' to base url 'http://localhost:8000/admin'</msg>
-<status status="PASS" endtime="20151012 20:30:19.915" starttime="20151012 20:30:17.334"></status>
+<msg timestamp="20151013 00:15:58.282" level="INFO">Opening browser 'ff' to base url 'http://localhost:8000/admin'</msg>
+<status status="PASS" endtime="20151013 00:16:05.807" starttime="20151013 00:15:58.281"></status>
 </kw>
 <kw name="Input Text" library="Selenium2Library">
 <doc>Types the given `text` into text field identified by `locator`.</doc>
 <arguments>
 <arg>//*[@id="id_username"]</arg>
-<arg>root</arg>
+<arg>best</arg>
 </arguments>
-<msg timestamp="20151012 20:30:19.917" level="INFO">Typing text 'root' into text field '//*[@id="id_username"]'</msg>
-<status status="PASS" endtime="20151012 20:30:20.119" starttime="20151012 20:30:19.916"></status>
+<msg timestamp="20151013 00:16:05.809" level="INFO">Typing text 'best' into text field '//*[@id="id_username"]'</msg>
+<status status="PASS" endtime="20151013 00:16:05.985" starttime="20151013 00:16:05.807"></status>
 </kw>
 <kw name="Input Text" library="Selenium2Library">
 <doc>Types the given `text` into text field identified by `locator`.</doc>
 <arguments>
 <arg>//*[@id="id_password"]</arg>
-<arg>toor</arg>
+<arg>123</arg>
 </arguments>
-<msg timestamp="20151012 20:30:20.120" level="INFO">Typing text 'toor' into text field '//*[@id="id_password"]'</msg>
-<status status="PASS" endtime="20151012 20:30:20.183" starttime="20151012 20:30:20.119"></status>
+<msg timestamp="20151013 00:16:05.988" level="INFO">Typing text '123' into text field '//*[@id="id_password"]'</msg>
+<status status="PASS" endtime="20151013 00:16:06.053" starttime="20151013 00:16:05.986"></status>
 </kw>
 <kw name="Click Element" library="Selenium2Library">
 <doc>Click element identified by `locator`.</doc>
 <arguments>
 <arg>//*[@id="login-form"]/div[3]/input</arg>
 </arguments>
-<msg timestamp="20151012 20:30:20.186" level="INFO">Clicking element '//*[@id="login-form"]/div[3]/input'.</msg>
-<status status="PASS" endtime="20151012 20:30:25.096" starttime="20151012 20:30:20.184"></status>
+<msg timestamp="20151013 00:16:06.054" level="INFO">Clicking element '//*[@id="login-form"]/div[3]/input'.</msg>
+<status status="PASS" endtime="20151013 00:16:12.803" starttime="20151013 00:16:06.053"></status>
 </kw>
 <kw name="Sleep" library="BuiltIn">
 <doc>Pauses the test executed for the given time.</doc>
 <arguments>
-<arg>3</arg>
-</arguments>
-<msg timestamp="20151012 20:30:28.099" level="INFO">Slept 3 seconds</msg>
-<status status="PASS" endtime="20151012 20:30:28.099" starttime="20151012 20:30:25.097"></status>
-</kw>
-<status status="PASS" endtime="20151012 20:30:28.100" starttime="20151012 20:30:17.333"></status>
-</kw>
-<kw name="createGroups">
-<arguments>
 <arg>1</arg>
-<arg>Group1</arg>
 </arguments>
+<msg timestamp="20151013 00:16:13.805" level="INFO">Slept 1 second</msg>
+<status status="PASS" endtime="20151013 00:16:13.805" starttime="20151013 00:16:12.804"></status>
+</kw>
 <kw name="Go To" library="Selenium2Library">
 <doc>Navigates the active browser instance to the provided URL.</doc>
 <arguments>
-<arg>http://localhost:8000/api/group/${groupid}/</arg>
+<arg>http://localhost:8000/static/index.html#/</arg>
 </arguments>
-<msg timestamp="20151012 20:30:28.106" level="INFO">Opening url 'http://localhost:8000/api/group/1/'</msg>
-<status status="PASS" endtime="20151012 20:30:28.466" starttime="20151012 20:30:28.104"></status>
-</kw>
-<kw name="Input Text" library="Selenium2Library">
-<doc>Types the given `text` into text field identified by `locator`.</doc>
-<arguments>
-<arg>//*[@id="post-object-form"]/form/fieldset/div[1]/div/input</arg>
-<arg>${groupname}</arg>
-</arguments>
-<msg timestamp="20151012 20:30:28.467" level="INFO">Typing text 'Group1' into text field '//*[@id="post-object-form"]/form/fieldset/div[1]/div/input'</msg>
-<status status="PASS" endtime="20151012 20:30:28.596" starttime="20151012 20:30:28.466"></status>
-</kw>
-<kw name="Input Text" library="Selenium2Library">
-<doc>Types the given `text` into text field identified by `locator`.</doc>
-<arguments>
-<arg>//*[@id="post-object-form"]/form/fieldset/div[2]/div/input</arg>
-<arg>Description</arg>
-</arguments>
-<msg timestamp="20151012 20:30:28.597" level="INFO">Typing text 'Description' into text field '//*[@id="post-object-form"]/form/fieldset/div[2]/div/input'</msg>
-<status status="PASS" endtime="20151012 20:30:28.726" starttime="20151012 20:30:28.596"></status>
-</kw>
-<kw name="Input Text" library="Selenium2Library">
-<doc>Types the given `text` into text field identified by `locator`.</doc>
-<arguments>
-<arg>//*[@id="post-object-form"]/form/fieldset/div[3]/div/input</arg>
-<arg>Desc</arg>
-</arguments>
-<msg timestamp="20151012 20:30:28.728" level="INFO">Typing text 'Desc' into text field '//*[@id="post-object-form"]/form/fieldset/div[3]/div/input'</msg>
-<status status="PASS" endtime="20151012 20:30:28.812" starttime="20151012 20:30:28.727"></status>
-</kw>
-<kw name="Input Text" library="Selenium2Library">
-<doc>Types the given `text` into text field identified by `locator`.</doc>
-<arguments>
-<arg>//*[@id="post-object-form"]/form/fieldset/div[4]/div/input</arg>
-<arg>Activities</arg>
-</arguments>
-<msg timestamp="20151012 20:30:28.813" level="INFO">Typing text 'Activities' into text field '//*[@id="post-object-form"]/form/fieldset/div[4]/div/input'</msg>
-<status status="PASS" endtime="20151012 20:30:28.947" starttime="20151012 20:30:28.813"></status>
-</kw>
-<kw name="Input Text" library="Selenium2Library">
-<doc>Types the given `text` into text field identified by `locator`.</doc>
-<arguments>
-<arg>//*[@id="post-object-form"]/form/fieldset/div[5]/div/input</arg>
-<arg>1</arg>
-</arguments>
-<msg timestamp="20151012 20:30:28.949" level="INFO">Typing text '1' into text field '//*[@id="post-object-form"]/form/fieldset/div[5]/div/input'</msg>
-<status status="PASS" endtime="20151012 20:30:29.084" starttime="20151012 20:30:28.948"></status>
-</kw>
-<kw name="Click Element" library="Selenium2Library">
-<doc>Click element identified by `locator`.</doc>
-<arguments>
-<arg>//*[@id="post-object-form"]/form/fieldset/div[6]/button</arg>
-</arguments>
-<msg timestamp="20151012 20:30:29.085" level="INFO">Clicking element '//*[@id="post-object-form"]/form/fieldset/div[6]/button'.</msg>
-<status status="PASS" endtime="20151012 20:30:29.508" starttime="20151012 20:30:29.084"></status>
+<msg timestamp="20151013 00:16:13.806" level="INFO">Opening url 'http://localhost:8000/static/index.html#/'</msg>
+<status status="PASS" endtime="20151013 00:16:13.919" starttime="20151013 00:16:13.806"></status>
 </kw>
 <kw name="Sleep" library="BuiltIn">
 <doc>Pauses the test executed for the given time.</doc>
-<arguments>
-<arg>1</arg>
-</arguments>
-<msg timestamp="20151012 20:30:30.510" level="INFO">Slept 1 second</msg>
-<status status="PASS" endtime="20151012 20:30:30.511" starttime="20151012 20:30:29.508"></status>
-</kw>
-<status status="PASS" endtime="20151012 20:30:30.513" starttime="20151012 20:30:28.101"></status>
-</kw>
-<kw name="createGroups">
 <arguments>
 <arg>2</arg>
-<arg>Group2</arg>
+</arguments>
+<msg timestamp="20151013 00:16:15.921" level="INFO">Slept 2 seconds</msg>
+<status status="PASS" endtime="20151013 00:16:15.921" starttime="20151013 00:16:13.919"></status>
+</kw>
+<status status="PASS" endtime="20151013 00:16:15.922" starttime="20151013 00:15:58.280"></status>
+</kw>
+<kw name="Join Group">
+<arguments>
+<arg>1</arg>
 </arguments>
 <kw name="Go To" library="Selenium2Library">
 <doc>Navigates the active browser instance to the provided URL.</doc>
 <arguments>
-<arg>http://localhost:8000/api/group/${groupid}/</arg>
+<arg>http://localhost:8000/static/index.html#/groups/${group_id}/info</arg>
 </arguments>
-<msg timestamp="20151012 20:30:30.519" level="INFO">Opening url 'http://localhost:8000/api/group/2/'</msg>
-<status status="PASS" endtime="20151012 20:30:30.703" starttime="20151012 20:30:30.517"></status>
-</kw>
-<kw name="Input Text" library="Selenium2Library">
-<doc>Types the given `text` into text field identified by `locator`.</doc>
-<arguments>
-<arg>//*[@id="post-object-form"]/form/fieldset/div[1]/div/input</arg>
-<arg>${groupname}</arg>
-</arguments>
-<msg timestamp="20151012 20:30:30.704" level="INFO">Typing text 'Group2' into text field '//*[@id="post-object-form"]/form/fieldset/div[1]/div/input'</msg>
-<status status="PASS" endtime="20151012 20:30:30.819" starttime="20151012 20:30:30.704"></status>
-</kw>
-<kw name="Input Text" library="Selenium2Library">
-<doc>Types the given `text` into text field identified by `locator`.</doc>
-<arguments>
-<arg>//*[@id="post-object-form"]/form/fieldset/div[2]/div/input</arg>
-<arg>Description</arg>
-</arguments>
-<msg timestamp="20151012 20:30:30.820" level="INFO">Typing text 'Description' into text field '//*[@id="post-object-form"]/form/fieldset/div[2]/div/input'</msg>
-<status status="PASS" endtime="20151012 20:30:30.949" starttime="20151012 20:30:30.820"></status>
-</kw>
-<kw name="Input Text" library="Selenium2Library">
-<doc>Types the given `text` into text field identified by `locator`.</doc>
-<arguments>
-<arg>//*[@id="post-object-form"]/form/fieldset/div[3]/div/input</arg>
-<arg>Desc</arg>
-</arguments>
-<msg timestamp="20151012 20:30:30.950" level="INFO">Typing text 'Desc' into text field '//*[@id="post-object-form"]/form/fieldset/div[3]/div/input'</msg>
-<status status="PASS" endtime="20151012 20:30:31.033" starttime="20151012 20:30:30.949"></status>
-</kw>
-<kw name="Input Text" library="Selenium2Library">
-<doc>Types the given `text` into text field identified by `locator`.</doc>
-<arguments>
-<arg>//*[@id="post-object-form"]/form/fieldset/div[4]/div/input</arg>
-<arg>Activities</arg>
-</arguments>
-<msg timestamp="20151012 20:30:31.034" level="INFO">Typing text 'Activities' into text field '//*[@id="post-object-form"]/form/fieldset/div[4]/div/input'</msg>
-<status status="PASS" endtime="20151012 20:30:31.161" starttime="20151012 20:30:31.033"></status>
-</kw>
-<kw name="Input Text" library="Selenium2Library">
-<doc>Types the given `text` into text field identified by `locator`.</doc>
-<arguments>
-<arg>//*[@id="post-object-form"]/form/fieldset/div[5]/div/input</arg>
-<arg>1</arg>
-</arguments>
-<msg timestamp="20151012 20:30:31.163" level="INFO">Typing text '1' into text field '//*[@id="post-object-form"]/form/fieldset/div[5]/div/input'</msg>
-<status status="PASS" endtime="20151012 20:30:31.285" starttime="20151012 20:30:31.162"></status>
-</kw>
-<kw name="Click Element" library="Selenium2Library">
-<doc>Click element identified by `locator`.</doc>
-<arguments>
-<arg>//*[@id="post-object-form"]/form/fieldset/div[6]/button</arg>
-</arguments>
-<msg timestamp="20151012 20:30:31.287" level="INFO">Clicking element '//*[@id="post-object-form"]/form/fieldset/div[6]/button'.</msg>
-<status status="PASS" endtime="20151012 20:30:31.672" starttime="20151012 20:30:31.286"></status>
+<msg timestamp="20151013 00:16:15.924" level="INFO">Opening url 'http://localhost:8000/static/index.html#/groups/1/info'</msg>
+<status status="PASS" endtime="20151013 00:16:15.951" starttime="20151013 00:16:15.923"></status>
 </kw>
 <kw name="Sleep" library="BuiltIn">
 <doc>Pauses the test executed for the given time.</doc>
 <arguments>
-<arg>1</arg>
+<arg>2</arg>
 </arguments>
-<msg timestamp="20151012 20:30:32.674" level="INFO">Slept 1 second</msg>
-<status status="PASS" endtime="20151012 20:30:32.675" starttime="20151012 20:30:31.672"></status>
-</kw>
-<status status="PASS" endtime="20151012 20:30:32.677" starttime="20151012 20:30:30.514"></status>
-</kw>
-<kw name="createGroups">
-<arguments>
-<arg>3</arg>
-<arg>Group3</arg>
-</arguments>
-<kw name="Go To" library="Selenium2Library">
-<doc>Navigates the active browser instance to the provided URL.</doc>
-<arguments>
-<arg>http://localhost:8000/api/group/${groupid}/</arg>
-</arguments>
-<msg timestamp="20151012 20:30:32.683" level="INFO">Opening url 'http://localhost:8000/api/group/3/'</msg>
-<status status="PASS" endtime="20151012 20:30:32.875" starttime="20151012 20:30:32.681"></status>
-</kw>
-<kw name="Input Text" library="Selenium2Library">
-<doc>Types the given `text` into text field identified by `locator`.</doc>
-<arguments>
-<arg>//*[@id="post-object-form"]/form/fieldset/div[1]/div/input</arg>
-<arg>${groupname}</arg>
-</arguments>
-<msg timestamp="20151012 20:30:32.878" level="INFO">Typing text 'Group3' into text field '//*[@id="post-object-form"]/form/fieldset/div[1]/div/input'</msg>
-<status status="PASS" endtime="20151012 20:30:32.996" starttime="20151012 20:30:32.876"></status>
-</kw>
-<kw name="Input Text" library="Selenium2Library">
-<doc>Types the given `text` into text field identified by `locator`.</doc>
-<arguments>
-<arg>//*[@id="post-object-form"]/form/fieldset/div[2]/div/input</arg>
-<arg>Description</arg>
-</arguments>
-<msg timestamp="20151012 20:30:32.998" level="INFO">Typing text 'Description' into text field '//*[@id="post-object-form"]/form/fieldset/div[2]/div/input'</msg>
-<status status="PASS" endtime="20151012 20:30:33.117" starttime="20151012 20:30:32.997"></status>
-</kw>
-<kw name="Input Text" library="Selenium2Library">
-<doc>Types the given `text` into text field identified by `locator`.</doc>
-<arguments>
-<arg>//*[@id="post-object-form"]/form/fieldset/div[3]/div/input</arg>
-<arg>Desc</arg>
-</arguments>
-<msg timestamp="20151012 20:30:33.118" level="INFO">Typing text 'Desc' into text field '//*[@id="post-object-form"]/form/fieldset/div[3]/div/input'</msg>
-<status status="PASS" endtime="20151012 20:30:33.216" starttime="20151012 20:30:33.117"></status>
-</kw>
-<kw name="Input Text" library="Selenium2Library">
-<doc>Types the given `text` into text field identified by `locator`.</doc>
-<arguments>
-<arg>//*[@id="post-object-form"]/form/fieldset/div[4]/div/input</arg>
-<arg>Activities</arg>
-</arguments>
-<msg timestamp="20151012 20:30:33.217" level="INFO">Typing text 'Activities' into text field '//*[@id="post-object-form"]/form/fieldset/div[4]/div/input'</msg>
-<status status="PASS" endtime="20151012 20:30:33.324" starttime="20151012 20:30:33.216"></status>
-</kw>
-<kw name="Input Text" library="Selenium2Library">
-<doc>Types the given `text` into text field identified by `locator`.</doc>
-<arguments>
-<arg>//*[@id="post-object-form"]/form/fieldset/div[5]/div/input</arg>
-<arg>1</arg>
-</arguments>
-<msg timestamp="20151012 20:30:33.326" level="INFO">Typing text '1' into text field '//*[@id="post-object-form"]/form/fieldset/div[5]/div/input'</msg>
-<status status="PASS" endtime="20151012 20:30:33.408" starttime="20151012 20:30:33.325"></status>
+<msg timestamp="20151013 00:16:17.953" level="INFO">Slept 2 seconds</msg>
+<status status="PASS" endtime="20151013 00:16:17.954" starttime="20151013 00:16:15.952"></status>
 </kw>
 <kw name="Click Element" library="Selenium2Library">
 <doc>Click element identified by `locator`.</doc>
 <arguments>
-<arg>//*[@id="post-object-form"]/form/fieldset/div[6]/button</arg>
+<arg>xpath=//*[@id="rootcontainer"]/div/div[1]/div[1]/div/div/div</arg>
 </arguments>
-<msg timestamp="20151012 20:30:33.410" level="INFO">Clicking element '//*[@id="post-object-form"]/form/fieldset/div[6]/button'.</msg>
-<status status="PASS" endtime="20151012 20:30:33.873" starttime="20151012 20:30:33.409"></status>
+<msg timestamp="20151013 00:16:17.956" level="INFO">Clicking element 'xpath=//*[@id="rootcontainer"]/div/div[1]/div[1]/div/div/div'.</msg>
+<status status="PASS" endtime="20151013 00:16:18.037" starttime="20151013 00:16:17.954"></status>
 </kw>
 <kw name="Sleep" library="BuiltIn">
 <doc>Pauses the test executed for the given time.</doc>
 <arguments>
-<arg>1</arg>
+<arg>2</arg>
 </arguments>
-<msg timestamp="20151012 20:30:34.875" level="INFO">Slept 1 second</msg>
-<status status="PASS" endtime="20151012 20:30:34.876" starttime="20151012 20:30:33.874"></status>
-</kw>
-<status status="PASS" endtime="20151012 20:30:34.878" starttime="20151012 20:30:32.678"></status>
-</kw>
-<kw name="createGroups">
-<arguments>
-<arg>4</arg>
-<arg>Group4</arg>
-</arguments>
-<kw name="Go To" library="Selenium2Library">
-<doc>Navigates the active browser instance to the provided URL.</doc>
-<arguments>
-<arg>http://localhost:8000/api/group/${groupid}/</arg>
-</arguments>
-<msg timestamp="20151012 20:30:34.882" level="INFO">Opening url 'http://localhost:8000/api/group/4/'</msg>
-<status status="PASS" endtime="20151012 20:30:35.061" starttime="20151012 20:30:34.881"></status>
-</kw>
-<kw name="Input Text" library="Selenium2Library">
-<doc>Types the given `text` into text field identified by `locator`.</doc>
-<arguments>
-<arg>//*[@id="post-object-form"]/form/fieldset/div[1]/div/input</arg>
-<arg>${groupname}</arg>
-</arguments>
-<msg timestamp="20151012 20:30:35.065" level="INFO">Typing text 'Group4' into text field '//*[@id="post-object-form"]/form/fieldset/div[1]/div/input'</msg>
-<status status="PASS" endtime="20151012 20:30:35.162" starttime="20151012 20:30:35.063"></status>
-</kw>
-<kw name="Input Text" library="Selenium2Library">
-<doc>Types the given `text` into text field identified by `locator`.</doc>
-<arguments>
-<arg>//*[@id="post-object-form"]/form/fieldset/div[2]/div/input</arg>
-<arg>Description</arg>
-</arguments>
-<msg timestamp="20151012 20:30:35.163" level="INFO">Typing text 'Description' into text field '//*[@id="post-object-form"]/form/fieldset/div[2]/div/input'</msg>
-<status status="PASS" endtime="20151012 20:30:35.278" starttime="20151012 20:30:35.163"></status>
-</kw>
-<kw name="Input Text" library="Selenium2Library">
-<doc>Types the given `text` into text field identified by `locator`.</doc>
-<arguments>
-<arg>//*[@id="post-object-form"]/form/fieldset/div[3]/div/input</arg>
-<arg>Desc</arg>
-</arguments>
-<msg timestamp="20151012 20:30:35.279" level="INFO">Typing text 'Desc' into text field '//*[@id="post-object-form"]/form/fieldset/div[3]/div/input'</msg>
-<status status="PASS" endtime="20151012 20:30:35.365" starttime="20151012 20:30:35.278"></status>
-</kw>
-<kw name="Input Text" library="Selenium2Library">
-<doc>Types the given `text` into text field identified by `locator`.</doc>
-<arguments>
-<arg>//*[@id="post-object-form"]/form/fieldset/div[4]/div/input</arg>
-<arg>Activities</arg>
-</arguments>
-<msg timestamp="20151012 20:30:35.368" level="INFO">Typing text 'Activities' into text field '//*[@id="post-object-form"]/form/fieldset/div[4]/div/input'</msg>
-<status status="PASS" endtime="20151012 20:30:35.512" starttime="20151012 20:30:35.366"></status>
-</kw>
-<kw name="Input Text" library="Selenium2Library">
-<doc>Types the given `text` into text field identified by `locator`.</doc>
-<arguments>
-<arg>//*[@id="post-object-form"]/form/fieldset/div[5]/div/input</arg>
-<arg>1</arg>
-</arguments>
-<msg timestamp="20151012 20:30:35.513" level="INFO">Typing text '1' into text field '//*[@id="post-object-form"]/form/fieldset/div[5]/div/input'</msg>
-<status status="PASS" endtime="20151012 20:30:35.644" starttime="20151012 20:30:35.513"></status>
+<msg timestamp="20151013 00:16:20.039" level="INFO">Slept 2 seconds</msg>
+<status status="PASS" endtime="20151013 00:16:20.039" starttime="20151013 00:16:18.038"></status>
 </kw>
 <kw name="Click Element" library="Selenium2Library">
 <doc>Click element identified by `locator`.</doc>
 <arguments>
-<arg>//*[@id="post-object-form"]/form/fieldset/div[6]/button</arg>
+<arg>xpath=//*[@id="rootcontainer"]/div/div[1]/ul/li[3]/a</arg>
 </arguments>
-<msg timestamp="20151012 20:30:35.646" level="INFO">Clicking element '//*[@id="post-object-form"]/form/fieldset/div[6]/button'.</msg>
-<status status="PASS" endtime="20151012 20:30:36.050" starttime="20151012 20:30:35.645"></status>
+<msg timestamp="20151013 00:16:20.041" level="INFO">Clicking element 'xpath=//*[@id="rootcontainer"]/div/div[1]/ul/li[3]/a'.</msg>
+<status status="PASS" endtime="20151013 00:16:20.202" starttime="20151013 00:16:20.040"></status>
 </kw>
 <kw name="Sleep" library="BuiltIn">
 <doc>Pauses the test executed for the given time.</doc>
 <arguments>
-<arg>1</arg>
+<arg>2</arg>
 </arguments>
-<msg timestamp="20151012 20:30:37.053" level="INFO">Slept 1 second</msg>
-<status status="PASS" endtime="20151012 20:30:37.054" starttime="20151012 20:30:36.051"></status>
+<msg timestamp="20151013 00:16:22.204" level="INFO">Slept 2 seconds</msg>
+<status status="PASS" endtime="20151013 00:16:22.204" starttime="20151013 00:16:20.203"></status>
 </kw>
-<status status="PASS" endtime="20151012 20:30:37.056" starttime="20151012 20:30:34.879"></status>
+<kw name="Click Element" library="Selenium2Library">
+<doc>Click element identified by `locator`.</doc>
+<arguments>
+<arg>xpath=//*[@id="rootcontainer"]/div/div[1]/div[2]/div/div/div[1]/div/table/tbody/tr/td[4]/button[1]</arg>
+</arguments>
+<msg timestamp="20151013 00:16:22.205" level="INFO">Clicking element 'xpath=//*[@id="rootcontainer"]/div/div[1]/div[2]/div/div/div[1]/div/table/tbody/tr/td[4]/button[1]'.</msg>
+<status status="PASS" endtime="20151013 00:16:22.294" starttime="20151013 00:16:22.205"></status>
+</kw>
+<kw name="Sleep" library="BuiltIn">
+<doc>Pauses the test executed for the given time.</doc>
+<arguments>
+<arg>2</arg>
+</arguments>
+<msg timestamp="20151013 00:16:24.296" level="INFO">Slept 2 seconds</msg>
+<status status="PASS" endtime="20151013 00:16:24.297" starttime="20151013 00:16:22.295"></status>
+</kw>
+<kw name="Wait Until Element Is Visible" library="Selenium2Library">
+<doc>Waits until element specified with `locator` is visible.</doc>
+<arguments>
+<arg>xpath=//*[@id="rootcontainer"]/div/div[1]/div[2]/div/div/div[1]/div/table/tbody/tr/td[4]/button</arg>
+</arguments>
+<status status="PASS" endtime="20151013 00:16:24.322" starttime="20151013 00:16:24.297"></status>
+</kw>
+<status status="PASS" endtime="20151013 00:16:24.323" starttime="20151013 00:16:15.923"></status>
 </kw>
 <kw type="teardown" name="Close Browser" library="Selenium2Library">
 <doc>Closes the current browser.</doc>
-<status status="PASS" endtime="20151012 20:30:37.087" starttime="20151012 20:30:37.057"></status>
+<status status="PASS" endtime="20151013 00:16:24.416" starttime="20151013 00:16:24.324"></status>
 </kw>
-<status status="PASS" endtime="20151012 20:30:37.087" critical="yes" starttime="20151012 20:30:17.333"></status>
+<status status="PASS" endtime="20151013 00:16:24.417" critical="yes" starttime="20151013 00:15:58.279"></status>
 </test>
-<status status="PASS" endtime="20151012 20:30:37.088" starttime="20151012 20:30:17.240"></status>
+<status status="PASS" endtime="20151013 00:16:24.419" starttime="20151013 00:15:58.085"></status>
 </suite>
 <statistics>
 <total>
@@ -368,7 +157,7 @@
 <tag>
 </tag>
 <suite>
-<stat fail="0" id="s1" name="createGroup" pass="1">createGroup</stat>
+<stat fail="0" id="s1" name="Pending" pass="1">Pending</stat>
 </suite>
 </statistics>
 <errors>
