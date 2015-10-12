@@ -61,13 +61,8 @@ app.controller('AdminPageController', function($scope, $http, $location){
     $http.get('/api/group/'+groupID).then(function(data){
         $scope.group = data.data;
     });
-    console.log("admin")
     $scope.editInfo = function(){
-        console.log("hello")
-        console.log("desc : " + $scope.group.description);
-        console.log("sh_desc : " + $scope.group.short_description);
-        console.log("ac : " + $scope.group.activities);
-        console.log($scope.group);
+        console.log("type: "+$scope.group)
         $http.put('/api/group/'+groupID+'/edit/',$scope.group).success(function(data){
                    });
     }

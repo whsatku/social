@@ -42,9 +42,9 @@
 			<div class="form-group">
 				<h4>Requirement to join</h4>
 				<div class="form-group">
-					<label class="radio-inline"><input type="radio" name="join" value="0" checked> Open</label>
-					<label class="radio-inline"><input type="radio" name="join" value="1"> Closed</label>
-					<label class="radio-inline"><input type="radio" name="join" value="2"> Secret</label>
+					<label class="radio-inline"><input type="radio" ng-model = "group.type" name="join" value="0" checked> Open</label>
+					<label class="radio-inline"><input type="radio" ng-model = "group.type" name="join" value="1"> Closed</label>
+					<label class="radio-inline"><input type="radio" ng-model = "group.type" name="join" value="2"> Secret</label>
 				</div>
 				<textarea ng-model = "group.short_description" class="form-control" rows="6"></textarea>
 			</div>
