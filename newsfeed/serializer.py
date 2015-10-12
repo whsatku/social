@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
 
+from rest_framework import serializers
 from rest_framework.serializers import ModelSerializer
 from newsfeed.models import Post, Comment
 
@@ -21,7 +22,10 @@ class PostSerializer(ModelSerializer):
 
 
 class GroupPostSerializer(ModelSerializer):
+    group_model_id = 15
     user = UserSerializer(read_only=True)
+    target_type = serializers.HiddenField(default=group_model_id)
+    target_id = serializers.HiddenField(default=0)
 
     class Meta:
         model = Post
