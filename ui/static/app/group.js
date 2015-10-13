@@ -55,6 +55,16 @@ app.controller('GroupManageController', function($scope, $http, $location){
     $scope.denyMember = denyMember;
 })
 
+
+app.controller('GroupCategoryController', function($scope, $http, $stateParams){
+    category = $stateParams.cat;
+    $http.get('/api/group/category/'+ category ).success(function(data){
+        $scope.groups = data;
+    });
+
+});
+    
+
 app.controller('AdminPageController', function($scope, $http, $location){
     var groupID = $location.path().split('/')[2];
     
