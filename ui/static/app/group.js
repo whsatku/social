@@ -123,7 +123,7 @@ app.controller('GroupManageController', function($scope, $http, $location){
     $scope.denyMember = denyMember;
 });
 
-<<<<<<< HEAD
+
 
 app.controller('GroupCategoryController', function($scope, $http, $stateParams){
     category = $stateParams.cat;
@@ -149,6 +149,4 @@ app.controller('AdminPageController', function($scope, $http, $location){
 })
 
 })();
-=======
-})();
->>>>>>> 3ea3b90f379f93b5482ed081178eba90c8408921
+

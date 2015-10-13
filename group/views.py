@@ -19,7 +19,6 @@ from rest_framework import status
 
 
 class MemberViewSet(ListCreateAPIView):
-
     serializer_class = GroupMemberSerializer
 
     def get_group_id(self):
@@ -138,9 +137,6 @@ class MemberDetail(APIView):
         return Response(response.data)
 
 
-
-
-
 class EditInfo(APIView):
     serializer_class = GroupSerializer
 
@@ -157,6 +153,7 @@ class EditInfo(APIView):
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+
 class GroupByCategory(APIView):
     serializer_class = GroupSerializer
 
@@ -164,8 +161,6 @@ class GroupByCategory(APIView):
         group = Group.objects.filter(category=cat)
         response = self.serializer_class(group, many=True)
         return Response(response.data)
-
-
 
 
 class GroupPostView(APIView):
@@ -183,8 +178,7 @@ class GroupPostView(APIView):
         if serializer.is_valid():
 
             if self.request.user.is_authenticated():
-                serializer.save(user=User.objects.get(id=self.request.user.id), target_id=group_id, target_type=ContentType.objects.get(id=self.group_model_id))
+                serializer.save(user=User.objects.get(id=self.request.user.id), target_id=group_id,
+                                target_type=ContentType.objects.get(id=self.group_model_id))
                 return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-
