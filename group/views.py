@@ -62,7 +62,7 @@ class AcceptedMemberViewSet(ListCreateAPIView):
 class GroupViewSet(APIView):
     serializer_class = GroupSerializer
 
-    def get(self, request, id=None , format =None):
+    def get(self, request, id=None, format=None):
         group = Group.objects.all()
         response = self.serializer_class(group, many=True)
 
@@ -124,3 +124,31 @@ class MemberDetail(APIView):
         group_member_object = self.get_member(group_id, pk)
         response = self.serializer_class(group_member_object)
         return Response(response.data)
+<<<<<<< HEAD
+=======
+
+
+class EditInfo(APIView):
+    serializer_class = GroupSerializer
+
+    def put(self, request, group_id, format=None):
+        try:
+            group = Group.objects.get(pk=group_id)
+        except Group.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+
+        serializer = GroupSerializer(group, data=request.data)
+
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class GroupByCategory(APIView):
+    serializer_class = GroupSerializer
+
+    def get(self, request, cat, format=None):
+        group = Group.objects.filter(category=cat)
+        response = self.serializer_class(group, many=True)
+        return Response(response.data)
+>>>>>>> 54717a142a758c326858f281bb60dc1c5ce05760
