@@ -56,6 +56,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
 		.state('root.lfgcat', {
 			url: '/groups/browse/{cat}',
 			templateUrl: 'templates/groupbrowser_cat.html',
+			controller: 'GroupCategoryController'
 		})
 		.state('login', {
 			url: '/login',

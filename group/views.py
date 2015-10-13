@@ -62,7 +62,7 @@ class AcceptedMemberViewSet(ListCreateAPIView):
 class GroupViewSet(APIView):
     serializer_class = GroupSerializer
 
-    def get(self, request, id=None , format =None):
+    def get(self, request, id=None, format=None):
         group = Group.objects.all()
         response = self.serializer_class(group, many=True)
 
@@ -141,3 +141,10 @@ class EditInfo(APIView):
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+class GroupByCategory(APIView):
+    serializer_class = GroupSerializer
+
+    def get(self, request, cat, format=None):
+        group = Group.objects.filter(category=cat)
+        response = self.serializer_class(group, many=True)
+        return Response(response.data)
