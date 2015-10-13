@@ -139,6 +139,8 @@ class MemberDetail(APIView):
 
 
 
+
+
 class EditInfo(APIView):
     serializer_class = GroupSerializer
 
@@ -165,6 +167,7 @@ class GroupByCategory(APIView):
 
 
 
+
 class GroupPostView(APIView):
     serializer_class = GroupPostSerializer
     group_model_id = 15
@@ -183,4 +186,5 @@ class GroupPostView(APIView):
                 serializer.save(user=User.objects.get(id=self.request.user.id), target_id=group_id, target_type=ContentType.objects.get(id=self.group_model_id))
                 return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 

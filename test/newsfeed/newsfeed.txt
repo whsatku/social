@@ -8,27 +8,29 @@ ${BROWSER}    firefox
 ${URL}    http://localhost:8000/static/index.html#/
 
 *** Test Cases ***
-#PostStatusWithText
-#    [Template]    Post Status with Text
-#    #------------------------------------------------
-#    #           title        |       status          |
-#    #-------------------------------------------------
-#             Youniversity            Test
-#             Youniversity            1234
-#
-#
-#PostStatusWithoutText
-#    [Template]    Post Status without Text
-#
-#    #------------------------------------------------
-#    #           title        |       status          |
-#    #-------------------------------------------------
-#            Youniversity            ${EMPTY}
+PostStatusWithText
+    [Template]    Post Status with Text
+    #------------------------------------------------
+    #           title        |       status          |
+    #-------------------------------------------------
+             Youniversity            Test
+             Youniversity            1234
+
+
+PostStatusWithoutText
+    [Template]    Post Status without Text
+    #------------------------------------------------
+    #           title        |       status          |
+    #-------------------------------------------------
+            Youniversity            ${EMPTY}
 
 CommentStatusWithText
     [Template]    Comment Status with Text
-
             Test     test
+
+CommentStatusWithoutText
+    [Template]    Comment Status without Text
+            ${EMPTY}     ${EMPTY}
 
 *** Keywords ***
 Pre-condition
@@ -42,30 +44,36 @@ Pre-condition
 
 Post Status with Text
     [Arguments]    ${title}    ${status}
+    Reload Page
     Title Should Be    ${title}
-    Input text    //textarea[@class="form-control ng-pristine ng-untouched ng-valid"]    ${status}    
+    Input text    xpath=//*[@id="rootcontainer"]/div/div[1]/form/textarea    ${status}    
     Sleep    2
-    Click Element    //input[@class="btn btn-primary pull-right"]
+    Click Element    xpath=//*[@id="rootcontainer"]/div/div[1]/form/input
     go to   http://localhost:8000/static/index.html#/
     sleep    2
     ${msg} =  Get Alert Message
     Should Be Equal  ${msg}  Post Successful!
+
 Post Status without Text
-    Reload Page
     [Arguments]    ${title}    ${status}
+    Reload Page
     Title Should Be    ${title}
-    Input text    //textarea[@class="form-control ng-pristine ng-untouched ng-valid"]    ${status}
+    Input text    xpath=//*[@id="rootcontainer"]/div/div[1]/form/textarea    ${status}
     Sleep    2
-    Click Element    //input[@class="btn btn-primary pull-right"]
+    Click Element    xpath=//*[@id="rootcontainer"]/div/div[1]/form/input
 
 Comment Status with Text
-    Reload Page
     [Arguments]    ${comment}    ${status}
+    Reload Page
     sleep  5
-    Input text     xpath = //*[@class="form-control ng-pristine ng-valid ng-touched"]  ${comment}
-    press key      xpath = //*[@id="rootcontainer"]/div/div[1]/div/div[1]/ul/li[2]/div/form/input[1]   \13
+    Input text     xpath=//*[@id="rootcontainer"]/div/div[1]/div/div[1]/ul/li/div/form/input[1]    ${comment}
+    Press Key    xpath=//*[@id="rootcontainer"]/div/div[1]/div/div[1]/ul/li/div/form/input[1]    \\13
     ${msg} =  Get Alert Message
     Should Be Equal  ${msg}  Comment Successful!
 
-
-
+Comment Status without Text
+    [Arguments]    ${comment}    ${status}
+    Reload Page
+    sleep  5
+    Input text     xpath=//*[@id="rootcontainer"]/div/div[1]/div/div[1]/ul/li/div/form/input[1]    ${comment}
+    Press Key    xpath=//*[@id="rootcontainer"]/div/div[1]/div/div[1]/ul/li/div/form/input[1]    \\13
