@@ -1,0 +1,55 @@
+*** Settings ***
+Library           Selenium2Library
+Test Setup    Pre-condition
+Test Teardown    close browser
+
+*** Test Cases ***
+TestPostToGroupFeed
+    [Template]    Post To Group Feed
+        1    Test
+
+TestCommentToGroupFeed
+    [Template]    Comment To Group Feed
+        1    Wow
+
+*** Variables ***
+${BROWSER}    ff
+
+*** Keywords ***
+Pre-condition
+    Open Browser    http://localhost:8000/admin    ${BROWSER}
+    Input text    //*[@id="id_username"]    best
+    Input text    //*[@id="id_password"]    123
+    click element    //*[@id="login-form"]/div[3]/input
+    sleep    1
+    go to    http://localhost:8000/static/index.html#/
+    sleep    2
+
+Post To Group Feed
+    [Arguments]    ${group_id}    ${status}
+    go to    http://localhost:8000/static/index.html#/groups/${group_id}/info
+    sleep    2
+    Click Element    xpath=//*[@id="rootcontainer"]/div/div[1]/ul/li[1]/a
+    sleep    2
+    Input Text    xpath=//*[@id="rootcontainer"]/div/div[1]/div[2]/form/textarea    ${status}
+    sleep    2
+    Click Element    xpath=//*[@id="rootcontainer"]/div/div[1]/div[2]/form/input
+    sleep    2
+    Page Should Contain    ${status}
+
+Comment To Group Feed
+    [Arguments]    ${group_id}    ${status}
+    go to    http://localhost:8000/static/index.html#/groups/${group_id}/info
+    sleep    2
+    Click Element    xpath=//*[@id="rootcontainer"]/div/div[1]/ul/li[1]/a
+    sleep    2
+    Input Text    xpath=//*[@id="rootcontainer"]/div/div[1]/div[2]/div/div[1]/ul/li/div/form/input[1]    ${status}
+    sleep    2
+    Press Key    xpath=//*[@id="rootcontainer"]/div/div[1]/div[2]/div/div[1]/ul/li/div/form/input[1]    \\13
+    sleep    2
+    Page Should Contain    ${status}
+
+
+    
+    
+    
