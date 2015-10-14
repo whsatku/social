@@ -44,11 +44,6 @@ app.config(function($stateProvider, $urlRouterProvider) {
 			templateUrl: 'templates/groupmanage.html',
 			controller: 'GroupManageController'
 		})
-		.state('root.group.edit', {
-			url: '/edit',
-			templateUrl: 'templates/groupmanage.html',
-			controller: 'AdminPageController'
-		})
 		.state('root.lfg', {
 			url: '/groups/browse',
 			templateUrl: 'templates/groupbrowser.html',
