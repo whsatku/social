@@ -1,6 +1,9 @@
 html,body,#root{
 	height: 100%;
 }
+#rootcontainer{
+	padding-bottom: 40px;
+}
 .login{
 	background: #286742;
 	height: 100%;
@@ -34,6 +37,10 @@ html,body,#root{
 }
 .sidebar .user{
 	margin-bottom: 5px;
+}
+.sidebar .active{
+	color: black;
+	font-weight: bold;
 }
 .user{
 	font-size: 12pt;
@@ -93,7 +100,7 @@ html,body,#root{
 /* groups */
 .cover{
 	background: #ccc;
-	height: 150px;
+	height: 200px;
 	margin-top: -20px;
 	position: relative;
 }
@@ -125,4 +132,65 @@ html,body,#root{
 	width: 40px;
 	height: 40px;
 	text-shadow: rgba(100,100,100,0.2) 0 0 1px;
+}
+
+.groupmanage .members .thumbnail{
+	margin-bottom: 0;
+}
+
+/* group directory */
+.lfg header{
+	text-align: center;
+	height: 200px;
+	background: url(../img/directory.jpg) no-repeat;
+	background-size: cover;
+	margin-top: -20px;
+	margin-bottom: 50px;
+}
+.lfg header h1{
+	margin: 0;
+	line-height: 200px;
+	color: white;
+}
+.lfg .categories .btn{
+	height: 100px;
+	line-height: 90px;
+	font-size: 16pt;
+	display: block;
+}
+.lfg section{
+	margin-bottom: 50px;
+}
+.largegroup{
+	display: block;
+	min-height: 200px;
+	border: #ccc solid 1px;
+	border-radius: 10px;
+	margin: 40px 20px;
+	cursor: pointer;
+}
+.largegroup .image{
+	height: 200px;
+}
+.largegroup .message{
+	font-size: 11pt;
+}
+.largegroup .metadata{
+	font-size: 9pt;
+}
+.groupblock{
+	border: #ccc solid 1px;
+	border-radius: 10px;
+	margin: 10px 0px;
+	cursor: pointer;
+}
+.groupblock .image{
+	height: 200px;
+}
+.groupblock .description{
+	padding: 10px;
+}
+.groupblock .title{
+	margin-top: 0;
+	margin-bottom: 10px;
 }

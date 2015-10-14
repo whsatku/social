@@ -4,12 +4,14 @@ from models import *
 
 class GroupAdmin(admin.ModelAdmin):
     list_display = (
-        'name', 'type', 'description', 'long_description',
-        'logo', 'header', 'permisssion')
+        'name', 'type', 'category', 'description',
+        'short_description', 'activities', 'logo',
+        'header', 'permisssion')
+
 
 class GroupMemberAdmin(admin.ModelAdmin):
     list_display = (
-        'group_id','user_id', 'role')
+        'group', 'user', 'role')
 
 
 admin.site.register(Group, GroupAdmin)
