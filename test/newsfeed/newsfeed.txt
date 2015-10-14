@@ -1,0 +1,42 @@
+﻿*** Settings ***
+Library    Selenium2Library
+Suite Setup    Pre-condition
+Suite Teardown    Close browser
+*** Test Cases ***
+PostStatusWithText
+    [Template]    Post Status with Text
+    Youniversity    Testทดสอบ
+
+PostStatusWithoutText
+    [Template]    Post Status without Text
+    Youniversity    
+
+*** Variables ***
+${BROWSER}    firefox
+${URL}    http://localhost:8000/static/index.html#/
+
+*** Keywords ***
+Pre-condition
+    Open Browser    http://localhost:8000/admin    ${BROWSER}
+    Input text    //*[@id="id_username"]    nookskill
+    Input text    //*[@id="id_password"]    1q2w3e4r
+    click element    //*[@id="login-form"]/div[3]/input
+    sleep    1
+    go to    http://localhost:8000/static/index.html#/
+    sleep    2
+
+Post Status with Text
+    [Arguments]    ${title}    ${status}
+    Title Should Be    ${title}
+    Input text    //textarea[@class="form-control ng-pristine ng-untouched ng-valid"]    ${status}    
+    Sleep    2
+    Click Element    //input[@class="btn btn-primary pull-right"]
+
+Post Status without Text
+    Reload Page
+    [Arguments]    ${title}
+    Title Should Be    ${title}
+    #Input text    //textarea[@class="form-control ng-pristine ng-untouched ng-valid"]    ${status}    
+    Sleep    2
+    Click Element    //input[@class="btn btn-primary pull-right"]
+
