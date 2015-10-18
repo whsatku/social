@@ -47,17 +47,15 @@ Post Status with Text
     Reload Page
     Title Should Be    ${title}
     Input text    xpath=//*[@id="rootcontainer"]/div/div[1]/form/textarea    ${status}    
-    Sleep    2
     Click Element    xpath=//*[@id="rootcontainer"]/div/div[1]/form/input
-    go to   http://localhost:8000/static/index.html#/
-    sleep    2
-
+    Wait Until Page Contains    ${status}    5
+    sleep   3   
+    
 Post Status without Text
     [Arguments]    ${title}    ${status}
     Reload Page
     Title Should Be    ${title}
     Input text    xpath=//*[@id="rootcontainer"]/div/div[1]/form/textarea    ${status}
-    Sleep    2
     Click Element    xpath=//*[@id="rootcontainer"]/div/div[1]/form/input
 
 Comment Status with Text
@@ -66,6 +64,8 @@ Comment Status with Text
     sleep  2
     Input text     xpath=//*[@id="rootcontainer"]/div/div[1]/div/div[1]/ul/li/div/form/input[1]    ${comment}
     Press Key    xpath=//*[@id="rootcontainer"]/div/div[1]/div/div[1]/ul/li/div/form/input[1]    \\13
+    Wait Until Page Contains    ${comment}    5
+    sleep   3 
 
 Comment Status without Text
     [Arguments]    ${comment}
@@ -73,6 +73,5 @@ Comment Status without Text
     sleep  2
     Input text     xpath=//*[@id="rootcontainer"]/div/div[1]/div/div[1]/ul/li/div/form/input[1]    ${comment}
     Press Key    xpath=//*[@id="rootcontainer"]/div/div[1]/div/div[1]/ul/li/div/form/input[1]    \\13
-    
     
     
