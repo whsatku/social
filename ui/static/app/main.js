@@ -21,7 +21,16 @@ app.config(function($stateProvider, $urlRouterProvider) {
 	$stateProvider
 		.state('root', {
 			templateUrl: 'templates/root.html',
-			controller: 'MainAuthController'
+			controller: 'MainController',
+			resolve: {
+				user: function(Restangular){
+					return Restangular.one('auth/check').get().then(function(user){
+						return user;
+					}, function(error){
+						return null;
+					});
+				}
+			},
 		})
 		.state('root.newsfeed', {
 			url: '/',
@@ -57,14 +66,6 @@ app.config(function($stateProvider, $urlRouterProvider) {
 			url: '/groups/browse/{cat}',
 			templateUrl: 'templates/groupbrowser_cat.html',
 		})
-		.state('root.lfg', {
-			url: '/groups/browse',
-			templateUrl: 'templates/groupbrowser.html',
-		})
-		.state('root.lfgcat', {
-			url: '/groups/browse/{cat}',
-			templateUrl: 'templates/groupbrowser_cat.html',
-		})
 		.state('login', {
 			url: '/login',
 			templateUrl: 'templates/login.html',
@@ -72,13 +73,11 @@ app.config(function($stateProvider, $urlRouterProvider) {
 		});
 });
 
-app.controller('MainAuthController', function($rootScope, Restangular, $state){
-	$rootScope.user = null;
-	Restangular.one('auth/check').get().then(function(user){
-		$rootScope.user = user;
-	}, function(){
-		$state.go('login');
-	});
+app.controller('MainController', function($rootScope, user){
+	$rootScope.user = user;
+});
+app.controller('NotificationController', function($rootScope){
+	$rootScope.notificationCount = Math.floor(Math.random() * 20);
 });
 
 })();

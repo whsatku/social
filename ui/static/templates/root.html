@@ -19,7 +19,7 @@
 			</form>
 			<ul class="nav navbar-nav navbar-right">
 				<li><a href="#" class="notification"><i class="glyphicon glyphicon-user"></i> <span class="count">1</span></a></li>
-				<li><a href="#" class="notification"><i class="glyphicon glyphicon-globe"></i> <span class="count">5</span></a></li>
+				<li><a href="#" class="notification" ng-click="showNotification=!showNotification"><i class="glyphicon glyphicon-globe"></i> <span class="count" ng-bind="notificationCount" ng-if="notificationCount > 0"></span></a></li>
 				<li dropdown>
 					<a href="#" role="button" aria-haspopup="true" aria-expanded="false">{{user}} <span class="caret" dropdown-toggle></span></a>
 					<ul class="dropdown-menu">
@@ -31,6 +31,7 @@
 		</div>
 	</div>
 </nav>
+<div class="notibox" ng-include="'templates/notification.html'" ng-controller="NotificationController" ng-show="showNotification"></div>
 <div ui-view="main">
 	<div class="container" id="rootcontainer">
 		<div class="row">
