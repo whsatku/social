@@ -39,9 +39,23 @@ app.config(function($stateProvider, $urlRouterProvider) {
 			templateUrl: 'templates/groupinfo.html',
 			controller: 'GroupInfoController'
 		})
+		.state('root.group.feed', {
+			url: '/feed',
+			templateUrl: 'templates/groupfeed.html',
+			controller: 'GroupFeedController'
+		})
 		.state('root.group.manage', {
 			url: '/manage',
 			templateUrl: 'templates/groupmanage.html',
+			controller: 'GroupManageController'
+		})
+		.state('root.lfg', {
+			url: '/groups/browse',
+			templateUrl: 'templates/groupbrowser.html',
+		})
+		.state('root.lfgcat', {
+			url: '/groups/browse/{cat}',
+			templateUrl: 'templates/groupbrowser_cat.html',
 		})
 		.state('root.lfg', {
 			url: '/groups/browse',

@@ -1,0 +1,52 @@
+*** Settings ***
+Library           Selenium2Library
+Test Setup    Pre-condition
+Test Teardown    close browser
+*** Test Cases ***
+TestGroupTitle
+    [Template]    test web element
+        1    Youniversity    Group name goes here
+        2    Youniversity    Group name goes here
+        3    Youniversity    Group name goes here
+
+
+*** Variables ***
+${BROWSER}    ff
+
+*** Keywords ***
+Pre-condition
+    Open Browser    http://localhost:8000/admin    ${BROWSER}
+    Input text    //*[@id="id_username"]    Sompatbu
+    Input text    //*[@id="id_password"]    Broken573
+    click element    //*[@id="login-form"]/div[3]/input
+    sleep    1
+    go to    http://localhost:8000/static/index.html#/
+
+test web element
+    [Arguments]    ${groupID}    ${grouptitle}    ${groupname}
+    Title Should Be    ${grouptitle}
+    test group name    ${groupID}    ${groupname}
+    test selected sidebar bold    ${groupID}
+
+test title
+    [Arguments]    ${groupID}    ${grouptitle}
+    ${title}=    get title
+    should be equal  ${title}    ${grouptitle}
+
+test group name
+    [Arguments]    ${groupID}    ${groupname}
+    go to    http://localhost:8000/static/index.html#/groups/${groupID}/info
+    sleep    1
+    element should contain    //*[@id="root"]/div/div/div/div[1]/div[1]/div/h3    ${groupname}
+
+test selected sidebar bold
+    [Arguments]    ${groupID}
+    ${fontweight}=    execute javascript    return document.getElementById("sidebar-group").style.fontweight
+    should be equal    ${fontstyle}    bold
+
+test cover picture
+    ${background}    execute javascript
+test join group
+test click on member
+test see more member
+
