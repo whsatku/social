@@ -1,0 +1,36 @@
+<form action="#" class="form">
+	<div class="form-group">
+		<h4>Group name</h4>
+		<input type="text" class="form-control input-lg">
+	</div>
+	<div class="form-group">
+		<h4>Group type</h4>
+		<div class="radio">
+			<label><input type="radio" name="type" value="0" checked> Normal group</label>
+		</div>
+		<div class="radio">
+			<label>
+				<input type="radio" name="type" value="1" disabled> Classroom
+				<span class="metadata">Available in later iteration</span>
+				<div class="help-block">Contains feature useful to class-oriented group such as announcement-focused layout and  featured content</div>
+			</label>
+		</div>
+	</div>
+	<div class="form-group">
+		<h4>Group privacy</h4>
+		<div class="radio">
+			<label><input type="radio" name="join" value="0" checked> Open</label>
+		</div>
+		<div class="radio">
+			<label><input type="radio" name="join" value="1"> Closed</label>
+		</div>
+		<div class="radio">
+			<label><input type="radio" name="join" value="2"> Secret</label>
+		</div>
+	</div>
+	<div class="form-group">
+		<h4>What's this group about</h4>
+		<textarea class="form-control" rows="3" placeholder="Describe your group in one or two sentences so people know what they're joining"></textarea>
+	</div>
+	<input type="submit" class="btn btn-success btn-lg" value="Create group">
+</form>

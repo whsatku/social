@@ -66,6 +66,10 @@ app.config(function($stateProvider, $urlRouterProvider) {
 			url: '/groups/browse/{cat}',
 			templateUrl: 'templates/groupbrowser_cat.html',
 		})
+		.state('root.creategroup', {
+			url: '/groups/create',
+			templateUrl: 'templates/groupcreate.html',
+		})
 		.state('login', {
 			url: '/login',
 			templateUrl: 'templates/login.html',

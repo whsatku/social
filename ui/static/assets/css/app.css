@@ -226,4 +226,5 @@ html,body,#root{
 	margin: 0 10px;
 	border-bottom: #aaa solid 1px;
 	display: block;
+	cursor: pointer;
 }
