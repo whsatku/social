@@ -26,17 +26,17 @@ PostStatusWithoutText
 
 CommentStatusWithText
     [Template]    Comment Status with Text
-            Test     test
+            Comment
 
 CommentStatusWithoutText
     [Template]    Comment Status without Text
-            ${EMPTY}     ${EMPTY}
+            ${EMPTY}
 
 *** Keywords ***
 Pre-condition
     Open Browser    http://localhost:8000/admin    ${BROWSER}
-    Input text    //*[@id="id_username"]    best
-    Input text    //*[@id="id_password"]    123
+    Input text    //*[@id="id_username"]    nookskill
+    Input text    //*[@id="id_password"]    1q2w3e4r
     click element    //*[@id="login-form"]/div[3]/input
     sleep    1
     go to    http://localhost:8000/static/index.html#/
@@ -51,8 +51,6 @@ Post Status with Text
     Click Element    xpath=//*[@id="rootcontainer"]/div/div[1]/form/input
     go to   http://localhost:8000/static/index.html#/
     sleep    2
-    ${msg} =  Get Alert Message
-    Should Be Equal  ${msg}  Post Successful!
 
 Post Status without Text
     [Arguments]    ${title}    ${status}
@@ -63,17 +61,18 @@ Post Status without Text
     Click Element    xpath=//*[@id="rootcontainer"]/div/div[1]/form/input
 
 Comment Status with Text
-    [Arguments]    ${comment}    ${status}
+    [Arguments]    ${comment}
     Reload Page
-    sleep  5
+    sleep  2
     Input text     xpath=//*[@id="rootcontainer"]/div/div[1]/div/div[1]/ul/li/div/form/input[1]    ${comment}
     Press Key    xpath=//*[@id="rootcontainer"]/div/div[1]/div/div[1]/ul/li/div/form/input[1]    \\13
-    ${msg} =  Get Alert Message
-    Should Be Equal  ${msg}  Comment Successful!
 
 Comment Status without Text
-    [Arguments]    ${comment}    ${status}
+    [Arguments]    ${comment}
     Reload Page
-    sleep  5
+    sleep  2
     Input text     xpath=//*[@id="rootcontainer"]/div/div[1]/div/div[1]/ul/li/div/form/input[1]    ${comment}
     Press Key    xpath=//*[@id="rootcontainer"]/div/div[1]/div/div[1]/ul/li/div/form/input[1]    \\13
+    
+    
+    
