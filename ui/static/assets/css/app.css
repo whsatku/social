@@ -195,6 +195,7 @@ html,body,#root{
 	margin-bottom: 10px;
 }
 
+/* notification */
 .notibox{
 	position: absolute;
 	top: 56px;
@@ -227,4 +228,19 @@ html,body,#root{
 	border-bottom: #aaa solid 1px;
 	display: block;
 	cursor: pointer;
+}
+
+/* user page */
+.cover .avatar{
+	position: absolute;
+	bottom: -60px;
+	margin: 0;
+	width: 140px;
+	height: 140px;
+}
+.cover h3{
+	margin-left: 160px;
+}
+.userpage .cover{
+	margin-bottom: 80px;
 }

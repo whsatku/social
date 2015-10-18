@@ -70,6 +70,15 @@ app.config(function($stateProvider, $urlRouterProvider) {
 			url: '/groups/create',
 			templateUrl: 'templates/groupcreate.html',
 		})
+		.state('root.user', {
+			url: '/{user:int}',
+			abstract: true,
+			templateUrl: 'templates/user.html'
+		})
+		.state('root.user.timeline', {
+			url: '/',
+			templateUrl: 'templates/usertimeline.html'
+		})
 		.state('login', {
 			url: '/login',
 			templateUrl: 'templates/login.html',
