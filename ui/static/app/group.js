@@ -121,7 +121,17 @@ app.controller('GroupManageController', function($scope, $http, $location){
     }
     $scope.acceptMember = acceptMember;
     $scope.denyMember = denyMember;
-});
+
+
+    $http.get('/api/group/'+groupID).then(function(data){
+        $scope.group = data.data;
+    });
+
+    $scope.editInfo = function(){
+        $http.put('/api/group/'+groupID+'/edit/',$scope.group).success(function(data){
+        });
+    }
+})
 
 
 
@@ -132,21 +142,6 @@ app.controller('GroupCategoryController', function($scope, $http, $stateParams){
     });
 
 });
-    
-
-app.controller('AdminPageController', function($scope, $http, $location){
-    var groupID = $location.path().split('/')[2];
-    
-    $http.get('/api/group/'+groupID).then(function(data){
-        $scope.group = data.data;
-    });
-    $scope.editInfo = function(){
-        console.log("type: "+$scope.group)
-        $http.put('/api/group/'+groupID+'/edit/',$scope.group).success(function(data){
-                   });
-    }
-   
-})
 
 })();
 
