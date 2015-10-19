@@ -19,9 +19,9 @@
 			</form>
 			<ul class="nav navbar-nav navbar-right">
 				<li><a href="#" class="notification"><i class="glyphicon glyphicon-user"></i> <span class="count">1</span></a></li>
-				<li><a href="#" class="notification"><i class="glyphicon glyphicon-globe"></i> <span class="count">5</span></a></li>
+				<li><a href="#" class="notification" ng-click="showNotification=!showNotification"><i class="glyphicon glyphicon-globe"></i> <span class="count" ng-bind="notificationCount" ng-if="notificationCount > 0"></span></a></li>
 				<li dropdown>
-					<a href="#" role="button" aria-haspopup="true" aria-expanded="false">{{user}} <span class="caret" dropdown-toggle></span></a>
+					<a href="#" ui-sref="root.user.timeline({user: 1})" role="button" aria-haspopup="true" aria-expanded="false">{{user}} <span class="caret" dropdown-toggle></span></a>
 					<ul class="dropdown-menu">
 						<!-- <li role="separator" class="divider"></li> -->
 						<li><a href="#">Logout</a></li>
@@ -31,14 +31,15 @@
 		</div>
 	</div>
 </nav>
+<div class="notibox" ng-include="'templates/notification.html'" ng-controller="NotificationController" ng-show="showNotification"></div>
 <div ui-view="main">
 	<div class="container" id="rootcontainer">
 		<div class="row">
 			<div class="col-md-10 col-md-push-2" ui-view></div>
 			<div class="col-md-2 col-md-pull-10 sidebar" ui-view="sidebar">
-				<div class="user row">
-					<a href="#" class="thumbnail" style="width: 50px; background: red; height: 50px;"></a>
-					<a href="#">{{user}}</a>
+				<div class="user row" ui-sref="root.user.timeline({user: 1})">
+					<a href="#" ui-sref="root.user.timeline({user: 1})" class="thumbnail" style="width: 50px; background: red; height: 50px;"></a>
+					<a href="#" ui-sref="root.user.timeline({user: 1})">{{user}}</a>
 				</div>
 				<ul>
 					<li><a ui-sref="root.newsfeed" ui-sref-active="active">News feed</a></li>
@@ -46,7 +47,8 @@
 				<hr>
 				<h4>Groups</h4>
 				<ul>
-					<li><a href="#" ui-sref="root.lfg()" ui-sref-active="active">Find group</a></li>
+					<li><a href="#" ui-sref="root.lfg()" ui-sref-active="active"><i class="glyphicon glyphicon-list-alt"></i> Group directory</a></li>
+					<li><a href="#" ui-sref="root.creategroup()" ui-sref-active="active"><i class="glyphicon glyphicon-plus"></i> Create group</a></li>
 					<li><a href="#" ui-sref="root.group.info({id: 1})" ui-sref-active="active">Group 1</a></li>
 					<li><a href="#">Group 2</a></li>
 					<li><a href="#">Group 3</a></li>
