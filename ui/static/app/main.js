@@ -87,8 +87,12 @@ app.config(function($stateProvider, $urlRouterProvider) {
 		});
 });
 
-app.controller('MainController', function($rootScope, user){
-	$rootScope.user = user;
+app.controller('MainController', function($rootScope, $state, user){
+	if(user){
+		$rootScope.user = user;
+	}else{
+		$state.go('login');
+	}
 });
 app.controller('NotificationController', function($rootScope, $http){
 	$http.get('/api/notification/all/').success(function(data){
