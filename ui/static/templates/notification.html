@@ -2,38 +2,66 @@
 	Notifications
 </div>
 <div class="body">
-	<div class="row item-outer" ui-sref="root" ng-repeat-start="x in [1,2,3,4,5,6,7,8]" ng-if="x==1">
+
+	<!--
+		ADMIN NOTI!
+	-->
+	<div class="row item-outer" ui-sref="root" ng-repeat-start="data in notifications" ng-if="data.target_type == -1">
 		<div class="item">
 			<div class="col-xs-2">
 				<a href="#" class="thumbnail" style="width: 40px; background: red; height: 40px;"></a>
 			</div>
 			<div class="col-xs-10">
-				Item type 1
-				<div class="metadata">11 hours ago</div>
+				{{data.text}}
+				<div class="metadata">{{data.datetime}}</div>
 			</div>
 			<div class="clearfix"></div>
 		</div>
 	</div>
-	<div class="row item-outer" ui-sref="root" ng-if="x == 2">
+
+	<!--
+		WALL!
+	-->
+	<div class="row item-outer" ui-sref="root" ng-if="data.target_type == 4">
 		<div class="item">
 			<div class="col-xs-2">
 				<a href="#" class="thumbnail" style="width: 40px; background: red; height: 40px;"></a>
 			</div>
 			<div class="col-xs-10">
-				<strong>Somchai</strong> posted in <strong>Test event</strong> "Item type 2"
-				<div class="metadata">11 hours ago</div>
+				<strong>{{data.user.username}}</strong> posted a status "{{data.text}}"
+				<div class="metadata">{{data.datetime}}</div>
 			</div>
 			<div class="clearfix"></div>
 		</div>
 	</div>
-	<div class="row item-outer" ui-sref="root" ng-repeat-end ng-if="x != 1 && x != 2">
+
+	<!--
+		EVENT!
+	-->
+	<div class="row item-outer" ui-sref="root" ng-if="data.target_type == 'event' ">
 		<div class="item">
 			<div class="col-xs-2">
 				<a href="#" class="thumbnail" style="width: 40px; background: red; height: 40px;"></a>
 			</div>
 			<div class="col-xs-10">
-				<strong>Somchai</strong> posted in <strong>Test group</strong> "Item type {{x}}"
-				<div class="metadata">11 hours ago</div>
+				<strong>{{data.user.username}}</strong> posted in <strong>Test event</strong> "{{data.text}}"
+				<div class="metadata">{{data.datetime}}</div>
+			</div>
+			<div class="clearfix"></div>
+		</div>
+	</div>
+
+	<!--
+		Group!
+	-->
+	<div class="row item-outer" ui-sref="root" ng-repeat-end ng-if="data.target_type == 15">
+		<div class="item">
+			<div class="col-xs-2">
+				<a href="#" class="thumbnail" style="width: 40px; background: red; height: 40px;"></a>
+			</div>
+			<div class="col-xs-10">
+				<strong>{{data.user.username}}</strong> posted in <strong>Test group</strong> "{{data.text}}"
+				<div class="metadata">{{data.datetime}}</div>
 			</div>
 			<div class="clearfix"></div>
 		</div>

@@ -90,8 +90,13 @@ app.config(function($stateProvider, $urlRouterProvider) {
 app.controller('MainController', function($rootScope, user){
 	$rootScope.user = user;
 });
-app.controller('NotificationController', function($rootScope){
-	$rootScope.notificationCount = Math.floor(Math.random() * 20);
+app.controller('NotificationController', function($rootScope, $http){
+	$http.get('/api/notification/all/').success(function(data){
+		$rootScope.notifications = data;
+		$rootScope.notificationCount = data.length;
+		console.log(data[0]);
+	});
+
 });
 
 })();
