@@ -64,6 +64,7 @@ Post Status without Text
     Click Element    xpath=//*[@id="rootcontainer"]/div/div[1]/form/input
     Wait Until Page Contains   ${status}   5
     sleep  3
+
 Comment Status with Text
     [Arguments]    ${comment}
 
