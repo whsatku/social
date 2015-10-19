@@ -8,6 +8,7 @@ from newsfeed.models import Post
 from newsfeed.models import Comment
 from newsfeed.serializer import PostSerializer
 from newsfeed.serializer import CommentSerializer
+from notification.views import NotificationViewList
 
 
 class PostViewList(APIView):
@@ -21,11 +22,12 @@ class PostViewList(APIView):
 
     def post(self, request, format=None):
         serializer = PostSerializer(data=request.data)
-
+        notification = NotificationViewList()
         if serializer.is_valid():
 
             if self.request.user.is_authenticated():
                 serializer.save(user=User.objects.get(id=self.request.user.id))
+                notification.post(request)
                 return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -63,11 +65,15 @@ class CommentViewList(APIView):
 
     def post(self, request, format=None):
         serializer = CommentSerializer(data=request.data)
+        notification = NotificationViewList()
 
         if serializer.is_valid():
             # serializer.user = self.request.user
             if self.request.user.is_authenticated():
                 serializer.save(user=User.objects.get(id=self.request.user.id))
+                request.data['target_type'] = 4
+                request.data['target_id'] = request.data['post']
+                notification.post(request)
                 return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 

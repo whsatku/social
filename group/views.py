@@ -10,6 +10,7 @@ from newsfeed.models import Post
 from newsfeed.models import Comment
 from newsfeed.serializer import GroupPostSerializer
 from newsfeed.serializer import CommentSerializer
+from notification.views import NotificationViewList
 from models import *
 from serializers import *
 from django.http import Http404
@@ -78,10 +79,12 @@ class GroupViewSet(APIView):
 
     def post(self, request, format=None):
         serializer = GroupSerializer(data=request.data)
+        notification = NotificationViewList()
 
         if serializer.is_valid():
             # serializer.user = self.request.user
             serializer.save(group=Group.objects.get(id=self.request.group.id))
+            notification.post(request)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 

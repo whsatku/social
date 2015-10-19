@@ -15,13 +15,13 @@ class NotificationViewList(APIView):
 
         if serializer.is_valid():
 
-            if self.request.user.is_authenticated():
-                serializer.save(user=User.objects.get(id=self.request.user.id))
+            if request.user.is_authenticated():
+                serializer.save(user=User.objects.get(id=request.user.id))
                 return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def get(self, request, id=None, format=None):
-        notification = Notification.objects.all()
+        notification = Notification.objects.order_by('-datetime')
         response = self.serializer_class(notification, many=True)
 
         return Response(response.data)
