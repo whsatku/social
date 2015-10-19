@@ -142,5 +142,14 @@ app.controller('GroupCategoryController', function($scope, $http, $stateParams){
 
 });
 
+
+app.controller('CreateGroupController', function($scope, $http, $stateParams){
+    category = $stateParams.cat;
+    $http.get('/api/group/category/'+ category ).success(function(data){
+        $scope.groups = data;
+    });
+
+});
+
 })();
 
