@@ -45,17 +45,22 @@ class MemberViewSet(ListCreateAPIView):
 
         return Response(GroupMemberSerializer(member).data)
 
+
 class PendingMemberViewSet(ListCreateAPIView):
     serializer_class = GroupMemberSerializer
+
     def get_queryset(self):
         this_group = Group.objects.get(id=int(self.kwargs['group_id']))
         return GroupMember.objects.filter(group=this_group, role=0)
 
+
 class AcceptedMemberViewSet(ListCreateAPIView):
     serializer_class = GroupMemberSerializer
+
     def get_queryset(self):
         this_group = Group.objects.get(id=int(self.kwargs['group_id']))
         return GroupMember.objects.filter(group=this_group, role=1)
+
 
 class GroupViewSet(APIView):
     serializer_class = GroupSerializer
@@ -75,21 +80,25 @@ class GroupViewSet(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+
 class GroupViewDetail(APIView):
     serializer_class = GroupSerializer
 
     def get_group(self, group_id):
+        
         try:
             return Group.objects.get(id=group_id)
         except Group.DoesNotExist:
             raise Http404
 
     def get(self, request, group_id=None, format=None):
+        
         groupObject = self.get_group(group_id)
         response = self.serializer_class(groupObject)
         return Response(response.data)
 
     def post(self, request, group_id, format=None):
+        
         serializer = GroupSerializer(data=request.data)
 
         if serializer.is_valid():
@@ -98,36 +107,101 @@ class GroupViewDetail(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+
 class MemberDetail(APIView):
+    """This class is an API for managing member in group.
+
+
+
+    """
     serializer_class = GroupMemberSerializer
 
     def get_member(self, group_id, user_id):
+        """Get user from group's database.
+
+        Args:
+                request: Django Rest Framework request object
+                group_id: ID of group
+                format: pattern for Web APIs
+
+        Return:
+
+        """
         try:
             return GroupMember.objects.get(group=group_id, user=user_id)
         except GroupMember.DoesNotExist:
             raise Http404
 
     def delete(self, request, group_id, pk, format=None):
+        """Delete user from group.
+
+        Args:
+                request: Django Rest Framework request object
+                group_id: ID of group
+                pk: ID of user
+                format: pattern for Web APIs
+
+        Return:
+
+        """
         member = self.get_member(group_id, pk)
         member.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
     def put(self, request, group_id, pk, format=None):
+        """Add or update member in group.
+
+        Args:
+                request: Django Rest Framework request object
+                group_id: ID of group
+                pk: ID of user
+                format: pattern for Web APIs
+
+        Return:
+
+        """
         member = self.get_member(group_id, pk)
         member.role = 1
         member.save()
         return Response(status=status.HTTP_201_CREATED)
 
     def get(self, request, group_id, pk, format=None):
+        """Sending data of member in group from server to client.
+
+        Args:
+                request: Django Rest Framework request object
+                group_id: ID of group
+                pk: ID of user
+                format: pattern for Web APIs
+
+        Return:
+
+        """
         group_member_object = self.get_member(group_id, pk)
         response = self.serializer_class(group_member_object)
         return Response(response.data)
 
 
 class EditInfo(APIView):
+    """This class is an API for editing information in the group.
+
+
+
+    """
     serializer_class = GroupSerializer
 
     def put(self, request, group_id, format=None):
+        """Edit or add information in the group.
+
+        Args:
+                request: Django Rest Framework request object
+                group_id: ID of group
+                format: pattern for Web APIs
+
+        Return:
+
+
+        """
         try:
             group = Group.objects.get(pk=group_id)
         except Group.DoesNotExist:
@@ -140,10 +214,28 @@ class EditInfo(APIView):
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+
 class GroupByCategory(APIView):
+    """This class an API for query groups by its category.
+
+    It could be accessed at :http:get:``
+
+    """
+
     serializer_class = GroupSerializer
 
     def get(self, request, cat, format=None):
+        """Get a list of group with the same category selected.
+
+        Args:
+                request: Django Rest Framework request object
+                cat: category of groups
+                format: pattern for Web APIs
+
+        Return:
+                List of group with same category
+
+        """
         group = Group.objects.filter(category=cat)
         response = self.serializer_class(group, many=True)
-        return Response(response.data)
+    return Response(response.data)
