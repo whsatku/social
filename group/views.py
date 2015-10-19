@@ -79,12 +79,11 @@ class GroupViewSet(APIView):
 
     def post(self, request, format=None):
         serializer = GroupSerializer(data=request.data)
-        notification = NotificationViewList()
 
         if serializer.is_valid():
             # serializer.user = self.request.user
             serializer.save(group=Group.objects.get(id=self.request.group.id))
-            notification.post(request)
+            print request.data
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -176,11 +175,17 @@ class GroupPostView(APIView):
 
     def post(self, request, group_id, format=None):
         serializer = GroupPostSerializer(data=request.data)
+        notification = NotificationViewList()
+
 
         if serializer.is_valid():
 
             if self.request.user.is_authenticated():
                 serializer.save(user=User.objects.get(id=self.request.user.id), target_id=group_id, target_type=ContentType.objects.get(id=self.group_model_id))
+                request.data['target_type'] = 15
+                request.data['target_id'] = group_id
+                notification.post(request)
+                print request.data
                 return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -200,6 +205,3 @@ class CreateGroup(APIView):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-
-
