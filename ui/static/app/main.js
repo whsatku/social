@@ -70,6 +70,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
 		.state('root.creategroup', {
 			url: '/groups/create',
 			templateUrl: 'templates/groupcreate.html',
+			controller: 'CreateGroupController'
 		})
 		.state('root.user', {
 			url: '/{user:int}',

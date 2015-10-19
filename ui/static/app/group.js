@@ -144,10 +144,30 @@ app.controller('GroupCategoryController', function($scope, $http, $stateParams){
 
 
 app.controller('CreateGroupController', function($scope, $http, $stateParams){
-    category = $stateParams.cat;
-    $http.get('/api/group/category/'+ category ).success(function(data){
-        $scope.groups = data;
-    });
+    
+    $scope.gname = "";
+    $scope.gdescription = "";
+    $scope.gtype = "";
+
+    $scope.createGroup = function(){
+
+        $scope.newgroup = {
+            name: $scope.gname,
+            description: $scope.gdescription,
+            short_description: 'default',
+            activities: 'default',
+            type: $scope.gtype,
+
+            
+        };
+        
+        console.log("Name:"+$scope.gname);
+        console.log("Desc:"+$scope.gdescription);
+        console.log("Type:"+$scope.gtype);
+        
+        $http.post('/api/group/create/' , $scope.newgroup ).success(function(data){});
+
+    }
 
 });
 
