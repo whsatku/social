@@ -85,20 +85,20 @@ class GroupViewDetail(APIView):
     serializer_class = GroupSerializer
 
     def get_group(self, group_id):
-        
+
         try:
             return Group.objects.get(id=group_id)
         except Group.DoesNotExist:
             raise Http404
 
     def get(self, request, group_id=None, format=None):
-        
+
         groupObject = self.get_group(group_id)
         response = self.serializer_class(groupObject)
         return Response(response.data)
 
     def post(self, request, group_id, format=None):
-        
+
         serializer = GroupSerializer(data=request.data)
 
         if serializer.is_valid():
