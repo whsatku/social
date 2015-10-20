@@ -243,7 +243,7 @@ class GroupByCategory(APIView):
         """
         group = Group.objects.filter(category=cat)
         response = self.serializer_class(group, many=True)
-    return Response(response.data)
+        return Response(response.data)
 
 
 class GroupPostView(APIView):

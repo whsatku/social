@@ -161,9 +161,6 @@ app.controller('CreateGroupController', function($scope, $http, $stateParams){
             
         };
         
-        console.log("Name:"+$scope.gname);
-        console.log("Desc:"+$scope.gdescription);
-        console.log("Type:"+$scope.gtype);
         
         $http.post('/api/group/create/' , $scope.newgroup ).success(function(data){});
 
