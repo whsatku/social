@@ -9,7 +9,17 @@
 		<div class="message">
 			<p class="metadata">
 				<i class="glyphicon glyphicon-info-sign"></i>
-				This is a <strong>open</strong> group. Everyone can requests to join.
+				<div ng-if="group.type == 0">
+   					This is a <strong>open</strong> group. Everyone can requests to join.
+				</div>
+				<div ng-if="group.type == 1">
+   					This is a <strong>closed</strong> group. Everyone can requests to join.
+				</div>
+				<div ng-if="group.type == 2">
+   					This is a <strong>secret</strong> group. Member must be invited to join.
+				</div>
+
+
 			</p>
 			<p>{{group.short_description}}</p>
 		</div>
