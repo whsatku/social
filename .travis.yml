@@ -6,7 +6,9 @@ addons:
 before_script:
 - mysql -e 'CREATE DATABASE social_test;'
 - cp .travis/local_settings.py social/local_settings.py
-install: pip install -r requirements.txt
+install:
+- pip install -r requirements.txt
+- pip install MySQL-python
 script:
 - python manage.py migrate --noinput
 sudo: false
