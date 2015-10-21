@@ -18,8 +18,8 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('role', models.CharField(max_length=50)),
-                ('group_id', models.ForeignKey(default=0, to='group.Group')),
-                ('user_id', models.ForeignKey(default=0, to=settings.AUTH_USER_MODEL)),
+                ('group_id', models.ForeignKey(to='group.Group')),
+                ('user_id', models.ForeignKey(to=settings.AUTH_USER_MODEL)),
             ],
         ),
         migrations.DeleteModel(

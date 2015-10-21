@@ -21,8 +21,8 @@ class Group(models.Model):
         return "group : {}".format(self.name)
 
 class GroupMember(models.Model):
-    group = models.ForeignKey(Group, default=0)
-    user = models.ForeignKey(User, default=0)
+    group = models.ForeignKey(Group)
+    user = models.ForeignKey(User)
     role = models.IntegerField()
 
     def __unicode__(self):
