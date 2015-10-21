@@ -112,7 +112,7 @@ Invalidate Login
 
 
 Open Browser To Login Page
-    open browser    ${URL}
+    open browser    ${URL}    phantomjs
 
 
 

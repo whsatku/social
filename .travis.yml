@@ -3,8 +3,14 @@ python:
 - '2.7'
 sudo: false
 env:
-- DB=sqlite
-- DB=mysql
+  matrix:
+  - DB=sqlite
+  - DB=mysql
+  global:
+  # KU_USERNAME
+  - secure: XvsQSOuv7c33MxcOqaqI/vhjkgyY/fANmwdVjHoVMX6+lo1qUs0wEo8ID7zbC75NxwNp7yjyiHPvX2nxkGVSPHERfX+i2m4m64ZySECYc454JPa/W7F9vYWP/wdJEBBNQP+qJhinAOfCtWsguyktZ7DADk5QHxSRO7NowjuhD+II+jRR0ZD1V6Z40Gau309GcPscabu+oMpKVclWmllV8g6s5gXN/lHclKc4nsQVkmsDZAZo98IdROW77CzsWGBj3spu18rFHSvYUTt1wI5EVMxCbZqjATLWUJGoaF+yo9EpDcEcLk8Lfh61vPwMs1Sl3VEMX09yyzKrK84s92w3d4rWtISgm9QlpJ/1B+qnezvMSJ2hf1hnFEqasFtDB8e4ecafWYO/ioQn4UHtk8mcfprb0gCbccsZXtGxZj0BC5tHICX+CcPPA2R2ax7Y2AMPtb85xM2m5EgOVh70Zjjv8XNbL5ihAtnB1YvjfIwmPDT+u6/vCP9iJQlFbUp/jvW7awkwjFjjcFQSAFwvpUqTUVWOeLNDfJj82fA8PZGyHbgSlB0VkPx86sBPl/GpjEBaxdV5aB2HVB/wEQnp+S9dc/fFpIyr4xSj5D2q+AkCT7pVmYCc3EK/K1uevDyblGogYg6nJSNqFHVB7wXopOa1LSWp8yzzOmY9mPKMdG3kc3k=
+  # KU_PASSWORD
+  - secure: bFDLIKUh3eVeL+pBEqxQ0ZwsFxFtEvz73xDHRTSf+ohU9MRnU7XUWBfLbtp8wm1kUw8XwfyCceMSV3tASdfyCOoKf1jb9rLcCsoduxFf5qVQx8qYM+zNAzol23aVEbgitU6FdVZQEWur5uECxtXPNDPIkDdU+hQpzDpug5beVQsJPsMrcn6Au1/lDwaL78/IqigDgQKTNsf7/+CB/fQtUr+pyTf6S5c9qggx0AoWOEEGyLU1fBnT4Bcp2DXwyB6d3cXqeLDuSOY0/iVe8St73vAK2mds8aMNA7vpoVUoDNTBdt7oNCohXal0C0hAg9E5yNf8QvOK3+GoA9qWrg+NNM3tzhu4Hth4NNrFFAoq7tc2rIhwrvaNMdrxzCi+rsppo031aGxqXukaG6ghab5xyh2+ttzpFlRJfFX0/8ptP6c2CZwX3PMjJ+RnI+7S/rSdBzJrcv4jUWe6RnR0Lvd3gYgXhIpNKKzo1IKubXskzP6thw/Uvhc2rur6X5DFmrYObCEyhOZWKX2Moa63YOmW4jpua0kgeyuSS5dafEdpA2K4SXc24qIluqBXqmM/JmWsdWxVPhbCBWCzqBs6mqRWygT74mWu7MIzrpmvx/pHgjVE1TYGpAAsxViQHkAlcZGUjo3kaeFnXCvSZ6/bLc2p4jyj1870WHYqv78TRQBSa2M=
 before_script:
 - sh -c "if [ '$DB' = 'mysql' ]; then mysql -e 'CREATE DATABASE social_test;'; fi"
 - sh -c "if [ '$DB' = 'mysql' ]; then cp .travis/local_settings.py social/local_settings.py;
@@ -14,12 +20,13 @@ before_script:
 - npm install -g phantomjs
 - export DISPLAY=:99.0
 - sh -e /etc/init.d/xvfb start
+- mkdir test_output
 install:
 - pip install -r requirements.txt
 script:
 - python manage.py migrate --noinput
-- python manage.py runserver &
-- pybot test
+- python manage.py runserver > test_output/server_log.txt 2>&1 &
+- pybot -d test_output test/authenticate
 deploy:
 - provider: script
   script: ".travis/deploy.sh"

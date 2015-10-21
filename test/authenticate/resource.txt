@@ -11,7 +11,7 @@ ${URL}    http://localhost:8000/static/index.html#/login/
 
 *** Keywords ***
 Open Browser To Login Page
-    Open Browser    ${URL}
+    Open Browser    ${URL}    phantomjs
     Maximize Browser Window
 
 
