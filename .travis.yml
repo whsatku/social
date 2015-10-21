@@ -46,4 +46,4 @@ addons:
   s3_region: ap-southeast-1
   artifacts:
     paths:
-    - "$OUTPUT_DIR/*"
+    - "$OUTPUT_DIR"
