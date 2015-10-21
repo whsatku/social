@@ -1,10 +1,11 @@
 language: python
 python:
 - '2.7'
-services:
-- mysql
+addons:
+  mariadb: '10.1'
 before_script:
 - mysql -e 'CREATE DATABASE social_test;'
+- cp .travis/local_settings.py social/local_settings.py
 install: pip install -r requirements.txt
 script:
 - python manage.py migrate --noinput
