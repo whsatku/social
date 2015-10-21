@@ -1,0 +1,7 @@
+---
+engines:
+  eslint:
+   enable: true
+include_paths:
+  - ui/static/app
+  - ui/static/assets/css/app.css
