@@ -12,6 +12,9 @@ env:
   # ku_password
   - secure: bFDLIKUh3eVeL+pBEqxQ0ZwsFxFtEvz73xDHRTSf+ohU9MRnU7XUWBfLbtp8wm1kUw8XwfyCceMSV3tASdfyCOoKf1jb9rLcCsoduxFf5qVQx8qYM+zNAzol23aVEbgitU6FdVZQEWur5uECxtXPNDPIkDdU+hQpzDpug5beVQsJPsMrcn6Au1/lDwaL78/IqigDgQKTNsf7/+CB/fQtUr+pyTf6S5c9qggx0AoWOEEGyLU1fBnT4Bcp2DXwyB6d3cXqeLDuSOY0/iVe8St73vAK2mds8aMNA7vpoVUoDNTBdt7oNCohXal0C0hAg9E5yNf8QvOK3+GoA9qWrg+NNM3tzhu4Hth4NNrFFAoq7tc2rIhwrvaNMdrxzCi+rsppo031aGxqXukaG6ghab5xyh2+ttzpFlRJfFX0/8ptP6c2CZwX3PMjJ+RnI+7S/rSdBzJrcv4jUWe6RnR0Lvd3gYgXhIpNKKzo1IKubXskzP6thw/Uvhc2rur6X5DFmrYObCEyhOZWKX2Moa63YOmW4jpua0kgeyuSS5dafEdpA2K4SXc24qIluqBXqmM/JmWsdWxVPhbCBWCzqBs6mqRWygT74mWu7MIzrpmvx/pHgjVE1TYGpAAsxViQHkAlcZGUjo3kaeFnXCvSZ6/bLc2p4jyj1870WHYqv78TRQBSa2M=
   - ARTIFACTS_BUCKET=youniversity
+  - ARTIFACTS_REGION=ap-southeast-1
+  - ARTIFACTS_PERMISSIONS=public
+  - ARTIFACTS_CACHE_CONTROL=public
   # artifacts_key
   - secure: nuc9KfzFAd+mi2fLIOtIHx0V4P81ikaCB+XP5ejV0HfgdxxWi7y0rQ7YM1we9aYliEUV/GbAjs9kFGyI8DMG0xJQiYDnvJ2ughymBx3J0cFGCsroTKwFlDwOn3XOudgPcE/yn4evGL+eWSHBo1olyXzr+CioV5RcWcneIE26rbpyDEXcqu63wfcbULiF/hitwzf2bLG67kuEKM6MT9tdAgkX4sNDH5DG+qIh01qjLCjQ51mvx4DQvM7lVvSekTKXpUGxgBWuf3z57D75HtkRM7P+/BRH79/MfXN2j/wwOBLyt/bjpbt/VgYP6uMxpEnndv0O9bXnBJf8xWQyTxqtJqK5q7oYFD+dnO2r8METZOsbohxtSl8rt5UPyevebWrxmiPt/UQT1G1puwk8Lkz0bm3FRap27M2IdH5dVv0sLDyNk5PzxeqxD9XS/8rNLuJG5369LjRDxLIVZf4xpwQReYgX6GCUXZK2ORHyq5vZ1a7wAxaE/cp+RakcPGZf25E14JMcLqEtTRurPVrVdioldDA5qAfkXRENzdNhtOGCn/QB34BvCD3T1ujOdgV48CGAyK0GkyQU7eeO8INtGEluutTF8LqFtGcR9xMdF6GdffARfMoDGdr/ehhDMOAapdNcZMy7HyGpXRqqhBRaKl2g0OSTlU/cksugtJs47hNYKqg=
   # artifacts_secret
@@ -25,7 +28,7 @@ before_script:
 - npm install -g phantomjs
 - export DISPLAY=:99.0
 - sh -e /etc/init.d/xvfb start
-- export OUTPUT_DIR=test_`git describe --always`
+- export OUTPUT_DIR=test_output
 - mkdir $OUTPUT_DIR
 install:
 - pip install -r requirements.txt
