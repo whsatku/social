@@ -1,15 +1,18 @@
 language: python
 python:
 - '2.7'
+sudo: false
+env:
+- DB=sqlite
+- DB=mysql
 before_script:
-- mysql -e 'CREATE DATABASE social_test;'
-- cp .travis/local_settings.py social/local_settings.py
+- sh -c "if [ '$DB' = 'mysql' ]; then mysql -e 'CREATE DATABASE social_test;'; fi"
+- sh -c "if [ '$DB' = 'mysql' ]; then cp .travis/local_settings.py social/local_settings.py; fi"
 install:
 - pip install -r requirements.txt
-- pip install MySQL-python
+- sh -c "if [ '$DB' = 'mysql' ]; then pip install MySQL-python; fi"
 script:
 - python manage.py migrate --noinput
-sudo: false
 after_success:
 - openssl aes-256-cbc -K $encrypted_aa5263036386_key -iv $encrypted_aa5263036386_iv
   -in .travis/ssh_key.enc -out .travis/deploy -d
