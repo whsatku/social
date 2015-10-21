@@ -14,8 +14,8 @@ install:
 script:
 - python manage.py migrate --noinput
 deploy:
-- provider: script
-  script: .travis/deploy.sh
-  on:
-  	branch: master
-  	condition: "$DB = mysql"
+  - provider: script
+    script: .travis/deploy.sh
+    on:
+   	  branch: master
+  	  condition: "$DB = mysql"
