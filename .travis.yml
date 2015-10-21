@@ -17,5 +17,5 @@ deploy:
   - provider: script
     script: .travis/deploy.sh
     on:
-   	  branch: master
-  	  condition: "$DB = mysql"
+      branch: master
+      condition: "$DB = mysql"
