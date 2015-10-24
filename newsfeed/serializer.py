@@ -26,7 +26,7 @@ class GroupPostSerializer(ModelSerializer):
     group_model_id = 15
     user = UserSerializer(read_only=True)
     target_type = serializers.HiddenField(default=group_model_id)
-    target_id = serializers.HiddenField()
+    target_id = serializers.HiddenField(default=1)
     datetime = serializers.ReadOnlyField(source='FORMAT')
 
     class Meta:
