@@ -38,7 +38,7 @@ class GroupPostSerializer(ModelSerializer):
 class CommentSerializer(ModelSerializer):
     user = UserSerializer(read_only=True)
     datetime = serializers.ReadOnlyField(source='FORMAT')
-    
+
     class Meta:
         model = Comment
         fields = ('id', 'post', 'user', 'text', 'datetime')

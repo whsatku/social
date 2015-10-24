@@ -37,6 +37,11 @@ app.config(function($stateProvider, $urlRouterProvider) {
 			templateUrl: 'templates/newsfeed.html',
 			controller: 'NewsfeedController'
 		})
+		.state('root.nfpost', {
+			url: '/post/{id:int}',
+			templateUrl: 'templates/newsfeed.html',
+			controller: 'NewsfeedController'
+		})
 		.state('root.group', {
 			url: '/groups/{id:int}',
 			abstract: true,
@@ -98,7 +103,6 @@ app.controller('NotificationController', function($rootScope, $http){
 	$http.get('/api/notification/all/').success(function(data){
 		$rootScope.notifications = data;
 		$rootScope.notificationCount = data.length;
-		console.log(data[0]);
 	});
 
 });

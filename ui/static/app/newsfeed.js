@@ -18,19 +18,27 @@ app.directive('myEnter', function () {
 });
 
 
-app.controller('NewsfeedController', function($scope, $http){
-	$scope.allowPost = true;
-	$scope.newsfeed = null;
+app.controller('NewsfeedController', function($scope, $stateParams, $http){
+  $scope.allowPost = true;
+	$scope.newsfeed = [];
 	$scope.nftext ="";
-	$http.get('/api/newsfeed/post').success(function(data){
-		$scope.newsfeed = data;
-	});
+
+  if($stateParams.id == undefined) {
+    $http.get('/api/newsfeed/post/').success(function(data){
+      $scope.newsfeed = data;
+    });
+  }
+  else {
+  	$http.get('/api/newsfeed/post/' + $stateParams.id).success(function(data){
+  		$scope.newsfeed.push(data);
+  	});
+  }
 
 	$scope.postStatus = function() {
 		postData = {
 			text : $scope.nftext,
 			target_type : 4,
-			target_id : -1,
+      target_id : null,
 		};
 
 		if (postData.text.length > 0) {
@@ -58,7 +66,6 @@ app.controller('CommentController', function($rootScope, $scope, $http){
   };
 
   loadCommentsByPostId($scope.data.id);
-  $scope.comments = null;
 
 	$scope.commentPost = function(postData) {
 		commentData = {

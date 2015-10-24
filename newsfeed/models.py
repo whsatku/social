@@ -10,7 +10,7 @@ class Post(models.Model):
     text = models.CharField(max_length=2000)
     datetime = models.DateTimeField(auto_now_add=True)
     target_type = models.ForeignKey(ContentType)
-    target_id = models.PositiveIntegerField()
+    target_id = models.PositiveIntegerField(null=True)
     target_object = GenericForeignKey('target_type', 'target_id')
 
     def FORMAT(self):

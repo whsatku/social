@@ -36,7 +36,6 @@ app.controller('GroupFeedController', function($scope, $http, $location){
 
 		if (postData.text.length > 0) {
 			$http.post('/api/group/'+groupID+'/post/', postData).then(function(response){
-				console.log(response);
         $scope.nftext="";
 				$scope.newsfeed.unshift(response.data);
 			}, function(xhr){
@@ -59,7 +58,6 @@ app.controller('GroupCommentController', function($rootScope, $scope, $http){
   };
 
   loadCommentsByPostId($scope.data.id);
-  $scope.comments = null;
 
 	$scope.commentPost = function(postData) {
 		commentData = {
@@ -152,4 +150,3 @@ app.controller('CreateGroupController', function($scope, $http, $stateParams){
 });
 
 })();
-
