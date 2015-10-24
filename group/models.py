@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 
 class Group(models.Model):
     name = models.CharField(max_length=25)
-    type = models.IntegerField(default=0)
+    type = models.IntegerField()
     category = models.CharField(max_length=25)
     description = models.CharField(max_length=200)
     short_description = models.CharField(max_length=50)
@@ -15,7 +15,7 @@ class Group(models.Model):
     #logo_image = ImageField(upload_to=get_image_path, blank=True, null=True)
     header = models.CharField(max_length=25)
     #header_image = ImageField(upload_to=get_image_path, blank=True, null=True)
-    permisssion = models.IntegerField(default=0)
+    permisssion = models.IntegerField()
 
     def __unicode__(self):
         return "group : {}".format(self.name)
