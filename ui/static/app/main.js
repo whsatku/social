@@ -58,6 +58,11 @@ app.config(function($stateProvider, $urlRouterProvider) {
 			templateUrl: 'templates/groupfeed.html',
 			controller: 'GroupFeedController'
 		})
+		.state('root.group.post', {
+			url: '/post/{postid:int}',
+			templateUrl: 'templates/groupfeed.html',
+			controller: 'GroupFeedController'
+		})
 		.state('root.group.manage', {
 			url: '/manage',
 			templateUrl: 'templates/groupmanage.html',

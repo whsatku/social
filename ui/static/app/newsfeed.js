@@ -19,17 +19,19 @@ app.directive('myEnter', function () {
 
 
 app.controller('NewsfeedController', function($scope, $stateParams, $http){
-  $scope.allowPost = true;
-	$scope.newsfeed = [];
-	$scope.nftext ="";
+  $scope.newsfeed = [];
+  $scope.nftext = "";
+  postID = $stateParams.id;
 
-  if($stateParams.id == undefined) {
+  if(!postID) {
+    $scope.allowPost = true;
     $http.get('/api/newsfeed/post/').success(function(data){
       $scope.newsfeed = data;
     });
   }
   else {
-  	$http.get('/api/newsfeed/post/' + $stateParams.id).success(function(data){
+    $scope.allowPost = false;
+  	$http.get('/api/newsfeed/post/' + postID).success(function(data){
   		$scope.newsfeed.push(data);
   	});
   }
