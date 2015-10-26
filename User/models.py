@@ -15,6 +15,8 @@ class UserProfile(models.Model):
     faculty = models.CharField(max_length=30)
     major = models.CharField(max_length=30)
     types = models.CharField(max_length=30)
+    country = models.CharField(max_length=50)
+    city = models.CharField(max_length=50)
     # picture = StdImageField(null=True, blank=True, upload_to='images/profilepic',
     #                         variations={
     #                             'retina': (960, 960, True),

@@ -2,11 +2,10 @@
 
 var app = angular.module('app.userprofile', []);
 
-app.controller('UserProfileInfoController', function($scope, $http, $location){
-    console.log("hleelllooooo")
-    var userID = $location.path().split('/')[2];
-    $http.get('/api/user/'+userID).success(function(data){
-        $scope.group = data;
+app.controller('UserProfileInfoController', function($scope, $http, $location, $stateParams){
+    var userID = $stateParams.user;
+    $http.get('/api/user/'+userID+'/userInfo').success(function(data){
+        $scope.userprofile = data;
     });
 });
 
