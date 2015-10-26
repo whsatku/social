@@ -14,15 +14,15 @@
 		</div>
 		<div class="panel panel-default">
 			<div class="panel-heading">
-			    <h3 class="panel-title">Friends</h3>
+			    <h3 class="panel-title clickable" ui-sref="root.user.friends()">Friends</h3>
 			  </div>
 			<div class="panel-body">
 				<ul class="list-inline memberlist">
 					<li ng-repeat="member in [1,2,3,4,5,6,7,8,9,10,11,12,13,14]">
-						<a ng-href="{{member.userUrl}}" class="thumbnail" style="width: 40px; background: red; height: 40px; background-size: cover;"></a>
+						<a href="#" ng-href="{{member.userUrl}}" class="thumbnail" style="width: 40px; background: red; height: 40px; background-size: cover;"></a>
 					</li>
 					<li>
-						<div class="thumbnail text-center plusmore">+50</div>
+						<a href="#" class="thumbnail text-center plusmore" ui-sref="root.user.friends()">+50</a>
 					</li>
 				</ul>
 			</div>

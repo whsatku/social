@@ -79,6 +79,10 @@ app.config(function($stateProvider, $urlRouterProvider) {
 			url: '/',
 			templateUrl: 'templates/usertimeline.html'
 		})
+		.state('root.user.friends', {
+			url: '/friends',
+			templateUrl: 'templates/userfriends.html'
+		})
 		.state('login', {
 			url: '/login',
 			templateUrl: 'templates/login.html',
