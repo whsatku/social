@@ -53,3 +53,31 @@ class UserInformation (APIView):
         user_profile_object = self.get_user(user_profile_id)
         response = self.serializer_class(user_profile_object)
         return Response(response.data)
+
+class FriendShipDetail(APIView):
+    def get_user(self, user_profile_id):
+        """Get user from user profile's database.
+
+        Args:
+                user_profile_id: ID of user profile.
+
+        Return:
+                UserProfile object by ID.
+
+        """
+        try:
+            return UserProfile.objects.get(id=user_profile_id)
+        except UserProfile.DoesNotExist:
+            raise Http404
+
+    # def get(self, request, user_profile_id, format=None):
+    #     user_profile_object = self.get_user(user_profile_id)
+    #     response = self.serializer_class(user_profile_object)
+    #     return Response(response.data)
+
+
+    def post(self, request, user_profile_id, other_user_id, format=None):
+        user = self.get_user(user_profile_id)
+        other_user = self.get_user(other_user_id)
+        new_relationship = Friend.objects.add_friend(user, other_user)
+        return Response(status=status.HTTP_201_CREATED)

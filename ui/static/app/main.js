@@ -76,7 +76,8 @@ app.config(function($stateProvider, $urlRouterProvider) {
         .state('root.user', {
             url: '/{user:int}',
             abstract: true,
-            templateUrl: 'templates/user.html'
+            templateUrl: 'templates/user.html',
+            controller: 'AddFriendController'
         })
         .state('root.user.timeline', {
             url: '/',

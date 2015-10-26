@@ -9,4 +9,14 @@ app.controller('UserProfileInfoController', function($scope, $http, $location, $
     });
 });
 
+app.controller('AddFriendController', function($scope, $http, $location, $stateParams){
+    var userID = $stateParams.user;
+    var otherUserId = $stateParams.user; //bug
+    $scope.addFriend = function(){
+    	$http.post('/api/user/'+ userID + '/addFriend/' + userID ).success(function(data){	
+    		
+    	})
+    }
+});
+
 })();
