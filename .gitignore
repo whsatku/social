@@ -3,4 +3,8 @@ db.sqlite3
 *.pyc
 *.pyo
 .idea/
+<<<<<<< HEAD
+=======
+docs/_build
 .DS_Store
+>>>>>>> master

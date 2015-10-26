@@ -2,29 +2,41 @@
 	<div class="col-md-9">
 		<h4>What's this group about?</h4>
 		<div class="message">
-			<p>We're a group of people who want to demonstrate how this template works.</p>
+			<p>{{group.description}}</p>
 		</div>
 
 		<h4>Requirement to join</h4>
 		<div class="message">
 			<p class="metadata">
-				<i class="glyphicon glyphicon-info-sign"></i>
-				This is a <strong>open</strong> group. Everyone can requests to join.
+				
+				<div ng-if="group.type == 0">
+					<i class="glyphicon glyphicon-info-sign"></i>
+   					This is a <strong>open</strong> group. Everyone can requests to join.
+				</div>
+				<div ng-if="group.type == 1">
+					<i class="glyphicon glyphicon-info-sign"></i>
+   					This is a <strong>closed</strong> group. Everyone can requests to join.
+				</div>
+				<div ng-if="group.type == 2">
+					<i class="glyphicon glyphicon-info-sign"></i>
+   					This is a <strong>secret</strong> group. Member must be invited to join.
+				</div>
+
+
 			</p>
-			<p>The group owner also able to add some messages here</p>
+			<p>{{group.short_description}}</p>
 		</div>
 
 		<h4>Your activities?</h4>
 		<div class="message">
-			<p>Here we are going to say something about our recent activities so people want to join us. Or for hangout group we might as well omit this section.</p>
-			<p>Also, we should be able to put some images and rich text format in this section</p>
+			<p>{{group.activities}}</p>
 		</div>
 	</div>
 	<div class="col-md-3">
 		<h4>Members</h4>
 		<ul class="list-inline memberlist">
-			<li ng-repeat="x in [1,2,3,4,5,6,7,8,9]">
-				<a href="#" class="thumbnail" style="width: 40px; background: red; height: 40px;"></a>
+			<li ng-repeat="member in memberlist.modules">
+				<a ng-href="{{member.userUrl}}" class="thumbnail" style="width: 40px; background: url('{{member.imgUrl}}'); height: 40px; background-size: cover;"></a>
 			</li>
 			<li>
 				<div class="thumbnail text-center plusmore">+50</div>

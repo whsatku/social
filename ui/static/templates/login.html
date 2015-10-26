@@ -8,18 +8,22 @@
 					<a class="btn btn-primary" ng-click="kulogin=true">KU Login</a>
 					<a class="btn btn-primary" href="{{app_base}}accounts/facebook/login">Facebook Login</a>
 				</div>
-				<form ng-show="kulogin">
+				<form ng-show="kulogin" ng-submit="login()">
 					<h4>KU Login</h4>
-					<div class="form-group">
-						<label for="student_id">Student ID</label>
-						<input type="text" class="form-control" id="student_id" placeholder="56xxxxxxxx" pattern="[45][0-9]{9}">
+					<div class="alert alert-danger" ng-bind="error" ng-if="error"></div>
+					<div class="alert alert-info" ng-if="loggingIn">Working...</div>
+					<div ng-hide="loggingIn">
+						<div class="form-group">
+							<label for="student_id">Student ID</label>
+							<input type="text" class="form-control" id="student_id" placeholder="b56xxxxxxxx" pattern="b[45][0-9]{9}" required ng-model="auth.username">
+						</div>
+						<div class="form-group">
+							<label for="password">Password</label>
+							<input type="password" class="form-control" id="password" required ng-model="auth.password">
+						</div>
+						<button type="submit" class="btn btn-primary">Submit</button>
+						<a class="btn btn-default" ng-click="kulogin=false">Cancel</a>
 					</div>
-					<div class="form-group">
-						<label for="student_id">Password</label>
-						<input type="password" class="form-control" id="student_id">
-					</div>
-					<button type="submit" class="btn btn-primary">Submit</button>
-					<a class="btn btn-default" ng-click="kulogin=false">Cancel</a>
 				</form>
 			</div>
 		</div>
