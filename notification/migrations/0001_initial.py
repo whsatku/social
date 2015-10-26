@@ -18,10 +18,10 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('datetime', models.DateTimeField(auto_now_add=True)),
-                ('message', models.CharField(max_length=2000)),
-                ('target_id', models.PositiveIntegerField()),
+                ('text', models.CharField(max_length=2000)),
+                ('target_id', models.PositiveIntegerField(null=True)),
                 ('target_type', models.ForeignKey(to='contenttypes.ContentType')),
-                ('user', models.ForeignKey(default=0, to=settings.AUTH_USER_MODEL)),
+                ('user', models.ForeignKey(to=settings.AUTH_USER_MODEL)),
             ],
         ),
     ]
