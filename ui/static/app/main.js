@@ -83,6 +83,10 @@ app.config(function($stateProvider, $urlRouterProvider) {
 			url: '/friends',
 			templateUrl: 'templates/userfriends.html'
 		})
+		.state('root.user.edit', {
+			url: '/edit',
+			templateUrl: 'templates/useredit.html'
+		})
 		.state('login', {
 			url: '/login',
 			templateUrl: 'templates/login.html',
