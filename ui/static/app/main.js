@@ -91,6 +91,10 @@ app.config(function($stateProvider, $urlRouterProvider) {
 			url: '/login',
 			templateUrl: 'templates/login.html',
 			controller: 'LoginController'
+		})
+		.state('login.first', {
+			url: '/first',
+			templateUrl: 'templates/firstlogin.html'
 		});
 });
 
