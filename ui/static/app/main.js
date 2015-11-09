@@ -91,8 +91,12 @@ app.config(function($stateProvider, $urlRouterProvider) {
 });
 
 
-app.controller('MainController', function($rootScope, user, $http, $uibModal){
+app.controller('MainController', function($rootScope, user, $http, $uibModal, $state){
     $rootScope.user = user;
+    if(!user){
+        $state.go('login');
+        return;
+    }
     $http.get('/api/group/').success(function(data){
         $rootScope.group_list = data;
     });
