@@ -59,7 +59,7 @@ app.controller('NewsfeedController', function($scope, $stateParams, $http){
 
 
 
-app.controller('CommentController', function($rootScope, $scope, $http){
+app.controller('CommentController', function($rootScope, $scope, $http, $timeout){
 
   var loadCommentsByPostId = function(postID) {
     $http.get('/api/newsfeed/post/'+postID+'/comment/').success(function(commentsData){
@@ -68,6 +68,14 @@ app.controller('CommentController', function($rootScope, $scope, $http){
   };
 
   loadCommentsByPostId($scope.data.id);
+  // (function tick() {
+  //   $http.get('/api/newsfeed/post/'+$scope.data.id+'/comment/').success(function(commentsData){
+  //     console.log("BRUHX");
+  //     $scope.comments = commentsData;
+  //     $timeout(tick, 1000);
+  //   });
+  // })();
+
 
 	$scope.commentPost = function(postData) {
 		commentData = {

@@ -104,11 +104,16 @@ app.controller('MainController', function($rootScope, $state, user){
 		$state.go('login');
 	}
 });
-app.controller('NotificationController', function($rootScope, $http){
-	$http.get('/api/notification/all/').success(function(data){
-		$rootScope.notifications = data;
-		$rootScope.notificationCount = data.length;
-	});
+app.controller('NotificationController', function($rootScope, $http, $timeout){
+
+	(function tick() {
+		$http.get('/api/notification/all/').success(function(data){
+			console.log("BRUH");
+			$rootScope.notifications = data;
+			$rootScope.notificationCount = data.length;
+			$timeout(tick, 1000);
+		});
+	})();
 
 });
 
