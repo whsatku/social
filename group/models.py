@@ -4,10 +4,17 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 
+class GroupCategory(models.Model):
+    name = models.CharField(max_length=25)
+
+    def __unicode__(self):
+        return "category : {}".format(self.name)
+
+
 class Group(models.Model):
     name = models.CharField(max_length=25)
     type = models.IntegerField(default=0)
-    category = models.CharField(max_length=25)
+    category = models.ForeignKey(GroupCategory, default=0)
     description = models.CharField(max_length=200)
     short_description = models.CharField(max_length=50)
     activities = models.CharField(max_length=200)
@@ -19,6 +26,7 @@ class Group(models.Model):
 
     def __unicode__(self):
         return "group : {}".format(self.name)
+
 
 class GroupMember(models.Model):
     group = models.ForeignKey(Group, default=0)
