@@ -294,12 +294,12 @@ class GroupList(ListAPIView):
 
     It could be accessed at :http:get:`/api/group`"""
     serializer_class = GroupSerializer
-    
+
     def get_queryset(self):
         if not self.request.user.is_authenticated():
             raise NotAuthenticated
 
         return Group.objects.filter(
             groupmember__user=self.request.user,
-            groupmember__role=1
+            groupmember__role__gte=1
         )
