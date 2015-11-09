@@ -21,7 +21,7 @@
 				<li><a href="#" class="notification"><i class="glyphicon glyphicon-user"></i> <span class="count">1</span></a></li>
 				<li><a href="#" class="notification" ng-click="showNotification=!showNotification"><i class="glyphicon glyphicon-globe"></i> <span class="count" ng-bind="notificationCount" ng-if="notificationCount > 0"></span></a></li>
 				<li>
-					<a href="#" ui-sref="root.user.timeline({user: 1})">{{user}} </a>
+					<a href="#" ui-sref="root.user.timeline({user: user.id})">{{user}} </a>
 				</li>
 				<li uib-dropdown>
 					<a href uib-dropdown-toggle>
@@ -43,8 +43,8 @@
 			<div class="col-md-10 col-md-push-2" ui-view></div>
 			<div class="col-md-2 col-md-pull-10 sidebar" ui-view="sidebar">
 				<div class="user row" ui-sref="root.user.timeline({user: 1})">
-					<a href="#" ui-sref="root.user.timeline({user: 1})" class="thumbnail" style="width: 50px; background: red; height: 50px;"></a>
-					<a href="#" ui-sref="root.user.timeline({user: 1})">{{user}}</a>
+					<a  ui-sref="root.user.timeline({user: 3})" class="thumbnail" style="width: 50px; background: red; height: 50px;"></a>
+					<a  ui-sref="root.user.timeline({user: 3})">{{user}}</a>
 				</div>
 				<ul>
 					<li><a ui-sref="root.newsfeed" ui-sref-active="active">News feed</a></li>

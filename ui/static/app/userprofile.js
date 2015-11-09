@@ -9,12 +9,15 @@ app.controller('UserProfileInfoController', function($scope, $http, $location, $
     });
 });
 
-app.controller('AddFriendController', function($scope, $http, $location, $stateParams){
-    var userID = $stateParams.user;
+app.controller('AddFriendController', function($scope, $http, $location, $stateParams, $rootScope){
+    var userId = $rootScope.user.id;
     var otherUserId = $stateParams.user; //bug
+    $http.get('/api/user/'+otherUserId+'/userInfo').success(function(data){
+        $scope.userprofile = data;
+    });
     $scope.addFriend = function(){
-    	$http.post('/api/user/'+ userID + '/addFriend/' + userID ).success(function(data){	
-    		
+    	$http.post('/api/user/'+ userID + '/addFriend/' + userID ).success(function(data){
+
     	})
     }
 });
