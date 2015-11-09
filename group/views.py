@@ -97,8 +97,17 @@ class GroupViewDetail(APIView):
             raise Http404
 
     def get(self, request, group_id=None, format=None):
-
         group_object = self.get_group(group_id)
+
+        if request.user.is_authenticated():
+            group_object.member_status = -1
+
+            try:
+                member_status = group_object.groupmember_set.filter(user=request.user).get()
+                group_object.member_status = member_status.role
+            except GroupMember.DoesNotExist:
+                pass
+
         response = self.serializer_class(group_object)
         return Response(response.data)
 

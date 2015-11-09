@@ -7,3 +7,4 @@ The API root is at ``/api``
    :maxdepth: 4
 
    auth
+   group
