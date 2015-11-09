@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.shortcuts import render
 from rest_framework.response import Response
 from rest_framework.generics import ListCreateAPIView
@@ -54,7 +55,8 @@ class UserInformation (APIView):
         response = self.serializer_class(user_profile_object)
         return Response(response.data)
 
-class FriendShipDetail(APIView):
+class FriendshipDetail(APIView):
+
     def get_user(self, user_profile_id):
         """Get user from user profile's database.
 
@@ -66,7 +68,7 @@ class FriendShipDetail(APIView):
 
         """
         try:
-            return UserProfile.objects.get(id=user_profile_id)
+            return User.objects.get(id=user_profile_id)
         except UserProfile.DoesNotExist:
             raise Http404
 
@@ -76,8 +78,19 @@ class FriendShipDetail(APIView):
     #     return Response(response.data)
 
 
-    def post(self, request, user_profile_id, other_user_id, format=None):
-        user = self.get_user(user_profile_id)
+    def post(self, request, other_user_id, format=None):
+        user = self.get_user(self.request.user.id)
+        print user
         other_user = self.get_user(other_user_id)
+        print other_user
         new_relationship = Friend.objects.add_friend(user, other_user)
         return Response(status=status.HTTP_201_CREATED)
+
+
+class FriendshipPendingViewSet(APIView):
+    serializer_class = FriendShipSerializer
+
+    def get(self, request, format=None):
+        friend_pending = Friend.objects.unread_requests(user=self.request.user)
+        response = self.serializer_class(friend_pending, many=True)
+        return Response(response.data)

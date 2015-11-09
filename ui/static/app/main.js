@@ -100,6 +100,10 @@ app.controller('MainController', function($rootScope, user, $http, $uibModal, $s
     $http.get('/api/group/').success(function(data){
         $rootScope.group_list = data;
     });
+    $http.get('/api/user/friend/pending').success(function(data){
+      $rootScope.pending = data.data;
+      console.log(data);
+    })
     $rootScope.logout = function(){
         var modal = $uibModal.open({
             templateUrl: 'templates/dialog/confirm.html',

@@ -16,7 +16,7 @@ app.controller('AddFriendController', function($scope, $http, $location, $stateP
         $scope.userprofile = data;
     });
     $scope.addFriend = function(){
-    	$http.post('/api/user/'+ userID + '/addFriend/' + userID ).success(function(data){
+    	$http.post('/api/user/addFriend/' + otherUserId ).success(function(data){
 
     	})
     }
