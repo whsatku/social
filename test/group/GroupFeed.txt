@@ -36,50 +36,58 @@ Pre-condition
 Post To Group Feed With Text
     [Arguments]    ${group_id}    ${status}
     go to    http://localhost:8000/static/index.html#/groups/${group_id}/info
-    sleep    2
+    #sleep    2
+    Wait Until Page Contains Element    xpath=//*[@id="rootcontainer"]/div/div[1]/ul/li[1]/a
     Click Element    xpath=//*[@id="rootcontainer"]/div/div[1]/ul/li[1]/a
-    sleep    2
+    #sleep    2
+    Wait Until Page Contains Element    xpath=//*[@id="rootcontainer"]/div/div[1]/div[2]/form/input
     Input Text    xpath=//*[@id="rootcontainer"]/div/div[1]/div[2]/form/textarea    ${status}
     sleep    2
     Click Element    xpath=//*[@id="rootcontainer"]/div/div[1]/div[2]/form/input
-    sleep    2
+    #sleep    2
     Wait Until Page Contains    ${status}     5
 
 Post To Group Feed Without Text
     [Arguments]    ${group_id}    ${status}
     go to    http://localhost:8000/static/index.html#/groups/${group_id}/info
-    sleep    2
-   Click Element    xpath=//*[@id="rootcontainer"]/div/div[1]/ul/li[1]/a
-    sleep    2
+    #sleep    2
+    Wait Until Page Contains Element    xpath=//*[@id="rootcontainer"]/div/div[1]/ul/li[1]/a
+    Click Element    xpath=//*[@id="rootcontainer"]/div/div[1]/ul/li[1]/a
+    #sleep    2
+    Wait Until Page Contains Element    xpath=//*[@id="rootcontainer"]/div/div[1]/div[2]/form/input
     Input Text    xpath=//*[@id="rootcontainer"]/div/div[1]/div[2]/form/textarea    ${status}
     sleep    2
     Click Element    xpath=//*[@id="rootcontainer"]/div/div[1]/div[2]/form/input
-    sleep    2
+    #sleep    2
     Wait Until Page Contains    ${EMPTY}     5
 
 Comment To Group Feed With Text
     [Arguments]    ${group_id}    ${status}
     go to    http://localhost:8000/static/index.html#/groups/${group_id}/info
-    sleep    2
+    #sleep    2
+    Wait Until Page Contains Element    xpath=//*[@id="rootcontainer"]/div/div[1]/ul/li[1]/a
     Click Element    xpath=//*[@id="rootcontainer"]/div/div[1]/ul/li[1]/a
-    sleep    2
+    #sleep    2
+    Wait Until Page Contains Element    xpath=//*[@id="rootcontainer"]/div/div[1]/div[2]/div/div[1]/ul/li/div/form/input[1]
     Input Text    xpath=//*[@id="rootcontainer"]/div/div[1]/div[2]/div/div[1]/ul/li/div/form/input[1]    ${status}
     sleep    2
     Press Key    xpath=//*[@id="rootcontainer"]/div/div[1]/div[2]/div/div[1]/ul/li/div/form/input[1]    \\13
     sleep    2
-    Page Should Contain    ${status}
+    Wait Until Page Contains    ${status}    5
 
 Comment To Group Feed Without Text
-    [Arguments]    ${group_id}    ${status}
+     [Arguments]    ${group_id}    ${status}
     go to    http://localhost:8000/static/index.html#/groups/${group_id}/info
-    sleep    2
+    #sleep    2
+    Wait Until Page Contains Element    xpath=//*[@id="rootcontainer"]/div/div[1]/ul/li[1]/a
     Click Element    xpath=//*[@id="rootcontainer"]/div/div[1]/ul/li[1]/a
-    sleep    2
+    #sleep    2
+    Wait Until Page Contains Element    xpath=//*[@id="rootcontainer"]/div/div[1]/div[2]/div/div[1]/ul/li/div/form/input[1]
     Input Text    xpath=//*[@id="rootcontainer"]/div/div[1]/div[2]/div/div[1]/ul/li/div/form/input[1]    ${status}
     sleep    2
     Press Key    xpath=//*[@id="rootcontainer"]/div/div[1]/div[2]/div/div[1]/ul/li/div/form/input[1]    \\13
     sleep    2
-   Wait Until Page Contains    ${EMPTY}     5
+    Wait Until Page Contains    ${EMPTY}    5
 
 
     
