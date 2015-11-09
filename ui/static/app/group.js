@@ -106,6 +106,12 @@ app.controller('GroupInfoController', function($scope, $http, $location){
     $http.get('/api/group/'+groupID).success(function(data){
         $scope.group = data;
     });
+
+    $http.get('/api/group/'+groupID+'/member/accepted').then(function(data){
+        $scope.memberList = data.data;
+        console.log($scope.memberList)
+    });
+
 });
 
 app.controller('GroupManageController', function($scope, $http, $location){
@@ -158,10 +164,11 @@ app.controller('GroupCategoryController', function($scope, $http, $stateParams){
 
 
 app.controller('CreateGroupController', function($scope, $http, $stateParams){
-    
+
     $scope.gname = "";
     $scope.gdescription = "";
     $scope.gtype = "";
+    $scope.gcategory = 1;
 
     $scope.createGroup = function(){
 
@@ -171,11 +178,12 @@ app.controller('CreateGroupController', function($scope, $http, $stateParams){
             short_description: 'default',
             activities: 'default',
             type: $scope.gtype,
+            category: $scope.gcategory,
 
-            
+
         };
-        
-        
+
+
         $http.post('/api/group/create/' , $scope.newgroup ).success(function(data){});
 
     }
@@ -183,4 +191,3 @@ app.controller('CreateGroupController', function($scope, $http, $stateParams){
 });
 
 })();
-

@@ -33,5 +33,10 @@ class GroupMember(models.Model):
     user = models.ForeignKey(User, default=0)
     role = models.IntegerField()
 
+    def create(self, new_group, new_user):
+        print new_group
+        print new_user
+        self.create(new_group, new_user, 1)
+
     def __unicode__(self):
         return "{}:{}'s profile".format(self.user.username, self.group.name)

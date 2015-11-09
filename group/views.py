@@ -6,6 +6,7 @@ from rest_framework.exceptions import NotAuthenticated
 from rest_framework.exceptions import NotFound
 from rest_framework.views import APIView
 from django.contrib.contenttypes.models import ContentType
+from django.contrib.auth.models import User
 from newsfeed.models import Post
 from newsfeed.models import Comment
 from newsfeed.serializer import GroupPostSerializer
@@ -282,10 +283,11 @@ class CreateGroup(APIView):
     def post(self, request, format=None):
 
         serializer = GroupSerializer(data=request.data)
-
         if serializer.is_valid():
+            print "save"
             # serializer.user = self.request.user
-            serializer.save()
+            this_group = serializer.save()
+            # GroupMember.objects.create(this_group, User.objects.get(id=request.user.id), 1 )
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -294,7 +296,7 @@ class GroupList(ListAPIView):
 
     It could be accessed at :http:get:`/api/group`"""
     serializer_class = GroupSerializer
-    
+
     def get_queryset(self):
         if not self.request.user.is_authenticated():
             raise NotAuthenticated
