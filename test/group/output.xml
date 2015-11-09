@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<robot generated="20151014 09:19:00.906" generator="Robot 2.9.1 (Python 2.7.10 on win32)">
+<robot generated="20151019 21:55:44.984" generator="Robot 2.9.1 (Python 2.7.10 on win32)">
 <suite source="C:\Users\Sompatbu\Desktop\social\test\group\GroupFeed.txt" id="s1" name="GroupFeed">
-<test id="s1-t1" name="TestPostToGroupFeed">
+<test id="s1-t1" name="TestPostToGroupFeed - With Text">
 <kw type="setup" name="Pre-condition">
 <kw name="Open Browser" library="Selenium2Library">
 <doc>Opens a new browser instance to given URL.</doc>
@@ -9,8 +9,8 @@
 <arg>http://localhost:8000/admin</arg>
 <arg>${BROWSER}</arg>
 </arguments>
-<msg timestamp="20151014 09:19:01.131" level="INFO">Opening browser 'ff' to base url 'http://localhost:8000/admin'</msg>
-<status status="PASS" endtime="20151014 09:19:07.799" starttime="20151014 09:19:01.130"></status>
+<msg timestamp="20151019 21:55:45.216" level="INFO">Opening browser 'ff' to base url 'http://localhost:8000/admin'</msg>
+<status status="PASS" endtime="20151019 21:55:56.142" starttime="20151019 21:55:45.215"></status>
 </kw>
 <kw name="Input Text" library="Selenium2Library">
 <doc>Types the given `text` into text field identified by `locator`.</doc>
@@ -18,8 +18,8 @@
 <arg>//*[@id="id_username"]</arg>
 <arg>best</arg>
 </arguments>
-<msg timestamp="20151014 09:19:07.801" level="INFO">Typing text 'best' into text field '//*[@id="id_username"]'</msg>
-<status status="PASS" endtime="20151014 09:19:07.912" starttime="20151014 09:19:07.800"></status>
+<msg timestamp="20151019 21:55:56.144" level="INFO">Typing text 'best' into text field '//*[@id="id_username"]'</msg>
+<status status="PASS" endtime="20151019 21:55:56.372" starttime="20151019 21:55:56.143"></status>
 </kw>
 <kw name="Input Text" library="Selenium2Library">
 <doc>Types the given `text` into text field identified by `locator`.</doc>
@@ -27,44 +27,44 @@
 <arg>//*[@id="id_password"]</arg>
 <arg>123</arg>
 </arguments>
-<msg timestamp="20151014 09:19:07.914" level="INFO">Typing text '123' into text field '//*[@id="id_password"]'</msg>
-<status status="PASS" endtime="20151014 09:19:07.975" starttime="20151014 09:19:07.913"></status>
+<msg timestamp="20151019 21:55:56.374" level="INFO">Typing text '123' into text field '//*[@id="id_password"]'</msg>
+<status status="PASS" endtime="20151019 21:55:57.249" starttime="20151019 21:55:56.372"></status>
 </kw>
 <kw name="Click Element" library="Selenium2Library">
 <doc>Click element identified by `locator`.</doc>
 <arguments>
 <arg>//*[@id="login-form"]/div[3]/input</arg>
 </arguments>
-<msg timestamp="20151014 09:19:07.978" level="INFO">Clicking element '//*[@id="login-form"]/div[3]/input'.</msg>
-<status status="PASS" endtime="20151014 09:19:12.737" starttime="20151014 09:19:07.976"></status>
+<msg timestamp="20151019 21:55:57.251" level="INFO">Clicking element '//*[@id="login-form"]/div[3]/input'.</msg>
+<status status="PASS" endtime="20151019 21:56:02.163" starttime="20151019 21:55:57.250"></status>
 </kw>
 <kw name="Sleep" library="BuiltIn">
 <doc>Pauses the test executed for the given time.</doc>
 <arguments>
 <arg>1</arg>
 </arguments>
-<msg timestamp="20151014 09:19:13.739" level="INFO">Slept 1 second</msg>
-<status status="PASS" endtime="20151014 09:19:13.739" starttime="20151014 09:19:12.738"></status>
+<msg timestamp="20151019 21:56:03.164" level="INFO">Slept 1 second</msg>
+<status status="PASS" endtime="20151019 21:56:03.164" starttime="20151019 21:56:02.163"></status>
 </kw>
 <kw name="Go To" library="Selenium2Library">
 <doc>Navigates the active browser instance to the provided URL.</doc>
 <arguments>
 <arg>http://localhost:8000/static/index.html#/</arg>
 </arguments>
-<msg timestamp="20151014 09:19:13.741" level="INFO">Opening url 'http://localhost:8000/static/index.html#/'</msg>
-<status status="PASS" endtime="20151014 09:19:13.808" starttime="20151014 09:19:13.740"></status>
+<msg timestamp="20151019 21:56:03.166" level="INFO">Opening url 'http://localhost:8000/static/index.html#/'</msg>
+<status status="PASS" endtime="20151019 21:56:03.238" starttime="20151019 21:56:03.165"></status>
 </kw>
 <kw name="Sleep" library="BuiltIn">
 <doc>Pauses the test executed for the given time.</doc>
 <arguments>
 <arg>2</arg>
 </arguments>
-<msg timestamp="20151014 09:19:15.809" level="INFO">Slept 2 seconds</msg>
-<status status="PASS" endtime="20151014 09:19:15.809" starttime="20151014 09:19:13.808"></status>
+<msg timestamp="20151019 21:56:05.241" level="INFO">Slept 2 seconds</msg>
+<status status="PASS" endtime="20151019 21:56:05.242" starttime="20151019 21:56:03.239"></status>
 </kw>
-<status status="PASS" endtime="20151014 09:19:15.810" starttime="20151014 09:19:01.128"></status>
+<status status="PASS" endtime="20151019 21:56:05.243" starttime="20151019 21:55:45.214"></status>
 </kw>
-<kw name="Post To Group Feed">
+<kw name="Post To Group Feed With Text">
 <arguments>
 <arg>1</arg>
 <arg>Test</arg>
@@ -74,32 +74,32 @@
 <arguments>
 <arg>http://localhost:8000/static/index.html#/groups/${group_id}/info</arg>
 </arguments>
-<msg timestamp="20151014 09:19:15.812" level="INFO">Opening url 'http://localhost:8000/static/index.html#/groups/1/info'</msg>
-<status status="PASS" endtime="20151014 09:19:15.850" starttime="20151014 09:19:15.812"></status>
+<msg timestamp="20151019 21:56:05.248" level="INFO">Opening url 'http://localhost:8000/static/index.html#/groups/1/info'</msg>
+<status status="PASS" endtime="20151019 21:56:07.811" starttime="20151019 21:56:05.246"></status>
 </kw>
 <kw name="Sleep" library="BuiltIn">
 <doc>Pauses the test executed for the given time.</doc>
 <arguments>
 <arg>2</arg>
 </arguments>
-<msg timestamp="20151014 09:19:17.851" level="INFO">Slept 2 seconds</msg>
-<status status="PASS" endtime="20151014 09:19:17.852" starttime="20151014 09:19:15.850"></status>
+<msg timestamp="20151019 21:56:09.813" level="INFO">Slept 2 seconds</msg>
+<status status="PASS" endtime="20151019 21:56:09.814" starttime="20151019 21:56:07.812"></status>
 </kw>
 <kw name="Click Element" library="Selenium2Library">
 <doc>Click element identified by `locator`.</doc>
 <arguments>
 <arg>xpath=//*[@id="rootcontainer"]/div/div[1]/ul/li[1]/a</arg>
 </arguments>
-<msg timestamp="20151014 09:19:17.854" level="INFO">Clicking element 'xpath=//*[@id="rootcontainer"]/div/div[1]/ul/li[1]/a'.</msg>
-<status status="PASS" endtime="20151014 09:19:17.990" starttime="20151014 09:19:17.852"></status>
+<msg timestamp="20151019 21:56:09.816" level="INFO">Clicking element 'xpath=//*[@id="rootcontainer"]/div/div[1]/ul/li[1]/a'.</msg>
+<status status="PASS" endtime="20151019 21:56:09.915" starttime="20151019 21:56:09.815"></status>
 </kw>
 <kw name="Sleep" library="BuiltIn">
 <doc>Pauses the test executed for the given time.</doc>
 <arguments>
 <arg>2</arg>
 </arguments>
-<msg timestamp="20151014 09:19:19.992" level="INFO">Slept 2 seconds</msg>
-<status status="PASS" endtime="20151014 09:19:19.992" starttime="20151014 09:19:17.991"></status>
+<msg timestamp="20151019 21:56:11.917" level="INFO">Slept 2 seconds</msg>
+<status status="PASS" endtime="20151019 21:56:11.918" starttime="20151019 21:56:09.915"></status>
 </kw>
 <kw name="Input Text" library="Selenium2Library">
 <doc>Types the given `text` into text field identified by `locator`.</doc>
@@ -107,50 +107,50 @@
 <arg>xpath=//*[@id="rootcontainer"]/div/div[1]/div[2]/form/textarea</arg>
 <arg>${status}</arg>
 </arguments>
-<msg timestamp="20151014 09:19:19.994" level="INFO">Typing text 'Test' into text field 'xpath=//*[@id="rootcontainer"]/div/div[1]/div[2]/form/textarea'</msg>
-<status status="PASS" endtime="20151014 09:19:20.055" starttime="20151014 09:19:19.993"></status>
+<msg timestamp="20151019 21:56:11.920" level="INFO">Typing text 'Test' into text field 'xpath=//*[@id="rootcontainer"]/div/div[1]/div[2]/form/textarea'</msg>
+<status status="PASS" endtime="20151019 21:56:12.040" starttime="20151019 21:56:11.918"></status>
 </kw>
 <kw name="Sleep" library="BuiltIn">
 <doc>Pauses the test executed for the given time.</doc>
 <arguments>
 <arg>2</arg>
 </arguments>
-<msg timestamp="20151014 09:19:22.056" level="INFO">Slept 2 seconds</msg>
-<status status="PASS" endtime="20151014 09:19:22.056" starttime="20151014 09:19:20.055"></status>
+<msg timestamp="20151019 21:56:14.042" level="INFO">Slept 2 seconds</msg>
+<status status="PASS" endtime="20151019 21:56:14.043" starttime="20151019 21:56:12.041"></status>
 </kw>
 <kw name="Click Element" library="Selenium2Library">
 <doc>Click element identified by `locator`.</doc>
 <arguments>
 <arg>xpath=//*[@id="rootcontainer"]/div/div[1]/div[2]/form/input</arg>
 </arguments>
-<msg timestamp="20151014 09:19:22.058" level="INFO">Clicking element 'xpath=//*[@id="rootcontainer"]/div/div[1]/div[2]/form/input'.</msg>
-<status status="PASS" endtime="20151014 09:19:22.125" starttime="20151014 09:19:22.057"></status>
+<msg timestamp="20151019 21:56:14.045" level="INFO">Clicking element 'xpath=//*[@id="rootcontainer"]/div/div[1]/div[2]/form/input'.</msg>
+<status status="PASS" endtime="20151019 21:56:14.179" starttime="20151019 21:56:14.044"></status>
 </kw>
 <kw name="Sleep" library="BuiltIn">
 <doc>Pauses the test executed for the given time.</doc>
 <arguments>
 <arg>2</arg>
 </arguments>
-<msg timestamp="20151014 09:19:24.126" level="INFO">Slept 2 seconds</msg>
-<status status="PASS" endtime="20151014 09:19:24.126" starttime="20151014 09:19:22.126"></status>
+<msg timestamp="20151019 21:56:16.182" level="INFO">Slept 2 seconds</msg>
+<status status="PASS" endtime="20151019 21:56:16.182" starttime="20151019 21:56:14.180"></status>
 </kw>
-<kw name="Page Should Contain" library="Selenium2Library">
-<doc>Verifies that current page contains `text`.</doc>
+<kw name="Wait Until Page Contains" library="Selenium2Library">
+<doc>Waits until `text` appears on current page.</doc>
 <arguments>
 <arg>${status}</arg>
+<arg>5</arg>
 </arguments>
-<msg timestamp="20151014 09:19:24.147" level="INFO">Current page contains text 'Test'.</msg>
-<status status="PASS" endtime="20151014 09:19:24.147" starttime="20151014 09:19:24.127"></status>
+<status status="PASS" endtime="20151019 21:56:16.209" starttime="20151019 21:56:16.183"></status>
 </kw>
-<status status="PASS" endtime="20151014 09:19:24.148" starttime="20151014 09:19:15.811"></status>
+<status status="PASS" endtime="20151019 21:56:16.210" starttime="20151019 21:56:05.244"></status>
 </kw>
 <kw type="teardown" name="Close Browser" library="Selenium2Library">
 <doc>Closes the current browser.</doc>
-<status status="PASS" endtime="20151014 09:19:24.237" starttime="20151014 09:19:24.149"></status>
+<status status="PASS" endtime="20151019 21:56:16.497" starttime="20151019 21:56:16.211"></status>
 </kw>
-<status status="PASS" endtime="20151014 09:19:24.238" critical="yes" starttime="20151014 09:19:01.126"></status>
+<status status="PASS" endtime="20151019 21:56:16.498" critical="yes" starttime="20151019 21:55:45.212"></status>
 </test>
-<test id="s1-t2" name="TestCommentToGroupFeed">
+<test id="s1-t2" name="TestPostToGroupFeed - Without Text">
 <kw type="setup" name="Pre-condition">
 <kw name="Open Browser" library="Selenium2Library">
 <doc>Opens a new browser instance to given URL.</doc>
@@ -158,8 +158,8 @@
 <arg>http://localhost:8000/admin</arg>
 <arg>${BROWSER}</arg>
 </arguments>
-<msg timestamp="20151014 09:19:24.246" level="INFO">Opening browser 'ff' to base url 'http://localhost:8000/admin'</msg>
-<status status="PASS" endtime="20151014 09:19:31.311" starttime="20151014 09:19:24.244"></status>
+<msg timestamp="20151019 21:56:16.503" level="INFO">Opening browser 'ff' to base url 'http://localhost:8000/admin'</msg>
+<status status="PASS" endtime="20151019 21:56:38.445" starttime="20151019 21:56:16.502"></status>
 </kw>
 <kw name="Input Text" library="Selenium2Library">
 <doc>Types the given `text` into text field identified by `locator`.</doc>
@@ -167,8 +167,8 @@
 <arg>//*[@id="id_username"]</arg>
 <arg>best</arg>
 </arguments>
-<msg timestamp="20151014 09:19:31.314" level="INFO">Typing text 'best' into text field '//*[@id="id_username"]'</msg>
-<status status="PASS" endtime="20151014 09:19:31.452" starttime="20151014 09:19:31.313"></status>
+<msg timestamp="20151019 21:56:38.447" level="INFO">Typing text 'best' into text field '//*[@id="id_username"]'</msg>
+<status status="PASS" endtime="20151019 21:56:38.736" starttime="20151019 21:56:38.446"></status>
 </kw>
 <kw name="Input Text" library="Selenium2Library">
 <doc>Types the given `text` into text field identified by `locator`.</doc>
@@ -176,44 +176,193 @@
 <arg>//*[@id="id_password"]</arg>
 <arg>123</arg>
 </arguments>
-<msg timestamp="20151014 09:19:31.454" level="INFO">Typing text '123' into text field '//*[@id="id_password"]'</msg>
-<status status="PASS" endtime="20151014 09:19:31.522" starttime="20151014 09:19:31.452"></status>
+<msg timestamp="20151019 21:56:38.738" level="INFO">Typing text '123' into text field '//*[@id="id_password"]'</msg>
+<status status="PASS" endtime="20151019 21:56:38.805" starttime="20151019 21:56:38.737"></status>
 </kw>
 <kw name="Click Element" library="Selenium2Library">
 <doc>Click element identified by `locator`.</doc>
 <arguments>
 <arg>//*[@id="login-form"]/div[3]/input</arg>
 </arguments>
-<msg timestamp="20151014 09:19:31.525" level="INFO">Clicking element '//*[@id="login-form"]/div[3]/input'.</msg>
-<status status="PASS" endtime="20151014 09:19:36.331" starttime="20151014 09:19:31.523"></status>
+<msg timestamp="20151019 21:56:38.807" level="INFO">Clicking element '//*[@id="login-form"]/div[3]/input'.</msg>
+<status status="PASS" endtime="20151019 21:56:48.308" starttime="20151019 21:56:38.806"></status>
 </kw>
 <kw name="Sleep" library="BuiltIn">
 <doc>Pauses the test executed for the given time.</doc>
 <arguments>
 <arg>1</arg>
 </arguments>
-<msg timestamp="20151014 09:19:37.333" level="INFO">Slept 1 second</msg>
-<status status="PASS" endtime="20151014 09:19:37.333" starttime="20151014 09:19:36.332"></status>
+<msg timestamp="20151019 21:56:49.310" level="INFO">Slept 1 second</msg>
+<status status="PASS" endtime="20151019 21:56:49.311" starttime="20151019 21:56:48.309"></status>
 </kw>
 <kw name="Go To" library="Selenium2Library">
 <doc>Navigates the active browser instance to the provided URL.</doc>
 <arguments>
 <arg>http://localhost:8000/static/index.html#/</arg>
 </arguments>
-<msg timestamp="20151014 09:19:37.335" level="INFO">Opening url 'http://localhost:8000/static/index.html#/'</msg>
-<status status="PASS" endtime="20151014 09:19:37.427" starttime="20151014 09:19:37.334"></status>
+<msg timestamp="20151019 21:56:49.313" level="INFO">Opening url 'http://localhost:8000/static/index.html#/'</msg>
+<status status="PASS" endtime="20151019 21:56:49.377" starttime="20151019 21:56:49.312"></status>
 </kw>
 <kw name="Sleep" library="BuiltIn">
 <doc>Pauses the test executed for the given time.</doc>
 <arguments>
 <arg>2</arg>
 </arguments>
-<msg timestamp="20151014 09:19:39.430" level="INFO">Slept 2 seconds</msg>
-<status status="PASS" endtime="20151014 09:19:39.430" starttime="20151014 09:19:37.428"></status>
+<msg timestamp="20151019 21:56:51.381" level="INFO">Slept 2 seconds</msg>
+<status status="PASS" endtime="20151019 21:56:51.382" starttime="20151019 21:56:49.379"></status>
 </kw>
-<status status="PASS" endtime="20151014 09:19:39.431" starttime="20151014 09:19:24.243"></status>
+<status status="PASS" endtime="20151019 21:56:51.383" starttime="20151019 21:56:16.501"></status>
 </kw>
-<kw name="Comment To Group Feed">
+<kw name="Post To Group Feed Without Text">
+<arguments>
+<arg>1</arg>
+<arg>${EMPTY}</arg>
+</arguments>
+<kw name="Go To" library="Selenium2Library">
+<doc>Navigates the active browser instance to the provided URL.</doc>
+<arguments>
+<arg>http://localhost:8000/static/index.html#/groups/${group_id}/info</arg>
+</arguments>
+<msg timestamp="20151019 21:56:51.386" level="INFO">Opening url 'http://localhost:8000/static/index.html#/groups/1/info'</msg>
+<status status="PASS" endtime="20151019 21:56:53.929" starttime="20151019 21:56:51.385"></status>
+</kw>
+<kw name="Sleep" library="BuiltIn">
+<doc>Pauses the test executed for the given time.</doc>
+<arguments>
+<arg>2</arg>
+</arguments>
+<msg timestamp="20151019 21:56:55.931" level="INFO">Slept 2 seconds</msg>
+<status status="PASS" endtime="20151019 21:56:55.931" starttime="20151019 21:56:53.930"></status>
+</kw>
+<kw name="Click Element" library="Selenium2Library">
+<doc>Click element identified by `locator`.</doc>
+<arguments>
+<arg>xpath=//*[@id="rootcontainer"]/div/div[1]/ul/li[1]/a</arg>
+</arguments>
+<msg timestamp="20151019 21:56:55.933" level="INFO">Clicking element 'xpath=//*[@id="rootcontainer"]/div/div[1]/ul/li[1]/a'.</msg>
+<status status="PASS" endtime="20151019 21:56:56.087" starttime="20151019 21:56:55.932"></status>
+</kw>
+<kw name="Sleep" library="BuiltIn">
+<doc>Pauses the test executed for the given time.</doc>
+<arguments>
+<arg>2</arg>
+</arguments>
+<msg timestamp="20151019 21:56:58.089" level="INFO">Slept 2 seconds</msg>
+<status status="PASS" endtime="20151019 21:56:58.089" starttime="20151019 21:56:56.088"></status>
+</kw>
+<kw name="Input Text" library="Selenium2Library">
+<doc>Types the given `text` into text field identified by `locator`.</doc>
+<arguments>
+<arg>xpath=//*[@id="rootcontainer"]/div/div[1]/div[2]/form/textarea</arg>
+<arg>${status}</arg>
+</arguments>
+<msg timestamp="20151019 21:56:58.091" level="INFO">Typing text '' into text field 'xpath=//*[@id="rootcontainer"]/div/div[1]/div[2]/form/textarea'</msg>
+<status status="PASS" endtime="20151019 21:56:58.163" starttime="20151019 21:56:58.090"></status>
+</kw>
+<kw name="Sleep" library="BuiltIn">
+<doc>Pauses the test executed for the given time.</doc>
+<arguments>
+<arg>2</arg>
+</arguments>
+<msg timestamp="20151019 21:57:00.165" level="INFO">Slept 2 seconds</msg>
+<status status="PASS" endtime="20151019 21:57:00.166" starttime="20151019 21:56:58.164"></status>
+</kw>
+<kw name="Click Element" library="Selenium2Library">
+<doc>Click element identified by `locator`.</doc>
+<arguments>
+<arg>xpath=//*[@id="rootcontainer"]/div/div[1]/div[2]/form/input</arg>
+</arguments>
+<msg timestamp="20151019 21:57:00.168" level="INFO">Clicking element 'xpath=//*[@id="rootcontainer"]/div/div[1]/div[2]/form/input'.</msg>
+<status status="PASS" endtime="20151019 21:57:00.284" starttime="20151019 21:57:00.167"></status>
+</kw>
+<kw name="Sleep" library="BuiltIn">
+<doc>Pauses the test executed for the given time.</doc>
+<arguments>
+<arg>2</arg>
+</arguments>
+<msg timestamp="20151019 21:57:02.286" level="INFO">Slept 2 seconds</msg>
+<status status="PASS" endtime="20151019 21:57:02.286" starttime="20151019 21:57:00.285"></status>
+</kw>
+<kw name="Wait Until Page Contains" library="Selenium2Library">
+<doc>Waits until `text` appears on current page.</doc>
+<arguments>
+<arg>${EMPTY}</arg>
+<arg>5</arg>
+</arguments>
+<status status="PASS" endtime="20151019 21:57:02.414" starttime="20151019 21:57:02.287"></status>
+</kw>
+<status status="PASS" endtime="20151019 21:57:02.415" starttime="20151019 21:56:51.383"></status>
+</kw>
+<kw type="teardown" name="Close Browser" library="Selenium2Library">
+<doc>Closes the current browser.</doc>
+<status status="PASS" endtime="20151019 21:57:02.511" starttime="20151019 21:57:02.416"></status>
+</kw>
+<status status="PASS" endtime="20151019 21:57:02.511" critical="yes" starttime="20151019 21:56:16.500"></status>
+</test>
+<test id="s1-t3" name="TestCommentToGroupFeed - With Text">
+<kw type="setup" name="Pre-condition">
+<kw name="Open Browser" library="Selenium2Library">
+<doc>Opens a new browser instance to given URL.</doc>
+<arguments>
+<arg>http://localhost:8000/admin</arg>
+<arg>${BROWSER}</arg>
+</arguments>
+<msg timestamp="20151019 21:57:02.517" level="INFO">Opening browser 'ff' to base url 'http://localhost:8000/admin'</msg>
+<status status="PASS" endtime="20151019 21:57:10.402" starttime="20151019 21:57:02.516"></status>
+</kw>
+<kw name="Input Text" library="Selenium2Library">
+<doc>Types the given `text` into text field identified by `locator`.</doc>
+<arguments>
+<arg>//*[@id="id_username"]</arg>
+<arg>best</arg>
+</arguments>
+<msg timestamp="20151019 21:57:10.404" level="INFO">Typing text 'best' into text field '//*[@id="id_username"]'</msg>
+<status status="PASS" endtime="20151019 21:57:10.580" starttime="20151019 21:57:10.403"></status>
+</kw>
+<kw name="Input Text" library="Selenium2Library">
+<doc>Types the given `text` into text field identified by `locator`.</doc>
+<arguments>
+<arg>//*[@id="id_password"]</arg>
+<arg>123</arg>
+</arguments>
+<msg timestamp="20151019 21:57:10.583" level="INFO">Typing text '123' into text field '//*[@id="id_password"]'</msg>
+<status status="PASS" endtime="20151019 21:57:10.637" starttime="20151019 21:57:10.582"></status>
+</kw>
+<kw name="Click Element" library="Selenium2Library">
+<doc>Click element identified by `locator`.</doc>
+<arguments>
+<arg>//*[@id="login-form"]/div[3]/input</arg>
+</arguments>
+<msg timestamp="20151019 21:57:10.639" level="INFO">Clicking element '//*[@id="login-form"]/div[3]/input'.</msg>
+<status status="PASS" endtime="20151019 21:57:15.869" starttime="20151019 21:57:10.638"></status>
+</kw>
+<kw name="Sleep" library="BuiltIn">
+<doc>Pauses the test executed for the given time.</doc>
+<arguments>
+<arg>1</arg>
+</arguments>
+<msg timestamp="20151019 21:57:16.871" level="INFO">Slept 1 second</msg>
+<status status="PASS" endtime="20151019 21:57:16.872" starttime="20151019 21:57:15.870"></status>
+</kw>
+<kw name="Go To" library="Selenium2Library">
+<doc>Navigates the active browser instance to the provided URL.</doc>
+<arguments>
+<arg>http://localhost:8000/static/index.html#/</arg>
+</arguments>
+<msg timestamp="20151019 21:57:16.874" level="INFO">Opening url 'http://localhost:8000/static/index.html#/'</msg>
+<status status="PASS" endtime="20151019 21:57:16.968" starttime="20151019 21:57:16.873"></status>
+</kw>
+<kw name="Sleep" library="BuiltIn">
+<doc>Pauses the test executed for the given time.</doc>
+<arguments>
+<arg>2</arg>
+</arguments>
+<msg timestamp="20151019 21:57:18.970" level="INFO">Slept 2 seconds</msg>
+<status status="PASS" endtime="20151019 21:57:18.971" starttime="20151019 21:57:16.969"></status>
+</kw>
+<status status="PASS" endtime="20151019 21:57:18.972" starttime="20151019 21:57:02.514"></status>
+</kw>
+<kw name="Comment To Group Feed With Text">
 <arguments>
 <arg>1</arg>
 <arg>Wow</arg>
@@ -223,32 +372,32 @@
 <arguments>
 <arg>http://localhost:8000/static/index.html#/groups/${group_id}/info</arg>
 </arguments>
-<msg timestamp="20151014 09:19:39.435" level="INFO">Opening url 'http://localhost:8000/static/index.html#/groups/1/info'</msg>
-<status status="PASS" endtime="20151014 09:19:39.525" starttime="20151014 09:19:39.434"></status>
+<msg timestamp="20151019 21:57:18.976" level="INFO">Opening url 'http://localhost:8000/static/index.html#/groups/1/info'</msg>
+<status status="PASS" endtime="20151019 21:57:21.878" starttime="20151019 21:57:18.975"></status>
 </kw>
 <kw name="Sleep" library="BuiltIn">
 <doc>Pauses the test executed for the given time.</doc>
 <arguments>
 <arg>2</arg>
 </arguments>
-<msg timestamp="20151014 09:19:41.527" level="INFO">Slept 2 seconds</msg>
-<status status="PASS" endtime="20151014 09:19:41.528" starttime="20151014 09:19:39.526"></status>
+<msg timestamp="20151019 21:57:23.881" level="INFO">Slept 2 seconds</msg>
+<status status="PASS" endtime="20151019 21:57:23.882" starttime="20151019 21:57:21.879"></status>
 </kw>
 <kw name="Click Element" library="Selenium2Library">
 <doc>Click element identified by `locator`.</doc>
 <arguments>
 <arg>xpath=//*[@id="rootcontainer"]/div/div[1]/ul/li[1]/a</arg>
 </arguments>
-<msg timestamp="20151014 09:19:41.529" level="INFO">Clicking element 'xpath=//*[@id="rootcontainer"]/div/div[1]/ul/li[1]/a'.</msg>
-<status status="PASS" endtime="20151014 09:19:41.648" starttime="20151014 09:19:41.528"></status>
+<msg timestamp="20151019 21:57:23.884" level="INFO">Clicking element 'xpath=//*[@id="rootcontainer"]/div/div[1]/ul/li[1]/a'.</msg>
+<status status="PASS" endtime="20151019 21:57:24.044" starttime="20151019 21:57:23.883"></status>
 </kw>
 <kw name="Sleep" library="BuiltIn">
 <doc>Pauses the test executed for the given time.</doc>
 <arguments>
 <arg>2</arg>
 </arguments>
-<msg timestamp="20151014 09:19:43.651" level="INFO">Slept 2 seconds</msg>
-<status status="PASS" endtime="20151014 09:19:43.651" starttime="20151014 09:19:41.649"></status>
+<msg timestamp="20151019 21:57:26.047" level="INFO">Slept 2 seconds</msg>
+<status status="PASS" endtime="20151019 21:57:26.048" starttime="20151019 21:57:24.045"></status>
 </kw>
 <kw name="Input Text" library="Selenium2Library">
 <doc>Types the given `text` into text field identified by `locator`.</doc>
@@ -256,16 +405,16 @@
 <arg>xpath=//*[@id="rootcontainer"]/div/div[1]/div[2]/div/div[1]/ul/li/div/form/input[1]</arg>
 <arg>${status}</arg>
 </arguments>
-<msg timestamp="20151014 09:19:43.652" level="INFO">Typing text 'Wow' into text field 'xpath=//*[@id="rootcontainer"]/div/div[1]/div[2]/div/div[1]/ul/li/div/form/input[1]'</msg>
-<status status="PASS" endtime="20151014 09:19:43.721" starttime="20151014 09:19:43.652"></status>
+<msg timestamp="20151019 21:57:26.049" level="INFO">Typing text 'Wow' into text field 'xpath=//*[@id="rootcontainer"]/div/div[1]/div[2]/div/div[1]/ul/li/div/form/input[1]'</msg>
+<status status="PASS" endtime="20151019 21:57:26.154" starttime="20151019 21:57:26.048"></status>
 </kw>
 <kw name="Sleep" library="BuiltIn">
 <doc>Pauses the test executed for the given time.</doc>
 <arguments>
 <arg>2</arg>
 </arguments>
-<msg timestamp="20151014 09:19:45.722" level="INFO">Slept 2 seconds</msg>
-<status status="PASS" endtime="20151014 09:19:45.723" starttime="20151014 09:19:43.721"></status>
+<msg timestamp="20151019 21:57:28.155" level="INFO">Slept 2 seconds</msg>
+<status status="PASS" endtime="20151019 21:57:28.155" starttime="20151019 21:57:26.154"></status>
 </kw>
 <kw name="Press Key" library="Selenium2Library">
 <doc>Simulates user pressing key on element identified by `locator`.</doc>
@@ -273,43 +422,192 @@
 <arg>xpath=//*[@id="rootcontainer"]/div/div[1]/div[2]/div/div[1]/ul/li/div/form/input[1]</arg>
 <arg>\\13</arg>
 </arguments>
-<status status="PASS" endtime="20151014 09:19:45.785" starttime="20151014 09:19:45.723"></status>
+<status status="PASS" endtime="20151019 21:57:28.256" starttime="20151019 21:57:28.156"></status>
 </kw>
 <kw name="Sleep" library="BuiltIn">
 <doc>Pauses the test executed for the given time.</doc>
 <arguments>
 <arg>2</arg>
 </arguments>
-<msg timestamp="20151014 09:19:47.787" level="INFO">Slept 2 seconds</msg>
-<status status="PASS" endtime="20151014 09:19:47.787" starttime="20151014 09:19:45.786"></status>
+<msg timestamp="20151019 21:57:30.258" level="INFO">Slept 2 seconds</msg>
+<status status="PASS" endtime="20151019 21:57:30.259" starttime="20151019 21:57:28.257"></status>
 </kw>
 <kw name="Page Should Contain" library="Selenium2Library">
 <doc>Verifies that current page contains `text`.</doc>
 <arguments>
 <arg>${status}</arg>
 </arguments>
-<msg timestamp="20151014 09:19:47.813" level="INFO">Current page contains text 'Wow'.</msg>
-<status status="PASS" endtime="20151014 09:19:47.813" starttime="20151014 09:19:47.788"></status>
+<msg timestamp="20151019 21:57:30.294" level="INFO">Current page contains text 'Wow'.</msg>
+<status status="PASS" endtime="20151019 21:57:30.295" starttime="20151019 21:57:30.259"></status>
 </kw>
-<status status="PASS" endtime="20151014 09:19:47.814" starttime="20151014 09:19:39.432"></status>
+<status status="PASS" endtime="20151019 21:57:30.296" starttime="20151019 21:57:18.973"></status>
 </kw>
 <kw type="teardown" name="Close Browser" library="Selenium2Library">
 <doc>Closes the current browser.</doc>
-<status status="PASS" endtime="20151014 09:19:47.906" starttime="20151014 09:19:47.815"></status>
+<status status="PASS" endtime="20151019 21:57:30.387" starttime="20151019 21:57:30.297"></status>
 </kw>
-<status status="PASS" endtime="20151014 09:19:47.909" critical="yes" starttime="20151014 09:19:24.241"></status>
+<status status="PASS" endtime="20151019 21:57:30.388" critical="yes" starttime="20151019 21:57:02.514"></status>
 </test>
-<status status="PASS" endtime="20151014 09:19:47.912" starttime="20151014 09:19:00.909"></status>
+<test id="s1-t4" name="TestCommentToGroupFeed - Without Text">
+<kw type="setup" name="Pre-condition">
+<kw name="Open Browser" library="Selenium2Library">
+<doc>Opens a new browser instance to given URL.</doc>
+<arguments>
+<arg>http://localhost:8000/admin</arg>
+<arg>${BROWSER}</arg>
+</arguments>
+<msg timestamp="20151019 21:57:30.394" level="INFO">Opening browser 'ff' to base url 'http://localhost:8000/admin'</msg>
+<status status="PASS" endtime="20151019 21:57:38.453" starttime="20151019 21:57:30.393"></status>
+</kw>
+<kw name="Input Text" library="Selenium2Library">
+<doc>Types the given `text` into text field identified by `locator`.</doc>
+<arguments>
+<arg>//*[@id="id_username"]</arg>
+<arg>best</arg>
+</arguments>
+<msg timestamp="20151019 21:57:38.455" level="INFO">Typing text 'best' into text field '//*[@id="id_username"]'</msg>
+<status status="PASS" endtime="20151019 21:57:38.756" starttime="20151019 21:57:38.454"></status>
+</kw>
+<kw name="Input Text" library="Selenium2Library">
+<doc>Types the given `text` into text field identified by `locator`.</doc>
+<arguments>
+<arg>//*[@id="id_password"]</arg>
+<arg>123</arg>
+</arguments>
+<msg timestamp="20151019 21:57:38.758" level="INFO">Typing text '123' into text field '//*[@id="id_password"]'</msg>
+<status status="PASS" endtime="20151019 21:57:38.830" starttime="20151019 21:57:38.757"></status>
+</kw>
+<kw name="Click Element" library="Selenium2Library">
+<doc>Click element identified by `locator`.</doc>
+<arguments>
+<arg>//*[@id="login-form"]/div[3]/input</arg>
+</arguments>
+<msg timestamp="20151019 21:57:38.833" level="INFO">Clicking element '//*[@id="login-form"]/div[3]/input'.</msg>
+<status status="PASS" endtime="20151019 21:57:43.940" starttime="20151019 21:57:38.831"></status>
+</kw>
+<kw name="Sleep" library="BuiltIn">
+<doc>Pauses the test executed for the given time.</doc>
+<arguments>
+<arg>1</arg>
+</arguments>
+<msg timestamp="20151019 21:57:44.943" level="INFO">Slept 1 second</msg>
+<status status="PASS" endtime="20151019 21:57:44.944" starttime="20151019 21:57:43.941"></status>
+</kw>
+<kw name="Go To" library="Selenium2Library">
+<doc>Navigates the active browser instance to the provided URL.</doc>
+<arguments>
+<arg>http://localhost:8000/static/index.html#/</arg>
+</arguments>
+<msg timestamp="20151019 21:57:44.946" level="INFO">Opening url 'http://localhost:8000/static/index.html#/'</msg>
+<status status="PASS" endtime="20151019 21:57:45.045" starttime="20151019 21:57:44.945"></status>
+</kw>
+<kw name="Sleep" library="BuiltIn">
+<doc>Pauses the test executed for the given time.</doc>
+<arguments>
+<arg>2</arg>
+</arguments>
+<msg timestamp="20151019 21:57:47.047" level="INFO">Slept 2 seconds</msg>
+<status status="PASS" endtime="20151019 21:57:47.048" starttime="20151019 21:57:45.046"></status>
+</kw>
+<status status="PASS" endtime="20151019 21:57:47.049" starttime="20151019 21:57:30.392"></status>
+</kw>
+<kw name="Comment To Group Feed Without Text">
+<arguments>
+<arg>1</arg>
+<arg>${EMPTY}</arg>
+</arguments>
+<kw name="Go To" library="Selenium2Library">
+<doc>Navigates the active browser instance to the provided URL.</doc>
+<arguments>
+<arg>http://localhost:8000/static/index.html#/groups/${group_id}/info</arg>
+</arguments>
+<msg timestamp="20151019 21:57:47.053" level="INFO">Opening url 'http://localhost:8000/static/index.html#/groups/1/info'</msg>
+<status status="PASS" endtime="20151019 21:57:50.067" starttime="20151019 21:57:47.052"></status>
+</kw>
+<kw name="Sleep" library="BuiltIn">
+<doc>Pauses the test executed for the given time.</doc>
+<arguments>
+<arg>2</arg>
+</arguments>
+<msg timestamp="20151019 21:57:52.069" level="INFO">Slept 2 seconds</msg>
+<status status="PASS" endtime="20151019 21:57:52.070" starttime="20151019 21:57:50.068"></status>
+</kw>
+<kw name="Click Element" library="Selenium2Library">
+<doc>Click element identified by `locator`.</doc>
+<arguments>
+<arg>xpath=//*[@id="rootcontainer"]/div/div[1]/ul/li[1]/a</arg>
+</arguments>
+<msg timestamp="20151019 21:57:52.072" level="INFO">Clicking element 'xpath=//*[@id="rootcontainer"]/div/div[1]/ul/li[1]/a'.</msg>
+<status status="PASS" endtime="20151019 21:57:52.167" starttime="20151019 21:57:52.070"></status>
+</kw>
+<kw name="Sleep" library="BuiltIn">
+<doc>Pauses the test executed for the given time.</doc>
+<arguments>
+<arg>2</arg>
+</arguments>
+<msg timestamp="20151019 21:57:54.169" level="INFO">Slept 2 seconds</msg>
+<status status="PASS" endtime="20151019 21:57:54.170" starttime="20151019 21:57:52.167"></status>
+</kw>
+<kw name="Input Text" library="Selenium2Library">
+<doc>Types the given `text` into text field identified by `locator`.</doc>
+<arguments>
+<arg>xpath=//*[@id="rootcontainer"]/div/div[1]/div[2]/div/div[1]/ul/li/div/form/input[1]</arg>
+<arg>${status}</arg>
+</arguments>
+<msg timestamp="20151019 21:57:54.172" level="INFO">Typing text '' into text field 'xpath=//*[@id="rootcontainer"]/div/div[1]/div[2]/div/div[1]/ul/li/div/form/input[1]'</msg>
+<status status="PASS" endtime="20151019 21:57:54.239" starttime="20151019 21:57:54.170"></status>
+</kw>
+<kw name="Sleep" library="BuiltIn">
+<doc>Pauses the test executed for the given time.</doc>
+<arguments>
+<arg>2</arg>
+</arguments>
+<msg timestamp="20151019 21:57:56.240" level="INFO">Slept 2 seconds</msg>
+<status status="PASS" endtime="20151019 21:57:56.240" starttime="20151019 21:57:54.239"></status>
+</kw>
+<kw name="Press Key" library="Selenium2Library">
+<doc>Simulates user pressing key on element identified by `locator`.</doc>
+<arguments>
+<arg>xpath=//*[@id="rootcontainer"]/div/div[1]/div[2]/div/div[1]/ul/li/div/form/input[1]</arg>
+<arg>\\13</arg>
+</arguments>
+<status status="PASS" endtime="20151019 21:57:56.699" starttime="20151019 21:57:56.241"></status>
+</kw>
+<kw name="Sleep" library="BuiltIn">
+<doc>Pauses the test executed for the given time.</doc>
+<arguments>
+<arg>2</arg>
+</arguments>
+<msg timestamp="20151019 21:57:58.700" level="INFO">Slept 2 seconds</msg>
+<status status="PASS" endtime="20151019 21:57:58.701" starttime="20151019 21:57:56.700"></status>
+</kw>
+<kw name="Wait Until Page Contains" library="Selenium2Library">
+<doc>Waits until `text` appears on current page.</doc>
+<arguments>
+<arg>${EMPTY}</arg>
+<arg>5</arg>
+</arguments>
+<status status="PASS" endtime="20151019 21:57:58.903" starttime="20151019 21:57:58.701"></status>
+</kw>
+<status status="PASS" endtime="20151019 21:57:58.904" starttime="20151019 21:57:47.050"></status>
+</kw>
+<kw type="teardown" name="Close Browser" library="Selenium2Library">
+<doc>Closes the current browser.</doc>
+<status status="PASS" endtime="20151019 21:57:59.865" starttime="20151019 21:57:58.906"></status>
+</kw>
+<status status="PASS" endtime="20151019 21:57:59.866" critical="yes" starttime="20151019 21:57:30.390"></status>
+</test>
+<status status="PASS" endtime="20151019 21:57:59.870" starttime="20151019 21:55:44.987"></status>
 </suite>
 <statistics>
 <total>
-<stat fail="0" pass="2">Critical Tests</stat>
-<stat fail="0" pass="2">All Tests</stat>
+<stat fail="0" pass="4">Critical Tests</stat>
+<stat fail="0" pass="4">All Tests</stat>
 </total>
 <tag>
 </tag>
 <suite>
-<stat fail="0" id="s1" name="GroupFeed" pass="2">GroupFeed</stat>
+<stat fail="0" id="s1" name="GroupFeed" pass="4">GroupFeed</stat>
 </suite>
 </statistics>
 <errors>

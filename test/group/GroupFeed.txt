@@ -4,13 +4,21 @@ Test Setup    Pre-condition
 Test Teardown    close browser
 
 *** Test Cases ***
-TestPostToGroupFeed
-    [Template]    Post To Group Feed
+TestPostToGroupFeed - With Text
+    [Template]    Post To Group Feed With Text
         1    Test
 
-TestCommentToGroupFeed
-    [Template]    Comment To Group Feed
+TestPostToGroupFeed - Without Text
+    [Template]    Post To Group Feed Without Text
+        1    ${EMPTY}
+
+TestCommentToGroupFeed - With Text
+    [Template]    Comment To Group Feed With Text
         1    Wow
+
+TestCommentToGroupFeed - Without Text
+    [Template]    Comment To Group Feed Without Text
+        1    ${EMPTY}
 
 *** Variables ***
 ${BROWSER}    ff
@@ -25,7 +33,7 @@ Pre-condition
     go to    http://localhost:8000/static/index.html#/
     sleep    2
 
-Post To Group Feed
+Post To Group Feed With Text
     [Arguments]    ${group_id}    ${status}
     go to    http://localhost:8000/static/index.html#/groups/${group_id}/info
     sleep    2
@@ -35,9 +43,21 @@ Post To Group Feed
     sleep    2
     Click Element    xpath=//*[@id="rootcontainer"]/div/div[1]/div[2]/form/input
     sleep    2
-    Page Should Contain    ${status}
+    Wait Until Page Contains    ${status}     5
 
-Comment To Group Feed
+Post To Group Feed Without Text
+    [Arguments]    ${group_id}    ${status}
+    go to    http://localhost:8000/static/index.html#/groups/${group_id}/info
+    sleep    2
+   Click Element    xpath=//*[@id="rootcontainer"]/div/div[1]/ul/li[1]/a
+    sleep    2
+    Input Text    xpath=//*[@id="rootcontainer"]/div/div[1]/div[2]/form/textarea    ${status}
+    sleep    2
+    Click Element    xpath=//*[@id="rootcontainer"]/div/div[1]/div[2]/form/input
+    sleep    2
+    Wait Until Page Contains    ${EMPTY}     5
+
+Comment To Group Feed With Text
     [Arguments]    ${group_id}    ${status}
     go to    http://localhost:8000/static/index.html#/groups/${group_id}/info
     sleep    2
@@ -48,6 +68,18 @@ Comment To Group Feed
     Press Key    xpath=//*[@id="rootcontainer"]/div/div[1]/div[2]/div/div[1]/ul/li/div/form/input[1]    \\13
     sleep    2
     Page Should Contain    ${status}
+
+Comment To Group Feed Without Text
+    [Arguments]    ${group_id}    ${status}
+    go to    http://localhost:8000/static/index.html#/groups/${group_id}/info
+    sleep    2
+    Click Element    xpath=//*[@id="rootcontainer"]/div/div[1]/ul/li[1]/a
+    sleep    2
+    Input Text    xpath=//*[@id="rootcontainer"]/div/div[1]/div[2]/div/div[1]/ul/li/div/form/input[1]    ${status}
+    sleep    2
+    Press Key    xpath=//*[@id="rootcontainer"]/div/div[1]/div[2]/div/div[1]/ul/li/div/form/input[1]    \\13
+    sleep    2
+   Wait Until Page Contains    ${EMPTY}     5
 
 
     
