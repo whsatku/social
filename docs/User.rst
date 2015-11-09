@@ -17,6 +17,14 @@ User.models module
     :undoc-members:
     :show-inheritance:
 
+User.serializers module
+-----------------------
+
+.. automodule:: User.serializers
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 User.views module
 -----------------
 

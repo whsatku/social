@@ -20,11 +20,16 @@
 			<ul class="nav navbar-nav navbar-right">
 				<li><a href="#" class="notification"><i class="glyphicon glyphicon-user"></i> <span class="count">1</span></a></li>
 				<li><a href="#" class="notification" ng-click="showNotification=!showNotification"><i class="glyphicon glyphicon-globe"></i> <span class="count" ng-bind="notificationCount" ng-if="notificationCount > 0"></span></a></li>
-				<li dropdown>
-					<a href="#" ui-sref="root.user.timeline({user: 1})" role="button" aria-haspopup="true" aria-expanded="false">{{user}} <span class="caret" dropdown-toggle></span></a>
+				<li>
+					<a href="#" ui-sref="root.user.timeline({user: 1})">{{user}} </a>
+				</li>
+				<li uib-dropdown>
+					<a href uib-dropdown-toggle>
+						<span class="caret" aria-haspopup="true" aria-expanded="false"></span>
+					</a>
 					<ul class="dropdown-menu">
 						<!-- <li role="separator" class="divider"></li> -->
-						<li><a href="#">Logout</a></li>
+						<li><a href="#" ng-click="logout()">Logout</a></li>
 					</ul>
 				</li>
 			</ul>
@@ -49,9 +54,7 @@
 				<ul>
 					<li><a href="#" ui-sref="root.lfg()" ui-sref-active="active"><i class="glyphicon glyphicon-list-alt"></i> Group directory</a></li>
 					<li><a href="#" ui-sref="root.creategroup()" ui-sref-active="active"><i class="glyphicon glyphicon-plus"></i> Create group</a></li>
-					<li><a href="#" ui-sref="root.group.info({id: 1})" ui-sref-active="active">Group 1</a></li>
-					<li><a href="#">Group 2</a></li>
-					<li><a href="#">Group 3</a></li>
+					<li ng-repeat="group in group_list"><a href="#" ui-sref="root.group({id: group.id})" ui-sref-active="active">{{group.name}}</a></li>
 				</ul>
 				<hr>
 				<h4>Events</h4>

@@ -1,11 +1,12 @@
 from rest_framework.response import Response
-from rest_framework.generics import ListCreateAPIView
+from rest_framework.generics import ListAPIView, ListCreateAPIView
 from rest_framework.decorators import api_view
 from rest_framework.exceptions import ValidationError
 from rest_framework.exceptions import NotAuthenticated
 from rest_framework.exceptions import NotFound
 from rest_framework.views import APIView
 from django.contrib.contenttypes.models import ContentType
+from django.contrib.auth.models import User
 from newsfeed.models import Post
 from newsfeed.models import Comment
 from newsfeed.serializer import GroupPostSerializer
@@ -97,8 +98,17 @@ class GroupViewDetail(APIView):
             raise Http404
 
     def get(self, request, group_id=None, format=None):
-
         group_object = self.get_group(group_id)
+
+        if request.user.is_authenticated():
+            group_object.member_status = -1
+
+            try:
+                member_status = group_object.groupmember_set.filter(user=request.user).get()
+                group_object.member_status = member_status.role
+            except GroupMember.DoesNotExist:
+                pass
+
         response = self.serializer_class(group_object)
         return Response(response.data)
 
@@ -273,10 +283,25 @@ class CreateGroup(APIView):
     def post(self, request, format=None):
 
         serializer = GroupSerializer(data=request.data)
-
         if serializer.is_valid():
+            print "save"
             # serializer.user = self.request.user
-            serializer.save()
+            this_group = serializer.save()
+            # GroupMember.objects.create(this_group, User.objects.get(id=request.user.id), 1 )
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+class GroupList(ListAPIView):
+    """List groups that the requesting user is member of
+
+    It could be accessed at :http:get:`/api/group`"""
+    serializer_class = GroupSerializer
+
+    def get_queryset(self):
+        if not self.request.user.is_authenticated():
+            raise NotAuthenticated
+
+        return Group.objects.filter(
+            groupmember__user=self.request.user,
+            groupmember__role__gte=1
+        )

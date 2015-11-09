@@ -40,7 +40,6 @@ app.config(function($stateProvider, $urlRouterProvider) {
         })
         .state('root.group', {
             url: '/groups/{id:int}',
-            abstract: true,
             templateUrl: 'templates/group.html',
             controller: 'GroupController'
         })
@@ -90,12 +89,38 @@ app.config(function($stateProvider, $urlRouterProvider) {
             controller: 'LoginController'
         });
 });
-app.controller('MainController', function($rootScope, $state, user){
-	if(user){
-		$rootScope.user = user;
-	}else {
-		$state.go('login');
-	}
+
+
+app.controller('MainController', function($rootScope, user, $http, $uibModal){
+    $rootScope.user = user;
+    $http.get('/api/group/').success(function(data){
+        $rootScope.group_list = data;
+    });
+    $rootScope.logout = function(){
+        var modal = $uibModal.open({
+            templateUrl: 'templates/dialog/confirm.html',
+            backdrop: 'static',
+            keyboard: false,
+            controller: function($scope, $uibModalInstance){
+                $scope.message = 'Do you want to logout from current user?';
+                $scope.ok = function(){
+                    $scope.message = 'Logging out...';
+                    $scope.hideButtons = true;
+                    $http.post('/api/auth/logout').success(function(){
+                        $uibModalInstance.close();
+                    }, function(){
+                        $scope.message = 'Could not log you out.';
+                    })
+                };
+                $scope.cancel = function(){
+                    $uibModalInstance.dismiss();
+                };
+            }
+        });
+        modal.result.then(function(){
+            window.location.reload();
+        });
+    };
 });
 app.controller('NotificationController', function($rootScope){
     $rootScope.notificationCount = Math.floor(Math.random() * 20);

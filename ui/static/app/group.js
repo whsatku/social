@@ -2,15 +2,29 @@
 
 var app = angular.module('app.group', []);
 
-app.controller('GroupController', function($scope, $stateParams, Restangular, $http, $location, $window){
+app.controller('GroupController', function($scope, $stateParams, Restangular, $http, $location, $window, $state, $rootScope){
+    var redirectSubpage = function(id){
+        var isMember = ($rootScope.group_list || []).filter(function(item){
+            return item.id == $stateParams.id;
+        });
+        $state.go(isMember ? 'root.group.feed' : 'root.group.info');
+    }
+    if($state.is('root.group')){
+        redirectSubpage();
+    }
+    $scope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams){
+        if(toState.name == 'root.group'){
+            event.preventDefault();
+            redirectSubpage();
+        }
+    });
+
     $scope.GroupApi = Restangular.one('group', $stateParams.id);
-    $scope.joinStatus = 0;
     $scope.joinGroup = function(){
         $scope.GroupApi.all('member/').post().then(function(){
-            $scope.joinStatus = 1;
-            $window.location.reload();
+            $state.reload();
         }, function(xhr){
-                console.log(xhr.data);
+            console.error(xhr.data);
         });
     };
     var groupID = $location.path().split('/')[2];
@@ -92,6 +106,12 @@ app.controller('GroupInfoController', function($scope, $http, $location){
     $http.get('/api/group/'+groupID).success(function(data){
         $scope.group = data;
     });
+
+    $http.get('/api/group/'+groupID+'/member/accepted').then(function(data){
+        $scope.memberList = data.data;
+        console.log($scope.memberList)
+    });
+
 });
 
 app.controller('GroupManageController', function($scope, $http, $location){
@@ -144,10 +164,11 @@ app.controller('GroupCategoryController', function($scope, $http, $stateParams){
 
 
 app.controller('CreateGroupController', function($scope, $http, $stateParams){
-    
+
     $scope.gname = "";
     $scope.gdescription = "";
     $scope.gtype = "";
+    $scope.gcategory = 1;
 
     $scope.createGroup = function(){
 
@@ -157,11 +178,12 @@ app.controller('CreateGroupController', function($scope, $http, $stateParams){
             short_description: 'default',
             activities: 'default',
             type: $scope.gtype,
+            category: $scope.gcategory,
 
-            
+
         };
-        
-        
+
+
         $http.post('/api/group/create/' , $scope.newgroup ).success(function(data){});
 
     }
@@ -169,4 +191,3 @@ app.controller('CreateGroupController', function($scope, $http, $stateParams){
 });
 
 })();
-
