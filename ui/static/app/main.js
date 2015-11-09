@@ -40,7 +40,6 @@ app.config(function($stateProvider, $urlRouterProvider) {
         })
         .state('root.group', {
             url: '/groups/{id:int}',
-            abstract: true,
             templateUrl: 'templates/group.html',
             controller: 'GroupController'
         })

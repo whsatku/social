@@ -2,11 +2,27 @@
 
 var app = angular.module('app.group', []);
 
-app.controller('GroupController', function($scope, $stateParams, Restangular, $http, $location, $window){
+app.controller('GroupController', function($scope, $stateParams, Restangular, $http, $location, $window, $state, $rootScope){
+    var redirectSubpage = function(id){
+        var isMember = ($rootScope.group_list || []).filter(function(item){
+            return item.id == $stateParams.id;
+        });
+        $state.go(isMember ? 'root.group.feed' : 'root.group.info');
+    }
+    if($state.is('root.group')){
+        redirectSubpage();
+    }
+    $scope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams){
+        if(toState.name == 'root.group'){
+            event.preventDefault();
+            redirectSubpage();
+        }
+    });
+
     $scope.GroupApi = Restangular.one('group', $stateParams.id);
     $scope.joinGroup = function(){
         $scope.GroupApi.all('member/').post().then(function(){
-            $window.location.reload();
+            $state.reload();
         }, function(xhr){
             console.error(xhr.data);
         });
