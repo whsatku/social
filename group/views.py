@@ -251,7 +251,8 @@ class GroupByCategory(APIView):
                 List of group with same category
 
         """
-        group = Group.objects.filter(category=cat)
+        cate, created = GroupCategory.objects.get_or_create(name=cat)
+        group = Group.objects.filter(category=cate.id)
         response = self.serializer_class(group, many=True)
         return Response(response.data)
 
