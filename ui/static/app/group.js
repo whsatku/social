@@ -4,13 +4,11 @@ var app = angular.module('app.group', []);
 
 app.controller('GroupController', function($scope, $stateParams, Restangular, $http, $location, $window){
     $scope.GroupApi = Restangular.one('group', $stateParams.id);
-    $scope.joinStatus = 0;
     $scope.joinGroup = function(){
         $scope.GroupApi.all('member/').post().then(function(){
-            $scope.joinStatus = 1;
             $window.location.reload();
         }, function(xhr){
-                console.log(xhr.data);
+            console.error(xhr.data);
         });
     };
     var groupID = $location.path().split('/')[2];
