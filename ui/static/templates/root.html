@@ -20,11 +20,16 @@
 			<ul class="nav navbar-nav navbar-right">
 				<li><a href="#" class="notification"><i class="glyphicon glyphicon-user"></i> <span class="count">1</span></a></li>
 				<li><a href="#" class="notification" ng-click="showNotification=!showNotification"><i class="glyphicon glyphicon-globe"></i> <span class="count" ng-bind="notificationCount" ng-if="notificationCount > 0"></span></a></li>
-				<li dropdown>
-					<a href="#" ui-sref="root.user.timeline({user: 1})" role="button" aria-haspopup="true" aria-expanded="false">{{user}} <span class="caret" dropdown-toggle></span></a>
+				<li>
+					<a href="#" ui-sref="root.user.timeline({user: 1})">{{user}} </a>
+				</li>
+				<li uib-dropdown>
+					<a href uib-dropdown-toggle>
+						<span class="caret" aria-haspopup="true" aria-expanded="false"></span>
+					</a>
 					<ul class="dropdown-menu">
 						<!-- <li role="separator" class="divider"></li> -->
-						<li><a href="#">Logout</a></li>
+						<li><a href="#" ng-click="logout()">Logout</a></li>
 					</ul>
 				</li>
 			</ul>
