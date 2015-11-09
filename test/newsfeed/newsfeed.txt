@@ -5,7 +5,7 @@ Suite Setup    Pre-condition
 Suite Teardown    Close browser
 
 *** Variables ***
-${BROWSER}    firefox
+${BROWSER}    phantomJS
 ${URL}    http://localhost:8000/static/index.html#/
 
 *** Test Cases ***
