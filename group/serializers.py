@@ -16,8 +16,8 @@ class GroupMemberSerializer(serializers.ModelSerializer):
 
 
 class GroupSerializer(serializers.ModelSerializer):
-    member_status = serializers.IntegerField()
+    member_status = serializers.IntegerField(read_only=True, required=False)
     class Meta:
         app_label = "social_group"
         model = Group
-        fields = ('name', 'description', 'short_description', 'activities', 'type', 'member_status')
+        fields = ('id', 'name', 'description', 'short_description', 'activities', 'type', 'member_status')

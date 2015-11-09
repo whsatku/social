@@ -13,5 +13,5 @@ urlpatterns = [
     url(r'^category/(?P<cat>[a-zA-Z]+)/$', views.GroupByCategory.as_view(), name='GroupByCategory'),
     url(r'^(?P<group_id>[0-9]+)/post/$', views.GroupPostView.as_view(), name='PostDetail'),
     url(r'^create/$', views.CreateGroup.as_view(), name='CreateGroup'),
-
+    url(r'^$', views.GroupList.as_view(), name='GroupList'),
 ]

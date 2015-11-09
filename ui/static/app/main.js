@@ -90,8 +90,11 @@ app.config(function($stateProvider, $urlRouterProvider) {
         });
 });
 
-app.controller('MainController', function($rootScope, user){
+app.controller('MainController', function($rootScope, user, $http){
     $rootScope.user = user;
+    $http.get('/api/group/').success(function(data){
+        $rootScope.group_list = data;
+    });
 });
 app.controller('NotificationController', function($rootScope){
     $rootScope.notificationCount = Math.floor(Math.random() * 20);

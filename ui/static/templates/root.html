@@ -49,9 +49,7 @@
 				<ul>
 					<li><a href="#" ui-sref="root.lfg()" ui-sref-active="active"><i class="glyphicon glyphicon-list-alt"></i> Group directory</a></li>
 					<li><a href="#" ui-sref="root.creategroup()" ui-sref-active="active"><i class="glyphicon glyphicon-plus"></i> Create group</a></li>
-					<li><a href="#" ui-sref="root.group.info({id: 1})" ui-sref-active="active">Group 1</a></li>
-					<li><a href="#">Group 2</a></li>
-					<li><a href="#">Group 3</a></li>
+					<li ng-repeat="group in group_list"><a href="#" ui-sref="root.group.info({id: group.id})" ui-sref-active="active">{{group.name}}</a></li>
 				</ul>
 				<hr>
 				<h4>Events</h4>

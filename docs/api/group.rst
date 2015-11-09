@@ -3,6 +3,37 @@ group
 
 This endpoint is handled by :py:mod:`group.views`
 
+.. http:get:: /api/group/
+   :synopsis: View list of group which the user is member of
+
+   This endpoint is handled by :py:func:`group.views.GroupList`
+
+   **Example request**:
+
+   .. sourcecode:: http
+
+      GET /api/group HTTP/1.1
+      Host: social.whs.in.th
+      Accept: application/json, text/javascript
+      Cookie: sessionid=.....
+
+   **Example response**:
+
+   .. sourcecode:: http
+
+      HTTP/1.1 200 OK
+      Content-Type: application/json
+      X-Frame-Options: SAMEORIGIN
+      Allow: GET, HEAD, OPTIONS
+
+      [{"name":"test","description":"Description text","short_description":"Requirement to join group","activities":"Group activity text","type":0}]
+
+   :>jsonarr string name: Group name
+   :>jsonarr string description: What's this group about
+   :>jsonarr string short_description: Requirement to join group
+   :>jsonarr int type: 0 = normal, 1 = classroom
+   :statuscode 401: Not authenticated
+
 .. http:get:: /api/group/(int:id)
    :synopsis: View group information
 

@@ -1,5 +1,5 @@
 from rest_framework.response import Response
-from rest_framework.generics import ListCreateAPIView
+from rest_framework.generics import ListAPIView, ListCreateAPIView
 from rest_framework.decorators import api_view
 from rest_framework.exceptions import ValidationError
 from rest_framework.exceptions import NotAuthenticated
@@ -289,3 +289,17 @@ class CreateGroup(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+class GroupList(ListAPIView):
+    """List groups that the requesting user is member of
+
+    It could be accessed at :http:get:`/api/group`"""
+    serializer_class = GroupSerializer
+    
+    def get_queryset(self):
+        if not self.request.user.is_authenticated():
+            raise NotAuthenticated
+
+        return Group.objects.filter(
+            groupmember__user=self.request.user,
+            groupmember__role=1
+        )
