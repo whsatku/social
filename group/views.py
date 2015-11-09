@@ -303,5 +303,5 @@ class GroupList(ListAPIView):
 
         return Group.objects.filter(
             groupmember__user=self.request.user,
-            groupmember__role=1
+            groupmember__role__gte=1
         )
