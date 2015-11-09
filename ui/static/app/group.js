@@ -160,7 +160,13 @@ app.controller('GroupCategoryController', function($scope, $http, $stateParams){
     $http.get('/api/group/category/get/'+ category ).success(function(data){
         $scope.groups = data;
     });
+});
 
+
+app.controller('CategoryList', function($scope, $http){
+    $http.get('/api/group/category/all').success(function(data){
+        $scope.allCategory = data;
+    });
 });
 
 
