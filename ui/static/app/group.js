@@ -149,7 +149,8 @@ app.controller('GroupManageController', function($scope, $http, $location){
 
 
 app.controller('GroupCategoryController', function($scope, $http, $stateParams){
-    category = $stateParams.cat;
+    var category = $stateParams.cat;
+    $scope.category = category;
     $http.get('/api/group/category/'+ category ).success(function(data){
         $scope.groups = data;
     });
