@@ -243,17 +243,41 @@ class GroupByCategory(APIView):
         """Get a list of group with the same category selected.
 
         Args:
-                request: Django Rest Framework request object
-                cat: category of groups
-                format: pattern for Web APIs
+                request: Django Rest Framework request object.
+                cat: category of groups.
+                format: pattern for Web APIs.
 
         Return:
-                List of group with same category
+                List of group with same category.
 
         """
         cate, created = GroupCategory.objects.get_or_create(name=cat)
         group = Group.objects.filter(category=cate.id)
         response = self.serializer_class(group, many=True)
+        return Response(response.data)
+
+
+class AllCategory(APIView):
+    """This class an API for query list of all category in database.
+
+
+
+    """
+    serializer_class = GroupCategorySerializer
+
+    def get(self, request, format=None):
+        """Get a list of all category.
+
+        Args:
+                request: Django Rest Framework request object.
+                format: pattern for Web APIs.
+
+        Return:
+                List of all category.
+
+        """
+        category = GroupCategory.objects.all()
+        response = self.serializer_class(category, many=True)
         return Response(response.data)
 
 
