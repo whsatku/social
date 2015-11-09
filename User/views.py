@@ -80,12 +80,14 @@ class FriendshipDetail(APIView):
 
     def post(self, request, other_user_id, format=None):
         user = self.get_user(self.request.user.id)
-        print user
         other_user = self.get_user(other_user_id)
-        print other_user
         new_relationship = Friend.objects.add_friend(user, other_user)
         return Response(status=status.HTTP_201_CREATED)
 
+    def delete(self, request, other_user_id, format=None):
+        other_user = self.getUse(other_user_id)
+        Friend.objects.remove_friend(other_user, self.request.user)
+        return Respose(status=status.HTTP_200_OK)
 
 class FriendshipPendingViewSet(APIView):
     serializer_class = FriendShipSerializer

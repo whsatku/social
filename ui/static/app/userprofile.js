@@ -16,10 +16,16 @@ app.controller('AddFriendController', function($scope, $http, $location, $stateP
         $scope.userprofile = data;
     });
     $scope.addFriend = function(){
-    	$http.post('/api/user/addFriend/' + otherUserId ).success(function(data){
+    	$http.post('/api/user/Friend/' + otherUserId ).success(function(data){
 
     	})
     }
+    $scope.unFriend = function(){
+    	$http.delete('/api/user/Friend/' + otherUserId ).success(function(data){
+
+    	})
+    }
+
 });
 
 })();

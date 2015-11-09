@@ -100,10 +100,12 @@ app.controller('MainController', function($rootScope, user, $http, $uibModal, $s
     $http.get('/api/group/').success(function(data){
         $rootScope.group_list = data;
     });
+
+    //friend pending//
     $http.get('/api/user/friend/pending').success(function(data){
-      $rootScope.pending = data.data;
-      console.log(data);
-    })
+      $rootScope.pending = data[0];
+      console.log($rootScope.pending);
+    });
     $rootScope.logout = function(){
         var modal = $uibModal.open({
             templateUrl: 'templates/dialog/confirm.html',
@@ -118,7 +120,7 @@ app.controller('MainController', function($rootScope, user, $http, $uibModal, $s
                         $uibModalInstance.close();
                     }, function(){
                         $scope.message = 'Could not log you out.';
-                    })
+                    });
                 };
                 $scope.cancel = function(){
                     $uibModalInstance.dismiss();
