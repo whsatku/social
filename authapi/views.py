@@ -1,7 +1,7 @@
 from django.contrib.auth import authenticate, login, logout
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework.exceptions import NotAuthenticated, ValidationError, PermissionDenied
+from rest_framework.exceptions import ValidationError, PermissionDenied
 
 class UserViewSet(APIView):
 	"""Validate current user session
@@ -24,7 +24,7 @@ class UserViewSet(APIView):
 		if request.user.is_authenticated():
 			return Response(request.user.get_username())
 		else:
-			raise NotAuthenticated()
+			raise PermissionDenied()
 
 class LoginViewSet(APIView):
 	"""Log a user in with username/password combination
