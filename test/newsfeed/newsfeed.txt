@@ -1,10 +1,11 @@
 ﻿*** Settings ***
 Library    Selenium2Library
+
 Suite Setup    Pre-condition
 Suite Teardown    Close browser
 
 *** Variables ***
-${BROWSER}    firefox
+${BROWSER}    phantomJS
 ${URL}    http://localhost:8000/static/index.html#/
 
 *** Test Cases ***
@@ -35,45 +36,52 @@ CommentStatusWithoutText
 *** Keywords ***
 Pre-condition
     Open Browser    http://localhost:8000/admin    ${BROWSER}
-    Input text    //*[@id="id_username"]    nookskill
-    Input text    //*[@id="id_password"]    1q2w3e4r
+    Input text    //*[@id="id_username"]    best
+    Input text    //*[@id="id_password"]    123
     click element    //*[@id="login-form"]/div[3]/input
-    sleep    1
     go to    http://localhost:8000/static/index.html#/
-   
+
 
 Post Status with Text
     [Arguments]    ${title}    ${status}
-    sleep    3
+
+    Wait Until Page Contains    ${title}   5
     Title Should Be    ${title}
     Input text    xpath=//*[@id="rootcontainer"]/div/div[1]/form/textarea    ${status}    
     Click Element    xpath=//*[@id="rootcontainer"]/div/div[1]/form/input
     Wait Until Page Contains    ${status}    5
-    sleep   3   
- 
+
+
+
 Post Status without Text
     [Arguments]    ${title}    ${status}
-    Reload Page
-    Title Should Be    ${title}
+
     Input text    xpath=//*[@id="rootcontainer"]/div/div[1]/form/textarea    ${status}
     Wait Until Page Contains    ${EMPTY}    5
-    Sleep    3
+
     Click Element    xpath=//*[@id="rootcontainer"]/div/div[1]/form/input
+    Wait Until Page Contains   ${status}   5
+
 
 Comment Status with Text
     [Arguments]    ${comment}
-    sleep  3
+
+
     Input text     xpath=//*[@id="rootcontainer"]/div/div[1]/div/div[1]/ul/li/div/form/input[1]    ${comment}
     Press Key    xpath=//*[@id="rootcontainer"]/div/div[1]/div/div[1]/ul/li/div/form/input[1]    \\13
     Wait Until Page Contains    ${comment}    5
-    sleep   3 
+
+
 
 Comment Status without Text
     [Arguments]    ${comment}
-    Reload Page
-    sleep  3
+
     Input text     xpath=//*[@id="rootcontainer"]/div/div[1]/div/div[1]/ul/li/div/form/input[1]    ${comment}
     Press Key    xpath=//*[@id="rootcontainer"]/div/div[1]/div/div[1]/ul/li/div/form/input[1]    \\13
-    Wait Until Page Contains    ${EMPTY}    5
-    sleep  3
+    Wait Until Page Contains   ${comment}   5
+
+
+
+    
+
     

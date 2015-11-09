@@ -27,3 +27,4 @@ sphinx-rtd-theme==0.1.9
 sphinxcontrib-httpdomain==1.4.0
 tornado==4.2.1
 watchdog==0.8.3
+robotframework-selenium2library
