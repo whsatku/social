@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generated="20151018 19:23:28.918" generator="Robot 2.9.1 (Python 2.7.10 on linux2)">
+<suite source="/home/saint/Desktop/WSP/social/test/authenticate/kulogin_test.txt" id="s1" name="Kulogin Test">
+<kw type="setup" name="Open Browser To Login Page">
+<kw name="Open Browser" library="Selenium2Library">
+<doc>Opens a new browser instance to given URL.</doc>
+<arguments>
+<arg>${URL}</arg>
+</arguments>
+<msg timestamp="20151018 19:23:29.331" level="INFO">Opening browser 'firefox' to base url 'http://localhost:8000/static/index.html#/login'</msg>
+<status status="PASS" endtime="20151018 19:23:31.621" starttime="20151018 19:23:29.330"></status>
+</kw>
+<status status="PASS" endtime="20151018 19:23:31.622" starttime="20151018 19:23:29.329"></status>
+</kw>
+<test id="s1-t1" name="Test Invalidate Login - Invalid Username and Password">
+<kw name="Invalidate Login">
+<arguments>
+<arg>b5655555555</arg>
+<arg>invalidatepassword</arg>
+</arguments>
+<kw name="Sleep" library="BuiltIn">
+<doc>Pauses the test executed for the given time.</doc>
+<arguments>
+<arg>3</arg>
+</arguments>
+<status status="FAIL" endtime="20151018 19:23:33.028" starttime="20151018 19:23:31.625"></status>
+</kw>
+<status status="FAIL" endtime="20151018 19:23:33.029" starttime="20151018 19:23:31.624"></status>
+</kw>
+<status status="FAIL" endtime="20151018 19:23:33.030" critical="yes" starttime="20151018 19:23:31.622">Execution terminated by signal</status>
+</test>
+<test id="s1-t2" name="Test Invalidate Login - Invalid Password">
+<tags>
+<tag>robot-exit</tag>
+</tags>
+<status status="FAIL" endtime="20151018 19:23:33.032" critical="yes" starttime="20151018 19:23:33.031">Test execution stopped due to a fatal error.</status>
+</test>
+<test id="s1-t3" name="Test Invalidate Login - Invalid Username">
+<tags>
+<tag>robot-exit</tag>
+</tags>
+<status status="FAIL" endtime="20151018 19:23:33.034" critical="yes" starttime="20151018 19:23:33.033">Test execution stopped due to a fatal error.</status>
+</test>
+<test id="s1-t4" name="Test Invalidate Login - Username is empty">
+<tags>
+<tag>robot-exit</tag>
+</tags>
+<status status="FAIL" endtime="20151018 19:23:33.036" critical="yes" starttime="20151018 19:23:33.035">Test execution stopped due to a fatal error.</status>
+</test>
+<test id="s1-t5" name="Test Invalidate Login - Password is empty">
+<tags>
+<tag>robot-exit</tag>
+</tags>
+<status status="FAIL" endtime="20151018 19:23:33.038" critical="yes" starttime="20151018 19:23:33.037">Test execution stopped due to a fatal error.</status>
+</test>
+<test id="s1-t6" name="Test Invalidate Login - Both fields are empty">
+<tags>
+<tag>robot-exit</tag>
+</tags>
+<status status="FAIL" endtime="20151018 19:23:33.040" critical="yes" starttime="20151018 19:23:33.039">Test execution stopped due to a fatal error.</status>
+</test>
+<test id="s1-t7" name="Test Validate Login">
+<tags>
+<tag>robot-exit</tag>
+</tags>
+<status status="FAIL" endtime="20151018 19:23:33.042" critical="yes" starttime="20151018 19:23:33.041">Test execution stopped due to a fatal error.</status>
+</test>
+<kw type="teardown" name="Close Browser" library="Selenium2Library">
+<doc>Closes the current browser.</doc>
+<status status="PASS" endtime="20151018 19:23:33.054" starttime="20151018 19:23:33.044"></status>
+</kw>
+<status status="FAIL" endtime="20151018 19:23:33.054" starttime="20151018 19:23:28.919"></status>
+</suite>
+<statistics>
+<total>
+<stat fail="7" pass="0">Critical Tests</stat>
+<stat fail="7" pass="0">All Tests</stat>
+</total>
+<tag>
+<stat info="combined" fail="1" combined="NOT robot-exit" pass="0">NOT robot-exit</stat>
+<stat fail="6" pass="0">robot-exit</stat>
+</tag>
+<suite>
+<stat fail="7" id="s1" name="Kulogin Test" pass="0">Kulogin Test</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
