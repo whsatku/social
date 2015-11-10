@@ -3,19 +3,48 @@ python:
 - '2.7'
 sudo: false
 env:
-- DB=sqlite
-- DB=mysql
+  matrix:
+  - DB=sqlite
+  - DB=mysql
+  global:
+  # ku_username
+  - secure: XvsQSOuv7c33MxcOqaqI/vhjkgyY/fANmwdVjHoVMX6+lo1qUs0wEo8ID7zbC75NxwNp7yjyiHPvX2nxkGVSPHERfX+i2m4m64ZySECYc454JPa/W7F9vYWP/wdJEBBNQP+qJhinAOfCtWsguyktZ7DADk5QHxSRO7NowjuhD+II+jRR0ZD1V6Z40Gau309GcPscabu+oMpKVclWmllV8g6s5gXN/lHclKc4nsQVkmsDZAZo98IdROW77CzsWGBj3spu18rFHSvYUTt1wI5EVMxCbZqjATLWUJGoaF+yo9EpDcEcLk8Lfh61vPwMs1Sl3VEMX09yyzKrK84s92w3d4rWtISgm9QlpJ/1B+qnezvMSJ2hf1hnFEqasFtDB8e4ecafWYO/ioQn4UHtk8mcfprb0gCbccsZXtGxZj0BC5tHICX+CcPPA2R2ax7Y2AMPtb85xM2m5EgOVh70Zjjv8XNbL5ihAtnB1YvjfIwmPDT+u6/vCP9iJQlFbUp/jvW7awkwjFjjcFQSAFwvpUqTUVWOeLNDfJj82fA8PZGyHbgSlB0VkPx86sBPl/GpjEBaxdV5aB2HVB/wEQnp+S9dc/fFpIyr4xSj5D2q+AkCT7pVmYCc3EK/K1uevDyblGogYg6nJSNqFHVB7wXopOa1LSWp8yzzOmY9mPKMdG3kc3k=
+  # ku_password
+  - secure: bFDLIKUh3eVeL+pBEqxQ0ZwsFxFtEvz73xDHRTSf+ohU9MRnU7XUWBfLbtp8wm1kUw8XwfyCceMSV3tASdfyCOoKf1jb9rLcCsoduxFf5qVQx8qYM+zNAzol23aVEbgitU6FdVZQEWur5uECxtXPNDPIkDdU+hQpzDpug5beVQsJPsMrcn6Au1/lDwaL78/IqigDgQKTNsf7/+CB/fQtUr+pyTf6S5c9qggx0AoWOEEGyLU1fBnT4Bcp2DXwyB6d3cXqeLDuSOY0/iVe8St73vAK2mds8aMNA7vpoVUoDNTBdt7oNCohXal0C0hAg9E5yNf8QvOK3+GoA9qWrg+NNM3tzhu4Hth4NNrFFAoq7tc2rIhwrvaNMdrxzCi+rsppo031aGxqXukaG6ghab5xyh2+ttzpFlRJfFX0/8ptP6c2CZwX3PMjJ+RnI+7S/rSdBzJrcv4jUWe6RnR0Lvd3gYgXhIpNKKzo1IKubXskzP6thw/Uvhc2rur6X5DFmrYObCEyhOZWKX2Moa63YOmW4jpua0kgeyuSS5dafEdpA2K4SXc24qIluqBXqmM/JmWsdWxVPhbCBWCzqBs6mqRWygT74mWu7MIzrpmvx/pHgjVE1TYGpAAsxViQHkAlcZGUjo3kaeFnXCvSZ6/bLc2p4jyj1870WHYqv78TRQBSa2M=
+  - ARTIFACTS_BUCKET=youniversity
+  - ARTIFACTS_PERMISSIONS=public
+  - ARTIFACTS_CACHE_CONTROL=public
+  # artifacts_key
+  - secure: nuc9KfzFAd+mi2fLIOtIHx0V4P81ikaCB+XP5ejV0HfgdxxWi7y0rQ7YM1we9aYliEUV/GbAjs9kFGyI8DMG0xJQiYDnvJ2ughymBx3J0cFGCsroTKwFlDwOn3XOudgPcE/yn4evGL+eWSHBo1olyXzr+CioV5RcWcneIE26rbpyDEXcqu63wfcbULiF/hitwzf2bLG67kuEKM6MT9tdAgkX4sNDH5DG+qIh01qjLCjQ51mvx4DQvM7lVvSekTKXpUGxgBWuf3z57D75HtkRM7P+/BRH79/MfXN2j/wwOBLyt/bjpbt/VgYP6uMxpEnndv0O9bXnBJf8xWQyTxqtJqK5q7oYFD+dnO2r8METZOsbohxtSl8rt5UPyevebWrxmiPt/UQT1G1puwk8Lkz0bm3FRap27M2IdH5dVv0sLDyNk5PzxeqxD9XS/8rNLuJG5369LjRDxLIVZf4xpwQReYgX6GCUXZK2ORHyq5vZ1a7wAxaE/cp+RakcPGZf25E14JMcLqEtTRurPVrVdioldDA5qAfkXRENzdNhtOGCn/QB34BvCD3T1ujOdgV48CGAyK0GkyQU7eeO8INtGEluutTF8LqFtGcR9xMdF6GdffARfMoDGdr/ehhDMOAapdNcZMy7HyGpXRqqhBRaKl2g0OSTlU/cksugtJs47hNYKqg=
+  # artifacts_secret
+  - secure: ESb/PlMJDyDBUpVopNvmMvGP4GXusJKyG7DHi2ukGmOIWFXv9Y/vUh38utYnWtico+1VU3+mjSnBrFHbhJmt2K97FqA1bLCwmFrTTyNDLR9Rt9kDyhrY/7ZJhCsPLVNPfJC43U2cMCZU7Y+OY4XCHTEWAg81plk1rqeDRd+pepOCwReRArvnDVnFjz3xHaw1fCTXuMKRACzG0s8ltVjtFvZ3+7LODsKaHGkc86zImQi1Ef0VQoz2bEEFXrkebnY+TRrd4/13kVxjQeTLxU88y4uuM1Z+Cf0+XsPIopK0+AtnzKojqHI8xXUwOLsVNMuA+OQRjI2Wr9QeFl9Zz7vRaMATssDVjqWU15ApWODuXdGsoA5KCfV1//hEY1umyMLMqR2XexWz4fGTNHafD4WpvwFaqr9jP+NfKuC1Nw9T/Rptkgbpou02+EtXKw+FEboGdB33hH9nkjRWucpgff6dUw3V/U/r354Idez7ZgmWTVC5klhI1SKA3+f84BfwWvGxtykWd2N/3qTntxt8d9SEgF0eqt0+0HD3UApZ4qrr8qz7xblHWL5cBwLvAQ7cJ7XPxcejplUD4Ds7Lwi6w/3F6nKLz84FGNhlSktootmc+ThISzSvp5NmQqzNxrm2NFNn/xMXnCuvmxu/zX0aJS51FcVB5TacbDARUUF4780a0ws=
 before_script:
 - sh -c "if [ '$DB' = 'mysql' ]; then mysql -e 'CREATE DATABASE social_test;'; fi"
-- sh -c "if [ '$DB' = 'mysql' ]; then cp .travis/local_settings.py social/local_settings.py; fi"
+- sh -c "if [ '$DB' = 'mysql' ]; then cp .travis/local_settings.py social/local_settings.py;
+  fi"
+- sh -c "if [ '$DB' = 'mysql' ]; then pip install MySQL-python; fi"
+- pip install robotframework robotframework-Selenium2Library
+- npm install -g phantomjs
+- export DISPLAY=:99.0
+- sh -e /etc/init.d/xvfb start
+- export OUTPUT_DIR=test_output
+- mkdir $OUTPUT_DIR
 install:
 - pip install -r requirements.txt
-- sh -c "if [ '$DB' = 'mysql' ]; then pip install MySQL-python; fi"
 script:
 - python manage.py migrate --noinput
+- python manage.py runserver > $OUTPUT_DIR/server_log.txt 2>&1 &
+- pybot -d $OUTPUT_DIR test/authenticate
 deploy:
-  - provider: script
-    script: .travis/deploy.sh
-    on:
-      branch: master
-      condition: "$DB = mysql"
+- provider: script
+  script: ".travis/deploy.sh"
+  on:
+    branch: master
+    condition: "$DB = mysql"
+notifications:
+  slack:
+    secure: dtio+mN4+R2irXkwLuq8Z+40G6uJG9FMZAi5GniUKu3ShQzwuAICcWX4WMCProlZzBSLOznd+R01kvwfqV3Kl8NzHI6dLOFTG6Yo1pJRM7aC67/E/DZZpsVIYqPaO481KOM2QSrYiu3t7gJy1yIY3BnP73Zz9HX8M4KR2GFxZOe+d9LkFzGMBrNdQp2SXbkrqUubw9SnGv1b9Lx7Jl3cV8dx3u84Y9nGz8r3ykpMHG4oKzf5bQl5Ba8iwGzpn+HxJEzTHTlIIIP4fWft37IDFB+7okfwlbbmgeq9lN/uI1jTQWq3StOdahJj9l99s1FmQlXHKgu2Y5oNIlNPFR+5dEUklXLRYEQi5FjsJDzl5cUz8vS7S/9lHJ1BiXc2qr1lP2qwSqbQMLC2pVwamqyVGBcyU//ei+L/N1QN1oCOdVkvymm0qKiouo3KVMjmdEe22Ty9Sj8Jdyu6so2Uxfy/JCbVNNZTY4Z9OWIfS+CZZPU4TaYp5sTPHawSWBIttoiqf3c+h/w5sKT9+ZFWBdMthYe1kBOLc0elCLSvC57g8dEMPvd1YpBffKSQU9WJrGO7lsPqLSEnPbOUrV/V+Xo2NC948BLLnE8Kd0uFgQ3rEZK08RJN3oiuzQ2BHGOHU9AOyTLPM5O0xRjCwk3QlOdOS3Ya4w4vNBwWhLJHJr15v8k=
+addons:
+  artifacts:
+    paths:
+    - "$OUTPUT_DIR"
