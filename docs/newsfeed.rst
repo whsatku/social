@@ -17,6 +17,14 @@ newsfeed.models module
     :undoc-members:
     :show-inheritance:
 
+newsfeed.serializer module
+--------------------------
+
+.. automodule:: newsfeed.serializer
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 newsfeed.views module
 ---------------------
 

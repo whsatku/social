@@ -1,0 +1,76 @@
+<div class="row">
+	<div class="col-md-4">
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<dl>
+					<dt><i class="glyphicon glyphicon-education"></i> Studying at</dt>
+					<dd>Kasetsart University, Faculty of {{userprofile.faculty}}, {{userprofile.major}}</dd>
+					<dt><i class="glyphicon glyphicon-gift"></i> Birthday</dt>
+					<dd>{{userprofile.birthday}}</dd>
+					<dt>From</dt>
+					<dd>{{userprofile.city}}, {{userprofile.country}}</dd>
+				</dl>
+			</div>
+		</div>
+		<div class="panel panel-default">
+			<div class="panel-heading">
+			    <h3 class="panel-title">Friends</h3>
+			  </div>
+			<div class="panel-body">
+				<ul class="list-inline memberlist">
+					<li ng-repeat="member in [1,2,3,4,5,6,7,8,9,10,11,12,13,14]">
+						<a ng-href="{{member.userUrl}}" class="thumbnail" style="width: 40px; background: red; height: 40px; background-size: cover;"></a>
+					</li>
+					<li>
+						<div class="thumbnail text-center plusmore">+50</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-8 newsfeed">
+		<div class="post" ng-repeat='data in [{"id":1,"user":{"id":1,"username":"whs"},"text":"asdf","datetime":"3 hours ago","target_type":15,"target_id":1}]'>
+			<div class="user row">
+				<div class="col-xs-1 avatar">
+					<a href="#" class="thumbnail" style="width: 40px; background: red; height: 40px;"></a>
+				</div>
+				<div class="col-xs-10">
+					<a href="#">{{data.user.username}}</a>
+					<div class="metadata">{{data.datetime}} &middot; Public</div>
+				</div>
+			</div>
+			<div class="message">
+				{{data.text}}
+			</div>
+			<div class="action">
+				<div class="btn btn-link">Like</div>
+				<div class="btn btn-link">Comment</div>
+			</div>
+			<ul class="row comments" ng-controller="CommentController">
+				<li ng-repeat="comment in comments">
+					<div class="row">
+						<div class="col-xs-1 avatar">
+							<a href="#" class="thumbnail" style="width: 40px; background: red; height: 40px;"></a>
+						</div>
+						<div class="col-xs-10">
+							<a href="#">{{comment.user.username}}</a>
+							{{comment.text}}
+							<span class="metadata">{{comment.datetime}}</span>
+						</div>
+					</div>
+				</li>
+				<li class="commentform">
+					<div class="row">
+						<div class="col-xs-1 avatar">
+							<a href="#" class="thumbnail" style="width: 40px; background: red; height: 40px;"></a>
+						</div>
+						<form class="col-xs-10">
+							<input type="text" ng-model="comment" my-enter="commentPost(data)" class="form-control" placeholder="Enter comment">
+							<input type="submit" class="btn btn-primary hide" value="Submit">
+						</form>
+					</div>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>

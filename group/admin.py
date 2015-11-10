@@ -14,5 +14,11 @@ class GroupMemberAdmin(admin.ModelAdmin):
         'group', 'user', 'role')
 
 
+class GroupCategoryAdmin(admin.ModelAdmin):
+	list_display = (
+		'name',)
+
+
+admin.site.register(GroupCategory, GroupCategoryAdmin)
 admin.site.register(Group, GroupAdmin)
 admin.site.register(GroupMember, GroupMemberAdmin)

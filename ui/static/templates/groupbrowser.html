@@ -5,7 +5,7 @@
 	<section>
 		<h2>Featured group</h2>
 
-		<div class="largegroup" ui-sref="root.group.info({id: 1})">
+		<div class="largegroup" ui-sref="root.group({id: 1})">
 			<div class="image col-sm-3" style="background: #ccc"></div>
 			<div class="col-sm-9 description">
 				<h3 class="title">Group name goes here</h3>
@@ -22,7 +22,7 @@
 		<h2>Explore by section</h2>
 		<div class="row">
 			<div class="col-sm-4">
-				<a href="#" ui-sref="root.lfgcat({cat: 'academic'})" class="btn btn-default">Academic</a>
+				<a href="#" ui-sref="root.lfgcat({{cat: 'Academic'}})" class="btn btn-default">Academic</a>
 			</div>
 			<div class="col-sm-4">
 				<a href="#" ui-sref="root.lfgcat({cat: 'acting'})" class="btn btn-default">Acting</a>

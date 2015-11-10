@@ -1,7 +1,7 @@
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework.exceptions import NotAuthenticated, ValidationError, PermissionDenied
+from rest_framework.exceptions import ValidationError, PermissionDenied
 
 class UserViewSet(APIView):
 	"""Validate current user session
@@ -24,7 +24,7 @@ class UserViewSet(APIView):
 		if request.user.is_authenticated():
 			return Response(request.user.get_username())
 		else:
-			raise NotAuthenticated()
+			raise PermissionDenied()
 
 class LoginViewSet(APIView):
 	"""Log a user in with username/password combination
@@ -53,3 +53,21 @@ class LoginViewSet(APIView):
 
 		login(request, user)
 		return Response(user.get_username())
+
+class LogoutViewSet(APIView):
+	"""Logout of current session
+
+	It could be accessed at :http:post:`/api/auth/logout`
+
+	"""
+	def post(self, request):
+		"""Destroy current session
+
+		Args:
+			request: Django Rest Framework request object
+
+		Return:
+			200
+		"""
+		logout(request)
+		return Response()
