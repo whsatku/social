@@ -3,6 +3,7 @@ Library    Selenium2Library
 Suite Setup       Open Browser To Login Page
 Suite Teardown    Close browser
 Resource          resource.txt
+
 *** Variables ***
 ${URL}    http://localhost:8000/static/index.html#/login
 

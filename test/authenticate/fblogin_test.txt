@@ -70,6 +70,7 @@ Validate Login
     click element     loginbutton
     Wait Until Page Contains    Youniversity
     Go To Login Page
+    Location Should Be    http://localhost:8000/static/index.html#/login
 
 Invalidate Login
     [Arguments]    ${username}    ${password}
@@ -81,6 +82,6 @@ Invalidate Login
     click element     loginbutton
     Wait Until Page Contains    error
     Go To Login Page
-
+    Location Should Be    http://localhost:8000/static/index.html#/login
 
 
