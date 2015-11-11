@@ -13,7 +13,7 @@ TestKickFromGroup
     1    best
 
 *** Variables ***
-${BROWSER}    ff
+${BROWSER}    phantomjs
 
 *** Keywords ***
 Pre-condition

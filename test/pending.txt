@@ -24,7 +24,7 @@ join group
         user4    user4-password    4
 
 *** Variables ***
-${BROWSER}    ff
+${BROWSER}    phantomjs
 
 *** Keywords ***
 join groups with users

@@ -12,7 +12,7 @@ create dummy group
         4    Group4
 
 *** Variables ***
-${BROWSER}    ff
+${BROWSER}    phantomjs
 
 *** Keywords ***
 LoginAdmin

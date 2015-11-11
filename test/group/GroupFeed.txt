@@ -21,7 +21,7 @@ TestCommentToGroupFeed - Without Text
         1    ${EMPTY}
 
 *** Variables ***
-${BROWSER}    ff
+${BROWSER}    phantomjs
 
 *** Keywords ***
 Pre-condition

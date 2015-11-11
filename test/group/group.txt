@@ -11,7 +11,7 @@ TestGroupTitle
         3    Youniversity    Group name goes here
 
 *** Variables ***
-${BROWSER}    ff
+${BROWSER}    phantomjs
 
 *** Keywords ***
 Pre-condition

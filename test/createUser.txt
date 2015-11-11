@@ -10,9 +10,10 @@ create dummy user
         user2   user2-password
         user3   user3-password
         user4   user4-password
+	best	123
 
 *** Variables ***
-${BROWSER}    ff
+${BROWSER}    phantomjs
 
 *** Keywords ***
 LoginAdmin
