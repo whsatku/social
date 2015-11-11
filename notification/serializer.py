@@ -30,7 +30,7 @@ class NotificationSerializer(ModelSerializer):
     receiver = UserNotificationSerializer(read_only=True, many=True)
     readed = UserNotificationSerializer(read_only=True, many=True)
     user = UserSerializer(read_only=True)
-    datetime = serializers.ReadOnlyField(source='FORMAT')
+    datetime = serializers.ReadOnlyField()
     link_type = TypeSerializer(read_only=True)
 
     class Meta:

@@ -13,7 +13,7 @@ class UserSerializer(ModelSerializer):
 
 class PostSerializer(ModelSerializer):
     user = UserSerializer(read_only=True)
-    datetime = serializers.ReadOnlyField(source='FORMAT')
+    datetime = serializers.ReadOnlyField()
 
     class Meta:
         model = Post
@@ -27,7 +27,7 @@ class GroupPostSerializer(ModelSerializer):
     user = UserSerializer(read_only=True)
     target_type = serializers.HiddenField(default=group_model_id)
     target_id = serializers.HiddenField(default=1)
-    datetime = serializers.ReadOnlyField(source='FORMAT')
+    datetime = serializers.ReadOnlyField()
 
     class Meta:
         model = Post
@@ -37,7 +37,7 @@ class GroupPostSerializer(ModelSerializer):
 
 class CommentSerializer(ModelSerializer):
     user = UserSerializer(read_only=True)
-    datetime = serializers.ReadOnlyField(source='FORMAT')
+    datetime = serializers.ReadOnlyField()
 
     class Meta:
         model = Comment
