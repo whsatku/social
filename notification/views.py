@@ -55,7 +55,9 @@ class UpdateNotification(APIView):
 
     def post(self, request, noti_id, format=None):
         self.update_read(noti_id)
-        return Response(status=status.HTTP_201_CREATED)
+        notification = Notification.objects.get(id=noti_id)
+        response = self.serializer_class(notification)
+        return Response(response.data)
 
     def get(self, request, noti_id, format=None):
         notification = Notification.objects.get(id=noti_id)

@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User
 
 from rest_framework import serializers
+from django.contrib.contenttypes.models import ContentType
 from rest_framework.serializers import ModelSerializer
 from models import Notification
 
@@ -19,12 +20,18 @@ class UserNotificationSerializer(ModelSerializer):
         fields = ('id', 'username')
 
 
+class TypeSerializer(ModelSerializer):
+    class Meta:
+        model = ContentType
+        fields = ('id', 'model')
+
+
 class NotificationSerializer(ModelSerializer):
     receiver = UserNotificationSerializer(read_only=True, many=True)
     readed = UserNotificationSerializer(read_only=True, many=True)
     user = UserSerializer(read_only=True)
     datetime = serializers.ReadOnlyField(source='FORMAT')
-    # link_type = serializers.HiddenField(default=13)
+    link_type = TypeSerializer(read_only=True)
 
     class Meta:
         model = Notification
