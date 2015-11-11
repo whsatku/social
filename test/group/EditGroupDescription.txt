@@ -9,7 +9,7 @@ TestEditGroupDescription
         1    Test    Test2    Test3
 
 *** Variables ***
-${BROWSER}    ff
+${BROWSER}    phantomjs
 
 *** Keywords ***
 Pre-condition
