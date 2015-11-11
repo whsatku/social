@@ -9,6 +9,8 @@ from newsfeed.models import Comment
 from newsfeed.serializer import PostSerializer
 from newsfeed.serializer import CommentSerializer
 from notification.views import NotificationViewList
+from django.contrib.contenttypes.models import ContentType
+from rest_framework.renderers import JSONRenderer
 
 
 class PostViewList(APIView):
@@ -26,8 +28,9 @@ class PostViewList(APIView):
         if serializer.is_valid():
 
             if self.request.user.is_authenticated():
+                # print dir(serializer)
                 serializer.save(user=User.objects.get(id=self.request.user.id))
-                notification.post(request)
+                notification.post(request, User.objects.all(), ContentType.objects.get(id=13), JSONRenderer().render(serializer.data))
                 return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -68,12 +71,11 @@ class CommentViewList(APIView):
         notification = NotificationViewList()
 
         if serializer.is_valid():
-            # serializer.user = self.request.user
             if self.request.user.is_authenticated():
                 serializer.save(user=User.objects.get(id=self.request.user.id))
                 request.data['target_type'] = 4
                 request.data['target_id'] = request.data['post']
-                notification.post(request)
+                notification.post(request, define_receiver(request.data['post']), ContentType.objects.get(id=14), JSONRenderer().render(serializer.data))
                 return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -108,3 +110,11 @@ class PostComment(APIView):
         response = self.serializer_class(comment, many=True)
 
         return Response(response.data)
+
+
+def define_receiver(post_id):
+    rec = set()
+    for i in Comment.objects.filter(post=post_id):
+        rec.add(i.user.id)
+    rec.add(Post.objects.get(id=post_id).user.id)
+    return User.objects.filter(id__in=rec)
