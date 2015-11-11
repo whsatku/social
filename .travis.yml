@@ -34,6 +34,7 @@ install:
 script:
 - python manage.py migrate --noinput
 - python manage.py runserver > $OUTPUT_DIR/server_log.txt 2>&1 &
+- sleep 5
 - pybot -d $OUTPUT_DIR test/authenticate
 deploy:
 - provider: script
