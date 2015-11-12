@@ -21,12 +21,12 @@
 			<div class="groupblock" ui-sref="root.group.info({id: data.id})">
 				<div class="image" style="background: #ccc"></div>
 				<div class="description">
-					<h4 class="title">{{groups.name}}</h4>
+					<h4 class="title">{{data.name}}</h4>
 					<div class="message">
-						<p>{{group.description}}</p>
+						<p>{{data.description}}</p>
 					</div>
 					<div class="metadata">
-						<strong>2</strong> members &middot; Founded <strong>Jan 1, 1970</strong>
+						<strong>2</strong> members &middot; Founded <strong>{{data.date}}</strong>
 					</div>
 				</div>
 			</div>

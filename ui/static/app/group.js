@@ -160,15 +160,18 @@ app.controller('GroupCategoryController', function($scope, $http, $stateParams){
     $http.get('/api/group/category/get/'+ category ).success(function(data){
         $scope.groups = data;
     });
-});
-
-
-app.controller('CategoryList', function($scope, $http){
-    console.log("Checkin CategoryList controller");
     $http.get('/api/group/category/all').success(function(data){
         $scope.allCategory = data;
     });
 });
+
+
+// app.controller('CategoryList', function($scope, $http){
+//     console.log("Checkin CategoryList controller");
+//     $http.get('/api/group/category/all').success(function(data){
+//         $scope.allCategory = data;
+//     });
+// });
 
 
 app.controller('CreateGroupController', function($scope, $http, $stateParams){
