@@ -104,16 +104,25 @@ app.controller('MainController', function($rootScope, $state, user){
 		$state.go('login');
 	}
 });
-app.controller('NotificationController', function($rootScope, $http, $timeout){
+app.controller('NotificationController', function($rootScope, $scope, $http, $timeout){
 
 	(function tick() {
 		$http.get('/api/notification/all/').success(function(data){
-			console.log("BRUH");
 			$rootScope.notifications = data;
 			$rootScope.notificationCount = data.length;
-			$timeout(tick, 1000);
+			$timeout(tick, 3000);
 		});
+
 	})();
+
+	$scope.readNotificationId = function (notificationId){
+		console.log(notificationId);
+		$http.get('/api/notification/read/' + notificationId).success(function(data){
+			console.log(data);
+		}).error(function(err) {
+			console.log(err);
+		});
+	};
 
 });
 

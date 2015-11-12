@@ -53,14 +53,14 @@ class UpdateNotification(APIView):
         noti.readed.add(User.objects.get(id=self.request.user.id))
         noti.save()
 
-    def post(self, request, noti_id, format=None):
+    def get(self, request, noti_id, format=None):
         self.update_read(noti_id)
         notification = Notification.objects.get(id=noti_id)
         response = self.serializer_class(notification)
         return Response(response.data)
 
-    def get(self, request, noti_id, format=None):
-        notification = Notification.objects.get(id=noti_id)
-        response = self.serializer_class(notification)
-
-        return Response(response.data)
+    # def get(self, request, noti_id, format=None):
+    #     notification = Notification.objects.get(id=noti_id)
+    #     response = self.serializer_class(notification)
+    #
+    #     return Response(response.data)
