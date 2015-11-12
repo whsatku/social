@@ -164,6 +164,7 @@ app.controller('GroupCategoryController', function($scope, $http, $stateParams){
 
 
 app.controller('CategoryList', function($scope, $http){
+    console.log("Checkin CategoryList controller");
     $http.get('/api/group/category/all').success(function(data){
         $scope.allCategory = data;
     });

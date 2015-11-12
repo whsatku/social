@@ -20,7 +20,7 @@ class GroupSerializer(serializers.ModelSerializer):
     class Meta:
         app_label = "social_group"
         model = Group
-        fields = ('id', 'name', 'description', 'short_description', 'activities', 'type', 'category', 'member_status')
+        fields = ('id', 'name', 'description', 'short_description', 'activities', 'type', 'category', 'member_status', 'date')
 
 
 class GroupCategorySerializer(serializers.ModelSerializer):

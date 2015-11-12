@@ -23,6 +23,7 @@ class Group(models.Model):
     header = models.CharField(max_length=25)
     #header_image = ImageField(upload_to=get_image_path, blank=True, null=True)
     permisssion = models.IntegerField(default=0)
+    date = models.DateField(auto_now_add=True)
 
     def __unicode__(self):
         return "group : {}".format(self.name)

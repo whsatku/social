@@ -251,14 +251,18 @@ class GroupByCategory(APIView):
                 List of group with same category.
 
         """
-        cate, created = GroupCategory.objects.get_or_create(name=cat)
+        try:
+            cate = GroupCategory.objects.get(name=cat)
+        except GroupCategory.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+
         group = Group.objects.filter(category=cate.id)
         response = self.serializer_class(group, many=True)
         return Response(response.data)
 
 
 class AllCategory(APIView):
-    """This class an API for query list of all category in database.
+    """This class an API for querying list of all category in the database.
 
 
 
