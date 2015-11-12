@@ -21,51 +21,9 @@
 	<section class="categories">
 		<h2>Explore by section</h2>
 		<div class="row">
-			<div class="col-sm-4">
-				<a href="#" ui-sref="root.lfgcat({{cat: 'Academic'}})" class="btn btn-default">Academic</a>
+			<div class="col-sm-4" ng-repeat="category in allCategory">
+				<a ui-sref="root.lfgcat({cat: category.name})" class="btn btn-default">{{category.name}}</a>
 			</div>
-			<div class="col-sm-4">
-				<a href="#" ui-sref="root.lfgcat({cat: 'acting'})" class="btn btn-default">Acting</a>
-			</div>
-			<div class="col-sm-4">
-				<a href="#" ui-sref="root.lfgcat({cat: 'art'})" class="btn btn-default">Art</a>
-			</div>
-			<div class="col-sm-4">
-				<a href="#" ui-sref="root.lfgcat({cat: 'band'})" class="btn btn-default">Band</a>
-			</div>
-			<div class="col-sm-4">
-				<a href="#" ui-sref="root.lfgcat({cat: 'film'})" class="btn btn-default">Film</a>
-			</div>
-			<div class="col-sm-4">
-				<a href="#" ui-sref="root.lfgcat({cat: 'gaming'})" class="btn btn-default">Gaming</a>
-			</div>
-			<div class="col-sm-4">
-				<a href="#" ui-sref="root.lfgcat({cat: 'social'})" class="btn btn-default">Socializing</a>
-			</div>
-			<div class="col-sm-4">
-				<a href="#" ui-sref="root.lfgcat({cat: 'si'})" class="btn btn-default">Special interest</a>
-			</div>
-			<div class="col-sm-4">
-				<a href="#" ui-sref="root.lfgcat({cat: 'sports'})" class="btn btn-default">Sports</a>
-			</div>
-			<div class="col-sm-4">
-				<a href="#" ui-sref="root.lfgcat({cat: 'technology'})" class="btn btn-default">Technology</a>
-			</div>
-			<div class="col-sm-4">
-				<a href="#" ui-sref="root.lfgcat({cat: 'volunteer'})" class="btn btn-default">Volunteering</a>
-			</div>
-			<div class="col-sm-4">
-				<a href="#" ui-sref="root.lfgcat({cat: 'writing'})" class="btn btn-default">Writing &amp; Journalism</a>
-			</div>
-
-
-
-			<!-- <div class="col-sm-4">
-				<a href="#" ui-sref="root.lfgcat({cat: 'all'})" class="btn btn-default">All</a>
-			</div> -->
-
-
-
 		</div>
 	</section>
 </div>
