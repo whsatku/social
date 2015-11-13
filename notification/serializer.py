@@ -32,12 +32,26 @@ class NotificationSerializer(ModelSerializer):
     user = UserSerializer(read_only=True)
     datetime = serializers.ReadOnlyField()
     link_type = TypeSerializer(read_only=True)
+    # link_item = serializers.DictField(child=serializers.CharField())
 
     class Meta:
         model = Notification
         fields = ('id', 'user', 'datetime',
                   'text', 'target_type', 'target_id',
                   'link_type', 'link_item', 'receiver', 'readed')
+
+
+class GetNotificationSerializer(ModelSerializer):
+    read = serializers.BooleanField()
+    user = UserSerializer(read_only=True)
+    datetime = serializers.ReadOnlyField()
+    link_type = TypeSerializer(read_only=True)
+
+    class Meta:
+        model = Notification
+        fields = ('id', 'user', 'datetime',
+                  'text', 'target_type', 'target_id',
+                  'link_type', 'link_item', 'read')
 
 
 class UpdateNotificationSerializer(ModelSerializer):

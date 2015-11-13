@@ -6,6 +6,7 @@ from rest_framework.views import APIView
 from notification.models import Notification
 from notification.models import UserNotification
 from notification.serializer import NotificationSerializer
+from notification.serializer import GetNotificationSerializer
 from notification.serializer import UpdateNotificationSerializer
 
 
@@ -36,6 +37,22 @@ class NotificationViewList(APIView):
         notification = Notification.objects.order_by('-datetime')
         response = self.serializer_class(notification, many=True)
 
+        return Response(response.data)
+
+
+class NotificationView(APIView):
+    serializer_class = GetNotificationSerializer
+
+    def get(self, request):
+        noti = Notification.objects.filter(receiver=self.request.user)
+        for i in noti:
+            # i.read = False
+            print i.readed
+            if self.request.user in i.readed.all():
+                i.read = True
+            else:
+                i.read = False
+        response = self.serializer_class(noti, many=True)
         return Response(response.data)
 
 

@@ -1,4 +1,5 @@
 from django.db import models
+from rest_framework import serializers
 from django.contrib.auth.models import User
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
