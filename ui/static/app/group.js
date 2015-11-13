@@ -157,21 +157,15 @@ app.controller('GroupManageController', function($scope, $http, $location){
 app.controller('GroupCategoryController', function($scope, $http, $stateParams){
     var category = $stateParams.cat;
     $scope.category = category;
+
     $http.get('/api/group/category/get/'+ category ).success(function(data){
         $scope.groups = data;
     });
+
     $http.get('/api/group/category/all').success(function(data){
         $scope.allCategory = data;
     });
 });
-
-
-// app.controller('CategoryList', function($scope, $http){
-//     console.log("Checkin CategoryList controller");
-//     $http.get('/api/group/category/all').success(function(data){
-//         $scope.allCategory = data;
-//     });
-// });
 
 
 app.controller('CreateGroupController', function($scope, $http, $stateParams){

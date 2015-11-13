@@ -10,6 +10,7 @@ class UserSerializer(serializers.ModelSerializer):
 
 class GroupMemberSerializer(serializers.ModelSerializer):
     user = UserSerializer(read_only=True)
+
     class Meta:
         model = GroupMember
         fields = ('user', 'role')
@@ -17,10 +18,14 @@ class GroupMemberSerializer(serializers.ModelSerializer):
 
 class GroupSerializer(serializers.ModelSerializer):
     member_status = serializers.IntegerField(read_only=True, required=False)
+    member_count = serializers.IntegerField(read_only=True)
+
     class Meta:
         app_label = "social_group"
         model = Group
-        fields = ('id', 'name', 'description', 'short_description', 'activities', 'type', 'category', 'member_status', 'date')
+        fields = ('id', 'name', 'description', 'short_description',
+                  'activities', 'type', 'category', 'member_status',
+                  'date', 'member_count', )
 
 
 class GroupCategorySerializer(serializers.ModelSerializer):
@@ -28,4 +33,3 @@ class GroupCategorySerializer(serializers.ModelSerializer):
         app_label = "group_category"
         model = GroupCategory
         fields = ('id', 'name')
-

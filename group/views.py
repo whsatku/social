@@ -256,8 +256,10 @@ class GroupByCategory(APIView):
         except GroupCategory.DoesNotExist:
             return Response(status=status.HTTP_404_NOT_FOUND)
 
-        group = Group.objects.filter(category=cate.id)
-        response = self.serializer_class(group, many=True)
+        groups = Group.objects.filter(category=cate.id)
+        for g in groups:
+            g.member_count = len(GroupMember.objects.filter(group=g))
+        response = self.serializer_class(groups, many=True)
         return Response(response.data)
 
 
