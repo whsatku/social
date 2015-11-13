@@ -44,7 +44,8 @@ class NotificationView(APIView):
     serializer_class = GetNotificationSerializer
 
     def get(self, request):
-        noti = Notification.objects.filter(receiver=self.request.user)
+        noti = Notification.objects.filter(
+            receiver=self.request.user).order_by('-datetime')
         for i in noti:
             # i.read = False
             print i.readed

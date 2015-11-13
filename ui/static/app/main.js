@@ -106,17 +106,27 @@ app.controller('MainController', function($rootScope, $state, user){
 });
 app.controller('NotificationController', function($rootScope, $scope, $http, $timeout){
 
+	var countNotification = function(notificationsData) {
+		var count = 0;
+		notificationsData.map(function(notiData) {
+			count += !notiData.read;
+		});
+		return count;
+	};
+
 	(function tick() {
 		$http.get('/api/notification/all/').success(function(data){
 			$rootScope.notifications = data;
-			$rootScope.notificationCount = data.length;
+			data.map(function(noti) {
+				noti.link_item = angular.fromJson(noti.link_item);
+			});
+			$rootScope.notificationCount = countNotification(data);
 			$timeout(tick, 3000);
 		});
 
 	})();
 
 	$scope.readNotificationId = function (notificationId){
-		console.log(notificationId);
 		$http.get('/api/notification/read/' + notificationId).success(function(data){
 			console.log(data);
 		}).error(function(err) {
