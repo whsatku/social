@@ -115,7 +115,7 @@ app.controller('NotificationController', function($rootScope, $scope, $http, $ti
 	};
 
 	(function tick() {
-		$http.get('/api/notification/all/').success(function(data){
+		$http.get('/api/notification/get/').success(function(data){
 			$rootScope.notifications = data;
 			data.map(function(noti) {
 				noti.link_item = angular.fromJson(noti.link_item);
