@@ -4,6 +4,7 @@ var app = angular.module('app.main', [
 	'ui.router',
 	'restangular',
 	'ui.bootstrap',
+	'angularMoment',
 	'app.login',
 	'app.newsfeed',
 	'app.group'
