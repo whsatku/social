@@ -35,7 +35,7 @@ class UserInformation (APIView):
 
         """
         try:
-            return UserProfile.objects.get(id=user_profile_id)
+            return UserProfile.objects.get(user_id=user_profile_id)
         except UserProfile.DoesNotExist:
             raise Http404
 

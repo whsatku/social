@@ -83,6 +83,14 @@ app.config(function($stateProvider, $urlRouterProvider) {
             templateUrl: 'templates/usertimeline.html',
             controller: 'UserProfileInfoController'
         })
+        .state('root.user.friends', {
+            url: '/friends',
+            templateUrl: 'templates/userfriends.html'
+        })
+        .state('root.user.edit', {
+            url: '/edit',
+            templateUrl: 'templates/useredit.html'
+        })
         .state('login', {
             url: '/login',
             templateUrl: 'templates/login.html',
