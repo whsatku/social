@@ -85,7 +85,7 @@ class FriendshipDetail(APIView):
         return Response(status=status.HTTP_201_CREATED)
 
     def delete(self, request, other_user_id, format=None):
-        other_user = self.getUse(other_user_id)
+        other_user = self.getUser(other_user_id)
         Friend.objects.remove_friend(other_user, self.request.user)
         return Respose(status=status.HTTP_200_OK)
 
@@ -96,3 +96,25 @@ class FriendshipPendingViewSet(APIView):
         friend_pending = Friend.objects.unread_requests(user=self.request.user)
         response = self.serializer_class(friend_pending, many=True)
         return Response(response.data)
+
+
+class IsFriendDetail(APIView):
+    serializer_class = FriendShipSerializer
+    def get_user(self, user_profile_id):
+        """Get user from user profile's database.
+
+        Args:
+                user_profile_id: ID of user profile.
+
+        Return:
+                UserProfile object by ID.
+
+        """
+        try:
+            return User.objects.get(id=user_profile_id)
+        except UserProfile.DoesNotExist:
+            raise Http404
+
+    def get(self, request ,other_user_id, format=None):
+        Friend.objects.are_friends(request.user, self.get_user(other_user_id))
+        return Response(Friend.objects.are_friends(request.user, self.get_user(other_user_id)))
