@@ -2,7 +2,13 @@
 	<div class="cover">
 		<div class="cover-in">
 			<div class="pull-right toolbar">
-				<div ng-click="addFriend()" class="btn btn-default">Add friend</div>
+				<a ng-click="addFriend()" ng-if="!isFriend" class="btn btn-default">Add friend</a>
+				<div class="btn-group" uib-dropdown ng-if="isFriend">
+					<div class="btn btn-default" uib-dropdown-toggle>Friend <span class="caret"></span></div>
+					<div class="uib-dropdown-menu">
+						<li><a href="#" ng-click="unFriend()">Unfriend</a></li>
+					</div>
+				</div>
 			</div>
 			<a href="#" class="thumbnail avatar" style="background: red;"></a>
 			<h3 class="clickable" ui-sref="root.user.timeline()">{{userprofile.user.username}}</h3>
