@@ -11,6 +11,9 @@ class UserProfileSerializer(serializers.ModelSerializer):
         model = UserProfile
         fields = ('user', 'birthday', 'gender', 'faculty', 'major', 'types', 'country', 'city')
 
-class FriendShipSerializer(serializers.ModelSerializer):    
-    class Meta:
+class FriendShipSerializer(serializers.ModelSerializer):
+	user = UserSerializer(source='from_user')
+
+	class Meta:
 		model = Friend
+		fields = ('user', 'created')

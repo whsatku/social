@@ -101,11 +101,6 @@ app.controller('MainController', function($rootScope, user, $http, $uibModal, $s
         $rootScope.group_list = data;
     });
 
-    //friend pending//
-    $http.get('/api/user/friend/pending').success(function(data){
-      $rootScope.pending = data[0];
-      console.log($rootScope.pending);
-    });
     $rootScope.logout = function(){
         var modal = $uibModal.open({
             templateUrl: 'templates/dialog/confirm.html',
@@ -134,6 +129,15 @@ app.controller('MainController', function($rootScope, user, $http, $uibModal, $s
 });
 app.controller('NotificationController', function($rootScope){
     $rootScope.notificationCount = Math.floor(Math.random() * 20);
+});
+app.controller('PendingFriendController', function($rootScope, $http, $interval){
+    var updatePendingFriend = function(){
+        $http.get('/api/user/friend/pending').success(function(data){
+            $rootScope.pendingFriends = data;
+        });
+    };
+    updatePendingFriend();
+    $interval(updatePendingFriend, 60000);
 });
 
 })();
