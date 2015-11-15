@@ -168,12 +168,11 @@ app.controller('GroupCategoryController', function($scope, $http, $stateParams){
 });
 
 
-app.controller('CreateGroupController', function($scope, $http, $stateParams){
+app.controller('CreateGroupController', function($scope, $state, $http, $stateParams){
 
     $scope.gname = "";
     $scope.gdescription = "";
-    $scope.gtype = "";
-    $scope.gcategory = 1;
+    $scope.gtype = 0;
 
     $scope.createGroup = function(){
 
@@ -183,13 +182,16 @@ app.controller('CreateGroupController', function($scope, $http, $stateParams){
             short_description: 'default',
             activities: 'default',
             type: $scope.gtype,
-            category: $scope.gcategory,
 
 
         };
 
 
-        $http.post('/api/group/create/' , $scope.newgroup ).success(function(data){});
+        $http.post('/api/group/create/' , $scope.newgroup ).success(function(data){
+            $state.go('root.group.info', {
+                id: data.id
+            });
+        });
 
     }
 
