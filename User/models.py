@@ -4,6 +4,7 @@ from django.dispatch import receiver
 
 from allauth.account.signals import user_signed_up
 from allauth.socialaccount.models import SocialAccount
+from django.db.models.signals import post_save
 
 
 GENDER = (
@@ -35,7 +36,9 @@ class UserProfile(models.Model):
     class Meta:
         db_table = 'youniversity_profile'
 
-@receiver(user_signed_up)
-def save_after_sign_up(sender, user, sociallogin=None, **kwargs):
-    new_user_id = user.id
-    profile = UserProfile.objects.create(user=user)
+
+@receiver(post_save, sender=User)
+def create_profile(sender, instance, created, **kwargs):
+    """Create a matching profile whenever a user object is created."""
+    if created:
+        profile, new = UserProfile.objects.get_or_create(user=instance)
