@@ -315,10 +315,13 @@ class CreateGroup(APIView):
 
         serializer = GroupSerializer(data=request.data)
         if serializer.is_valid():
-            print "save"
             # serializer.user = self.request.user
             this_group = serializer.save()
-            # GroupMember.objects.create(this_group, User.objects.get(id=request.user.id), 1 )
+            GroupMember.objects.create(
+                group=this_group,
+                user=request.user,
+                role=1
+            )
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 

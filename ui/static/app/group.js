@@ -190,6 +190,8 @@ app.controller('CreateGroupController', function($scope, $state, $http, $statePa
         $http.post('/api/group/create/' , $scope.newgroup ).success(function(data){
             $state.go('root.group.info', {
                 id: data.id
+            }, {
+                reload: true
             });
         });
 
