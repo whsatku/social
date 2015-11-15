@@ -3,7 +3,6 @@ from django.http import Http404
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
-
 from newsfeed.models import Post
 from newsfeed.models import Comment
 from newsfeed.serializer import PostSerializer
@@ -11,6 +10,7 @@ from newsfeed.serializer import CommentSerializer
 from notification.views import NotificationViewList
 from django.contrib.contenttypes.models import ContentType
 from rest_framework.renderers import JSONRenderer
+import json
 
 
 class PostViewList(APIView):
@@ -28,9 +28,14 @@ class PostViewList(APIView):
         if serializer.is_valid():
 
             if self.request.user.is_authenticated():
-                # print dir(serializer)
                 serializer.save(user=User.objects.get(id=self.request.user.id))
-                notification.post(request, User.objects.all(), ContentType.objects.get(id=13), JSONRenderer().render(serializer.data))
+                data = {}
+                data['type'] = 'user'
+                data['user_id'] = target_id
+                data['firstname'] = User.objects.get(id=target_id).first_name
+                data['lastname'] = User.objects.get(id=target_id).last_name
+                json_data = json.dumps(data)
+                notification.post(request, User.objects.all(), ContentType.objects.get(id=13), JSONRenderer().render(serializer.data), json_data)
                 return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -72,10 +77,22 @@ class CommentViewList(APIView):
 
         if serializer.is_valid():
             if self.request.user.is_authenticated():
-                serializer.save(user=User.objects.get(id=self.request.user.id))
+                post = Post.objects.get(id=request.data['post'])
                 request.data['target_type'] = 4
                 request.data['target_id'] = request.data['post']
-                notification.post(request, define_receiver(request.data['post']), ContentType.objects.get(id=14), JSONRenderer().render(serializer.data))
+                serializer.save(user=User.objects.get(id=self.request.user.id))
+                data = {}
+                if post.target_type == ContentType.objects.get(id=15):
+                    data['type'] = 'group'
+                    data['group_id'] = post.target_id
+                    data['group_name'] = Group.objects.get(id=post.target_id).name
+                if post.target_type == ContentType.objects.get(id=4):
+                    data['type'] = 'user'
+                    data['user_id'] = post.target_id
+                    data['firstname'] = User.objects.get(id=post.target_id).first_name
+                    data['lastname'] = User.objects.get(id=post.target_id).last_name
+                json_data = json.dumps(data)
+                notification.post(request, define_receiver(request.data['post']), ContentType.objects.get(id=14), JSONRenderer().render(serializer.data), json_data)
                 return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 

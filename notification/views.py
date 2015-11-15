@@ -13,7 +13,7 @@ from notification.serializer import UpdateNotificationSerializer
 class NotificationViewList(APIView):
     serializer_class = NotificationSerializer
 
-    def post(self, request, receiver_set, type, link_item, format=None):
+    def post(self, request, receiver_set, type, link_item, reference_detail, format=None):
 
         serializer = NotificationSerializer(data=request.data)
         receiver_set = receiver_set.exclude(id=request.user.id)
@@ -23,7 +23,8 @@ class NotificationViewList(APIView):
                 notification = serializer.save(
                     user=User.objects.get(id=request.user.id),
                     link_type=type,
-                    link_item=link_item
+                    link_item=link_item,
+                    reference_detail=reference_detail
                 )
                 for i in receiver_set:
                     UserNotification(

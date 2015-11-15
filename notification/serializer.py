@@ -38,7 +38,8 @@ class NotificationSerializer(ModelSerializer):
         model = Notification
         fields = ('id', 'user', 'datetime',
                   'text', 'target_type', 'target_id',
-                  'link_type', 'link_item', 'receiver', 'readed')
+                  'link_type', 'link_item', 'reference_detail',
+                  'receiver', 'readed')
 
 
 class GetNotificationSerializer(ModelSerializer):
@@ -51,7 +52,7 @@ class GetNotificationSerializer(ModelSerializer):
         model = Notification
         fields = ('id', 'user', 'datetime',
                   'text', 'target_type', 'target_id',
-                  'link_type', 'link_item', 'read')
+                  'link_type', 'link_item', 'reference_detail', 'read')
 
 
 class UpdateNotificationSerializer(ModelSerializer):

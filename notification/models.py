@@ -16,6 +16,7 @@ class Notification(models.Model):
     target_object = GenericForeignKey('target_type', 'target_id')
     link_type = models.ForeignKey(ContentType, related_name='link', null=True)
     link_item = models.CharField(max_length=2000, null=True)
+    reference_detail = models.CharField(max_length=2000, null=True)
 
     def __unicode__(self):
         return "Notification (id={}) by {}".format(self.id, self.user.username)

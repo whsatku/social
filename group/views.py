@@ -16,6 +16,7 @@ from serializers import *
 from django.http import Http404
 from rest_framework import status
 from rest_framework.renderers import JSONRenderer
+import json
 
 
 class MemberViewSet(ListCreateAPIView):
@@ -178,14 +179,17 @@ class GroupPostView(APIView):
         serializer = GroupPostSerializer(data=request.data)
         notification = NotificationViewList()
         if serializer.is_valid():
-
             # if User.objects.get(id=self.request.user.id) in GroupMember.objects.filter(group_id=group_id):
-
                 if self.request.user.is_authenticated():
-                    serializer.save(user=User.objects.get(id=self.request.user.id), target_id=group_id, target_type=ContentType.objects.get(id=self.group_model_id))
                     request.data['target_type'] = 15
                     request.data['target_id'] = group_id
-                    notification.post(request, User.objects.filter(id__in=GroupMember.objects.values('user').filter(group_id=group_id)), ContentType.objects.get(id=13), JSONRenderer().render(serializer.data))
+                    serializer.save(user=User.objects.get(id=self.request.user.id), target_id=group_id, target_type=ContentType.objects.get(id=self.group_model_id))
+                    data = {}
+                    data['type'] = 'group'
+                    data['group_id'] = group_id
+                    data['group_name'] = Group.objects.get(id=group_id).name
+                    json_data = json.dumps(data)
+                    notification.post(request, User.objects.filter(id__in=GroupMember.objects.values('user').filter(group_id=group_id)), ContentType.objects.get(id=13), JSONRenderer().render(serializer.data), json_data)
                     return Response(serializer.data, status=status.HTTP_201_CREATED)
                     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
