@@ -21,7 +21,7 @@ app.controller('AddFriendController', function($scope, $http, $location, $stateP
 
     	})
     }
-    $scope.isFriend = function(){
+    $scope.isFriendAPI = function(){
       $http.get('/api/user/friend/isFriend/' + otherUserId ).success(function(data){
         $scope.isFriend = data;
     	})
@@ -32,7 +32,7 @@ app.controller('AddFriendController', function($scope, $http, $location, $stateP
     	})
     }
 
-    $scope.isFriend();
+    $scope.isFriendAPI();
 
 });
 
