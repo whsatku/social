@@ -5,6 +5,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from newsfeed.models import Post
 from newsfeed.models import Comment
+from group.models import Group
 from newsfeed.serializer import PostSerializer
 from newsfeed.serializer import CommentSerializer
 from notification.views import NotificationViewList
@@ -31,9 +32,9 @@ class PostViewList(APIView):
                 serializer.save(user=User.objects.get(id=self.request.user.id))
                 data = {}
                 data['type'] = 'user'
-                data['user_id'] = target_id
-                data['firstname'] = User.objects.get(id=target_id).first_name
-                data['lastname'] = User.objects.get(id=target_id).last_name
+                data['user_id'] = request.data['target_id']
+                data['firstname'] = User.objects.get(id=request.data['target_id']).first_name
+                data['lastname'] = User.objects.get(id=request.data['target_id']).last_name
                 json_data = json.dumps(data)
                 notification.post(request, User.objects.all(), ContentType.objects.get(id=13), JSONRenderer().render(serializer.data), json_data)
                 return Response(serializer.data, status=status.HTTP_201_CREATED)
