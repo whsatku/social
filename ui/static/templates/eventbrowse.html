@@ -1,0 +1,41 @@
+<div class="lfg event">
+	<header>
+		<h1>Upcoming events</h1>
+	</header>
+	<section>
+		<h2>Featured events</h2>
+
+		<div class="largegroup" ui-sref="root.event({event: 1})">
+			<div class="image col-sm-3" style="background: #ccc"></div>
+			<div class="col-sm-9 description">
+				<h3 class="title">Event name</h3>
+				<div class="date"><i class="glyphicon glyphicon-time"></i> 12 Dec 2015 9.00am - 7.00pm</div>
+				<div class="message">
+					<p>Event description</p>
+				</div>
+				<div class="metadata">
+					<strong>7,140</strong> people are coming
+				</div>
+			</div>
+		</div>
+	</section>
+	<section>
+		<div class="row">
+			<div class="col-md-4" ng-repeat="x in [1,2,3,4,5,6,7,8,9]">
+				<div class="groupblock" ui-sref="root.event({event: x})">
+					<div class="image" style="background: #ccc"></div>
+					<div class="description">
+						<h4 class="title">Event name</h4>
+						<div class="date"><i class="glyphicon glyphicon-time"></i> 12 Dec 2015 9.00am - 7.00pm</div>
+						<div class="message">
+							<p>Event description</p>
+						</div>
+						<div class="metadata">
+							<strong>7,140</strong> people are coming
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+</div>

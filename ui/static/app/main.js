@@ -18,76 +18,98 @@ app.run(function($rootScope){
 });
 
 app.config(function($stateProvider, $urlRouterProvider) {
-    $urlRouterProvider.otherwise('/');
-    $stateProvider
-        .state('root', {
-            templateUrl: 'templates/root.html',
-            controller: 'MainController',
-            resolve: {
-                user: function(Restangular){
-                    return Restangular.one('auth/check').get().then(function(user){
-                        return user;
-                    }, function(error){
-                        return null;
-                    });
-                }
-            },
-        })
-        .state('root.newsfeed', {
-            url: '/',
-            templateUrl: 'templates/newsfeed.html',
-            controller: 'NewsfeedController'
-        })
-        .state('root.group', {
-            url: '/groups/{id:int}',
-            templateUrl: 'templates/group.html',
-            controller: 'GroupController'
-        })
-        .state('root.group.info', {
-            url: '/info',
-            templateUrl: 'templates/groupinfo.html',
-            controller: 'GroupInfoController'
-        })
-        .state('root.group.feed', {
-            url: '/feed',
-            templateUrl: 'templates/groupfeed.html',
-            controller: 'GroupFeedController'
-        })
-        .state('root.group.manage', {
-            url: '/manage',
-            templateUrl: 'templates/groupmanage.html',
-            controller: 'GroupManageController'
-        })
-        .state('root.lfg', {
-            url: '/groups/browse',
-            templateUrl: 'templates/groupbrowser.html',
-            controller: 'GroupCategoryController'
-        })
-        .state('root.lfgcat', {
-            url: '/groups/browse/{cat}',
-            templateUrl: 'templates/groupbrowser_cat.html',
-            controller: 'GroupCategoryController'
-        })
-        .state('root.creategroup', {
-            url: '/groups/create',
-            templateUrl: 'templates/groupcreate.html',
-            controller: 'CreateGroupController'
-        })
-        .state('root.user', {
-            url: '/{user:int}',
-            abstract: true,
-            templateUrl: 'templates/user.html'
-        })
-        .state('root.user.timeline', {
-            url: '/',
-            templateUrl: 'templates/usertimeline.html',
-            controller: 'UserProfileInfoController'
-        })
-        .state('login', {
-            url: '/login',
-            templateUrl: 'templates/login.html',
-            controller: 'LoginController'
-        });
+	$urlRouterProvider.otherwise('/');
+	$stateProvider
+		.state('root', {
+			templateUrl: 'templates/root.html',
+			controller: 'MainController',
+			resolve: {
+				user: function(Restangular){
+					return Restangular.one('auth/check').get().then(function(user){
+						return user;
+					}, function(error){
+						return null;
+					});
+				}
+			},
+		})
+		.state('root.newsfeed', {
+			url: '/',
+			templateUrl: 'templates/newsfeed.html',
+			controller: 'NewsfeedController'
+		})
+		.state('root.group', {
+			url: '/groups/{id:int}',
+			abstract: true,
+			templateUrl: 'templates/group.html',
+			controller: 'GroupController'
+		})
+		.state('root.group.info', {
+			url: '/info',
+			templateUrl: 'templates/groupinfo.html',
+			controller: 'GroupInfoController'
+		})
+		.state('root.group.feed', {
+			url: '/feed',
+			templateUrl: 'templates/groupfeed.html',
+			controller: 'GroupFeedController'
+		})
+		.state('root.group.manage', {
+			url: '/manage',
+			templateUrl: 'templates/groupmanage.html',
+			controller: 'GroupManageController'
+		})
+		.state('root.lfg', {
+			url: '/groups/browse',
+			templateUrl: 'templates/groupbrowser.html',
+		})
+		.state('root.lfgcat', {
+			url: '/groups/browse/{cat}',
+			templateUrl: 'templates/groupbrowser_cat.html',
+		})
+		.state('root.creategroup', {
+			url: '/groups/create',
+			templateUrl: 'templates/groupcreate.html',
+		})
+		.state('root.user', {
+			url: '/{user:int}',
+			abstract: true,
+			templateUrl: 'templates/user.html'
+		})
+		.state('root.user.timeline', {
+			url: '/',
+			templateUrl: 'templates/usertimeline.html'
+		})
+		.state('root.user.friends', {
+			url: '/friends',
+			templateUrl: 'templates/userfriends.html'
+		})
+		.state('root.user.edit', {
+			url: '/edit',
+			templateUrl: 'templates/useredit.html'
+		})
+		.state('root.event', {
+			url: '/events/{event:int}',
+			templateUrl: 'templates/event.html'
+		})
+		.state('root.eventcreate', {
+			url: '/events/create',
+			templateUrl: 'templates/eventcreate.html'
+		})
+		.state('root.eventbrowse', {
+			url: '/events/browse',
+			templateUrl: 'templates/eventbrowse.html'
+		})
+		.state('login', {
+			url: '/login',
+			templateUrl: 'templates/login.html',
+			controller: 'LoginController'
+		})
+		.state('login.first', {
+			url: '/first',
+			templateUrl: 'templates/firstlogin.html'
+		});
+
 });
 
 app.controller('MainController', function($rootScope, user, $http, $uibModal){
