@@ -45,6 +45,9 @@
 			</div>
 			<div class="col-xs-10">
 				<strong>{{data.user.username}}</strong> commented "{{data.text}}"
+				<span ng-if="data.reference_detail.type == 'group'">
+					in <strong>{{data.reference_detail.group_name}}</strong>
+				</span>
 				<div class="metadata"><span am-time-ago="data.datetime"></span></div>
 			</div>
 			<div class="clearfix"></div>
