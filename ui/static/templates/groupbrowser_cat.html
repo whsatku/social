@@ -3,15 +3,15 @@
 		<h1>{{category}}</h1>
 	</header>
 
-	<div class="largegroup" ui-sref="root.group.info({id: data.id})">
+	<div class="largegroup" ui-sref="root.group.info({id: g.id})">
 		<div class="image col-sm-3" style="background: #ccc"></div>
 		<div class="col-sm-9 description">
-			<h3 class="title">{{groups.name}}</h3>
+			<h3 class="title">{{g.name}}</h3>
 			<div class="message">
-				<p>{{groups.description}}</p>
+				<p>{{g.description}}</p>
 			</div>
 			<div class="metadata">
-				<strong>2</strong> members &middot; Founded <strong>Jan 1, 1970</strong>
+				<strong>{{g.member_count}}</strong> members &middot; Founded <strong>{{g.date}}</strong>
 			</div>
 		</div>
 	</div>
