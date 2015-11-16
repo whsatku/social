@@ -91,7 +91,6 @@ class GroupViewDetail(APIView):
     serializer_class = GroupSerializer
 
     def get_group(self, group_id):
-
         try:
             return Group.objects.get(id=group_id)
         except Group.DoesNotExist:
@@ -113,7 +112,6 @@ class GroupViewDetail(APIView):
         return Response(response.data)
 
     def post(self, request, group_id, format=None):
-
         serializer = GroupSerializer(data=request.data)
 
         if serializer.is_valid():
@@ -195,7 +193,6 @@ class MemberDetail(APIView):
         group_member_object = self.get_member(group_id, pk)
         response = self.serializer_class(group_member_object)
         return Response(response.data)
-
 
 class EditInfo(APIView):
     """This class is an API for editing information in the group.
@@ -285,7 +282,6 @@ class AllCategory(APIView):
         category = GroupCategory.objects.all()
         response = self.serializer_class(category, many=True)
         return Response(response.data)
-
 
 class GroupPostView(APIView):
     serializer_class = GroupPostSerializer
