@@ -120,6 +120,7 @@ app.controller('NotificationController', function($rootScope, $scope, $http, $ti
 			$rootScope.notifications = data;
 			data.map(function(noti) {
 				noti.link_item = angular.fromJson(noti.link_item);
+				noti.reference_detail = angular.fromJson(noti.reference_detail);
 			});
 			$rootScope.notificationCount = countNotification(data);
 			$timeout(tick, 3000);
