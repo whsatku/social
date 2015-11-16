@@ -114,11 +114,14 @@ html,body,#root{
 	padding: 0 10px;
 	box-sizing: border-box;
 }
-.cover h3{
+.cover h3, .cover .eventdate{
 	font-size: 22pt;
 	text-shadow: rgba(100,100,100,0.8) 0px 1px 1px;
 	color: white;
 	margin: 0;
+}
+.cover .eventdate{
+	font-size: 12pt;
 }
 .memberlist .thumbnail{
 	margin-bottom: 0;
@@ -300,4 +303,14 @@ html,body,#root{
 }
 .friendlist .leftcol{
 	margin-left: -15px;
+}
+
+/* events */
+.event .date{
+	margin-top: -8px;
+	margin-bottom: 10px;
+	color: #aaa;
+}
+.event header{
+	background: url(../img/events.jpg) no-repeat;
 }
