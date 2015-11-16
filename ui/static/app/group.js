@@ -156,7 +156,6 @@ app.controller('CreateGroupController', function($scope, $http, $stateParams){
     $http.get('/api/group/category/'+ category ).success(function(data){
         $scope.groups = data;
     });
-
 });
 
 })();

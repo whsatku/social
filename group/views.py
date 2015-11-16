@@ -139,8 +139,6 @@ class MemberDetail(APIView):
         response = self.serializer_class(group_member_object)
         return Response(response.data)
 
-
-
 class EditInfo(APIView):
     serializer_class = GroupSerializer
 

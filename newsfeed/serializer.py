@@ -19,7 +19,6 @@ class PostSerializer(ModelSerializer):
         model = Post
         fields = ('id', 'user', 'text', 'datetime',
                   'target_type', 'target_id')
-        # 'target_type', 'target_id', 'target_object')
 
 
 class GroupPostSerializer(ModelSerializer):

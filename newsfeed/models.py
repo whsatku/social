@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
+from django.contrib.humanize.templatetags.humanize import naturaltime
 
 
 class Post(models.Model):
@@ -11,6 +12,9 @@ class Post(models.Model):
     target_type = models.ForeignKey(ContentType)
     target_id = models.PositiveIntegerField(null=True)
     target_object = GenericForeignKey('target_type', 'target_id')
+
+    def FORMAT(self):
+        return naturaltime(self.datetime)
 
     def __unicode__(self):
         return "{}'s newsfeed (id={})".format(self.user.username, self.id)

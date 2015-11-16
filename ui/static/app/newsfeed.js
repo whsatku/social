@@ -68,17 +68,8 @@ app.controller('CommentController', function($rootScope, $scope, $http, $timeout
   };
 
   loadCommentsByPostId($scope.data.id);
-  // (function tick() {
-  //   $http.get('/api/newsfeed/post/'+$scope.data.id+'/comment/').success(function(commentsData){
-  //     console.log("BRUHX");
-  //     $scope.comments = commentsData;
-  //     $timeout(tick, 1000);
-  //   });
-  // })();
-
-
 	$scope.commentPost = function(postData) {
-		commentData = {
+		var commentData = {
 			text : $scope.comment,
 			post : postData.id,
       datetime : 'Just now',

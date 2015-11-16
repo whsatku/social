@@ -28,8 +28,8 @@
 			</div>
 		</div>
 	</div>
-	<div class="col-md-8 newsfeed">
-		<div class="post" ng-repeat='data in [{"id":1,"user":{"id":1,"username":"whs"},"text":"asdf","datetime":"3 hours ago","target_type":15,"target_id":1}]'>
+	<div class="col-md-8 newsfeed" ng-init='mockData=[{"id":1,"user":{"id":1,"username":"whs"},"text":"asdf","datetime":"3 hours ago","target_type":15,"target_id":1}]'>
+		<div class="post" ng-repeat="data in mockData">
 			<div class="user row">
 				<div class="col-xs-1 avatar">
 					<a href="#" class="thumbnail" style="width: 40px; background: red; height: 40px;"></a>
