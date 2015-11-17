@@ -7,13 +7,13 @@ from django.db import models, migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('newsfeed', '0003_auto_20151003_0237'),
+        ('notification', '0001_initial'),
     ]
 
     operations = [
-        migrations.AlterField(
-            model_name='post',
-            name='date',
-            field=models.DateField(auto_now_add=True),
+        migrations.AddField(
+            model_name='notification',
+            name='reference_detail',
+            field=models.CharField(max_length=2000, null=True),
         ),
     ]

@@ -10,10 +10,13 @@ from newsfeed.models import Post
 from newsfeed.models import Comment
 from newsfeed.serializer import GroupPostSerializer
 from newsfeed.serializer import CommentSerializer
+from notification.views import NotificationViewList
 from models import *
 from serializers import *
 from django.http import Http404
 from rest_framework import status
+from rest_framework.renderers import JSONRenderer
+import json
 
 
 class MemberViewSet(ListCreateAPIView):
@@ -82,6 +85,7 @@ class GroupViewSet(APIView):
         if serializer.is_valid():
             # serializer.user = self.request.user
             serializer.save(group=Group.objects.get(id=self.request.group.id))
+            print request.data
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -135,6 +139,30 @@ class MemberDetail(APIView):
         response = self.serializer_class(group_member_object)
         return Response(response.data)
 
+class EditInfo(APIView):
+    serializer_class = GroupSerializer
+
+    def put(self, request, group_id, format=None):
+        try:
+            group = Group.objects.get(pk=group_id)
+        except Group.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+
+        serializer = GroupSerializer(group, data=request.data)
+
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class GroupByCategory(APIView):
+    serializer_class = GroupSerializer
+
+    def get(self, request, cat, format=None):
+        group = Group.objects.filter(category=cat)
+        response = self.serializer_class(group, many=True)
+        return Response(response.data)
+
 
 class GroupPostView(APIView):
     serializer_class = GroupPostSerializer
@@ -147,10 +175,36 @@ class GroupPostView(APIView):
 
     def post(self, request, group_id, format=None):
         serializer = GroupPostSerializer(data=request.data)
+        notification = NotificationViewList()
+        if serializer.is_valid():
+            # if User.objects.get(id=self.request.user.id) in GroupMember.objects.filter(group_id=group_id):
+                if self.request.user.is_authenticated():
+                    request.data['target_type'] = 15
+                    request.data['target_id'] = group_id
+                    serializer.save(user=User.objects.get(id=self.request.user.id), target_id=group_id, target_type=ContentType.objects.get(id=self.group_model_id))
+                    data = {}
+                    data['type'] = 'group'
+                    data['group_id'] = group_id
+                    data['group_name'] = Group.objects.get(id=group_id).name
+                    json_data = json.dumps(data)
+                    notification.post(request, User.objects.filter(id__in=GroupMember.objects.values('user').filter(group_id=group_id)), ContentType.objects.get(id=13), JSONRenderer().render(serializer.data), json_data)
+                    return Response(serializer.data, status=status.HTTP_201_CREATED)
+                    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class CreateGroup(APIView):
+    serializer_class = GroupSerializer
+
+    def get(self, request, cat, format=None):
+        group = Group.objects.filter(category=cat)
+        response = self.serializer_class(group, many=True)
+        return Response(response.data)
+
+    def post(self, request, group_id, format=None):
+        serializer = GroupSerializer(data=request.data)
 
         if serializer.is_valid():
-
-            if self.request.user.is_authenticated():
-                serializer.save(user=User.objects.get(id=self.request.user.id), target_id=group_id, target_type=ContentType.objects.get(id=self.group_model_id))
-                return Response(serializer.data, status=status.HTTP_201_CREATED)
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
