@@ -32,12 +32,12 @@ class PostViewList(APIView):
                 serializer.save(user=User.objects.get(id=self.request.user.id))
                 data = {}
                 data['type'] = 'user'
-                if request.data['target_id'] != '':
+                if request.data['target_id'] != None:
                     data['user_id'] = request.data['target_id']
                     data['firstname'] = User.objects.get(id=request.data['target_id']).first_name
                     data['lastname'] = User.objects.get(id=request.data['target_id']).last_name
                 else:
-                    data['user_id'] = 'Null'
+                    data['user_id'] = None
                 json_data = json.dumps(data)
                 notification.post(request, User.objects.all(), ContentType.objects.get(id=13), JSONRenderer().render(serializer.data), json_data)
                 return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -97,7 +97,7 @@ class CommentViewList(APIView):
                         data['firstname'] = User.objects.get(id=post.target_id).first_name
                         data['lastname'] = User.objects.get(id=post.target_id).last_name
                     else:
-                        data['user_id'] = 'Null'
+                        data['user_id'] = None
                 json_data = json.dumps(data)
                 notification.post(request, define_receiver(request.data['post']), ContentType.objects.get(id=14), JSONRenderer().render(serializer.data), json_data)
                 return Response(serializer.data, status=status.HTTP_201_CREATED)
