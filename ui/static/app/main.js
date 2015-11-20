@@ -8,6 +8,7 @@ var app = angular.module('app.main', [
     'app.newsfeed',
     'app.group',
     'app.userprofile',
+    
 ]);
 
 app.config(function(RestangularProvider){

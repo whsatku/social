@@ -5,10 +5,9 @@ from rest_framework.views import APIView
 class EventViewSet(APIView):
 
 	def post(self, request, format=None):
-
         serializer = EventSerializer(data=request.data)
         if serializer.is_valid():
-            # serializer.user = self.request.user
+
             this_event = serializer.save()
             EventMember.objects.create(
                 event=this_event,
