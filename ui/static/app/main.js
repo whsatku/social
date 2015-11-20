@@ -89,15 +89,15 @@ app.config(function($stateProvider, $urlRouterProvider) {
 			templateUrl: 'templates/useredit.html'
 		})
 		.state('root.event', {
-			url: '/events/{event:int}',
+			url: '/event/{event:int}',
 			templateUrl: 'templates/event.html'
 		})
 		.state('root.eventcreate', {
-			url: '/events/create',
+			url: '/event/create',
 			templateUrl: 'templates/eventcreate.html'
 		})
 		.state('root.eventbrowse', {
-			url: '/events/browse',
+			url: '/event/browse',
 			templateUrl: 'templates/eventbrowse.html'
 		})
 		.state('login', {
