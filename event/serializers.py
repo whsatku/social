@@ -7,17 +7,17 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         fields = ('id', 'username')
 
+
 class EventMemberSerializer(serializers.ModelSerializer):
     user = UserSerializer(read_only=True)
 
     class Meta:
-        model = GroupMember
+        model = EventMember
         fields = ('user', 'role')
+
 
 class EventSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Event
-        fields = ('name', 'start_date', 'end_date','description')
-
-
+        fields = ('name', 'start_date', 'end_date', 'description')
