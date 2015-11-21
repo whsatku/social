@@ -5,7 +5,7 @@
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="-1">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta content="Robot Framework 2.9.1 (Python 2.7.10 on linux2)" name="Generator">
+<meta content="Robot Framework 2.9.2 (Python 2.7.10 on win32)" name="Generator">
 <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64,AAABAAEAEBAQAAEABAAoAQAAFgAAACgAAAAQAAAAIAAAAAEABAAAAAAAAAIAAAAAAAAAAAAAEAAAAAAAAAAAAAAAJEBoACtnfgA5cYYAERsiAEx2lAAbKkQAcazBACZCVwAcM1cAK0ucAAMDBQAnQncASG+FABkoVQAyWmgA6f8SgvH/Ij99+GLyIinyJfn/Yi//KSLzUy9iZogpIld3/4JVVTkid7vyUjNVNVJEAGOZ6Z7pXwAABpmZkRiLAAAGiJZpmGAAAEEt3SXdxAAATC7o/u3EAAC8MRZpjasAAAY1VVVTYAAABKqqqqpAAAAADKqq4AAAAAAAv4sAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMADAADgAwAA4AcAAOAHAADgBwAAwAcAAOAHAADgDwAA8A8AAPg/AAD+fwAA">
 <style media="all" type="text/css">
 /* Generic and misc styles */
@@ -832,7 +832,7 @@ window.model = (function () {
             for (var i in suites)
                 tests = tests.concat(suites[i].searchTestsInSuite(pattern, matcher));
             return tests;
-        }
+        };
         suite.searchTestsByTag = function (tag) {
             return suite.searchTests(function (test) {
                 if (tag.combined)
@@ -1340,15 +1340,18 @@ window.testdata = function () {
         kw.populateMessages(Populator(element[10], strings, message));
         return kw;
     }
-    function lazyPopulateKeywordsFromFile(parent, keywordsOrIndex, strings) {
+    function lazyPopulateKeywordsFromFile(parent, modelOrIndex, strings) {
+        var model, index, populator;
+        var creator = childCreator(parent, createKeyword);
         if (parent.isChildrenLoaded) {
-            var keywords = keywordsOrIndex;
-            parent.populateKeywords(Populator(keywords, strings, childCreator(parent, createKeyword)));
+            model = modelOrIndex;
+            populator = Populator(model, strings, creator);
         } else {
-            var index = keywordsOrIndex;
+            index = modelOrIndex;
             parent.childFileName = window.settings['splitLogBase'] + '-' + index + '.js';
-            parent.populateKeywords(SplitLogPopulator(keywordsOrIndex, childCreator(parent, createKeyword)));
+            populator = SplitLogPopulator(index, creator);
         }
+        parent.populateKeywords(populator);
     }
     function tags(taglist, strings) {
         return util.map(taglist, strings.get);
@@ -1712,28 +1715,28 @@ function stopPropagation(event) {
 window.output = {};
 </script>
 <script type="text/javascript">
-window.output["suite"] = [1,2,3,0,[],[1,0,21938],[],[[4,0,1,0,[],[1,100,21837],[[1,5,0,0,0,0,0,0,[1,101,9501],[[0,6,7,0,8,9,0,0,[1,102,2496],[],[[103,2,10]]],[0,11,7,0,12,13,0,0,[1,2599,110],[],[[2600,2,14]]],[0,11,7,0,12,15,0,0,[1,2710,68],[],[[2710,2,16]]],[0,17,7,0,18,19,0,0,[1,2779,5609],[],[[2780,2,20]]],[0,21,22,0,23,24,0,0,[1,8389,1004],[],[[9391,2,25]]],[0,26,7,0,27,28,0,0,[1,9394,207],[],[[9395,2,29]]]],[]],[0,1,0,0,0,30,0,0,[1,9603,2777],[[0,11,7,0,12,31,0,0,[1,9604,56],[],[[9604,2,32]]],[0,11,7,0,12,33,0,0,[1,9661,67],[],[[9662,2,34]]],[0,11,7,0,12,35,0,0,[1,9729,67],[],[[9730,2,36]]],[0,17,7,0,18,37,0,0,[1,9796,198],[],[[9797,2,38]]],[0,21,22,0,23,24,0,0,[1,9995,1002],[],[[10996,2,25]]],[0,17,7,0,18,37,0,0,[1,10997,215],[],[[10998,2,38]]],[0,21,22,0,23,24,0,0,[1,11213,1002],[],[[12214,2,25]]],[0,26,7,0,27,28,0,0,[1,12216,163],[],[[12217,2,29]]]],[]],[0,1,0,0,0,39,0,0,[1,12380,3256],[[0,11,7,0,12,31,0,0,[1,12381,63],[],[[12382,2,40]]],[0,11,7,0,12,33,0,0,[1,12444,72],[],[[12445,2,41]]],[0,11,7,0,12,35,0,0,[1,12516,67],[],[[12517,2,42]]],[0,17,7,0,18,37,0,0,[1,12584,496],[],[[12584,2,38]]],[0,21,22,0,23,24,0,0,[1,13080,1002],[],[[14082,2,25]]],[0,17,7,0,18,37,0,0,[1,14083,384],[],[[14083,2,38]]],[0,21,22,0,23,24,0,0,[1,14467,1003],[],[[15469,2,25]]],[0,26,7,0,27,28,0,0,[1,15472,163],[],[[15473,2,29]]]],[]],[0,1,0,0,0,43,0,0,[1,15636,3141],[[0,11,7,0,12,31,0,0,[1,15637,54],[],[[15638,2,44]]],[0,11,7,0,12,33,0,0,[1,15692,59],[],[[15694,2,45]]],[0,11,7,0,12,35,0,0,[1,15751,62],[],[[15752,2,46]]],[0,17,7,0,18,37,0,0,[1,15813,414],[],[[15814,2,38]]],[0,21,22,0,23,24,0,0,[1,16228,1002],[],[[17229,2,25]]],[0,17,7,0,18,37,0,0,[1,17230,375],[],[[17231,2,38]]],[0,21,22,0,23,24,0,0,[1,17606,1003],[],[[18608,2,25]]],[0,26,7,0,27,28,0,0,[1,18610,166],[],[[18611,2,29]]]],[]],[0,1,0,0,0,47,0,0,[1,18777,3131],[[0,11,7,0,12,31,0,0,[1,18778,50],[],[[18779,2,48]]],[0,11,7,0,12,33,0,0,[1,18828,63],[],[[18829,2,49]]],[0,11,7,0,12,35,0,0,[1,18892,70],[],[[18892,2,50]]],[0,17,7,0,18,37,0,0,[1,18963,401],[],[[18963,2,38]]],[0,21,22,0,23,24,0,0,[1,19365,1002],[],[[20366,2,25]]],[0,17,7,0,18,37,0,0,[1,20368,362],[],[[20369,2,38]]],[0,21,22,0,23,24,0,0,[1,20731,1003],[],[[21733,2,25]]],[0,26,7,0,27,28,0,0,[1,21736,171],[],[[21738,2,29]]]],[]],[2,51,7,0,52,0,0,0,[1,21909,27],[],[]]]]],[],[1,1,1,1]];
+window.output["suite"] = [1,2,3,0,[],[0,0,156],[[1,4,5,0,[],[0,15,141,6],[],[[7,0,1,0,[],[0,140,0,8],[]],[9,0,1,0,[],[0,140,0,8],[]],[10,0,1,0,[],[0,140,0,8],[]],[11,0,1,0,[],[0,140,0,8],[]]],[[1,12,0,0,0,0,0,0,[0,125,15],[[0,13,14,0,15,16,0,0,[0,125,15],[[0,17,14,0,18,0,0,0,[0,125,0],[],[[125,5,19]]]],[[125,2,20],[125,3,22],[140,5,23]]]],[]],[2,24,14,0,25,0,0,0,[1,156,0],[],[]]],[4,0,4,0]]],[],[],[4,0,4,0]];
 </script>
 <script type="text/javascript">
 window.output["strings"] = [];
 </script>
 <script type="text/javascript">
-window.output["strings"] = window.output["strings"].concat(["*","*createUser","*/home/saint/Desktop/WSP/social/test/createUser.txt","*createUser.txt","*create dummy user","*LoginAdmin","*Open Browser","*Selenium2Library","*<p>Opens a new browser instance to given URL.\x3c/p>","*<a href=\"http://localhost:8000/admin\">http://localhost:8000/admin\x3c/a>, ${BROWSER}","*Opening browser 'ff' to base url '<a href=\"http://localhost:8000/admin\">http://localhost:8000/admin\x3c/a>'","*Input Text","*<p>Types the given `text` into text field identified by `locator`.\x3c/p>","*//*[@id=\"id_username\"], root","*Typing text 'root' into text field '//*[@id=\"id_username\"]'","*//*[@id=\"id_password\"], toor","*Typing text 'toor' into text field '//*[@id=\"id_password\"]'","*Click Element","*<p>Click element identified by `locator`.\x3c/p>","*//*[@id=\"login-form\"]/div[3]/input","*Clicking element '//*[@id=\"login-form\"]/div[3]/input'.","*Sleep","*BuiltIn","*<p>Pauses the test executed for the given time.\x3c/p>","*1","*Slept 1 second","*Go To","*<p>Navigates the active browser instance to the provided URL.\x3c/p>","eNqzSVTIKEpNs1XKKCkpsNLXz8lPTszJyC8usbIwMDDQT0zJzczTTywtydAvLU4tAvJT9JXsiFdro59oBwCS3CGO","*Opening url '<a href=\"http://localhost:8000/admin/auth/user/add/\">http://localhost:8000/admin/auth/user/add/\x3c/a>'","*user1, user1-password","*id_username, ${username}","*Typing text 'user1' into text field 'id_username'","*id_password1, ${password}","*Typing text 'user1-password' into text field 'id_password1'","*id_password2, ${password}","*Typing text 'user1-password' into text field 'id_password2'","*//*[@id=\"user_form\"]/div/div/input[1]","*Clicking element '//*[@id=\"user_form\"]/div/div/input[1]'.","*user2, user2-password","*Typing text 'user2' into text field 'id_username'","*Typing text 'user2-password' into text field 'id_password1'","*Typing text 'user2-password' into text field 'id_password2'","*user3, user3-password","*Typing text 'user3' into text field 'id_username'","*Typing text 'user3-password' into text field 'id_password1'","*Typing text 'user3-password' into text field 'id_password2'","*user4, user4-password","*Typing text 'user4' into text field 'id_username'","*Typing text 'user4-password' into text field 'id_password1'","*Typing text 'user4-password' into text field 'id_password2'","*Close Browser","*<p>Closes the current browser.\x3c/p>"]);
+window.output["strings"] = window.output["strings"].concat(["*","*Newsfeed","*C:\\Users\\Windows\\Desktop\\social\\test\\newsfeed","*newsfeed","*C:\\Users\\Windows\\Desktop\\social\\test\\newsfeed\\newsfeed.txt","*newsfeed/newsfeed.txt","*Suite setup failed:\nWebDriverException: Message: Unable to start phantomjs with ghostdriver: [Error 2] The system cannot find the file specified\n","*PostStatusWithText","*Parent suite setup failed:\nWebDriverException: Message: Unable to start phantomjs with ghostdriver: [Error 2] The system cannot find the file specified\n","*PostStatusWithoutText","*CommentStatusWithText","*CommentStatusWithoutText","*Pre-condition","*Open Browser","*Selenium2Library","*<p>Opens a new browser instance to given URL.\x3c/p>","*<a href=\"http://localhost:8000/admin\">http://localhost:8000/admin\x3c/a>, ${BROWSER}","*Capture Page Screenshot","*<p>Takes a screenshot of the current page and embeds it into the log.\x3c/p>","*No browser is open","*Opening browser 'phantomJS' to base url '<a href=\"http://localhost:8000/admin\">http://localhost:8000/admin\x3c/a>'","*s1-s1-k1-k1","*Keyword 'Capture Page Screenshot' could not be run on failure: No browser is open","*WebDriverException: Message: Unable to start phantomjs with ghostdriver: [Error 2] The system cannot find the file specified\n","*Close Browser","*<p>Closes the current browser.\x3c/p>"]);
 </script>
 <script type="text/javascript">
-window.output["generatedTimestamp"] = "20151012 20:08:54 GMT +07:00";
+window.output["errors"] = [[125,3,22,21]];
 </script>
 <script type="text/javascript">
-window.output["errors"] = [];
+window.output["stats"] = [[{"elapsed":"00:00:00","fail":4,"label":"Critical Tests","pass":0},{"elapsed":"00:00:00","fail":4,"label":"All Tests","pass":0}],[],[{"elapsed":"00:00:00","fail":4,"id":"s1","label":"Newsfeed","name":"Newsfeed","pass":0},{"elapsed":"00:00:00","fail":4,"id":"s1-s1","label":"Newsfeed.Newsfeed","name":"Newsfeed","pass":0}]];
 </script>
 <script type="text/javascript">
-window.output["stats"] = [[{"elapsed":"00:00:22","fail":0,"label":"Critical Tests","pass":1},{"elapsed":"00:00:22","fail":0,"label":"All Tests","pass":1}],[],[{"elapsed":"00:00:22","fail":0,"id":"s1","label":"createUser","name":"createUser","pass":1}]];
+window.output["generatedTimestamp"] = "20151121 22:02:16 GMT +08:00";
 </script>
 <script type="text/javascript">
-window.output["generatedMillis"] = 20990;
+window.output["generatedMillis"] = -255;
 </script>
 <script type="text/javascript">
-window.output["baseMillis"] = 1444655313010;
+window.output["baseMillis"] = 1448118136255;
 </script>
 <script type="text/javascript">
 window.settings = {"defaultLevel":"INFO","minLevel":"INFO","reportURL":"report.html","splitLogBase":"log","title":""};

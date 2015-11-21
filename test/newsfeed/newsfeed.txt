@@ -5,7 +5,7 @@ Suite Setup    Pre-condition
 Suite Teardown    Close browser
 
 *** Variables ***
-${BROWSER}    phantomJS
+${BROWSER}    Firefox
 ${URL}    http://localhost:8000/static/index.html#/
 
 *** Test Cases ***
@@ -33,6 +33,21 @@ CommentStatusWithoutText
     [Template]    Comment Status without Text
             ${EMPTY}
 
+PostRelativeTime
+    [Template]    Show Post Relative Time
+    #---------------------------
+    #          status          |
+    #---------------------------
+        TestCheckPostTime
+
+
+CommentRelativeTime
+    [Template]   Show Comment Relative Time
+    #---------------------------
+    #          Comment         |
+    #---------------------------
+        TestCheckCommentTime
+
 *** Keywords ***
 Pre-condition
     Open Browser    http://localhost:8000/admin    ${BROWSER}
@@ -44,9 +59,9 @@ Pre-condition
 
 Post Status with Text
     [Arguments]    ${title}    ${status}
-
     Wait Until Page Contains    ${title}   5
-    Title Should Be    ${title}
+    Title Should Be   ${title}
+    Wait Until Element Is Visible     xpath=//*[@id="rootcontainer"]/div/div[1]/form/textarea     5    
     Input text    xpath=//*[@id="rootcontainer"]/div/div[1]/form/textarea    ${status}    
     Click Element    xpath=//*[@id="rootcontainer"]/div/div[1]/form/input
     Wait Until Page Contains    ${status}    5
@@ -79,6 +94,28 @@ Comment Status without Text
     Input text     xpath=//*[@id="rootcontainer"]/div/div[1]/div/div[1]/ul/li/div/form/input[1]    ${comment}
     Press Key    xpath=//*[@id="rootcontainer"]/div/div[1]/div/div[1]/ul/li/div/form/input[1]    \\13
     Wait Until Page Contains   ${comment}   5
+
+
+Show Post Relative Time
+    [Arguments]   ${status}
+    Wait Until Element Is Visible     xpath=//*[@id="rootcontainer"]/div/div[1]/form/textarea     5    
+    Input text    xpath=//*[@id="rootcontainer"]/div/div[1]/form/textarea    ${status}    
+    Click Element    xpath=//*[@id="rootcontainer"]/div/div[1]/form/input
+    Wait Until Page Contains    ${status}    5
+    Wait Until Element Is Visible     xpath=//*[@id="rootcontainer"]/div/div[1]/div/div[1]    5
+    Wait Until Element Contains    xpath=//*[@id="rootcontainer"]/div/div[1]/div/div[1]/div[1]/div[2]/div    now · Public    5
+
+
+
+Show Comment Relative Time
+    [Arguments]   ${comment}
+    Input text     xpath=//*[@id="rootcontainer"]/div/div[1]/div/div[1]/ul/li/div/form/input[1]    ${comment}
+    Press Key    xpath=//*[@id="rootcontainer"]/div/div[1]/div/div[1]/ul/li/div/form/input[1]    \\13
+    Wait Until Page Contains    ${comment}    5
+    Wait Until Element Is Visible     xpath=//*[@id="rootcontainer"]/div/div[1]/div/div[1]/ul/li[1]/div/div[1]    5
+    Wait Until Element Contains   xpath=//*[@id="rootcontainer"]/div/div[1]/div/div[1]/ul/li[1]/div/div[2]/span    now    5
+
+
 
 
 

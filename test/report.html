@@ -5,7 +5,7 @@
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="-1">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta content="Robot Framework 2.9.1 (Python 2.7.10 on linux2)" name="Generator">
+<meta content="Robot Framework 2.9.2 (Python 2.7.10 on win32)" name="Generator">
 <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64,AAABAAEAEBAQAAEABAAoAQAAFgAAACgAAAAQAAAAIAAAAAEABAAAAAAAAAIAAAAAAAAAAAAAEAAAAAAAAAAAAAAAJEBoACtnfgA5cYYAERsiAEx2lAAbKkQAcazBACZCVwAcM1cAK0ucAAMDBQAnQncASG+FABkoVQAyWmgA6f8SgvH/Ij99+GLyIinyJfn/Yi//KSLzUy9iZogpIld3/4JVVTkid7vyUjNVNVJEAGOZ6Z7pXwAABpmZkRiLAAAGiJZpmGAAAEEt3SXdxAAATC7o/u3EAAC8MRZpjasAAAY1VVVTYAAABKqqqqpAAAAADKqq4AAAAAAAv4sAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMADAADgAwAA4AcAAOAHAADgBwAAwAcAAOAHAADgDwAA8A8AAPg/AAD+fwAA">
 <style media="all" type="text/css">
 /* Generic and misc styles */
@@ -651,7 +651,7 @@ window.model = (function () {
             for (var i in suites)
                 tests = tests.concat(suites[i].searchTestsInSuite(pattern, matcher));
             return tests;
-        }
+        };
         suite.searchTestsByTag = function (tag) {
             return suite.searchTests(function (test) {
                 if (tag.combined)
@@ -1159,15 +1159,18 @@ window.testdata = function () {
         kw.populateMessages(Populator(element[10], strings, message));
         return kw;
     }
-    function lazyPopulateKeywordsFromFile(parent, keywordsOrIndex, strings) {
+    function lazyPopulateKeywordsFromFile(parent, modelOrIndex, strings) {
+        var model, index, populator;
+        var creator = childCreator(parent, createKeyword);
         if (parent.isChildrenLoaded) {
-            var keywords = keywordsOrIndex;
-            parent.populateKeywords(Populator(keywords, strings, childCreator(parent, createKeyword)));
+            model = modelOrIndex;
+            populator = Populator(model, strings, creator);
         } else {
-            var index = keywordsOrIndex;
+            index = modelOrIndex;
             parent.childFileName = window.settings['splitLogBase'] + '-' + index + '.js';
-            parent.populateKeywords(SplitLogPopulator(keywordsOrIndex, childCreator(parent, createKeyword)));
+            populator = SplitLogPopulator(index, creator);
         }
+        parent.populateKeywords(populator);
     }
     function tags(taglist, strings) {
         return util.map(taglist, strings.get);
@@ -1552,25 +1555,25 @@ storage = function () {
 window.output = {};
 </script>
 <script type="text/javascript">
-window.output["suite"] = [1,2,3,0,[],[1,0,21938],[],[[4,0,1,0,[],[1,100,21837],[]]],[],[1,1,1,1]];
+window.output["suite"] = [1,2,3,0,[],[0,0,156],[[1,4,5,0,[],[0,15,141,6],[],[[7,0,1,0,[],[0,140,0,8],[]],[9,0,1,0,[],[0,140,0,8],[]],[10,0,1,0,[],[0,140,0,8],[]],[11,0,1,0,[],[0,140,0,8],[]]],[],[4,0,4,0]]],[],[],[4,0,4,0]];
 </script>
 <script type="text/javascript">
 window.output["strings"] = [];
 </script>
 <script type="text/javascript">
-window.output["strings"] = window.output["strings"].concat(["*","*createUser","*/home/saint/Desktop/WSP/social/test/createUser.txt","*createUser.txt","*create dummy user"]);
+window.output["strings"] = window.output["strings"].concat(["*","*Newsfeed","*C:\\Users\\Windows\\Desktop\\social\\test\\newsfeed","*newsfeed","*C:\\Users\\Windows\\Desktop\\social\\test\\newsfeed\\newsfeed.txt","*newsfeed/newsfeed.txt","*Suite setup failed:\nWebDriverException: Message: Unable to start phantomjs with ghostdriver: [Error 2] The system cannot find the file specified\n","*PostStatusWithText","*Parent suite setup failed:\nWebDriverException: Message: Unable to start phantomjs with ghostdriver: [Error 2] The system cannot find the file specified\n","*PostStatusWithoutText","*CommentStatusWithText","*CommentStatusWithoutText"]);
 </script>
 <script type="text/javascript">
-window.output["generatedTimestamp"] = "20151012 20:08:54 GMT +07:00";
+window.output["stats"] = [[{"elapsed":"00:00:00","fail":4,"label":"Critical Tests","pass":0},{"elapsed":"00:00:00","fail":4,"label":"All Tests","pass":0}],[],[{"elapsed":"00:00:00","fail":4,"id":"s1","label":"Newsfeed","name":"Newsfeed","pass":0},{"elapsed":"00:00:00","fail":4,"id":"s1-s1","label":"Newsfeed.Newsfeed","name":"Newsfeed","pass":0}]];
 </script>
 <script type="text/javascript">
-window.output["stats"] = [[{"elapsed":"00:00:22","fail":0,"label":"Critical Tests","pass":1},{"elapsed":"00:00:22","fail":0,"label":"All Tests","pass":1}],[],[{"elapsed":"00:00:22","fail":0,"id":"s1","label":"createUser","name":"createUser","pass":1}]];
+window.output["generatedTimestamp"] = "20151121 22:02:16 GMT +08:00";
 </script>
 <script type="text/javascript">
-window.output["generatedMillis"] = 20990;
+window.output["generatedMillis"] = -255;
 </script>
 <script type="text/javascript">
-window.output["baseMillis"] = 1444655313010;
+window.output["baseMillis"] = 1448118136255;
 </script>
 <script type="text/javascript">
 window.settings = {"background":{"fail":"#f66","nonCriticalFail":"#9e9","pass":"#9e9"},"logURL":"log.html","title":""};

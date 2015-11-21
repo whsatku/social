@@ -5,7 +5,7 @@
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="-1">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta content="Robot Framework 2.9.1 (Python 2.7.6 on linux2)" name="Generator">
+<meta content="Robot Framework 2.9.2 (Python 2.7.10 on win32)" name="Generator">
 <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64,AAABAAEAEBAQAAEABAAoAQAAFgAAACgAAAAQAAAAIAAAAAEABAAAAAAAAAIAAAAAAAAAAAAAEAAAAAAAAAAAAAAAJEBoACtnfgA5cYYAERsiAEx2lAAbKkQAcazBACZCVwAcM1cAK0ucAAMDBQAnQncASG+FABkoVQAyWmgA6f8SgvH/Ij99+GLyIinyJfn/Yi//KSLzUy9iZogpIld3/4JVVTkid7vyUjNVNVJEAGOZ6Z7pXwAABpmZkRiLAAAGiJZpmGAAAEEt3SXdxAAATC7o/u3EAAC8MRZpjasAAAY1VVVTYAAABKqqqqpAAAAADKqq4AAAAAAAv4sAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMADAADgAwAA4AcAAOAHAADgBwAAwAcAAOAHAADgDwAA8A8AAPg/AAD+fwAA">
 <style media="all" type="text/css">
 /* Generic and misc styles */
@@ -832,7 +832,7 @@ window.model = (function () {
             for (var i in suites)
                 tests = tests.concat(suites[i].searchTestsInSuite(pattern, matcher));
             return tests;
-        }
+        };
         suite.searchTestsByTag = function (tag) {
             return suite.searchTests(function (test) {
                 if (tag.combined)
@@ -1340,15 +1340,18 @@ window.testdata = function () {
         kw.populateMessages(Populator(element[10], strings, message));
         return kw;
     }
-    function lazyPopulateKeywordsFromFile(parent, keywordsOrIndex, strings) {
+    function lazyPopulateKeywordsFromFile(parent, modelOrIndex, strings) {
+        var model, index, populator;
+        var creator = childCreator(parent, createKeyword);
         if (parent.isChildrenLoaded) {
-            var keywords = keywordsOrIndex;
-            parent.populateKeywords(Populator(keywords, strings, childCreator(parent, createKeyword)));
+            model = modelOrIndex;
+            populator = Populator(model, strings, creator);
         } else {
-            var index = keywordsOrIndex;
+            index = modelOrIndex;
             parent.childFileName = window.settings['splitLogBase'] + '-' + index + '.js';
-            parent.populateKeywords(SplitLogPopulator(keywordsOrIndex, childCreator(parent, createKeyword)));
+            populator = SplitLogPopulator(index, creator);
         }
+        parent.populateKeywords(populator);
     }
     function tags(taglist, strings) {
         return util.map(taglist, strings.get);
@@ -1712,28 +1715,28 @@ function stopPropagation(event) {
 window.output = {};
 </script>
 <script type="text/javascript">
-window.output["suite"] = [1,2,3,0,[],[0,0,2692,4],[],[[5,0,1,0,[],[0,2678,1,6],[]],[7,0,1,0,[],[0,2680,1,6],[]],[8,0,1,0,[],[0,2682,1,6],[]],[9,0,1,0,[],[0,2684,0,6],[]]],[[1,10,0,0,0,0,0,0,[0,373,2304],[[0,11,12,0,13,14,0,0,[1,373,2144],[],[[375,2,15]]],[0,16,12,0,17,18,0,0,[0,2519,157],[[0,19,12,0,20,0,0,0,[1,2584,56],[],[[2639,2,21]]]],[[2522,2,22],[2675,5,23]]]],[]],[2,24,12,0,25,0,0,0,[1,2685,6],[],[]]],[4,0,4,0]];
+window.output["suite"] = [1,2,3,0,[],[1,0,12909],[],[[4,0,1,0,[],[1,10730,778],[[0,5,0,0,0,6,0,0,[1,10731,540],[[0,7,8,0,9,10,0,0,[1,10732,7],[],[]],[0,11,8,0,12,13,0,0,[1,10739,7],[],[[10745,2,14]]],[0,15,8,0,16,17,0,0,[1,10746,340],[],[]],[0,18,8,0,19,20,0,0,[1,11086,54],[],[[11087,2,21]]],[0,22,8,0,23,24,0,0,[1,11140,98],[],[[11141,2,25]]],[0,7,8,0,9,26,0,0,[1,11238,32],[],[]]],[]],[0,5,0,0,0,27,0,0,[1,11271,236],[[0,7,8,0,9,10,0,0,[1,11272,11],[],[]],[0,11,8,0,12,13,0,0,[1,11284,4],[],[[11288,2,14]]],[0,15,8,0,16,17,0,0,[1,11288,31],[],[]],[0,18,8,0,19,20,0,0,[1,11320,57],[],[[11320,2,28]]],[0,22,8,0,23,24,0,0,[1,11378,114],[],[[11378,2,25]]],[0,7,8,0,9,26,0,0,[1,11493,14],[],[]]],[]]]],[29,0,1,0,[],[1,11512,457],[[0,30,0,0,0,31,0,0,[1,11513,455],[[0,18,8,0,19,20,0,0,[1,11514,46],[],[[11515,2,32]]],[0,7,8,0,9,33,0,0,[1,11560,199],[],[]],[0,22,8,0,23,24,0,0,[1,11759,66],[],[[11760,2,25]]],[0,7,8,0,9,26,0,0,[1,11825,142],[],[]]],[]]]],[34,0,1,0,[],[1,11972,175],[[0,35,0,0,0,36,0,0,[1,11973,173],[[0,18,8,0,19,37,0,0,[1,11974,59],[],[[11974,2,38]]],[0,39,8,0,40,41,0,0,[1,12034,54],[],[]],[0,7,8,0,9,42,0,0,[1,12089,57],[],[]]],[]]]],[43,0,1,0,[],[1,12150,204],[[0,44,0,0,0,45,0,0,[1,12151,202],[[0,18,8,0,19,37,0,0,[1,12152,40],[],[[12152,2,46]]],[0,39,8,0,40,41,0,0,[1,12192,27],[],[]],[0,7,8,0,9,42,0,0,[1,12219,134],[],[]]],[]]]],[47,0,1,0,[],[1,12357,230],[[0,48,0,0,0,49,0,0,[1,12358,228],[[0,15,8,0,16,17,0,0,[1,12359,14],[],[]],[0,18,8,0,19,20,0,0,[1,12373,73],[],[[12374,2,50]]],[0,22,8,0,23,24,0,0,[1,12446,72],[],[[12447,2,25]]],[0,7,8,0,9,26,0,0,[1,12518,31],[],[]],[0,15,8,0,16,51,0,0,[1,12549,20],[],[]],[0,52,8,0,53,54,0,0,[1,12569,16],[],[]]],[]]]],[55,0,1,0,[],[1,12592,196],[[0,56,0,0,0,57,0,0,[1,12593,194],[[0,18,8,0,19,37,0,0,[1,12594,72],[],[[12595,2,58]]],[0,39,8,0,40,41,0,0,[1,12667,45],[],[]],[0,7,8,0,9,42,0,0,[1,12713,22],[],[]],[0,15,8,0,16,59,0,0,[1,12735,32],[],[]],[0,52,8,0,53,60,0,0,[1,12767,20],[],[]]],[]]]]],[[1,61,0,0,0,0,0,0,[1,109,10620],[[0,62,8,0,63,64,0,0,[1,109,4858],[],[[109,2,65]]],[0,18,8,0,19,66,0,0,[1,4967,87],[],[[4968,2,67]]],[0,18,8,0,19,68,0,0,[1,5055,37],[],[[5055,2,69]]],[0,22,8,0,23,70,0,0,[1,5092,5602],[],[[5093,2,71]]],[0,72,8,0,73,74,0,0,[1,10695,34],[],[[10695,2,75]]]],[]],[2,76,8,0,77,0,0,0,[1,12790,119],[],[]]],[6,6,6,6]];
 </script>
 <script type="text/javascript">
 window.output["strings"] = [];
 </script>
 <script type="text/javascript">
-window.output["strings"] = window.output["strings"].concat(["*","*Newsfeed","*/home/nookskill/Documents/wsp/social/test/newsfeed/newsfeed.txt","*newsfeed.txt","*Suite setup failed:\nValueError: Element locator '//*[@id=\"id_username\"]' did not match any elements.","*PostStatusWithText","*Parent suite setup failed:\nValueError: Element locator '//*[@id=\"id_username\"]' did not match any elements.","*PostStatusWithoutText","*CommentStatusWithText","*CommentStatusWithoutText","*Pre-condition","*Open Browser","*Selenium2Library","*<p>Opens a new browser instance to given URL.\x3c/p>","*<a href=\"http://localhost:8000/admin\">http://localhost:8000/admin\x3c/a>, ${BROWSER}","*Opening browser 'phantomJS' to base url '<a href=\"http://localhost:8000/admin\">http://localhost:8000/admin\x3c/a>'","*Input Text","*<p>Types the given `text` into text field identified by `locator`.\x3c/p>","*//*[@id=\"id_username\"], best","*Capture Page Screenshot","*<p>Takes a screenshot of the current page and embeds it into the log.\x3c/p>","*\x3c/td>\x3c/tr><tr><td colspan=\"3\"><a href=\"selenium-screenshot-1.png\"><img src=\"selenium-screenshot-1.png\" width=\"800px\">\x3c/a>","*Typing text 'best' into text field '//*[@id=\"id_username\"]'","*ValueError: Element locator '//*[@id=\"id_username\"]' did not match any elements.","*Close Browser","*<p>Closes the current browser.\x3c/p>"]);
-</script>
-<script type="text/javascript">
-window.output["generatedTimestamp"] = "20151109 21:42:15 GMT +07:00";
+window.output["strings"] = window.output["strings"].concat(["*","*Newsfeed","*C:\\Users\\Windows\\Desktop\\social\\test\\newsfeed\\newsfeed.txt","*newsfeed.txt","*PostStatusWithText","*Post Status with Text","*Youniversity, Test","*Wait Until Page Contains","*Selenium2Library","*<p>Waits until `text` appears on current page.\x3c/p>","*${title}, 5","*Title Should Be","*<p>Verifies that current page title equals `title`.\x3c/p>","*${title}","*Page title is 'Youniversity'.","*Wait Until Element Is Visible","*<p>Waits until element specified with `locator` is visible.\x3c/p>","*xpath=//*[@id=\"rootcontainer\"]/div/div[1]/form/textarea, 5","*Input Text","*<p>Types the given `text` into text field identified by `locator`.\x3c/p>","*xpath=//*[@id=\"rootcontainer\"]/div/div[1]/form/textarea, ${status}","*Typing text 'Test' into text field 'xpath=//*[@id=\"rootcontainer\"]/div/div[1]/form/textarea'","*Click Element","*<p>Click element identified by `locator`.\x3c/p>","*xpath=//*[@id=\"rootcontainer\"]/div/div[1]/form/input","*Clicking element 'xpath=//*[@id=\"rootcontainer\"]/div/div[1]/form/input'.","*${status}, 5","*Youniversity, 1234","*Typing text '1234' into text field 'xpath=//*[@id=\"rootcontainer\"]/div/div[1]/form/textarea'","*PostStatusWithoutText","*Post Status without Text","*Youniversity, ${EMPTY}","*Typing text '' into text field 'xpath=//*[@id=\"rootcontainer\"]/div/div[1]/form/textarea'","*${EMPTY}, 5","*CommentStatusWithText","*Comment Status with Text","*Comment","*xpath=//*[@id=\"rootcontainer\"]/div/div[1]/div/div[1]/ul/li/div/form/input[1], ${comment}","*Typing text 'Comment' into text field 'xpath=//*[@id=\"rootcontainer\"]/div/div[1]/div/div[1]/ul/li/div/form/input[1]'","*Press Key","*<p>Simulates user pressing key on element identified by `locator`.\x3c/p>","*xpath=//*[@id=\"rootcontainer\"]/div/div[1]/div/div[1]/ul/li/div/form/input[1], \\\\13","*${comment}, 5","*CommentStatusWithoutText","*Comment Status without Text","*${EMPTY}","*Typing text '' into text field 'xpath=//*[@id=\"rootcontainer\"]/div/div[1]/div/div[1]/ul/li/div/form/input[1]'","*PostRelativeTime","*Show Post Relative Time","*TestCheckPostTime","*Typing text 'TestCheckPostTime' into text field 'xpath=//*[@id=\"rootcontainer\"]/div/div[1]/form/textarea'","*xpath=//*[@id=\"rootcontainer\"]/div/div[1]/div/div[1], 5","*Wait Until Element Contains","*<p>Waits until given element contains `text`.\x3c/p>","*xpath=//*[@id=\"rootcontainer\"]/div/div[1]/div/div[1]/div[1]/div[2]/div, now · Public, 5","*CommentRelativeTime","*Show Comment Relative Time","*TestCheckCommentTime","*Typing text 'TestCheckCommentTime' into text field 'xpath=//*[@id=\"rootcontainer\"]/div/div[1]/div/div[1]/ul/li/div/form/input[1]'","*xpath=//*[@id=\"rootcontainer\"]/div/div[1]/div/div[1]/ul/li[1]/div/div[1], 5","*xpath=//*[@id=\"rootcontainer\"]/div/div[1]/div/div[1]/ul/li[1]/div/div[2]/span, now, 5","*Pre-condition","*Open Browser","*<p>Opens a new browser instance to given URL.\x3c/p>","*<a href=\"http://localhost:8000/admin\">http://localhost:8000/admin\x3c/a>, ${BROWSER}","*Opening browser 'Firefox' to base url '<a href=\"http://localhost:8000/admin\">http://localhost:8000/admin\x3c/a>'","*//*[@id=\"id_username\"], best","*Typing text 'best' into text field '//*[@id=\"id_username\"]'","*//*[@id=\"id_password\"], 123","*Typing text '123' into text field '//*[@id=\"id_password\"]'","*//*[@id=\"login-form\"]/div[3]/input","*Clicking element '//*[@id=\"login-form\"]/div[3]/input'.","*Go To","*<p>Navigates the active browser instance to the provided URL.\x3c/p>","eNqzSVTIKEpNs1XKKCkpsNLXz8lPTszJyC8usbIwMDDQLy5JLMlM1s/MS0mt0Msoyc1R1leyI1qpjX6iHQBSvCDY","*Opening url '<a href=\"http://localhost:8000/static/index.html#/\">http://localhost:8000/static/index.html#/\x3c/a>'","*Close Browser","*<p>Closes the current browser.\x3c/p>"]);
 </script>
 <script type="text/javascript">
 window.output["errors"] = [];
 </script>
 <script type="text/javascript">
-window.output["stats"] = [[{"elapsed":"00:00:00","fail":4,"label":"Critical Tests","pass":0},{"elapsed":"00:00:00","fail":4,"label":"All Tests","pass":0}],[],[{"elapsed":"00:00:03","fail":4,"id":"s1","label":"Newsfeed","name":"Newsfeed","pass":0}]];
+window.output["stats"] = [[{"elapsed":"00:00:02","fail":0,"label":"Critical Tests","pass":6},{"elapsed":"00:00:02","fail":0,"label":"All Tests","pass":6}],[],[{"elapsed":"00:00:13","fail":0,"id":"s1","label":"Newsfeed","name":"Newsfeed","pass":6}]];
 </script>
 <script type="text/javascript">
-window.output["generatedMillis"] = 1894;
+window.output["generatedTimestamp"] = "20151122 01:20:15 GMT +08:00";
 </script>
 <script type="text/javascript">
-window.output["baseMillis"] = 1447080133106;
+window.output["generatedMillis"] = 12498;
+</script>
+<script type="text/javascript">
+window.output["baseMillis"] = 1448130002502;
 </script>
 <script type="text/javascript">
 window.settings = {"defaultLevel":"INFO","minLevel":"INFO","reportURL":"report.html","splitLogBase":"log","title":""};
