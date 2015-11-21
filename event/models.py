@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 
 class Event(models.Model):
     name = models.CharField(max_length=25)
-    start_date = models.DateField(auto_now_add=True)
+    start_date = models.DateField(auto_now_add=False)
     end_date = models.DateField(auto_now_add=False)
     description = models.CharField(max_length=200)
 
