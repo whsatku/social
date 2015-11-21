@@ -5,7 +5,7 @@ Suite Setup    Pre-condition
 Suite Teardown    Close browser
 
 *** Variables ***
-${BROWSER}    Firefox
+${BROWSER}    phantomJS
 ${URL}    http://localhost:8000/static/index.html#/
 
 *** Test Cases ***
@@ -148,9 +148,12 @@ Comment Filter By Time
     [Arguments]   ${comment1}    ${comment2}
     Input text     xpath=//*[@id="rootcontainer"]/div/div[1]/div/div[1]/ul/li/div/form/input[1]    ${comment1}
     Press Key    xpath=//*[@id="rootcontainer"]/div/div[1]/div/div[1]/ul/li/div/form/input[1]    \\13
+    sleep    1
     Wait Until Element Contains    xpath=//*[@id="rootcontainer"]/div/div[1]/div/div[1]/ul/li[1]/div/div[2]     ${comment1}    5
     Input text     xpath=//*[@id="rootcontainer"]/div/div[1]/div/div[1]/ul/li/div/form/input[1]    ${comment2}
     Press Key    xpath=//*[@id="rootcontainer"]/div/div[1]/div/div[1]/ul/li/div/form/input[1]    \\13
+    sleep    1
+    Wait Until Element Is Visible   xpath=//*[@id="rootcontainer"]/div/div[1]/div/div[1]/ul/li[2]/div/div[2]      5
     Wait Until Element Contains    xpath=//*[@id="rootcontainer"]/div/div[1]/div/div[1]/ul/li[2]/div/div[2]    ${comment2}    5
 
 
