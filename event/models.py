@@ -18,4 +18,4 @@ class EventMember(models.Model):
     role = models.IntegerField()
 
     def __unicode__(self):
-        return "event member : {}".format(self.name)
+        return "event member : {}".format(self.user.username)
