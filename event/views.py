@@ -20,8 +20,8 @@ class EventViewSet(APIView):
     serializer_class = EventSerializer
 
     def post(self, request, format=None):
-        serializer_class = EventSerializer(data=request.data)
-        if serializer_class.is_valid():
+        serializer = EventSerializer(data=request.data)
+        if serializer.is_valid():
             this_event = serializer.save()
             EventMember.objects.create(
                 event=this_event,
