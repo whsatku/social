@@ -13,6 +13,10 @@ app.controller('UserFriendController', function($scope, $http, $location, $state
     $http.get('/api/user/friends').success(function(data){
       $scope.friends = data;
     });
+    $scope.unFriend = function(otherUserId){
+    	$http.delete('/api/user/friend/' + otherUserId ).success(function(data){
+    	});
+    };
 });
 
 app.controller('AddFriendController', function($scope, $http, $location, $stateParams, $rootScope){
