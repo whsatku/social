@@ -14,7 +14,7 @@ class GroupCategory(models.Model):
 class Group(models.Model):
     name = models.CharField(max_length=25)
     type = models.IntegerField()
-    category = models.ForeignKey(GroupCategory)
+    category = models.ForeignKey(GroupCategory, null=True)
     description = models.CharField(max_length=200)
     short_description = models.CharField(max_length=50)
     activities = models.CharField(max_length=200)
