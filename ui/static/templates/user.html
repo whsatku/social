@@ -2,8 +2,10 @@
 	<div class="cover">
 		<div class="cover-in">
 			<div class="pull-right toolbar">
-				<a ng-click="addFriend()" ng-if="!isFriend" class="btn btn-default">Add friend</a>
-				<div class="btn-group" uib-dropdown ng-if="isFriend">
+				<a ng-click="addFriend()" ng-if="isFriend == 0" class="btn btn-default">Add friend</a>
+				<div ng-if="isFriend == 1" class="btn btn-default">Request pending</div>
+				<div ng-if="isFriend == 2" class="btn btn-default">Accept request</div>
+				<div class="btn-group" uib-dropdown ng-if="isFriend == 3">
 					<div class="btn btn-default" uib-dropdown-toggle>Friend <span class="caret"></span></div>
 					<div class="uib-dropdown-menu">
 						<li><a href="#" ng-click="unFriend()">Unfriend</a></li>
