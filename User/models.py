@@ -16,12 +16,13 @@ GENDER = (
 class UserProfile(models.Model):
     user = models.OneToOneField(User, related_name='profile')
     birthday = models.DateField(blank=True, null=True)
-    gender = models.CharField(max_length=5, choices=GENDER)
-    faculty = models.CharField(max_length=30)
-    major = models.CharField(max_length=30)
-    types = models.CharField(max_length=30)
-    country = models.CharField(max_length=50)
-    city = models.CharField(max_length=50)
+    gender = models.CharField(max_length=5, choices=GENDER, null=True)
+    faculty = models.CharField(max_length=30, null=True)
+    major = models.CharField(max_length=30, null=True)
+    types = models.CharField(max_length=30, null=True)
+    country = models.CharField(max_length=50, null=True)
+    city = models.CharField(max_length=50, null=True)
+    created = models.BooleanField(default=False)
     # picture = StdImageField(null=True, blank=True, upload_to='images/profilepic',
     #                         variations={
     #                             'retina': (960, 960, True),
@@ -29,6 +30,16 @@ class UserProfile(models.Model):
     #                             'thumbnail': (160, 160, True)}
     #                         )
     # phone = models.CharField(max_length=20, blank=True)
+
+    def update(self, instance, data):
+        """
+        Update and return the instance, given the new data
+        """
+        instance.user = data.get('user', instance.user)
+        instance.faculty = data.get('faculty', instance.faculty)
+        instance.hometown = data.get('hometown', instance.hometown)
+        instance.save()
+        return instance
 
     def __unicode__(self):
         return "{}'s profile".format(self.user.username)
