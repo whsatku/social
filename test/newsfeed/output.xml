@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<robot generated="20151123 21:04:42.223" generator="Robot 2.9.1 (Python 2.7.10 on win32)">
-<suite source="C:\Users\Bestiize\PycharmProjects\social_tester\test\newsfeed\newsfeed.txt" id="s1" name="Newsfeed">
+<robot generated="20151124 00:43:06.168" generator="Robot 2.9.1 (Python 2.7.10 on win32)">
+<suite source="C:\Users\Bestiize\PycharmProjects\social_staging\test\newsfeed\newsfeed.txt" id="s1" name="Newsfeed">
 <kw type="setup" name="Pre-condition">
 <kw name="Open Browser" library="Selenium2Library">
 <doc>Opens a new browser instance to given URL.</doc>
@@ -8,8 +8,8 @@
 <arg>http://localhost:8000/admin</arg>
 <arg>${BROWSER}</arg>
 </arguments>
-<msg timestamp="20151123 21:04:42.395" level="INFO">Opening browser 'phantomJS' to base url 'http://localhost:8000/admin'</msg>
-<status status="PASS" endtime="20151123 21:04:44.860" starttime="20151123 21:04:42.394"></status>
+<msg timestamp="20151124 00:43:06.360" level="INFO">Opening browser 'phantomJS' to base url 'http://localhost:8000/admin'</msg>
+<status status="PASS" endtime="20151124 00:43:08.834" starttime="20151124 00:43:06.359"></status>
 </kw>
 <kw name="Input Text" library="Selenium2Library">
 <doc>Types the given `text` into text field identified by `locator`.</doc>
@@ -17,8 +17,8 @@
 <arg>//*[@id="id_username"]</arg>
 <arg>root</arg>
 </arguments>
-<msg timestamp="20151123 21:04:44.862" level="INFO">Typing text 'root' into text field '//*[@id="id_username"]'</msg>
-<status status="PASS" endtime="20151123 21:04:44.950" starttime="20151123 21:04:44.861"></status>
+<msg timestamp="20151124 00:43:08.835" level="INFO">Typing text 'root' into text field '//*[@id="id_username"]'</msg>
+<status status="PASS" endtime="20151124 00:43:08.971" starttime="20151124 00:43:08.834"></status>
 </kw>
 <kw name="Input Text" library="Selenium2Library">
 <doc>Types the given `text` into text field identified by `locator`.</doc>
@@ -26,26 +26,26 @@
 <arg>//*[@id="id_password"]</arg>
 <arg>toor</arg>
 </arguments>
-<msg timestamp="20151123 21:04:44.951" level="INFO">Typing text 'toor' into text field '//*[@id="id_password"]'</msg>
-<status status="PASS" endtime="20151123 21:04:45.071" starttime="20151123 21:04:44.951"></status>
+<msg timestamp="20151124 00:43:08.972" level="INFO">Typing text 'toor' into text field '//*[@id="id_password"]'</msg>
+<status status="PASS" endtime="20151124 00:43:09.101" starttime="20151124 00:43:08.971"></status>
 </kw>
 <kw name="Click Element" library="Selenium2Library">
 <doc>Click element identified by `locator`.</doc>
 <arguments>
 <arg>//*[@id="login-form"]/div[3]/input</arg>
 </arguments>
-<msg timestamp="20151123 21:04:45.073" level="INFO">Clicking element '//*[@id="login-form"]/div[3]/input'.</msg>
-<status status="PASS" endtime="20151123 21:04:48.937" starttime="20151123 21:04:45.072"></status>
+<msg timestamp="20151124 00:43:09.104" level="INFO">Clicking element '//*[@id="login-form"]/div[3]/input'.</msg>
+<status status="PASS" endtime="20151124 00:43:12.918" starttime="20151124 00:43:09.102"></status>
 </kw>
 <kw name="Go To" library="Selenium2Library">
 <doc>Navigates the active browser instance to the provided URL.</doc>
 <arguments>
 <arg>http://localhost:8000/static/index.html#/</arg>
 </arguments>
-<msg timestamp="20151123 21:04:48.938" level="INFO">Opening url 'http://localhost:8000/static/index.html#/'</msg>
-<status status="PASS" endtime="20151123 21:04:49.154" starttime="20151123 21:04:48.937"></status>
+<msg timestamp="20151124 00:43:12.920" level="INFO">Opening url 'http://localhost:8000/static/index.html#/'</msg>
+<status status="PASS" endtime="20151124 00:43:13.204" starttime="20151124 00:43:12.919"></status>
 </kw>
-<status status="PASS" endtime="20151123 21:04:49.156" starttime="20151123 21:04:42.392"></status>
+<status status="PASS" endtime="20151124 00:43:13.205" starttime="20151124 00:43:06.358"></status>
 </kw>
 <test id="s1-t1" name="PostStatusWithText">
 <kw name="Post Status with Text">
@@ -59,15 +59,15 @@
 <arg>${title}</arg>
 <arg>5</arg>
 </arguments>
-<status status="PASS" endtime="20151123 21:04:49.184" starttime="20151123 21:04:49.163"></status>
+<status status="PASS" endtime="20151124 00:43:13.226" starttime="20151124 00:43:13.208"></status>
 </kw>
 <kw name="Title Should Be" library="Selenium2Library">
 <doc>Verifies that current page title equals `title`.</doc>
 <arguments>
 <arg>${title}</arg>
 </arguments>
-<msg timestamp="20151123 21:04:49.190" level="INFO">Page title is 'Youniversity'.</msg>
-<status status="PASS" endtime="20151123 21:04:49.191" starttime="20151123 21:04:49.185"></status>
+<msg timestamp="20151124 00:43:13.235" level="INFO">Page title is 'Youniversity'.</msg>
+<status status="PASS" endtime="20151124 00:43:13.236" starttime="20151124 00:43:13.227"></status>
 </kw>
 <kw name="Wait Until Element Is Visible" library="Selenium2Library">
 <doc>Waits until element specified with `locator` is visible.</doc>
@@ -75,7 +75,7 @@
 <arg>xpath=//*[@id="rootcontainer"]/div/div[1]/form/textarea</arg>
 <arg>5</arg>
 </arguments>
-<status status="PASS" endtime="20151123 21:04:49.413" starttime="20151123 21:04:49.192"></status>
+<status status="PASS" endtime="20151124 00:43:13.718" starttime="20151124 00:43:13.237"></status>
 </kw>
 <kw name="Input Text" library="Selenium2Library">
 <doc>Types the given `text` into text field identified by `locator`.</doc>
@@ -83,16 +83,16 @@
 <arg>xpath=//*[@id="rootcontainer"]/div/div[1]/form/textarea</arg>
 <arg>${status}</arg>
 </arguments>
-<msg timestamp="20151123 21:04:49.415" level="INFO">Typing text 'Test' into text field 'xpath=//*[@id="rootcontainer"]/div/div[1]/form/textarea'</msg>
-<status status="PASS" endtime="20151123 21:04:49.535" starttime="20151123 21:04:49.413"></status>
+<msg timestamp="20151124 00:43:13.720" level="INFO">Typing text 'Test' into text field 'xpath=//*[@id="rootcontainer"]/div/div[1]/form/textarea'</msg>
+<status status="PASS" endtime="20151124 00:43:14.110" starttime="20151124 00:43:13.719"></status>
 </kw>
 <kw name="Click Element" library="Selenium2Library">
 <doc>Click element identified by `locator`.</doc>
 <arguments>
 <arg>xpath=//*[@id="rootcontainer"]/div/div[1]/form/input</arg>
 </arguments>
-<msg timestamp="20151123 21:04:49.537" level="INFO">Clicking element 'xpath=//*[@id="rootcontainer"]/div/div[1]/form/input'.</msg>
-<status status="PASS" endtime="20151123 21:04:49.628" starttime="20151123 21:04:49.535"></status>
+<msg timestamp="20151124 00:43:14.113" level="INFO">Clicking element 'xpath=//*[@id="rootcontainer"]/div/div[1]/form/input'.</msg>
+<status status="PASS" endtime="20151124 00:43:14.250" starttime="20151124 00:43:14.111"></status>
 </kw>
 <kw name="Wait Until Page Contains" library="Selenium2Library">
 <doc>Waits until `text` appears on current page.</doc>
@@ -100,9 +100,9 @@
 <arg>${status}</arg>
 <arg>5</arg>
 </arguments>
-<status status="PASS" endtime="20151123 21:04:49.658" starttime="20151123 21:04:49.629"></status>
+<status status="PASS" endtime="20151124 00:43:14.283" starttime="20151124 00:43:14.251"></status>
 </kw>
-<status status="PASS" endtime="20151123 21:04:49.659" starttime="20151123 21:04:49.160"></status>
+<status status="PASS" endtime="20151124 00:43:14.284" starttime="20151124 00:43:13.207"></status>
 </kw>
 <kw name="Post Status with Text">
 <arguments>
@@ -115,15 +115,15 @@
 <arg>${title}</arg>
 <arg>5</arg>
 </arguments>
-<status status="PASS" endtime="20151123 21:04:49.675" starttime="20151123 21:04:49.662"></status>
+<status status="PASS" endtime="20151124 00:43:14.299" starttime="20151124 00:43:14.286"></status>
 </kw>
 <kw name="Title Should Be" library="Selenium2Library">
 <doc>Verifies that current page title equals `title`.</doc>
 <arguments>
 <arg>${title}</arg>
 </arguments>
-<msg timestamp="20151123 21:04:49.681" level="INFO">Page title is 'Youniversity'.</msg>
-<status status="PASS" endtime="20151123 21:04:49.682" starttime="20151123 21:04:49.676"></status>
+<msg timestamp="20151124 00:43:14.307" level="INFO">Page title is 'Youniversity'.</msg>
+<status status="PASS" endtime="20151124 00:43:14.308" starttime="20151124 00:43:14.299"></status>
 </kw>
 <kw name="Wait Until Element Is Visible" library="Selenium2Library">
 <doc>Waits until element specified with `locator` is visible.</doc>
@@ -131,7 +131,7 @@
 <arg>xpath=//*[@id="rootcontainer"]/div/div[1]/form/textarea</arg>
 <arg>5</arg>
 </arguments>
-<status status="PASS" endtime="20151123 21:04:49.708" starttime="20151123 21:04:49.682"></status>
+<status status="PASS" endtime="20151124 00:43:14.334" starttime="20151124 00:43:14.308"></status>
 </kw>
 <kw name="Input Text" library="Selenium2Library">
 <doc>Types the given `text` into text field identified by `locator`.</doc>
@@ -139,16 +139,16 @@
 <arg>xpath=//*[@id="rootcontainer"]/div/div[1]/form/textarea</arg>
 <arg>${status}</arg>
 </arguments>
-<msg timestamp="20151123 21:04:49.710" level="INFO">Typing text '1234' into text field 'xpath=//*[@id="rootcontainer"]/div/div[1]/form/textarea'</msg>
-<status status="PASS" endtime="20151123 21:04:49.753" starttime="20151123 21:04:49.708"></status>
+<msg timestamp="20151124 00:43:14.336" level="INFO">Typing text '1234' into text field 'xpath=//*[@id="rootcontainer"]/div/div[1]/form/textarea'</msg>
+<status status="PASS" endtime="20151124 00:43:14.392" starttime="20151124 00:43:14.335"></status>
 </kw>
 <kw name="Click Element" library="Selenium2Library">
 <doc>Click element identified by `locator`.</doc>
 <arguments>
 <arg>xpath=//*[@id="rootcontainer"]/div/div[1]/form/input</arg>
 </arguments>
-<msg timestamp="20151123 21:04:49.755" level="INFO">Clicking element 'xpath=//*[@id="rootcontainer"]/div/div[1]/form/input'.</msg>
-<status status="PASS" endtime="20151123 21:04:49.798" starttime="20151123 21:04:49.754"></status>
+<msg timestamp="20151124 00:43:14.394" level="INFO">Clicking element 'xpath=//*[@id="rootcontainer"]/div/div[1]/form/input'.</msg>
+<status status="PASS" endtime="20151124 00:43:14.441" starttime="20151124 00:43:14.393"></status>
 </kw>
 <kw name="Wait Until Page Contains" library="Selenium2Library">
 <doc>Waits until `text` appears on current page.</doc>
@@ -156,11 +156,11 @@
 <arg>${status}</arg>
 <arg>5</arg>
 </arguments>
-<status status="PASS" endtime="20151123 21:04:50.274" starttime="20151123 21:04:49.798"></status>
+<status status="PASS" endtime="20151124 00:43:14.462" starttime="20151124 00:43:14.441"></status>
 </kw>
-<status status="PASS" endtime="20151123 21:04:50.275" starttime="20151123 21:04:49.660"></status>
+<status status="PASS" endtime="20151124 00:43:14.464" starttime="20151124 00:43:14.285"></status>
 </kw>
-<status status="PASS" endtime="20151123 21:04:50.276" critical="yes" starttime="20151123 21:04:49.157"></status>
+<status status="PASS" endtime="20151124 00:43:14.465" critical="yes" starttime="20151124 00:43:13.206"></status>
 </test>
 <test id="s1-t2" name="PostStatusWithoutText">
 <kw name="Post Status without Text">
@@ -174,8 +174,8 @@
 <arg>xpath=//*[@id="rootcontainer"]/div/div[1]/form/textarea</arg>
 <arg>${status}</arg>
 </arguments>
-<msg timestamp="20151123 21:04:50.283" level="INFO">Typing text '' into text field 'xpath=//*[@id="rootcontainer"]/div/div[1]/form/textarea'</msg>
-<status status="PASS" endtime="20151123 21:04:50.605" starttime="20151123 21:04:50.282"></status>
+<msg timestamp="20151124 00:43:14.469" level="INFO">Typing text '' into text field 'xpath=//*[@id="rootcontainer"]/div/div[1]/form/textarea'</msg>
+<status status="PASS" endtime="20151124 00:43:14.514" starttime="20151124 00:43:14.468"></status>
 </kw>
 <kw name="Wait Until Page Contains" library="Selenium2Library">
 <doc>Waits until `text` appears on current page.</doc>
@@ -183,15 +183,15 @@
 <arg>${EMPTY}</arg>
 <arg>5</arg>
 </arguments>
-<status status="PASS" endtime="20151123 21:04:51.740" starttime="20151123 21:04:50.606"></status>
+<status status="PASS" endtime="20151124 00:43:14.690" starttime="20151124 00:43:14.515"></status>
 </kw>
 <kw name="Click Element" library="Selenium2Library">
 <doc>Click element identified by `locator`.</doc>
 <arguments>
 <arg>xpath=//*[@id="rootcontainer"]/div/div[1]/form/input</arg>
 </arguments>
-<msg timestamp="20151123 21:04:51.742" level="INFO">Clicking element 'xpath=//*[@id="rootcontainer"]/div/div[1]/form/input'.</msg>
-<status status="PASS" endtime="20151123 21:04:52.084" starttime="20151123 21:04:51.741"></status>
+<msg timestamp="20151124 00:43:14.691" level="INFO">Clicking element 'xpath=//*[@id="rootcontainer"]/div/div[1]/form/input'.</msg>
+<status status="PASS" endtime="20151124 00:43:14.738" starttime="20151124 00:43:14.690"></status>
 </kw>
 <kw name="Wait Until Page Contains" library="Selenium2Library">
 <doc>Waits until `text` appears on current page.</doc>
@@ -199,11 +199,11 @@
 <arg>${status}</arg>
 <arg>5</arg>
 </arguments>
-<status status="PASS" endtime="20151123 21:04:53.126" starttime="20151123 21:04:52.085"></status>
+<status status="PASS" endtime="20151124 00:43:14.944" starttime="20151124 00:43:14.739"></status>
 </kw>
-<status status="PASS" endtime="20151123 21:04:53.127" starttime="20151123 21:04:50.280"></status>
+<status status="PASS" endtime="20151124 00:43:14.946" starttime="20151124 00:43:14.467"></status>
 </kw>
-<status status="PASS" endtime="20151123 21:04:53.128" critical="yes" starttime="20151123 21:04:50.278"></status>
+<status status="PASS" endtime="20151124 00:43:14.947" critical="yes" starttime="20151124 00:43:14.466"></status>
 </test>
 <test id="s1-t3" name="CommentStatusWithText">
 <kw name="Comment Status with Text">
@@ -216,8 +216,8 @@
 <arg>xpath=//*[@id="rootcontainer"]/div/div[1]/div/div[1]/ul/li/div/form/input[1]</arg>
 <arg>${comment}</arg>
 </arguments>
-<msg timestamp="20151123 21:04:53.132" level="INFO">Typing text 'Comment' into text field 'xpath=//*[@id="rootcontainer"]/div/div[1]/div/div[1]/ul/li/div/form/input[1]'</msg>
-<status status="PASS" endtime="20151123 21:04:53.265" starttime="20151123 21:04:53.131"></status>
+<msg timestamp="20151124 00:43:14.954" level="INFO">Typing text 'Comment' into text field 'xpath=//*[@id="rootcontainer"]/div/div[1]/div/div[1]/ul/li/div/form/input[1]'</msg>
+<status status="PASS" endtime="20151124 00:43:15.075" starttime="20151124 00:43:14.952"></status>
 </kw>
 <kw name="Press Key" library="Selenium2Library">
 <doc>Simulates user pressing key on element identified by `locator`.</doc>
@@ -225,7 +225,7 @@
 <arg>xpath=//*[@id="rootcontainer"]/div/div[1]/div/div[1]/ul/li/div/form/input[1]</arg>
 <arg>\\13</arg>
 </arguments>
-<status status="PASS" endtime="20151123 21:04:53.309" starttime="20151123 21:04:53.265"></status>
+<status status="PASS" endtime="20151124 00:43:15.115" starttime="20151124 00:43:15.076"></status>
 </kw>
 <kw name="Wait Until Page Contains" library="Selenium2Library">
 <doc>Waits until `text` appears on current page.</doc>
@@ -233,11 +233,11 @@
 <arg>${comment}</arg>
 <arg>5</arg>
 </arguments>
-<status status="PASS" endtime="20151123 21:04:53.482" starttime="20151123 21:04:53.310"></status>
+<status status="PASS" endtime="20151124 00:43:15.165" starttime="20151124 00:43:15.116"></status>
 </kw>
-<status status="PASS" endtime="20151123 21:04:53.483" starttime="20151123 21:04:53.130"></status>
+<status status="PASS" endtime="20151124 00:43:15.165" starttime="20151124 00:43:14.951"></status>
 </kw>
-<status status="PASS" endtime="20151123 21:04:53.484" critical="yes" starttime="20151123 21:04:53.129"></status>
+<status status="PASS" endtime="20151124 00:43:15.166" critical="yes" starttime="20151124 00:43:14.949"></status>
 </test>
 <test id="s1-t4" name="CommentStatusWithoutText">
 <kw name="Comment Status without Text">
@@ -250,8 +250,8 @@
 <arg>xpath=//*[@id="rootcontainer"]/div/div[1]/div/div[1]/ul/li/div/form/input[1]</arg>
 <arg>${comment}</arg>
 </arguments>
-<msg timestamp="20151123 21:04:53.490" level="INFO">Typing text '' into text field 'xpath=//*[@id="rootcontainer"]/div/div[1]/div/div[1]/ul/li/div/form/input[1]'</msg>
-<status status="PASS" endtime="20151123 21:04:53.555" starttime="20151123 21:04:53.489"></status>
+<msg timestamp="20151124 00:43:15.171" level="INFO">Typing text '' into text field 'xpath=//*[@id="rootcontainer"]/div/div[1]/div/div[1]/ul/li/div/form/input[1]'</msg>
+<status status="PASS" endtime="20151124 00:43:15.212" starttime="20151124 00:43:15.170"></status>
 </kw>
 <kw name="Press Key" library="Selenium2Library">
 <doc>Simulates user pressing key on element identified by `locator`.</doc>
@@ -259,7 +259,7 @@
 <arg>xpath=//*[@id="rootcontainer"]/div/div[1]/div/div[1]/ul/li/div/form/input[1]</arg>
 <arg>\\13</arg>
 </arguments>
-<status status="PASS" endtime="20151123 21:04:53.593" starttime="20151123 21:04:53.556"></status>
+<status status="PASS" endtime="20151124 00:43:15.240" starttime="20151124 00:43:15.212"></status>
 </kw>
 <kw name="Wait Until Page Contains" library="Selenium2Library">
 <doc>Waits until `text` appears on current page.</doc>
@@ -267,11 +267,11 @@
 <arg>${comment}</arg>
 <arg>5</arg>
 </arguments>
-<status status="PASS" endtime="20151123 21:04:54.541" starttime="20151123 21:04:53.594"></status>
+<status status="PASS" endtime="20151124 00:43:15.421" starttime="20151124 00:43:15.240"></status>
 </kw>
-<status status="PASS" endtime="20151123 21:04:54.542" starttime="20151123 21:04:53.487"></status>
+<status status="PASS" endtime="20151124 00:43:15.422" starttime="20151124 00:43:15.169"></status>
 </kw>
-<status status="PASS" endtime="20151123 21:04:54.543" critical="yes" starttime="20151123 21:04:53.486"></status>
+<status status="PASS" endtime="20151124 00:43:15.422" critical="yes" starttime="20151124 00:43:15.168"></status>
 </test>
 <test id="s1-t5" name="PostRelativeTime">
 <kw name="Show Post Relative Time">
@@ -284,7 +284,7 @@
 <arg>xpath=//*[@id="rootcontainer"]/div/div[1]/form/textarea</arg>
 <arg>5</arg>
 </arguments>
-<status status="PASS" endtime="20151123 21:04:54.570" starttime="20151123 21:04:54.547"></status>
+<status status="PASS" endtime="20151124 00:43:15.454" starttime="20151124 00:43:15.428"></status>
 </kw>
 <kw name="Input Text" library="Selenium2Library">
 <doc>Types the given `text` into text field identified by `locator`.</doc>
@@ -292,24 +292,24 @@
 <arg>xpath=//*[@id="rootcontainer"]/div/div[1]/form/textarea</arg>
 <arg>${status}</arg>
 </arguments>
-<msg timestamp="20151123 21:04:54.572" level="INFO">Typing text 'TestCheckPostTime' into text field 'xpath=//*[@id="rootcontainer"]/div/div[1]/form/textarea'</msg>
-<status status="PASS" endtime="20151123 21:04:54.653" starttime="20151123 21:04:54.571"></status>
+<msg timestamp="20151124 00:43:15.457" level="INFO">Typing text 'TestCheckPostTime' into text field 'xpath=//*[@id="rootcontainer"]/div/div[1]/form/textarea'</msg>
+<status status="PASS" endtime="20151124 00:43:15.541" starttime="20151124 00:43:15.455"></status>
 </kw>
 <kw name="Click Element" library="Selenium2Library">
 <doc>Click element identified by `locator`.</doc>
 <arguments>
 <arg>xpath=//*[@id="rootcontainer"]/div/div[1]/form/input</arg>
 </arguments>
-<msg timestamp="20151123 21:04:54.655" level="INFO">Clicking element 'xpath=//*[@id="rootcontainer"]/div/div[1]/form/input'.</msg>
-<status status="PASS" endtime="20151123 21:04:54.704" starttime="20151123 21:04:54.654"></status>
+<msg timestamp="20151124 00:43:15.543" level="INFO">Clicking element 'xpath=//*[@id="rootcontainer"]/div/div[1]/form/input'.</msg>
+<status status="PASS" endtime="20151124 00:43:15.590" starttime="20151124 00:43:15.542"></status>
 </kw>
 <kw name="Sleep" library="BuiltIn">
 <doc>Pauses the test executed for the given time.</doc>
 <arguments>
 <arg>1</arg>
 </arguments>
-<msg timestamp="20151123 21:04:55.706" level="INFO">Slept 1 second</msg>
-<status status="PASS" endtime="20151123 21:04:55.707" starttime="20151123 21:04:54.705"></status>
+<msg timestamp="20151124 00:43:16.592" level="INFO">Slept 1 second</msg>
+<status status="PASS" endtime="20151124 00:43:16.593" starttime="20151124 00:43:15.590"></status>
 </kw>
 <kw name="Wait Until Page Contains" library="Selenium2Library">
 <doc>Waits until `text` appears on current page.</doc>
@@ -317,7 +317,7 @@
 <arg>${status}</arg>
 <arg>5</arg>
 </arguments>
-<status status="PASS" endtime="20151123 21:04:55.734" starttime="20151123 21:04:55.707"></status>
+<status status="PASS" endtime="20151124 00:43:16.616" starttime="20151124 00:43:16.594"></status>
 </kw>
 <kw name="Wait Until Element Is Visible" library="Selenium2Library">
 <doc>Waits until element specified with `locator` is visible.</doc>
@@ -325,20 +325,20 @@
 <arg>xpath=//*[@id="rootcontainer"]/div/div[1]/div/div[1]</arg>
 <arg>5</arg>
 </arguments>
-<status status="PASS" endtime="20151123 21:04:55.771" starttime="20151123 21:04:55.735"></status>
+<status status="PASS" endtime="20151124 00:43:16.659" starttime="20151124 00:43:16.617"></status>
 </kw>
 <kw name="Wait Until Element Contains" library="Selenium2Library">
 <doc>Waits until given element contains `text`.</doc>
 <arguments>
 <arg>xpath=//*[@id="rootcontainer"]/div/div[1]/div/div[1]/div[1]/div[2]/div</arg>
-<arg>now · Public</arg>
+<arg>a few seconds ago</arg>
 <arg>5</arg>
 </arguments>
-<status status="PASS" endtime="20151123 21:04:55.812" starttime="20151123 21:04:55.771"></status>
+<status status="PASS" endtime="20151124 00:43:16.710" starttime="20151124 00:43:16.660"></status>
 </kw>
-<status status="PASS" endtime="20151123 21:04:55.813" starttime="20151123 21:04:54.546"></status>
+<status status="PASS" endtime="20151124 00:43:16.711" starttime="20151124 00:43:15.426"></status>
 </kw>
-<status status="PASS" endtime="20151123 21:04:55.814" critical="yes" starttime="20151123 21:04:54.545"></status>
+<status status="PASS" endtime="20151124 00:43:16.712" critical="yes" starttime="20151124 00:43:15.424"></status>
 </test>
 <test id="s1-t6" name="CommentRelativeTime">
 <kw name="Show Comment Relative Time">
@@ -351,8 +351,8 @@
 <arg>xpath=//*[@id="rootcontainer"]/div/div[1]/div/div[1]/ul/li/div/form/input[1]</arg>
 <arg>${comment}</arg>
 </arguments>
-<msg timestamp="20151123 21:04:55.819" level="INFO">Typing text 'TestCheckCommentTime' into text field 'xpath=//*[@id="rootcontainer"]/div/div[1]/div/div[1]/ul/li/div/form/input[1]'</msg>
-<status status="PASS" endtime="20151123 21:04:55.982" starttime="20151123 21:04:55.818"></status>
+<msg timestamp="20151124 00:43:16.717" level="INFO">Typing text 'TestCheckCommentTime' into text field 'xpath=//*[@id="rootcontainer"]/div/div[1]/div/div[1]/ul/li/div/form/input[1]'</msg>
+<status status="PASS" endtime="20151124 00:43:16.878" starttime="20151124 00:43:16.715"></status>
 </kw>
 <kw name="Press Key" library="Selenium2Library">
 <doc>Simulates user pressing key on element identified by `locator`.</doc>
@@ -360,7 +360,15 @@
 <arg>xpath=//*[@id="rootcontainer"]/div/div[1]/div/div[1]/ul/li/div/form/input[1]</arg>
 <arg>\\13</arg>
 </arguments>
-<status status="PASS" endtime="20151123 21:04:56.018" starttime="20151123 21:04:55.983"></status>
+<status status="PASS" endtime="20151124 00:43:16.914" starttime="20151124 00:43:16.879"></status>
+</kw>
+<kw name="Sleep" library="BuiltIn">
+<doc>Pauses the test executed for the given time.</doc>
+<arguments>
+<arg>1</arg>
+</arguments>
+<msg timestamp="20151124 00:43:17.916" level="INFO">Slept 1 second</msg>
+<status status="PASS" endtime="20151124 00:43:17.917" starttime="20151124 00:43:16.915"></status>
 </kw>
 <kw name="Wait Until Page Contains" library="Selenium2Library">
 <doc>Waits until `text` appears on current page.</doc>
@@ -368,7 +376,7 @@
 <arg>${comment}</arg>
 <arg>5</arg>
 </arguments>
-<status status="PASS" endtime="20151123 21:04:56.049" starttime="20151123 21:04:56.019"></status>
+<status status="PASS" endtime="20151124 00:43:17.952" starttime="20151124 00:43:17.918"></status>
 </kw>
 <kw name="Wait Until Element Is Visible" library="Selenium2Library">
 <doc>Waits until element specified with `locator` is visible.</doc>
@@ -376,7 +384,7 @@
 <arg>xpath=//*[@id="rootcontainer"]/div/div[1]/div/div[1]/ul/li[1]/div/div[1]</arg>
 <arg>5</arg>
 </arguments>
-<status status="PASS" endtime="20151123 21:04:56.099" starttime="20151123 21:04:56.050"></status>
+<status status="PASS" endtime="20151124 00:43:18.021" starttime="20151124 00:43:17.953"></status>
 </kw>
 <kw name="Wait Until Element Is Visible" library="Selenium2Library">
 <doc>Waits until element specified with `locator` is visible.</doc>
@@ -384,20 +392,20 @@
 <arg>xpath=//*[@id="rootcontainer"]/div/div[1]/div/div[1]/ul/li[1]/div/div[2]/span</arg>
 <arg>5</arg>
 </arguments>
-<status status="PASS" endtime="20151123 21:04:56.136" starttime="20151123 21:04:56.099"></status>
+<status status="PASS" endtime="20151124 00:43:18.067" starttime="20151124 00:43:18.021"></status>
 </kw>
 <kw name="Wait Until Element Contains" library="Selenium2Library">
 <doc>Waits until given element contains `text`.</doc>
 <arguments>
 <arg>xpath=//*[@id="rootcontainer"]/div/div[1]/div/div[1]/ul/li[1]/div/div[2]/span</arg>
-<arg>now</arg>
+<arg>a few seconds ago</arg>
 <arg>5</arg>
 </arguments>
-<status status="PASS" endtime="20151123 21:04:56.175" starttime="20151123 21:04:56.137"></status>
+<status status="PASS" endtime="20151124 00:43:18.103" starttime="20151124 00:43:18.068"></status>
 </kw>
-<status status="PASS" endtime="20151123 21:04:56.175" starttime="20151123 21:04:55.817"></status>
+<status status="PASS" endtime="20151124 00:43:18.104" starttime="20151124 00:43:16.714"></status>
 </kw>
-<status status="PASS" endtime="20151123 21:04:56.176" critical="yes" starttime="20151123 21:04:55.816"></status>
+<status status="PASS" endtime="20151124 00:43:18.104" critical="yes" starttime="20151124 00:43:16.713"></status>
 </test>
 <test id="s1-t7" name="PostFilterByTime">
 <kw name="Post Filter By Time">
@@ -411,7 +419,7 @@
 <arg>xpath=//*[@id="rootcontainer"]/div/div[1]/form/textarea</arg>
 <arg>5</arg>
 </arguments>
-<status status="PASS" endtime="20151123 21:04:56.206" starttime="20151123 21:04:56.181"></status>
+<status status="PASS" endtime="20151124 00:43:18.130" starttime="20151124 00:43:18.108"></status>
 </kw>
 <kw name="Input Text" library="Selenium2Library">
 <doc>Types the given `text` into text field identified by `locator`.</doc>
@@ -419,24 +427,24 @@
 <arg>xpath=//*[@id="rootcontainer"]/div/div[1]/form/textarea</arg>
 <arg>${status1}</arg>
 </arguments>
-<msg timestamp="20151123 21:04:56.207" level="INFO">Typing text 'First status' into text field 'xpath=//*[@id="rootcontainer"]/div/div[1]/form/textarea'</msg>
-<status status="PASS" endtime="20151123 21:04:56.265" starttime="20151123 21:04:56.206"></status>
+<msg timestamp="20151124 00:43:18.132" level="INFO">Typing text 'First status' into text field 'xpath=//*[@id="rootcontainer"]/div/div[1]/form/textarea'</msg>
+<status status="PASS" endtime="20151124 00:43:18.191" starttime="20151124 00:43:18.130"></status>
 </kw>
 <kw name="Click Element" library="Selenium2Library">
 <doc>Click element identified by `locator`.</doc>
 <arguments>
 <arg>xpath=//*[@id="rootcontainer"]/div/div[1]/form/input</arg>
 </arguments>
-<msg timestamp="20151123 21:04:56.266" level="INFO">Clicking element 'xpath=//*[@id="rootcontainer"]/div/div[1]/form/input'.</msg>
-<status status="PASS" endtime="20151123 21:04:56.307" starttime="20151123 21:04:56.265"></status>
+<msg timestamp="20151124 00:43:18.192" level="INFO">Clicking element 'xpath=//*[@id="rootcontainer"]/div/div[1]/form/input'.</msg>
+<status status="PASS" endtime="20151124 00:43:18.234" starttime="20151124 00:43:18.191"></status>
 </kw>
 <kw name="Sleep" library="BuiltIn">
 <doc>Pauses the test executed for the given time.</doc>
 <arguments>
 <arg>1</arg>
 </arguments>
-<msg timestamp="20151123 21:04:57.309" level="INFO">Slept 1 second</msg>
-<status status="PASS" endtime="20151123 21:04:57.309" starttime="20151123 21:04:56.307"></status>
+<msg timestamp="20151124 00:43:19.236" level="INFO">Slept 1 second</msg>
+<status status="PASS" endtime="20151124 00:43:19.237" starttime="20151124 00:43:18.235"></status>
 </kw>
 <kw name="Wait Until Element Is Visible" library="Selenium2Library">
 <doc>Waits until element specified with `locator` is visible.</doc>
@@ -444,7 +452,7 @@
 <arg>xpath=//*[@id="rootcontainer"]/div/div[1]/div/div[1]</arg>
 <arg>5</arg>
 </arguments>
-<status status="PASS" endtime="20151123 21:04:57.339" starttime="20151123 21:04:57.310"></status>
+<status status="PASS" endtime="20151124 00:43:19.269" starttime="20151124 00:43:19.237"></status>
 </kw>
 <kw name="Wait Until Element Contains" library="Selenium2Library">
 <doc>Waits until given element contains `text`.</doc>
@@ -453,7 +461,7 @@
 <arg>${status1}</arg>
 <arg>5</arg>
 </arguments>
-<status status="PASS" endtime="20151123 21:04:57.382" starttime="20151123 21:04:57.340"></status>
+<status status="PASS" endtime="20151124 00:43:19.309" starttime="20151124 00:43:19.270"></status>
 </kw>
 <kw name="Input Text" library="Selenium2Library">
 <doc>Types the given `text` into text field identified by `locator`.</doc>
@@ -461,8 +469,8 @@
 <arg>xpath=//*[@id="rootcontainer"]/div/div[1]/form/textarea</arg>
 <arg>${status2}</arg>
 </arguments>
-<msg timestamp="20151123 21:04:57.383" level="INFO">Typing text 'Second status' into text field 'xpath=//*[@id="rootcontainer"]/div/div[1]/form/textarea'</msg>
-<status status="PASS" endtime="20151123 21:04:57.440" starttime="20151123 21:04:57.382"></status>
+<msg timestamp="20151124 00:43:19.311" level="INFO">Typing text 'Second status' into text field 'xpath=//*[@id="rootcontainer"]/div/div[1]/form/textarea'</msg>
+<status status="PASS" endtime="20151124 00:43:19.371" starttime="20151124 00:43:19.310"></status>
 </kw>
 <kw name="Wait Until Element Is Visible" library="Selenium2Library">
 <doc>Waits until element specified with `locator` is visible.</doc>
@@ -470,23 +478,23 @@
 <arg>xpath=//*[@id="rootcontainer"]/div/div[1]/div/div[1]</arg>
 <arg>5</arg>
 </arguments>
-<status status="PASS" endtime="20151123 21:04:57.460" starttime="20151123 21:04:57.440"></status>
+<status status="PASS" endtime="20151124 00:43:19.392" starttime="20151124 00:43:19.372"></status>
 </kw>
 <kw name="Click Element" library="Selenium2Library">
 <doc>Click element identified by `locator`.</doc>
 <arguments>
 <arg>xpath=//*[@id="rootcontainer"]/div/div[1]/form/input</arg>
 </arguments>
-<msg timestamp="20151123 21:04:57.461" level="INFO">Clicking element 'xpath=//*[@id="rootcontainer"]/div/div[1]/form/input'.</msg>
-<status status="PASS" endtime="20151123 21:04:57.503" starttime="20151123 21:04:57.460"></status>
+<msg timestamp="20151124 00:43:19.393" level="INFO">Clicking element 'xpath=//*[@id="rootcontainer"]/div/div[1]/form/input'.</msg>
+<status status="PASS" endtime="20151124 00:43:19.441" starttime="20151124 00:43:19.393"></status>
 </kw>
 <kw name="Sleep" library="BuiltIn">
 <doc>Pauses the test executed for the given time.</doc>
 <arguments>
 <arg>1</arg>
 </arguments>
-<msg timestamp="20151123 21:04:58.505" level="INFO">Slept 1 second</msg>
-<status status="PASS" endtime="20151123 21:04:58.505" starttime="20151123 21:04:57.504"></status>
+<msg timestamp="20151124 00:43:20.442" level="INFO">Slept 1 second</msg>
+<status status="PASS" endtime="20151124 00:43:20.443" starttime="20151124 00:43:19.441"></status>
 </kw>
 <kw name="Wait Until Element Contains" library="Selenium2Library">
 <doc>Waits until given element contains `text`.</doc>
@@ -495,7 +503,7 @@
 <arg>${status2}</arg>
 <arg>5</arg>
 </arguments>
-<status status="PASS" endtime="20151123 21:04:58.539" starttime="20151123 21:04:58.506"></status>
+<status status="PASS" endtime="20151124 00:43:20.486" starttime="20151124 00:43:20.445"></status>
 </kw>
 <kw name="Wait Until Element Contains" library="Selenium2Library">
 <doc>Waits until given element contains `text`.</doc>
@@ -504,11 +512,11 @@
 <arg>${status1}</arg>
 <arg>5</arg>
 </arguments>
-<status status="PASS" endtime="20151123 21:04:58.569" starttime="20151123 21:04:58.540"></status>
+<status status="PASS" endtime="20151124 00:43:20.521" starttime="20151124 00:43:20.487"></status>
 </kw>
-<status status="PASS" endtime="20151123 21:04:58.570" starttime="20151123 21:04:56.179"></status>
+<status status="PASS" endtime="20151124 00:43:20.522" starttime="20151124 00:43:18.107"></status>
 </kw>
-<status status="PASS" endtime="20151123 21:04:58.571" critical="yes" starttime="20151123 21:04:56.178"></status>
+<status status="PASS" endtime="20151124 00:43:20.523" critical="yes" starttime="20151124 00:43:18.106"></status>
 </test>
 <test id="s1-t8" name="CommentFilterByTime">
 <kw name="Comment Filter By Time">
@@ -522,8 +530,8 @@
 <arg>xpath=//*[@id="rootcontainer"]/div/div[1]/div/div[1]/ul/li/div/form/input[1]</arg>
 <arg>${comment1}</arg>
 </arguments>
-<msg timestamp="20151123 21:04:58.577" level="INFO">Typing text 'First Comment' into text field 'xpath=//*[@id="rootcontainer"]/div/div[1]/div/div[1]/ul/li/div/form/input[1]'</msg>
-<status status="PASS" endtime="20151123 21:04:58.696" starttime="20151123 21:04:58.576"></status>
+<msg timestamp="20151124 00:43:20.529" level="INFO">Typing text 'First Comment' into text field 'xpath=//*[@id="rootcontainer"]/div/div[1]/div/div[1]/ul/li/div/form/input[1]'</msg>
+<status status="PASS" endtime="20151124 00:43:20.671" starttime="20151124 00:43:20.528"></status>
 </kw>
 <kw name="Press Key" library="Selenium2Library">
 <doc>Simulates user pressing key on element identified by `locator`.</doc>
@@ -531,15 +539,15 @@
 <arg>xpath=//*[@id="rootcontainer"]/div/div[1]/div/div[1]/ul/li/div/form/input[1]</arg>
 <arg>\\13</arg>
 </arguments>
-<status status="PASS" endtime="20151123 21:04:58.731" starttime="20151123 21:04:58.696"></status>
+<status status="PASS" endtime="20151124 00:43:20.711" starttime="20151124 00:43:20.671"></status>
 </kw>
 <kw name="Sleep" library="BuiltIn">
 <doc>Pauses the test executed for the given time.</doc>
 <arguments>
 <arg>1</arg>
 </arguments>
-<msg timestamp="20151123 21:04:59.733" level="INFO">Slept 1 second</msg>
-<status status="PASS" endtime="20151123 21:04:59.733" starttime="20151123 21:04:58.732"></status>
+<msg timestamp="20151124 00:43:21.714" level="INFO">Slept 1 second</msg>
+<status status="PASS" endtime="20151124 00:43:21.714" starttime="20151124 00:43:20.712"></status>
 </kw>
 <kw name="Wait Until Element Contains" library="Selenium2Library">
 <doc>Waits until given element contains `text`.</doc>
@@ -548,7 +556,7 @@
 <arg>${comment1}</arg>
 <arg>5</arg>
 </arguments>
-<status status="PASS" endtime="20151123 21:04:59.784" starttime="20151123 21:04:59.734"></status>
+<status status="PASS" endtime="20151124 00:43:21.767" starttime="20151124 00:43:21.715"></status>
 </kw>
 <kw name="Input Text" library="Selenium2Library">
 <doc>Types the given `text` into text field identified by `locator`.</doc>
@@ -556,8 +564,8 @@
 <arg>xpath=//*[@id="rootcontainer"]/div/div[1]/div/div[1]/ul/li/div/form/input[1]</arg>
 <arg>${comment2}</arg>
 </arguments>
-<msg timestamp="20151123 21:04:59.786" level="INFO">Typing text 'Second Comment' into text field 'xpath=//*[@id="rootcontainer"]/div/div[1]/div/div[1]/ul/li/div/form/input[1]'</msg>
-<status status="PASS" endtime="20151123 21:04:59.868" starttime="20151123 21:04:59.785"></status>
+<msg timestamp="20151124 00:43:21.770" level="INFO">Typing text 'Second Comment' into text field 'xpath=//*[@id="rootcontainer"]/div/div[1]/div/div[1]/ul/li/div/form/input[1]'</msg>
+<status status="PASS" endtime="20151124 00:43:21.864" starttime="20151124 00:43:21.768"></status>
 </kw>
 <kw name="Press Key" library="Selenium2Library">
 <doc>Simulates user pressing key on element identified by `locator`.</doc>
@@ -565,15 +573,15 @@
 <arg>xpath=//*[@id="rootcontainer"]/div/div[1]/div/div[1]/ul/li/div/form/input[1]</arg>
 <arg>\\13</arg>
 </arguments>
-<status status="PASS" endtime="20151123 21:04:59.905" starttime="20151123 21:04:59.869"></status>
+<status status="PASS" endtime="20151124 00:43:21.907" starttime="20151124 00:43:21.865"></status>
 </kw>
 <kw name="Sleep" library="BuiltIn">
 <doc>Pauses the test executed for the given time.</doc>
 <arguments>
 <arg>1</arg>
 </arguments>
-<msg timestamp="20151123 21:05:00.908" level="INFO">Slept 1 second</msg>
-<status status="PASS" endtime="20151123 21:05:00.909" starttime="20151123 21:04:59.906"></status>
+<msg timestamp="20151124 00:43:22.909" level="INFO">Slept 1 second</msg>
+<status status="PASS" endtime="20151124 00:43:22.909" starttime="20151124 00:43:21.908"></status>
 </kw>
 <kw name="Wait Until Element Is Visible" library="Selenium2Library">
 <doc>Waits until element specified with `locator` is visible.</doc>
@@ -581,7 +589,7 @@
 <arg>xpath=//*[@id="rootcontainer"]/div/div[1]/div/div[1]/ul/li[2]/div/div[2]</arg>
 <arg>5</arg>
 </arguments>
-<status status="PASS" endtime="20151123 21:05:00.947" starttime="20151123 21:05:00.909"></status>
+<status status="PASS" endtime="20151124 00:43:22.956" starttime="20151124 00:43:22.910"></status>
 </kw>
 <kw name="Wait Until Element Contains" library="Selenium2Library">
 <doc>Waits until given element contains `text`.</doc>
@@ -590,17 +598,17 @@
 <arg>${comment2}</arg>
 <arg>5</arg>
 </arguments>
-<status status="PASS" endtime="20151123 21:05:00.982" starttime="20151123 21:05:00.948"></status>
+<status status="PASS" endtime="20151124 00:43:22.996" starttime="20151124 00:43:22.957"></status>
 </kw>
-<status status="PASS" endtime="20151123 21:05:00.982" starttime="20151123 21:04:58.575"></status>
+<status status="PASS" endtime="20151124 00:43:22.998" starttime="20151124 00:43:20.526"></status>
 </kw>
-<status status="PASS" endtime="20151123 21:05:00.983" critical="yes" starttime="20151123 21:04:58.574"></status>
+<status status="PASS" endtime="20151124 00:43:23.002" critical="yes" starttime="20151124 00:43:20.525"></status>
 </test>
 <kw type="teardown" name="Close Browser" library="Selenium2Library">
 <doc>Closes the current browser.</doc>
-<status status="PASS" endtime="20151123 21:05:01.011" starttime="20151123 21:05:00.986"></status>
+<status status="PASS" endtime="20151124 00:43:23.032" starttime="20151124 00:43:23.005"></status>
 </kw>
-<status status="PASS" endtime="20151123 21:05:01.012" starttime="20151123 21:04:42.226"></status>
+<status status="PASS" endtime="20151124 00:43:23.033" starttime="20151124 00:43:06.171"></status>
 </suite>
 <statistics>
 <total>

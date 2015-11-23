@@ -116,7 +116,7 @@ Show Post Relative Time
     sleep  1
     Wait Until Page Contains    ${status}    5
     Wait Until Element Is Visible     xpath=//*[@id="rootcontainer"]/div/div[1]/div/div[1]    5
-    Wait Until Element Contains    xpath=//*[@id="rootcontainer"]/div/div[1]/div/div[1]/div[1]/div[2]/div    now · Public    5
+    Wait Until Element Contains    xpath=//*[@id="rootcontainer"]/div/div[1]/div/div[1]/div[1]/div[2]/div    a few seconds ago    5
 
 
 
@@ -124,10 +124,11 @@ Show Comment Relative Time
     [Arguments]   ${comment}
     Input text     xpath=//*[@id="rootcontainer"]/div/div[1]/div/div[1]/ul/li/div/form/input[1]    ${comment}
     Press Key    xpath=//*[@id="rootcontainer"]/div/div[1]/div/div[1]/ul/li/div/form/input[1]    \\13
+    sleep    1
     Wait Until Page Contains    ${comment}    5
     Wait Until Element Is Visible     xpath=//*[@id="rootcontainer"]/div/div[1]/div/div[1]/ul/li[1]/div/div[1]    5
     Wait Until Element Is Visible     xpath=//*[@id="rootcontainer"]/div/div[1]/div/div[1]/ul/li[1]/div/div[2]/span    5
-    Wait Until Element Contains   xpath=//*[@id="rootcontainer"]/div/div[1]/div/div[1]/ul/li[1]/div/div[2]/span    now    5
+    Wait Until Element Contains   xpath=//*[@id="rootcontainer"]/div/div[1]/div/div[1]/ul/li[1]/div/div[2]/span    a few seconds ago    5
 
 
 
