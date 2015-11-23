@@ -6,33 +6,12 @@ Resource          resource.txt
 
 
 *** Test Cases ***
-Join Group
+Refresh
 	[Template]    Join Group
 	#--------------------|----------------#
     #    user to join    |    password    #
     #--------------------|----------------#
 			user1              123123
-
-Accept Member
-	[Template]    Admin accept
-	#-------------------------#
-    #    accept these user    #
-    #-------------------------#
-	     user1
-
-Web should show member
-	[Template]    Show Member
-	#------------------------------------#
-    #    Web should show these member    #
-    #------------------------------------#
-	     user1
-
-Kick
-	[Template]    Kick
-	#------------------------------------#
-    #    user to Kick    #
-    #------------------------------------#
-	     user1
 
 *** Keywords ***
 Login
@@ -51,8 +30,16 @@ Join Group
 	Wait Until Page Contains    Join group
 	click element    xpath=//*[@id="rootcontainer"]/div/div[1]/div[1]/div/div/div
 	Wait Until Page Contains    Request pending
-	go to    http://localhost:8000/static/index.html#/groups/5/manage
-	Wait Until Page Contains    Request to join
+	Logout
+	Admin accept    ${username}
+	Login    ${username}    ${password}
+	go to    http://localhost:8000/static/index.html#/groups/5/feed
+	Wait Until Page Contains    Leave group
+	Logout
+	Kick    ${username}
+	Login    ${username}    ${password}
+	go to    http://localhost:8000/static/index.html#/groups/5/feed
+	Wait Until Page Contains    Join group
 	Logout
 
 Admin accept
