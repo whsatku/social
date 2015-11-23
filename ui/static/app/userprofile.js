@@ -19,18 +19,18 @@ app.controller('AddFriendController', function($scope, $http, $location, $stateP
     $scope.addFriend = function(){
     	$http.post('/api/user/friend/' + otherUserId ).success(function(data){
 
-    	})
-    }
+    	});
+    };
     $scope.isFriendAPI = function(){
       $http.get('/api/user/friend/isFriend/' + otherUserId ).success(function(data){
         $scope.isFriend = data;
-    	})
-    }
+    	});
+    };
     $scope.unFriend = function(){
     	$http.delete('/api/user/friend/' + otherUserId ).success(function(data){
 
-    	})
-    }
+    	});
+    };
 
     $scope.isFriendAPI();
 
