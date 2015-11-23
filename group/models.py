@@ -13,8 +13,8 @@ class GroupCategory(models.Model):
 
 class Group(models.Model):
     name = models.CharField(max_length=25)
-    type = models.IntegerField(default=0)
-    category = models.ForeignKey(GroupCategory, default=0)
+    type = models.IntegerField()
+    category = models.ForeignKey(GroupCategory)
     description = models.CharField(max_length=200)
     short_description = models.CharField(max_length=50)
     activities = models.CharField(max_length=200)
@@ -22,7 +22,7 @@ class Group(models.Model):
     #logo_image = ImageField(upload_to=get_image_path, blank=True, null=True)
     header = models.CharField(max_length=25)
     #header_image = ImageField(upload_to=get_image_path, blank=True, null=True)
-    permisssion = models.IntegerField(default=0)
+    permisssion = models.IntegerField()
     date = models.DateField(auto_now_add=True)
 
     def __unicode__(self):
