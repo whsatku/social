@@ -105,7 +105,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
             url: '/edit',
             templateUrl: 'templates/useredit.html'
         })
-        .state('firstlogin', {
+        .state('login.firstlogin', {
             url: '/firstlogin',
             templateUrl: 'templates/firstlogin.html',
             controller: 'FirstLoginController'
@@ -126,7 +126,7 @@ app.controller('MainController', function($rootScope, user, $http, $uibModal, $s
     }
     $http.get('/api/user/'+user.id+'/userInfo/').success(function(data) {
        if(!data.created){
-        $state.go('firstlogin');
+        $state.go('login.firstlogin');
        }
        return;
     })
