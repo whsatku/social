@@ -95,7 +95,6 @@ class GroupViewDetail(APIView):
     serializer_class = GroupSerializer
 
     def get_group(self, group_id):
-
         try:
             return Group.objects.get(id=group_id)
         except Group.DoesNotExist:
@@ -117,7 +116,6 @@ class GroupViewDetail(APIView):
         return Response(response.data)
 
     def post(self, request, group_id, format=None):
-
         serializer = GroupSerializer(data=request.data)
 
         if serializer.is_valid():
@@ -200,7 +198,6 @@ class MemberDetail(APIView):
         response = self.serializer_class(group_member_object)
         return Response(response.data)
 
-
 class EditInfo(APIView):
     """This class is an API for editing information in the group.
 
@@ -237,7 +234,7 @@ class EditInfo(APIView):
 class GroupByCategory(APIView):
     """This class an API for query groups by its category.
 
-    It could be accessed at :http:get:``
+
 
     """
 
@@ -247,18 +244,48 @@ class GroupByCategory(APIView):
         """Get a list of group with the same category selected.
 
         Args:
-                request: Django Rest Framework request object
-                cat: category of groups
-                format: pattern for Web APIs
+                request: Django Rest Framework request object.
+                cat: category of groups.
+                format: pattern for Web APIs.
 
         Return:
-                List of group with same category
+                List of group with same category.
 
         """
-        group = Group.objects.filter(category=cat)
-        response = self.serializer_class(group, many=True)
+        try:
+            cate = GroupCategory.objects.get(name=cat)
+        except GroupCategory.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+
+        groups = Group.objects.filter(category=cate.id)
+        for g in groups:
+            g.member_count = len(GroupMember.objects.filter(group=g))
+        response = self.serializer_class(groups, many=True)
         return Response(response.data)
 
+
+class AllCategory(APIView):
+    """This class an API for querying list of all category in the database.
+
+
+
+    """
+    serializer_class = GroupCategorySerializer
+
+    def get(self, request, format=None):
+        """Get a list of all category.
+
+        Args:
+                request: Django Rest Framework request object.
+                format: pattern for Web APIs.
+
+        Return:
+                List of all category.
+
+        """
+        category = GroupCategory.objects.all()
+        response = self.serializer_class(category, many=True)
+        return Response(response.data)
 
 class GroupPostView(APIView):
     serializer_class = GroupPostSerializer
@@ -297,12 +324,16 @@ class CreateGroup(APIView):
 
         serializer = GroupSerializer(data=request.data)
         if serializer.is_valid():
-            print "save"
             # serializer.user = self.request.user
             this_group = serializer.save()
-            # GroupMember.objects.create(this_group, User.objects.get(id=request.user.id), 1 )
+            GroupMember.objects.create(
+                group=this_group,
+                user=request.user,
+                role=1
+            )
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 class GroupList(ListAPIView):
     """List groups that the requesting user is member of

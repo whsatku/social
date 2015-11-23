@@ -1,32 +1,32 @@
 <div class="lfg lfgsection">
 	<header>
-		<h1>Sports</h1>
+		<h1>{{category}}</h1>
 	</header>
 
-	<div class="largegroup" ui-sref="root.group({id: data.id})">
+	<div class="largegroup" ui-sref="root.group.info({id: g.id})">
 		<div class="image col-sm-3" style="background: #ccc"></div>
 		<div class="col-sm-9 description">
-			<h3 class="title">Group name goes here</h3>
+			<h3 class="title">{{g.name}}</h3>
 			<div class="message">
-				<p>We're a group of people who want to demonstrate how this template works.</p>
+				<p>{{g.description}}</p>
 			</div>
 			<div class="metadata">
-				<strong>2</strong> members &middot; Founded <strong>Jan 1, 1970</strong>
+				<strong>{{g.member_count}}</strong> members &middot; Founded <strong>{{g.date}}</strong>
 			</div>
 		</div>
 	</div>
 
 	<div class="row">
-		<div class="col-md-4" ng-repeat="group in groups">
-			<div class="groupblock" ui-sref="root.group({id: data.id})">
+		<div class="col-md-4" ng-repeat="data in groups">
+			<div class="groupblock" ui-sref="root.group.info({id: data.id})">
 				<div class="image" style="background: #ccc"></div>
 				<div class="description">
-					<h4 class="title">{{group.name}}</h4>
+					<h4 class="title">{{data.name}}</h4>
 					<div class="message">
-						<p>{{group.description}}</p>
+						<p>{{data.description}}</p>
 					</div>
 					<div class="metadata">
-						<strong>2</strong> members &middot; Founded <strong>Jan 1, 1970</strong>
+						<strong>{{data.member_count}}</strong> members &middot; Founded <strong>{{data.date}}</strong>
 					</div>
 				</div>
 			</div>

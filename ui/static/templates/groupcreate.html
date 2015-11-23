@@ -1,4 +1,4 @@
-<form action="#" class="form">
+<form class="form" ng-submit="createGroup()">
 	<div class="form-group">
 		<h4>Group name</h4>
 		<input type="text" class="form-control input-lg" ng-model = "gname" > 
@@ -32,5 +32,5 @@
 		<h4>What's this group about</h4>
 		<textarea class="form-control" rows="3" ng-model = "gdescription" placeholder="Describe your group in one or two sentences so people know what they're joining"></textarea>
 	</div>
-	<input type="submit" class="btn btn-success btn-lg" value="Create group" ng-click = "createGroup()">
+	<input type="submit" class="btn btn-success btn-lg" value="Create group">
 </form>

@@ -23,7 +23,8 @@ class Migration(migrations.Migration):
                 ('activities', models.CharField(max_length=200)),
                 ('logo', models.CharField(max_length=25)),
                 ('header', models.CharField(max_length=25)),
-                ('permisssion', models.IntegerField()),
+                ('permisssion', models.IntegerField(default=0)),
+                ('date', models.DateField(auto_now_add=True)),
             ],
         ),
         migrations.CreateModel(

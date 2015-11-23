@@ -22,7 +22,8 @@ class Group(models.Model):
     #logo_image = ImageField(upload_to=get_image_path, blank=True, null=True)
     header = models.CharField(max_length=25)
     #header_image = ImageField(upload_to=get_image_path, blank=True, null=True)
-    permisssion = models.IntegerField()
+    permisssion = models.IntegerField(default=0)
+    date = models.DateField(auto_now_add=True)
 
     def __unicode__(self):
         return "group : {}".format(self.name)
@@ -34,8 +35,6 @@ class GroupMember(models.Model):
     role = models.IntegerField()
 
     def create(self, new_group, new_user):
-        print new_group
-        print new_user
         self.create(new_group, new_user, 1)
 
     def __unicode__(self):

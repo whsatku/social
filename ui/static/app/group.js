@@ -163,20 +163,43 @@ app.controller('GroupManageController', function($scope, $http, $location){
 
 
 app.controller('GroupCategoryController', function($scope, $http, $stateParams){
-    category = $stateParams.cat;
-    $http.get('/api/group/category/'+ category ).success(function(data){
-        $scope.groups = data;
+    var category = $stateParams.cat;
+    var temp;
+    var groups_without_first = new Array();
+    $scope.category = category;
+
+    function shuffle(o){
+    for(var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
+        return o;
+    }
+
+    $http.get('/api/group/category/get/'+ category ).success(function(data){
+        shuffle(data);
+        $scope.g = data[0];
+        temp = data;
+        for (i=0; i<temp.length; i++){
+            groups_without_first.push(temp[i]);
+        }
+        groups_without_first.shift();
+        $scope.groups = groups_without_first;
     });
 
+    $http.get('/api/group/category/all').success(function(data){
+        $scope.allCategory = data;
+    });
+
+    $http.get('/api/group/all').success(function(data){
+        shuffle(data);
+        $scope.allGroups = data;
+    });
 });
 
 
-app.controller('CreateGroupController', function($scope, $http, $stateParams){
+app.controller('CreateGroupController', function($scope, $state, $http, $stateParams){
 
     $scope.gname = "";
     $scope.gdescription = "";
-    $scope.gtype = "";
-    $scope.gcategory = 1;
+    $scope.gtype = 0;
 
     $scope.createGroup = function(){
 
@@ -186,13 +209,18 @@ app.controller('CreateGroupController', function($scope, $http, $stateParams){
             short_description: 'default',
             activities: 'default',
             type: $scope.gtype,
-            category: $scope.gcategory,
 
 
         };
 
 
-        $http.post('/api/group/create/' , $scope.newgroup ).success(function(data){});
+        $http.post('/api/group/create/' , $scope.newgroup ).success(function(data){
+            $state.go('root.group.info', {
+                id: data.id
+            }, {
+                reload: true
+            });
+        });
 
     }
 

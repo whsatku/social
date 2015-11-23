@@ -1,0 +1,82 @@
+*** Setting ***
+Library    Selenium2Library
+Suite Setup       Open Browser To Login Page
+Suite Teardown    Close browser
+Resource          resource.txt
+
+
+*** Test Cases ***
+Join Group
+	[Template]    Join Group
+	#--------------------|----------------#
+    #    user to join    |    password    #
+    #--------------------|----------------#
+			user1              123123
+
+Accept Member
+	[Template]    Admin accept
+	#-------------------------#
+    #    accept these user    #
+    #-------------------------#
+	     user1
+
+Web should show member
+	[Template]    Show Member
+	#------------------------------------#
+    #    Web should show these member    #
+    #------------------------------------#
+	     user1
+
+Kick
+	[Template]    Kick
+	#------------------------------------#
+    #    user to Kick    #
+    #------------------------------------#
+	     user1
+
+*** Keywords ***
+Login
+	[Arguments]    ${username}    ${password}
+	Go To Login Page
+    Input text    xpath=//*[@id="id_username"]    ${username}
+    Input text    xpath=//*[@id="id_password"]    ${password}
+    click element    xpath=//*[@id="login-form"]/div[3]/input
+    Wait Until Page Contains    Site administration
+    go to    http://localhost:8000/static/index.html#/
+
+Join Group
+	[Arguments]    ${username}    ${password}
+	Login    ${username}    ${password}
+	go to    http://localhost:8000/static/index.html#/groups/5/feed
+	Wait Until Page Contains    Join group
+	click element    xpath=//*[@id="rootcontainer"]/div/div[1]/div[1]/div/div/div
+	Wait Until Page Contains    Request pending
+	go to    http://localhost:8000/static/index.html#/groups/5/manage
+	Wait Until Page Contains    Request to join
+	Logout
+
+Admin accept
+	[Arguments]    ${username}
+	Login    root    toor
+	go to    http://localhost:8000/static/index.html#/groups/5/manage
+	Wait Until Page Contains    ${username}
+	click element    xpath=//*[@id="rootcontainer"]/div/div[1]/div[2]/div/div/div[1]/div/table/tbody/tr[1]/td[4]/button[1]
+	Logout
+
+Show Member
+	[Arguments]    ${username}
+	Login    root    toor
+	go to    http://localhost:8000/static/index.html#/groups/5/manage
+	Wait Until Page Contains    ${username}
+	Logout
+
+Kick
+	[Arguments]    ${username}
+	Login    root    toor
+	go to    http://localhost:8000/static/index.html#/groups/5/manage
+	click element    //*[@id="rootcontainer"]/div/div[1]/div[2]/div/div/div[1]/div/table/tbody/tr[2]/td[4]/button
+	Logout
+	Login    user1    123123
+	go to    http://localhost:8000/static/index.html#/groups/5/manage
+	Wait Until Page Contains    Join group
+	Logout

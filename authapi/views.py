@@ -4,6 +4,7 @@ from rest_framework.response import Response
 from newsfeed.serializer import UserSerializer
 from rest_framework.exceptions import ValidationError, PermissionDenied
 
+
 class UserViewSet(APIView):
 	"""Validate current user session
 
