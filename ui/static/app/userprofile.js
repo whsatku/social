@@ -20,24 +20,24 @@ app.controller('UserFriendController', function($scope, $http, $location, $state
 });
 
 app.controller('AddFriendController', function($scope, $http, $location, $stateParams, $rootScope){
-    var userId = $rootScope.user.id;
-    var otherUserId = $stateParams.user;
+    $scope.userId = $rootScope.user.id;
+    $scope.otherUserId = $stateParams.user;
     $scope.isFriend = false;
-    $http.get('/api/user/'+otherUserId+'/userInfo').success(function(data){
+    $http.get('/api/user/'+$scope.otherUserId+'/userInfo').success(function(data){
         $scope.userprofile = data;
     });
     $scope.isFriendAPI = function(){
-      $http.get('/api/user/friend/isFriend/' + otherUserId ).success(function(data){
+      $http.get('/api/user/friend/isFriend/' + $scope.otherUserId ).success(function(data){
         $scope.isFriend = data;
     	});
     };
     $scope.unFriend = function(){
-    	$http.delete('/api/user/friend/' + otherUserId ).success(function(data){
+    	$http.delete('/api/user/friend/' + $scope.otherUserId ).success(function(data){
         $scope.isFriendAPI();
     	});
     };
     $scope.addFriend = function(){
-    	$http.post('/api/user/friend/' + otherUserId ).success(function(data){
+    	$http.post('/api/user/friend/' + $scope.otherUserId ).success(function(data){
         $scope.isFriendAPI();
     	});
     };

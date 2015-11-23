@@ -1,7 +1,7 @@
 <div class="userpage">
 	<div class="cover">
 		<div class="cover-in">
-			<div class="pull-right toolbar">
+			<div class="pull-right toolbar" ng-if="userId != otherUserId ">
 				<a ng-click="addFriend()" ng-if="isFriend == 0" class="btn btn-default">Add friend</a>
 				<div ng-if="isFriend == 1" class="btn btn-default">Request pending</div>
 				<div ng-if="isFriend == 2" class="btn btn-default">Accept request</div>
