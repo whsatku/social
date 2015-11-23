@@ -105,6 +105,19 @@ class FriendshipPendingViewSet(APIView):
         response = self.serializer_class(friend_pending, many=True)
         return Response(response.data)
 
+class FriendshipViewSet(APIView):
+    serializer_class = UserSerializer
+
+    def get(self, request, format=None):
+        friends = Friend.objects.friends(self.request.user)
+        # user_id = [];
+        # for friend in friends:
+        #     user_id.append(friend.to_user)
+        #     user_id.append(friend.from_user)
+
+        response = self.serializer_class(friends, many=True)
+        return Response(response.data)
+
 
 class IsFriendDetail(APIView):
     serializer_class = FriendShipSerializer
