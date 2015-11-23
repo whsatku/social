@@ -21,6 +21,7 @@ class Migration(migrations.Migration):
                 ('text', models.CharField(max_length=2000)),
                 ('target_id', models.PositiveIntegerField(null=True)),
                 ('link_item', models.CharField(max_length=2000, null=True)),
+                ('reference_detail', models.CharField(max_length=2000, null=True)),
                 ('link_type', models.ForeignKey(related_name='link', to='contenttypes.ContentType', null=True)),
                 ('readed', models.ManyToManyField(related_name='readed', to=settings.AUTH_USER_MODEL, blank=True)),
             ],

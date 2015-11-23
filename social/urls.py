@@ -25,4 +25,5 @@ urlpatterns = [
     url(r'^api/newsfeed/', include('newsfeed.urls')),
     url(r'^api/group/', include('group.urls')),
     url(r'^api/notification/', include('notification.urls')),
+    url(r'^api/user/', include('User.urls')),
 ]

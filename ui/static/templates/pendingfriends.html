@@ -1,0 +1,20 @@
+<div class="header">
+	Friend requests
+</div>
+<div class="body">
+	<div class="row item-outer" ui-sref="root" ng-repeat="friend in pendingFriends">
+		<div class="item">
+			<div class="col-xs-2">
+				<a href="#" class="thumbnail" style="width: 40px; background: red; height: 40px;"></a>
+			</div>
+			<div class="col-xs-10">
+				<a href="#" ui-sref="root.user.timeline({user: friend.user.id})">{{friend.user.username}}</a>
+				<div>
+					<a href="" ng-click="acceptFriend(friend.user.id)" class="btn btn-default btn-sm">Accept</a>
+					<a href="" ng-click="rejectFriend(friend.user.id)" class="btn btn-link btn-sm">Reject</a>
+				</div>
+			</div>
+			<div class="clearfix"></div>
+		</div>
+	</div>
+</div>

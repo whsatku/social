@@ -1,7 +1,7 @@
 <form action="#" class="form">
 	<div class="form-group">
 		<h4>Group name</h4>
-		<input type="text" class="form-control input-lg">
+		<input type="text" class="form-control input-lg" ng-model = "gname" > 
 	</div>
 	<div class="form-group">
 		<h4>Group type</h4>
@@ -19,18 +19,18 @@
 	<div class="form-group">
 		<h4>Group privacy</h4>
 		<div class="radio">
-			<label><input type="radio" name="join" value="0" checked> Open</label>
+			<label><input type="radio" ng-model = "gtype" name="join" value="0" checked> Open</label>
 		</div>
 		<div class="radio">
-			<label><input type="radio" name="join" value="1"> Closed</label>
+			<label><input type="radio" ng-model = "gtype" name="join" value="1"> Closed</label>
 		</div>
 		<div class="radio">
-			<label><input type="radio" name="join" value="2"> Secret</label>
+			<label><input type="radio" ng-model = "gtype" name="join" value="2"> Secret</label>
 		</div>
 	</div>
 	<div class="form-group">
 		<h4>What's this group about</h4>
-		<textarea class="form-control" rows="3" placeholder="Describe your group in one or two sentences so people know what they're joining"></textarea>
+		<textarea class="form-control" rows="3" ng-model = "gdescription" placeholder="Describe your group in one or two sentences so people know what they're joining"></textarea>
 	</div>
-	<input type="submit" class="btn btn-success btn-lg" value="Create group">
+	<input type="submit" class="btn btn-success btn-lg" value="Create group" ng-click = "createGroup()">
 </form>

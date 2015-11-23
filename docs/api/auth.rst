@@ -92,3 +92,26 @@ This endpoint is handled by :py:mod:`authapi.views`
    :<json string password: Password
    :>json string username: Username of current user
    :statuscode 403: Cannot log user in with given credentials. The credentials may be invalid, the server may not be able to connect to authentication database, or the user may be disabled.
+
+.. http:post:: /api/auth/logout
+   :synopsis: Logout from current session
+
+   This endpoint is handled by :py:func:`authapi.views.LogoutViewSet.post`
+
+   **Example request**:
+
+   .. sourcecode:: http
+
+      POST /api/auth/logout HTTP/1.1
+      Host: social.whs.in.th
+      Accept: application/json, text/javascript
+      Cookie: sessionid=.....
+
+   **Example response*:
+
+   .. sourcecode:: http
+
+      HTTP/1.1 200 OK
+      Content-Type: application/json
+      X-Frame-Options: SAMEORIGIN
+      Allow: GET, HEAD, OPTIONS
