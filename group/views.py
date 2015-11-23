@@ -127,22 +127,16 @@ class GroupViewDetail(APIView):
 
 class MemberDetail(APIView):
     """This class is an API for managing member in group.
-
-
-
     """
     serializer_class = GroupMemberSerializer
 
     def get_member(self, group_id, user_id):
         """Get user from group's database.
-
         Args:
                 request: Django Rest Framework request object
                 group_id: ID of group
                 format: pattern for Web APIs
-
         Return:
-
         """
         try:
             return GroupMember.objects.get(group=group_id, user=user_id)
@@ -151,15 +145,12 @@ class MemberDetail(APIView):
 
     def delete(self, request, group_id, pk, format=None):
         """Delete user from group.
-
         Args:
                 request: Django Rest Framework request object
                 group_id: ID of group
                 pk: ID of user
                 format: pattern for Web APIs
-
         Return:
-
         """
         member = self.get_member(group_id, pk)
         member.delete()
@@ -167,15 +158,12 @@ class MemberDetail(APIView):
 
     def put(self, request, group_id, pk, format=None):
         """Add or update member in group.
-
         Args:
                 request: Django Rest Framework request object
                 group_id: ID of group
                 pk: ID of user
                 format: pattern for Web APIs
-
         Return:
-
         """
         member = self.get_member(group_id, pk)
         member.role = 1
@@ -184,15 +172,12 @@ class MemberDetail(APIView):
 
     def get(self, request, group_id, pk, format=None):
         """Sending data of member in group from server to client.
-
         Args:
                 request: Django Rest Framework request object
                 group_id: ID of group
                 pk: ID of user
                 format: pattern for Web APIs
-
         Return:
-
         """
         group_member_object = self.get_member(group_id, pk)
         response = self.serializer_class(group_member_object)
@@ -200,23 +185,16 @@ class MemberDetail(APIView):
 
 class EditInfo(APIView):
     """This class is an API for editing information in the group.
-
-
-
     """
     serializer_class = GroupSerializer
 
     def put(self, request, group_id, format=None):
         """Edit or add information in the group.
-
         Args:
                 request: Django Rest Framework request object
                 group_id: ID of group
                 format: pattern for Web APIs
-
         Return:
-
-
         """
         try:
             group = Group.objects.get(pk=group_id)
@@ -233,24 +211,18 @@ class EditInfo(APIView):
 
 class GroupByCategory(APIView):
     """This class an API for query groups by its category.
-
-
-
     """
 
     serializer_class = GroupSerializer
 
     def get(self, request, cat, format=None):
         """Get a list of group with the same category selected.
-
         Args:
                 request: Django Rest Framework request object.
                 cat: category of groups.
                 format: pattern for Web APIs.
-
         Return:
                 List of group with same category.
-
         """
         try:
             cate = GroupCategory.objects.get(name=cat)
@@ -274,14 +246,11 @@ class AllCategory(APIView):
 
     def get(self, request, format=None):
         """Get a list of all category.
-
         Args:
                 request: Django Rest Framework request object.
                 format: pattern for Web APIs.
-
         Return:
                 List of all category.
-
         """
         category = GroupCategory.objects.all()
         response = self.serializer_class(category, many=True)
@@ -337,7 +306,6 @@ class CreateGroup(APIView):
 
 class GroupList(ListAPIView):
     """List groups that the requesting user is member of
-
     It could be accessed at :http:get:`/api/group`"""
     serializer_class = GroupSerializer
 

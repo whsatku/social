@@ -1,0 +1,50 @@
+*** Settings ***
+Library           Selenium2Library
+Test Setup    Open Browser    http://localhost:8000/static/index.html#/    ${BROWSER}
+Test Teardown    close browser
+
+*** Testcase ***
+join group
+    [Template]    join groups with users
+        user1    user1-password    1
+        user1    user1-password    2
+        user1    user1-password    3
+        user1    user1-password    4
+        user2    user2-password    1
+        user2    user2-password    2
+        user2    user2-password    3
+        user2    user2-password    4
+        user3    user3-password    1
+        user3    user3-password    2
+        user3    user3-password    3
+        user3    user3-password    4
+        user4    user4-password    1
+        user4    user4-password    2
+        user4    user4-password    3
+        user4    user4-password    4
+
+*** Variables ***
+${BROWSER}    phantomjs
+
+*** Keywords ***
+join groups with users
+    [Arguments]    ${username}    ${password}    ${groupid}
+    Login user    ${username}    ${password}
+    join group    ${groupid}    ${username}
+Login user
+    [Arguments]    ${username}    ${password}
+    go to    http://localhost:8000/api-auth/login/?next=/api/group/1/
+    sleep    2
+    Input text    //*[@id="id_username"]    ${username}
+    Input text    //*[@id="id_password"]    ${password}
+    click element    //*[@id="submit-id-submit"]
+    sleep    2
+join group
+    [Arguments]    ${groupid}    ${username}
+    go to    http://localhost:8000/static/index.html#/groups/${groupid}/info
+    click element    //*[@id="rootcontainer"]/div/div[1]/div[1]/div/div/div
+    go to    http://localhost:8000/static/index.html#/groups/1/manage
+    sleep    2
+    should be equals    //*[@id="rootcontainer"]/div/div[1]/div[2]/div/div/div[1]/div/table/tbody/tr/td[2]/a    ${username}
+    click element    //*[@id="rootcontainer"]/div/div[1]/div[2]/div/div/div[1]/div/table/tbody/tr/td[4]/button[2]
+

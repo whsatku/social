@@ -2,6 +2,7 @@
 Library           Selenium2Library
 Test Setup    Pre-condition
 Test Teardown    close browser
+
 *** Test Cases ***
 TestGroupTitle
     [Template]    test web element
@@ -9,9 +10,8 @@ TestGroupTitle
         2    Youniversity    Group name goes here
         3    Youniversity    Group name goes here
 
-
 *** Variables ***
-${BROWSER}    ff
+${BROWSER}    phantomjs
 
 *** Keywords ***
 Pre-condition
