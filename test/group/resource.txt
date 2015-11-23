@@ -11,7 +11,7 @@ ${URL}    http://localhost:8000/admin
 
 *** Keywords ***
 Open Browser To Login Page
-    Open Browser    ${URL}    ff
+    Open Browser    ${URL}    phantomjs
     Wait Until Page Contains     Django
 
 Go To Login Page
