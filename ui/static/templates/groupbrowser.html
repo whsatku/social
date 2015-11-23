@@ -5,15 +5,15 @@
 	<section>
 		<h2>Featured group</h2>
 
-		<div class="largegroup" ui-sref="root.group.info({id: 1})">
+		<div class="largegroup" ui-sref="root.group.info({id: allGroups[0].id})">
 			<div class="image col-sm-3" style="background: #ccc"></div>
 			<div class="col-sm-9 description">
-				<h3 class="title">Group name goes here</h3>
+				<h3 class="title">{{allGroups[0].name}}</h3>
 				<div class="message">
-					<p>We're a group of people who want to demonstrate how this template works.</p>
+					<p>{{allGroups[0].description}}</p>
 				</div>
 				<div class="metadata">
-					<strong>2</strong> members &middot; Founded <strong>Jan 1, 1970</strong>
+					<strong>{{allGroups[0].member_count}}</strong> members &middot; Founded <strong>{{allGroups[0].date}}</strong>
 				</div>
 			</div>
 		</div>
@@ -21,41 +21,8 @@
 	<section class="categories">
 		<h2>Explore by section</h2>
 		<div class="row">
-			<div class="col-sm-4">
-				<a href="#" ui-sref="root.lfgcat({cat: 'academic'})" class="btn btn-default">Academic</a>
-			</div>
-			<div class="col-sm-4">
-				<a href="#" ui-sref="root.lfgcat({cat: 'acting'})" class="btn btn-default">Acting</a>
-			</div>
-			<div class="col-sm-4">
-				<a href="#" ui-sref="root.lfgcat({cat: 'art'})" class="btn btn-default">Art</a>
-			</div>
-			<div class="col-sm-4">
-				<a href="#" ui-sref="root.lfgcat({cat: 'band'})" class="btn btn-default">Band</a>
-			</div>
-			<div class="col-sm-4">
-				<a href="#" ui-sref="root.lfgcat({cat: 'film'})" class="btn btn-default">Film</a>
-			</div>
-			<div class="col-sm-4">
-				<a href="#" ui-sref="root.lfgcat({cat: 'gaming'})" class="btn btn-default">Gaming</a>
-			</div>
-			<div class="col-sm-4">
-				<a href="#" ui-sref="root.lfgcat({cat: 'social'})" class="btn btn-default">Socializing</a>
-			</div>
-			<div class="col-sm-4">
-				<a href="#" ui-sref="root.lfgcat({cat: 'si'})" class="btn btn-default">Special interest</a>
-			</div>
-			<div class="col-sm-4">
-				<a href="#" ui-sref="root.lfgcat({cat: 'sports'})" class="btn btn-default">Sports</a>
-			</div>
-			<div class="col-sm-4">
-				<a href="#" ui-sref="root.lfgcat({cat: 'technology'})" class="btn btn-default">Technology</a>
-			</div>
-			<div class="col-sm-4">
-				<a href="#" ui-sref="root.lfgcat({cat: 'volunteer'})" class="btn btn-default">Volunteering</a>
-			</div>
-			<div class="col-sm-4">
-				<a href="#" ui-sref="root.lfgcat({cat: 'writing'})" class="btn btn-default">Writing &amp; Journalism</a>
+			<div class="col-sm-4" ng-repeat="category in allCategory">
+				<a ui-sref="root.lfgcat({cat: category.name})" class="btn btn-default">{{category.name}}</a>
 			</div>
 		</div>
 	</section>

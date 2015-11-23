@@ -194,3 +194,53 @@ html,body,#root{
 	margin-top: 0;
 	margin-bottom: 10px;
 }
+
+/* notification */
+.notibox{
+	position: absolute;
+	top: 56px;
+	right: 40px;
+	border: #aaa solid 1px;
+	border-top: none;
+	box-shadow: rgba(100,100,100, 0.4) 0px 3px 3px;
+	width: 300px;
+	height: 400px;
+	z-index: 400;
+	background: white;
+}
+.notibox .header{
+	background: #BFD74E;
+	font-size: 13pt;
+	padding: 4px 10px;
+	color: #22733D;
+	height: 36px;
+	line-height: 28px;
+}
+.notibox .body{
+	height: 364px;
+	overflow: auto;
+}
+.notibox .item-outer{
+	padding: 6px;
+}
+.notibox .item{
+	margin: 0 10px;
+	border-bottom: #aaa solid 1px;
+	display: block;
+	cursor: pointer;
+}
+
+/* user page */
+.cover .avatar{
+	position: absolute;
+	bottom: -60px;
+	margin: 0;
+	width: 140px;
+	height: 140px;
+}
+.userpage .cover h3{
+	margin-left: 160px;
+}
+.userpage .cover{
+	margin-bottom: 80px;
+}

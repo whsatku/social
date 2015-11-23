@@ -36,24 +36,24 @@
 		<form action="">
 			<div class="form-group">
 				<h4>What's this group about</h4>
-				<textarea class="form-control" rows="3">We're a group of people who want to demonstrate how this template works.</textarea>
+
+				<textarea ng-model = "group.description" class="form-control" rows="3"></textarea>
+
 			</div>
 
 			<div class="form-group">
 				<h4>Requirement to join</h4>
 				<div class="form-group">
-					<label class="radio-inline"><input type="radio" name="join" value="0" checked> Open</label>
-					<label class="radio-inline"><input type="radio" name="join" value="1"> Closed</label>
-					<label class="radio-inline"><input type="radio" name="join" value="2"> Secret</label>
+					<label class="radio-inline"><input type="radio" ng-model = "group.type" name="join" value="0" checked> Open</label>
+					<label class="radio-inline"><input type="radio" ng-model = "group.type" name="join" value="1"> Closed</label>
+					<label class="radio-inline"><input type="radio" ng-model = "group.type" name="join" value="2"> Secret</label>
 				</div>
-				<textarea class="form-control" rows="6">The group owner also able to add some messages here</textarea>
+				<textarea ng-model = "group.short_description" class="form-control" rows="6"></textarea>
 			</div>
 
 			<div class="form-group">
 				<h4>Your activities?</h4>
-				<textarea class="form-control" rows="10">Here we are going to say something about our recent activities so people want to join us. Or for hangout group we might as well omit this section.
-				
-Also, we should be able to put some images and rich text format in this section</textarea>
+				<textarea ng-model = "group.activities" class="form-control" rows="10"></textarea>
 			</div>
 
 			<div class="form-group">
@@ -110,7 +110,7 @@ Also, we should be able to put some images and rich text format in this section<
 				</div>
 			</div>
 
-			<input type="submit" class="btn btn-primary" value="Save">
+			<button ng-click="editInfo()" type="submit" class="btn btn-primary" >Save</button>
 		</form>
 
 	</tab>
