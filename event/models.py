@@ -7,6 +7,8 @@ class Event(models.Model):
     start_date = models.DateField(auto_now_add=False)
     end_date = models.DateField(auto_now_add=False)
     description = models.CharField(max_length=200)
+    start_time = models.TimeField(auto_now_add=False)
+    end_time = models.TimeField(auto_now_add=False)
 
     def __unicode__(self):
         return "event : {}".format(self.name)

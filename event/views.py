@@ -15,13 +15,16 @@ from rest_framework import status
 
 
 # Create your views here.
-class EventViewSet(APIView):
+class EventViewDetail(APIView):
 
     serializer_class = EventSerializer
 
     def post(self, request, format=None):
+        print "InPost"
         serializer = EventSerializer(data=request.data)
+        print data
         if serializer.is_valid():
+            print "IsValid"
             this_event = serializer.save()
             EventMember.objects.create(
                 event=this_event,
@@ -55,37 +58,20 @@ class EventViewSet(APIView):
             raise Http404
 
 
-class EventDetail(APIView):
+class EventViewSet(APIView):
 
-    def get_member(self, event_id, user_id):
-        """Get user from group's database.
+    serializer_class = EventSerializer
 
-        Args:
-                request: Django Rest Framework request object
-                group_id: ID of group
-                format: pattern for Web APIs
+    def get(self, request, id=None, format=None):
+        event = Event.objects.all()
+        response = self.serializer_class(event, many=True)
 
-        Return:
+        return Response(response.data)
 
-        """
-        try:
-            return EventMember.objects.get(event=event_id, user=user_id)
-        except GroupMember.DoesNotExist:
-            raise Http404
+    def post(self, request, format=None):
+        serializer = EventSerializer(data=request.data)
 
-    def put(self, request, event_id, pk, format=None):
-        """Add or update member in group.
-
-        Args:
-                request: Django Rest Framework request object
-                event_id: ID of event
-                pk: ID of user
-                format: pattern for Web APIs
-
-        Return:
-
-        """
-        member = self.get_member(event_id, pk)
-        member.role = 1
-        member.save()
-        return Response(status=status.HTTP_201_CREATED)
+        if serializer.is_valid():
+            serializer.save(event=Event.objects.get(id=self.request.event.id))
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

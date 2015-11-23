@@ -8,6 +8,7 @@ var app = angular.module('app.main', [
     'app.newsfeed',
     'app.group',
     'app.userprofile',
+    'app.event',
     
 ]);
 
@@ -91,11 +92,12 @@ app.config(function($stateProvider, $urlRouterProvider) {
 		})
 		.state('root.event', {
 			url: '/event/{event:int}',
-			templateUrl: 'templates/event.html'
+			templateUrl: 'templates/event.html',
 		})
 		.state('root.eventcreate', {
 			url: '/event/create',
-			templateUrl: 'templates/eventcreate.html'
+			templateUrl: 'templates/eventcreate.html',
+			controller: 'CreateEventController'
 		})
 		.state('root.eventbrowse', {
 			url: '/event/browse',

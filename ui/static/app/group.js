@@ -63,7 +63,6 @@ app.controller('GroupFeedController', function($scope, $http, $location){
 });
 
 
-
 app.controller('GroupCommentController', function($rootScope, $scope, $http){
 
   var loadCommentsByPostId = function(postID) {
