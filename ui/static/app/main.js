@@ -129,7 +129,7 @@ app.controller('MainController', function($rootScope, user, $http, $uibModal, $s
         $state.go('login.firstlogin');
        }
        return;
-    })
+    });
     $http.get('/api/group/').success(function(data){
         $rootScope.group_list = data;
     });
