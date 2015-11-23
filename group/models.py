@@ -22,7 +22,7 @@ class Group(models.Model):
     #logo_image = ImageField(upload_to=get_image_path, blank=True, null=True)
     header = models.CharField(max_length=25)
     #header_image = ImageField(upload_to=get_image_path, blank=True, null=True)
-    permisssion = models.IntegerField()
+    permisssion = models.IntegerField(null=True)
     date = models.DateField(auto_now_add=True)
 
     def __unicode__(self):
