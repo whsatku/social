@@ -12,7 +12,9 @@ from models import *
 from serializers import *
 from django.http import Http404
 from rest_framework import status
-
+from friendship.models import Friend
+from friendship.models import FriendshipRequest
+from django.utils import timezone
 
 class UserInformation (APIView):
     """This class is an API for getting user's user information
@@ -79,21 +81,27 @@ class FriendshipDetail(APIView):
 
 
     def post(self, request, other_user_id, format=None):
-        user = self.get_user(self.request.user.id)
+        user = request.user
         other_user = self.get_user(other_user_id)
-        new_relationship = Friend.objects.add_friend(user, other_user)
+        new_relationship = Friend.objects.add_friend(from_user=user, to_user=other_user)
         return Response(status=status.HTTP_201_CREATED)
 
     def delete(self, request, other_user_id, format=None):
-        other_user = self.getUser(other_user_id)
-        Friend.objects.remove_friend(other_user, self.request.user)
+        try:
+            user = request.user
+            other_user = self.get_user(other_user_id)
+            Friend.objects.remove_friend(from_user=other_user, to_user=user)
+        except  Exception as inst:
+            print type(inst)     # the exception instance
+            print inst           # __str__ allows args to be printed directly
+            raise Http404
         return Respose(status=status.HTTP_200_OK)
 
 class FriendshipPendingViewSet(APIView):
     serializer_class = FriendShipSerializer
 
     def get(self, request, format=None):
-        friend_pending = Friend.objects.unread_requests(user=self.request.user)
+        friend_pending = Friend.objects.unrejected_requests(user=self.request.user)
         response = self.serializer_class(friend_pending, many=True)
         return Response(response.data)
 
@@ -115,6 +123,26 @@ class IsFriendDetail(APIView):
         except UserProfile.DoesNotExist:
             raise Http404
 
-    def get(self, request ,other_user_id, format=None):
+    def get(self, request, other_user_id, format=None):
         Friend.objects.are_friends(request.user, self.get_user(other_user_id))
+        return Response(Friend.objects.are_friends(request.user, self.get_user(other_user_id)))
+
+    def put(self, request, other_user_id, format=None):
+        try:
+            friend = FriendshipRequest.objects.get(from_user=self.get_user(other_user_id), to_user=request.user)
+            friend.accept()
+        except  Exception as inst:
+            print type(inst)     # the exception instance
+            print inst           # __str__ allows args to be printed directly
+            raise Http404
+        return Response(Friend.objects.are_friends(request.user, self.get_user(other_user_id)))
+
+    def delete(self, request, other_user_id, format=None):
+        try:
+            friend = FriendshipRequest.objects.get(from_user=self.get_user(other_user_id), to_user=request.user)
+            friend.cancel()
+        except  Exception as inst:
+            print type(inst)     # the exception instance
+            print inst           # __str__ allows args to be printed directly
+            raise Http404
         return Response(Friend.objects.are_friends(request.user, self.get_user(other_user_id)))

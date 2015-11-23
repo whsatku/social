@@ -7,6 +7,4 @@ urlpatterns = [
     url(r'^friend/(?P<other_user_id>[0-9]+)$', views.FriendshipDetail.as_view(), name='AddFriend'),
     url(r'^friend/pending/$', views.FriendshipPendingViewSet.as_view(), name="PendingFriends"),
     url(r'^friend/isFriend/(?P<other_user_id>[0-9]+)/$', views.IsFriendDetail.as_view() , name="isFriend"),
-
-
 ]

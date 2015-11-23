@@ -138,14 +138,29 @@ app.controller('MainController', function($rootScope, user, $http, $uibModal, $s
 app.controller('NotificationController', function($rootScope){
     $rootScope.notificationCount = Math.floor(Math.random() * 20);
 });
-app.controller('PendingFriendController', function($rootScope, $http, $interval){
+app.controller('PendingFriendController', function($scope, $rootScope, $http, $interval){
     var updatePendingFriend = function(){
         $http.get('/api/user/friend/pending').success(function(data){
             $rootScope.pendingFriends = data;
         });
     };
+
+    $scope.acceptFriend = function(otherUserId){
+      $http.put('/api/user/friend/isFriend/' + otherUserId ).success(function(data){
+        console.log(data)
+        updatePendingFriend();
+    	})
+    }
+    $scope.rejectFriend = function(otherUserId){
+      $http.delete('/api/user/friend/isFriend/' + otherUserId ).success(function(data){
+        console.log(data)
+        updatePendingFriend();
+    	})
+    }
     updatePendingFriend();
     $interval(updatePendingFriend, 60000);
+
+
 });
 
 })();
