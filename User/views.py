@@ -155,8 +155,15 @@ class IsFriendDetail(APIView):
             raise Http404
 
     def get(self, request, other_user_id, format=None):
-        Friend.objects.are_friends(request.user, self.get_user(other_user_id))
-        return Response(Friend.objects.are_friends(request.user, self.get_user(other_user_id)))
+        friend_status = 0
+        other_user = self.get_user(other_user_id)
+        if Friend.objects.are_friends(request.user, other_user):
+            friend_status = 3
+        elif FriendshipRequest.objects.get(from_user=other_user, to_user=request.user)
+            friend_status = 2
+        elif FriendshipRequest.objects.get(from_user=request.user, to_user=other_user)
+            friend_status = 1
+        return Response(friend_status))
 
     def put(self, request, other_user_id, format=None):
         try:
