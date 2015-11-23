@@ -11,7 +11,7 @@ app.controller('UserProfileInfoController', function($scope, $http, $location, $
 
 app.controller('UserFriendController', function($scope, $http, $location, $stateParams){
     $http.get('/api/user/friends').success(function(data){
-      console.log(data);
+      $scope.friends = data;
     });
 });
 

@@ -31,15 +31,6 @@ class UserProfile(models.Model):
     #                         )
     # phone = models.CharField(max_length=20, blank=True)
 
-    def update(self, instance, data):
-        """
-        Update and return the instance, given the new data
-        """
-        instance.user = data.get('user', instance.user)
-        instance.faculty = data.get('faculty', instance.faculty)
-        instance.hometown = data.get('hometown', instance.hometown)
-        instance.save()
-        return instance
 
     def __unicode__(self):
         return "{}'s profile".format(self.user.username)

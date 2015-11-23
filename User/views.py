@@ -56,7 +56,7 @@ class UserInformation (APIView):
         user_profile_object = self.get_user(user_profile_id)
         response = self.serializer_class(user_profile_object)
         return Response(response.data)
-    
+
     def put(self, request, user_profile_id, format=None):
         """For client to edit the userprofile
 
@@ -127,16 +127,13 @@ class FriendshipPendingViewSet(APIView):
         return Response(response.data)
 
 class FriendshipViewSet(APIView):
-    serializer_class = UserSerializer
+    serializer_class = UserProfileSerializer
 
     def get(self, request, format=None):
         friends = Friend.objects.friends(self.request.user)
-        # user_id = [];
-        # for friend in friends:
-        #     user_id.append(friend.to_user)
-        #     user_id.append(friend.from_user)
+        friend_list = UserProfile.objects.filter(user__in = friends)
 
-        response = self.serializer_class(friends, many=True)
+        response = self.serializer_class(friend_list, many=True)
         return Response(response.data)
 
 

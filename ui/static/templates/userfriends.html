@@ -4,8 +4,8 @@
 	</div>
 	<div class="panel-body">
 		<ul class="friendlist list-unstyled row">
-			<li class="col-sm-6" ng-repeat="x in [1,2,3,4,5]">
-				<div class="usergrid row clickable" ui-sref="root.user.timeline({user: 5})">
+			<li class="col-sm-6" ng-repeat="friend in friends">
+				<div class="usergrid row clickable" ui-sref="root.user.timeline({user: friend.user.id})">
 					<div class="col-xs-3 leftcol">
 						<a href="#" style="display: block; width: 90px; background: red; height: 90px;"></a>
 					</div>
@@ -13,8 +13,8 @@
 						<div class="pull-right">
 							<div class="btn btn-default">Remove</div>
 						</div>
-						<h4><a href="" ui-sref="root.user.timeline({user: 5})">Mr. X</a></h4>
-						Kasetsart University, Faculty of Engineering
+						<h4><a href="" ui-sref="root.user.timeline({user: 5})">{{friend.user.username}}</a></h4>
+						{{friend.faculty}}, {{friends.major}}
 					</div>
 				</div>
 			</li>

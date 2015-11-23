@@ -18,11 +18,6 @@ class FirstUserProfileSerializer(serializers.ModelSerializer):
 		model = UserProfile
 		fields = ('user','faculty','country','created')
 
-
-class UserSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = User
-
 class FriendShipSerializer(serializers.ModelSerializer):
 	user = UserSerializer(source='from_user')
 
