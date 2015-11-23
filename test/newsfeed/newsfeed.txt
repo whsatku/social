@@ -5,7 +5,7 @@ Suite Setup    Pre-condition
 Suite Teardown    Close browser
 
 *** Variables ***
-${BROWSER}    phantomJS
+${BROWSER}   phantomJS
 ${URL}    http://localhost:8000/static/index.html#/
 
 *** Test Cases ***
@@ -63,8 +63,8 @@ CommentFilterByTime
 *** Keywords ***
 Pre-condition
     Open Browser    http://localhost:8000/admin    ${BROWSER}
-    Input text    //*[@id="id_username"]    best
-    Input text    //*[@id="id_password"]    123
+    Input text    //*[@id="id_username"]    root
+    Input text    //*[@id="id_password"]    toor
     click element    //*[@id="login-form"]/div[3]/input
     go to    http://localhost:8000/static/index.html#/
 
@@ -113,6 +113,7 @@ Show Post Relative Time
     Wait Until Element Is Visible     xpath=//*[@id="rootcontainer"]/div/div[1]/form/textarea     5    
     Input text    xpath=//*[@id="rootcontainer"]/div/div[1]/form/textarea    ${status}    
     Click Element    xpath=//*[@id="rootcontainer"]/div/div[1]/form/input
+    sleep  1
     Wait Until Page Contains    ${status}    5
     Wait Until Element Is Visible     xpath=//*[@id="rootcontainer"]/div/div[1]/div/div[1]    5
     Wait Until Element Contains    xpath=//*[@id="rootcontainer"]/div/div[1]/div/div[1]/div[1]/div[2]/div    now · Public    5
@@ -135,11 +136,13 @@ Post Filter By Time
     Wait Until Element Is Visible     xpath=//*[@id="rootcontainer"]/div/div[1]/form/textarea     5    
     Input text    xpath=//*[@id="rootcontainer"]/div/div[1]/form/textarea    ${status1}    
     Click Element    xpath=//*[@id="rootcontainer"]/div/div[1]/form/input
+    sleep  1
     Wait Until Element Is Visible     xpath=//*[@id="rootcontainer"]/div/div[1]/div/div[1]     5
     Wait Until Element Contains     xpath=//*[@id="rootcontainer"]/div/div[1]/div/div[1]/div[2]    ${status1}    5
     Input text    xpath=//*[@id="rootcontainer"]/div/div[1]/form/textarea    ${status2}
     Wait Until Element Is Visible     xpath=//*[@id="rootcontainer"]/div/div[1]/div/div[1]     5  
     Click Element    xpath=//*[@id="rootcontainer"]/div/div[1]/form/input
+    sleep  1
     Wait Until Element Contains    xpath=//*[@id="rootcontainer"]/div/div[1]/div/div[1]/div[2]     ${status2}    5
     Wait Until Element Contains    xpath=//*[@id="rootcontainer"]/div/div[1]/div/div[2]/div[2]     ${status1}    5
 

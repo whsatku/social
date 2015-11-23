@@ -5,7 +5,7 @@
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="-1">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta content="Robot Framework 2.9.2 (Python 2.7.10 on win32)" name="Generator">
+<meta content="Robot Framework 2.9.1 (Python 2.7.10 on win32)" name="Generator">
 <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64,AAABAAEAEBAQAAEABAAoAQAAFgAAACgAAAAQAAAAIAAAAAEABAAAAAAAAAIAAAAAAAAAAAAAEAAAAAAAAAAAAAAAJEBoACtnfgA5cYYAERsiAEx2lAAbKkQAcazBACZCVwAcM1cAK0ucAAMDBQAnQncASG+FABkoVQAyWmgA6f8SgvH/Ij99+GLyIinyJfn/Yi//KSLzUy9iZogpIld3/4JVVTkid7vyUjNVNVJEAGOZ6Z7pXwAABpmZkRiLAAAGiJZpmGAAAEEt3SXdxAAATC7o/u3EAAC8MRZpjasAAAY1VVVTYAAABKqqqqpAAAAADKqq4AAAAAAAv4sAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMADAADgAwAA4AcAAOAHAADgBwAAwAcAAOAHAADgDwAA8A8AAPg/AAD+fwAA">
 <style media="all" type="text/css">
 /* Generic and misc styles */
@@ -651,7 +651,7 @@ window.model = (function () {
             for (var i in suites)
                 tests = tests.concat(suites[i].searchTestsInSuite(pattern, matcher));
             return tests;
-        };
+        }
         suite.searchTestsByTag = function (tag) {
             return suite.searchTests(function (test) {
                 if (tag.combined)
@@ -1159,18 +1159,15 @@ window.testdata = function () {
         kw.populateMessages(Populator(element[10], strings, message));
         return kw;
     }
-    function lazyPopulateKeywordsFromFile(parent, modelOrIndex, strings) {
-        var model, index, populator;
-        var creator = childCreator(parent, createKeyword);
+    function lazyPopulateKeywordsFromFile(parent, keywordsOrIndex, strings) {
         if (parent.isChildrenLoaded) {
-            model = modelOrIndex;
-            populator = Populator(model, strings, creator);
+            var keywords = keywordsOrIndex;
+            parent.populateKeywords(Populator(keywords, strings, childCreator(parent, createKeyword)));
         } else {
-            index = modelOrIndex;
+            var index = keywordsOrIndex;
             parent.childFileName = window.settings['splitLogBase'] + '-' + index + '.js';
-            populator = SplitLogPopulator(index, creator);
+            parent.populateKeywords(SplitLogPopulator(keywordsOrIndex, childCreator(parent, createKeyword)));
         }
-        parent.populateKeywords(populator);
     }
     function tags(taglist, strings) {
         return util.map(taglist, strings.get);
@@ -1555,25 +1552,25 @@ storage = function () {
 window.output = {};
 </script>
 <script type="text/javascript">
-window.output["suite"] = [1,2,3,0,[],[1,0,23809],[],[[4,0,1,0,[],[1,13049,1243],[]],[5,0,1,0,[],[1,14295,3437],[]],[6,0,1,0,[],[1,17736,541],[]],[7,0,1,0,[],[1,18280,1545],[]],[8,0,1,0,[],[1,19830,341],[]],[9,0,1,0,[],[1,20175,392],[]],[10,0,1,0,[],[1,20572,600],[]],[11,0,1,0,[],[1,21188,2465],[]]],[],[8,8,8,8]];
+window.output["suite"] = [1,2,3,0,[],[1,0,18786],[],[[4,0,1,0,[],[1,6931,1119],[]],[5,0,1,0,[],[1,8052,2850],[]],[6,0,1,0,[],[1,10903,355],[]],[7,0,1,0,[],[1,11260,1057],[]],[8,0,1,0,[],[1,12319,1269],[]],[9,0,1,0,[],[1,13590,360],[]],[10,0,1,0,[],[1,13952,2393],[]],[11,0,1,0,[],[1,16348,2409],[]]],[],[8,8,8,8]];
 </script>
 <script type="text/javascript">
 window.output["strings"] = [];
 </script>
 <script type="text/javascript">
-window.output["strings"] = window.output["strings"].concat(["*","*Newsfeed","*C:\\Users\\Windows\\Desktop\\social\\test\\newsfeed\\newsfeed.txt","*newsfeed.txt","*PostStatusWithText","*PostStatusWithoutText","*CommentStatusWithText","*CommentStatusWithoutText","*PostRelativeTime","*CommentRelativeTime","*PostFilterByTime","*CommentFilterByTime"]);
+window.output["strings"] = window.output["strings"].concat(["*","*Newsfeed","*C:\\Users\\Bestiize\\PycharmProjects\\social_tester\\test\\newsfeed\\newsfeed.txt","*newsfeed.txt","*PostStatusWithText","*PostStatusWithoutText","*CommentStatusWithText","*CommentStatusWithoutText","*PostRelativeTime","*CommentRelativeTime","*PostFilterByTime","*CommentFilterByTime"]);
 </script>
 <script type="text/javascript">
-window.output["stats"] = [[{"elapsed":"00:00:11","fail":0,"label":"Critical Tests","pass":8},{"elapsed":"00:00:11","fail":0,"label":"All Tests","pass":8}],[],[{"elapsed":"00:00:24","fail":0,"id":"s1","label":"Newsfeed","name":"Newsfeed","pass":8}]];
+window.output["generatedTimestamp"] = "20151123 21:05:01 GMT +08:00";
 </script>
 <script type="text/javascript">
-window.output["generatedTimestamp"] = "20151122 03:24:56 GMT +08:00";
+window.output["stats"] = [[{"elapsed":"00:00:12","fail":0,"label":"Critical Tests","pass":8},{"elapsed":"00:00:12","fail":0,"label":"All Tests","pass":8}],[],[{"elapsed":"00:00:19","fail":0,"id":"s1","label":"Newsfeed","name":"Newsfeed","pass":8}]];
 </script>
 <script type="text/javascript">
-window.output["generatedMillis"] = 23831;
+window.output["generatedMillis"] = 18774;
 </script>
 <script type="text/javascript">
-window.output["baseMillis"] = 1448137472169;
+window.output["baseMillis"] = 1448287482226;
 </script>
 <script type="text/javascript">
 window.settings = {"background":{"fail":"#f66","nonCriticalFail":"#9e9","pass":"#9e9"},"logURL":"log.html","title":""};
