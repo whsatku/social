@@ -157,13 +157,20 @@ class IsFriendDetail(APIView):
     def get(self, request, other_user_id, format=None):
         friend_status = 0
         other_user = self.get_user(other_user_id)
-        if Friend.objects.are_friends(request.user, other_user):
-            friend_status = 3
-        elif FriendshipRequest.objects.get(from_user=other_user, to_user=request.user)
-            friend_status = 2
-        elif FriendshipRequest.objects.get(from_user=request.user, to_user=other_user)
-            friend_status = 1
-        return Response(friend_status))
+        try:
+            if FriendshipRequest.objects.get(from_user=other_user, to_user=request.user):
+                friend_status = 2
+        except FriendshipRequest.DoesNotExist as inst1:
+            try:
+                if FriendshipRequest.objects.get(from_user=request.user, to_user=other_user):
+                    friend_status = 1
+            except FriendshipRequest.DoesNotExist as inst2:
+                if Friend.objects.are_friends(request.user, other_user):
+                    friend_status = 3
+                return Response(friend_status)
+        except Exception as instance:
+            raise Http404
+        return Response(friend_status)
 
     def put(self, request, other_user_id, format=None):
         try:

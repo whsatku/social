@@ -26,11 +26,6 @@ app.controller('AddFriendController', function($scope, $http, $location, $stateP
     $http.get('/api/user/'+otherUserId+'/userInfo').success(function(data){
         $scope.userprofile = data;
     });
-    $scope.addFriend = function(){
-    	$http.post('/api/user/friend/' + otherUserId ).success(function(data){
-
-    	});
-    };
     $scope.isFriendAPI = function(){
       $http.get('/api/user/friend/isFriend/' + otherUserId ).success(function(data){
         $scope.isFriend = data;
@@ -38,8 +33,15 @@ app.controller('AddFriendController', function($scope, $http, $location, $stateP
     };
     $scope.unFriend = function(){
     	$http.delete('/api/user/friend/' + otherUserId ).success(function(data){
+        $scope.isFriendAPI;
     	});
     };
+    $scope.addFriend = function(){
+    	$http.post('/api/user/friend/' + otherUserId ).success(function(data){
+        $scope.isFriendAPI;
+    	});
+    };
+
 
     $scope.isFriendAPI();
 
