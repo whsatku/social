@@ -56,6 +56,27 @@ class UserInformation (APIView):
         user_profile_object = self.get_user(user_profile_id)
         response = self.serializer_class(user_profile_object)
         return Response(response.data)
+    
+    def put(self, request, user_profile_id, format=None):
+        """For client to edit the userprofile
+
+        Args:
+                request: Django Rest Framework request object.
+                user_profile_id: ID of user profile.
+                format: pattern for Web APIs.
+        Return:
+                response serializer error ????
+        """
+        try:
+            profile = UserProfile.objects.get(user_id=user_profile_id)
+        except UserProfile.DoesNotExist:
+            raise Http404
+
+        serializer = FirstUserProfileSerializer(profile, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class FriendshipDetail(APIView):
 

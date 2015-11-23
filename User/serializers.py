@@ -10,7 +10,14 @@ class UserProfileSerializer(serializers.ModelSerializer):
     user = UserSerializer(read_only=True)
     class Meta:
         model = UserProfile
-        fields = ('user', 'birthday', 'gender', 'faculty', 'major', 'types', 'country', 'city')
+        fields = ('user', 'birthday', 'gender', 'faculty', 'major', 'types', 'country', 'city', 'created')
+
+class FirstUserProfileSerializer(serializers.ModelSerializer):
+	user = UserSerializer(read_only=True)
+	class Meta:
+		model = UserProfile
+		fields = ('user','faculty','country','created')
+
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:

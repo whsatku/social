@@ -8,6 +8,7 @@ var app = angular.module('app.main', [
     'app.newsfeed',
     'app.group',
     'app.userprofile',
+    'app.firstlogin'
 ]);
 
 app.config(function(RestangularProvider){
@@ -92,6 +93,11 @@ app.config(function($stateProvider, $urlRouterProvider) {
             url: '/edit',
             templateUrl: 'templates/useredit.html'
         })
+        .state('firstlogin', {
+            url: '/firstlogin',
+            templateUrl: 'templates/firstlogin.html',
+            controller: 'FirstLoginController'
+        })
         .state('login', {
             url: '/login',
             templateUrl: 'templates/login.html',
@@ -106,6 +112,12 @@ app.controller('MainController', function($rootScope, user, $http, $uibModal, $s
         $state.go('login');
         return;
     }
+    $http.get('/api/user/'+user.id+'/userInfo/').success(function(data) {
+       if(!data.created){
+        $state.go('firstlogin');
+       }
+       return;
+    })
     $http.get('/api/group/').success(function(data){
         $rootScope.group_list = data;
     });
