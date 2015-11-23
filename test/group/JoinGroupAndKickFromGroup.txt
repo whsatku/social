@@ -1,0 +1,65 @@
+*** Settings ***
+Library           Selenium2Library
+Test Setup    Pre-condition
+Test Teardown    close browser
+
+*** Test Cases ***
+TestJoinGroup
+    [Template]    Join Group
+    1
+
+TestKickFromGroup
+    [Template]    Kick User From Group
+    1    best
+
+*** Variables ***
+${BROWSER}    phantomjs
+
+*** Keywords ***
+Pre-condition
+    Open Browser    http://localhost:8000/admin    ${BROWSER}
+    Input text    //*[@id="id_username"]    best
+    Input text    //*[@id="id_password"]    123
+    Click element    //*[@id="login-form"]/div[3]/input
+    Sleep    1
+    Go to    http://localhost:8000/static/index.html#/
+    Sleep    2
+
+join group with specific user
+    [Arguments]    ${username}    ${password}    ${group_id}
+    Login    ${username}    ${password}
+    Join Group    ${group_id}
+
+Login
+    [Arguments]    ${username}    ${password}
+    Input text    username    ${username}
+    Input text    password    ${password}
+    Click Element    //*[@id="login-form"]/div[3]/input
+
+Join Group
+    [Arguments]    ${group_id}
+    Go To    http://localhost:8000/static/index.html#/groups/${group_id}/info
+    #Sleep    2
+    Wait Until Page Contains Element    xpath=//*[@id="rootcontainer"]/div/div[1]/div[1]/div/div/div
+    Click Element    xpath=//*[@id="rootcontainer"]/div/div[1]/div[1]/div/div/div
+    #Sleep    2
+    Wait Until Page Contains Element    xpath=//*[@id="rootcontainer"]/div/div[1]/ul/li[3]/a
+    Click Element    xpath=//*[@id="rootcontainer"]/div/div[1]/ul/li[3]/a
+    #Sleep    2
+    Wait Until Page Contains Element    xpath=//*[@id="rootcontainer"]/div/div[1]/div[2]/div/div/div[1]/div/table/tbody/tr/td[4]/button[1]
+    Click Element    xpath=//*[@id="rootcontainer"]/div/div[1]/div[2]/div/div/div[1]/div/table/tbody/tr/td[4]/button[1]
+    #Sleep    2
+    Wait Until Element Is Visible    xpath=//*[@id="rootcontainer"]/div/div[1]/div[2]/div/div/div[1]/div/table/tbody/tr/td[4]/button
+
+Kick User From Group
+    [Arguments]    ${group_id}    ${username}
+     Go To    http://localhost:8000/static/index.html#/groups/${group_id}/info
+    #Sleep    2
+    Wait Until Page Contains Element    xpath=//*[@id="rootcontainer"]/div/div[1]/ul/li[3]/a
+    Click Element    xpath=//*[@id="rootcontainer"]/div/div[1]/ul/li[3]/a
+    #Sleep    2
+    Wait Until Page Contains Element    xpath=//*[@id="rootcontainer"]/div/div[1]/div[2]/div/div/div[1]/div/table/tbody/tr/td[4]/button
+    Click Element    xpath=//*[@id="rootcontainer"]/div/div[1]/div[2]/div/div/div[1]/div/table/tbody/tr/td[4]/button
+    #Sleep    2
+    Wait Until Page Does Not Contain Element    xpath=//*[@id="rootcontainer"]/div/div[1]/div[2]/div/div/div[1]/div/table/tbody/tr/td[4]/button
+    

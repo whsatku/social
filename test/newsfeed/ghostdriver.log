@@ -1,0 +1,20 @@
+[INFO  - 2015-11-23T14:04:43.716Z] GhostDriver - Main - running on port 51672
+[INFO  - 2015-11-23T14:04:44.425Z] Session [25eb0710-91eb-11e5-99a4-a5345907f818] - page.settings - {"XSSAuditingEnabled":false,"javascriptCanCloseWindows":true,"javascriptCanOpenWindows":true,"javascriptEnabled":true,"loadImages":true,"localToRemoteUrlAccessEnabled":false,"userAgent":"Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/538.1 (KHTML, like Gecko) PhantomJS/2.0.0 Safari/538.1","webSecurityEnabled":true}
+[INFO  - 2015-11-23T14:04:44.425Z] Session [25eb0710-91eb-11e5-99a4-a5345907f818] - page.customHeaders:  - {}
+[INFO  - 2015-11-23T14:04:44.425Z] Session [25eb0710-91eb-11e5-99a4-a5345907f818] - Session.negotiatedCapabilities - {"browserName":"phantomjs","version":"2.0.0","driverName":"ghostdriver","driverVersion":"1.2.0","platform":"windows-unknown-32bit","javascriptEnabled":true,"takesScreenshot":true,"handlesAlerts":false,"databaseEnabled":false,"locationContextEnabled":false,"applicationCacheEnabled":false,"browserConnectionEnabled":false,"cssSelectorsEnabled":true,"webStorageEnabled":false,"rotatable":false,"acceptSslCerts":false,"nativeEvents":true,"proxy":{"proxyType":"direct"}}
+[INFO  - 2015-11-23T14:04:44.425Z] SessionManagerReqHand - _postNewSessionCommand - New Session Created: 25eb0710-91eb-11e5-99a4-a5345907f818
+[ERROR - 2015-11-23T14:04:49.904Z] Session [25eb0710-91eb-11e5-99a4-a5345907f818] - page.onError - msg: Error: null is not an object (evaluating '$scope.newsfeed.unshift')
+	at http://localhost:8000/static/app/newsfeed.js:40:20
+	at http://localhost:8000/static/assets/js/angular.min.js:118:335
+	at $eval (http://localhost:8000/static/assets/js/angular.min.js:132:452)
+	at $digest (http://localhost:8000/static/assets/js/angular.min.js:129:468)
+	at $apply (http://localhost:8000/static/assets/js/angular.min.js:133:243)
+	at g (http://localhost:8000/static/assets/js/angular.min.js:87:382)
+	at K (http://localhost:8000/static/assets/js/angular.min.js:91:813)
+	at onload (http://localhost:8000/static/assets/js/angular.min.js:92:463)
+
+  :262 in error
+[ERROR - 2015-11-23T14:04:49.905Z] Session [25eb0710-91eb-11e5-99a4-a5345907f818] - page.onError - stack:
+  (anonymous function) (http://localhost:8000/static/assets/js/angular.min.js:107)
+
+  :262 in error

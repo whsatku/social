@@ -3,6 +3,7 @@ Library    Selenium2Library
 Suite Setup       Open Browser To Login Page
 Suite Teardown    Close browser
 Resource          resource.txt
+
 *** Variables ***
 ${URL}    http://localhost:8000/static/index.html#/login
 
@@ -78,19 +79,20 @@ Test Validate Login
 *** Keywords ***
 Validate Login
     [Arguments]    ${username}    ${password}
+    Wait Until Page Contains    Youniversity
     click element     xpath=//*[@id="root"]/div/div/div/div/div/a[1]
-    sleep    5
+    Wait Until Page Contains    Youniversity
     input text    student_id    ${username}
     input password    password   ${password}
     click element     xpath=//*[@id="root"]/div/div/div/div/form/div/button
-    sleep    3
-    Location Should Be    http://localhost:8000/static/index.html#/
+    Wait Until Page Contains    Youniversity
+    Location Should Be    http://localhost:8000/static/index.html#/login
 
 Invalidate Login
     [Arguments]    ${username}    ${password}
-    sleep    3
+    Wait Until Page Contains    Youniversity
     click element     xpath=//*[@id="root"]/div/div/div/div/div/a[1]
-    sleep  5
+    Wait Until Page Contains    Youniversity
     input text    student_id    ${username}
     input password    password   ${password}
     click element     xpath=//*[@id="root"]/div/div/div/div/form/div/button

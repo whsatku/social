@@ -1,42 +1,162 @@
 ﻿*** Settings ***
 Library    Selenium2Library
+
 Suite Setup    Pre-condition
 Suite Teardown    Close browser
+
+*** Variables ***
+${BROWSER}   phantomJS
+${URL}    http://localhost:8000/static/index.html#/
+
 *** Test Cases ***
 PostStatusWithText
     [Template]    Post Status with Text
-    Youniversity    Testทดสอบ
+    #------------------------------------------------
+    #           title        |       status          |
+    #-------------------------------------------------
+             Youniversity            Test
+             Youniversity            1234
+
 
 PostStatusWithoutText
     [Template]    Post Status without Text
-    Youniversity    
+    #------------------------------------------------
+    #           title        |       status          |
+    #-------------------------------------------------
+            Youniversity            ${EMPTY}
 
-*** Variables ***
-${BROWSER}    firefox
-${URL}    http://localhost:8000/static/index.html#/
+CommentStatusWithText
+    [Template]    Comment Status with Text
+            Comment
 
+CommentStatusWithoutText
+    [Template]    Comment Status without Text
+            ${EMPTY}
+
+PostRelativeTime
+    [Template]    Show Post Relative Time
+    #---------------------------
+    #          status          |
+    #---------------------------
+        TestCheckPostTime
+
+
+CommentRelativeTime
+    [Template]   Show Comment Relative Time
+    #---------------------------
+    #          Comment         |
+    #---------------------------
+        TestCheckCommentTime
+
+PostFilterByTime
+    [Template]   Post Filter By Time
+    #------------------------------------------------------
+    #        status1             |        status2          |
+    #------------------------------------------------------
+            First status                  Second status
+CommentFilterByTime
+    [Template]    Comment Filter By Time
+    #-------------------------------------------------------
+    #       comment1             |          comment2        |
+    #-------------------------------------------------------
+            First Comment                   Second Comment
 *** Keywords ***
 Pre-condition
     Open Browser    http://localhost:8000/admin    ${BROWSER}
-    Input text    //*[@id="id_username"]    nookskill
-    Input text    //*[@id="id_password"]    1q2w3e4r
+    Input text    //*[@id="id_username"]    root
+    Input text    //*[@id="id_password"]    toor
     click element    //*[@id="login-form"]/div[3]/input
-    sleep    1
     go to    http://localhost:8000/static/index.html#/
-    sleep    2
+
 
 Post Status with Text
     [Arguments]    ${title}    ${status}
-    Title Should Be    ${title}
-    Input text    //textarea[@class="form-control ng-pristine ng-untouched ng-valid"]    ${status}    
-    Sleep    2
-    Click Element    //input[@class="btn btn-primary pull-right"]
+    Wait Until Page Contains    ${title}   5
+    Title Should Be   ${title}
+    Wait Until Element Is Visible     xpath=//*[@id="rootcontainer"]/div/div[1]/form/textarea     5    
+    Input text    xpath=//*[@id="rootcontainer"]/div/div[1]/form/textarea    ${status}    
+    Click Element    xpath=//*[@id="rootcontainer"]/div/div[1]/form/input
+    Wait Until Page Contains    ${status}    5
+
+
 
 Post Status without Text
-    Reload Page
-    [Arguments]    ${title}
-    Title Should Be    ${title}
-    #Input text    //textarea[@class="form-control ng-pristine ng-untouched ng-valid"]    ${status}    
-    Sleep    2
-    Click Element    //input[@class="btn btn-primary pull-right"]
+    [Arguments]    ${title}    ${status}
+
+    Input text    xpath=//*[@id="rootcontainer"]/div/div[1]/form/textarea    ${status}
+    Wait Until Page Contains    ${EMPTY}    5
+
+    Click Element    xpath=//*[@id="rootcontainer"]/div/div[1]/form/input
+    Wait Until Page Contains   ${status}   5
+
+
+Comment Status with Text
+    [Arguments]    ${comment}
+
+
+    Input text     xpath=//*[@id="rootcontainer"]/div/div[1]/div/div[1]/ul/li/div/form/input[1]    ${comment}
+    Press Key    xpath=//*[@id="rootcontainer"]/div/div[1]/div/div[1]/ul/li/div/form/input[1]    \\13
+    Wait Until Page Contains    ${comment}    5
+
+
+
+Comment Status without Text
+    [Arguments]    ${comment}
+
+    Input text     xpath=//*[@id="rootcontainer"]/div/div[1]/div/div[1]/ul/li/div/form/input[1]    ${comment}
+    Press Key    xpath=//*[@id="rootcontainer"]/div/div[1]/div/div[1]/ul/li/div/form/input[1]    \\13
+    Wait Until Page Contains   ${comment}   5
+
+
+Show Post Relative Time
+    [Arguments]   ${status}
+    Wait Until Element Is Visible     xpath=//*[@id="rootcontainer"]/div/div[1]/form/textarea     5    
+    Input text    xpath=//*[@id="rootcontainer"]/div/div[1]/form/textarea    ${status}    
+    Click Element    xpath=//*[@id="rootcontainer"]/div/div[1]/form/input
+    sleep  1
+    Wait Until Page Contains    ${status}    5
+    Wait Until Element Is Visible     xpath=//*[@id="rootcontainer"]/div/div[1]/div/div[1]    5
+    Wait Until Element Contains    xpath=//*[@id="rootcontainer"]/div/div[1]/div/div[1]/div[1]/div[2]/div    now · Public    5
+
+
+
+Show Comment Relative Time
+    [Arguments]   ${comment}
+    Input text     xpath=//*[@id="rootcontainer"]/div/div[1]/div/div[1]/ul/li/div/form/input[1]    ${comment}
+    Press Key    xpath=//*[@id="rootcontainer"]/div/div[1]/div/div[1]/ul/li/div/form/input[1]    \\13
+    Wait Until Page Contains    ${comment}    5
+    Wait Until Element Is Visible     xpath=//*[@id="rootcontainer"]/div/div[1]/div/div[1]/ul/li[1]/div/div[1]    5
+    Wait Until Element Is Visible     xpath=//*[@id="rootcontainer"]/div/div[1]/div/div[1]/ul/li[1]/div/div[2]/span    5
+    Wait Until Element Contains   xpath=//*[@id="rootcontainer"]/div/div[1]/div/div[1]/ul/li[1]/div/div[2]/span    now    5
+
+
+
+Post Filter By Time
+    [Arguments]   ${status1}   ${status2}
+    Wait Until Element Is Visible     xpath=//*[@id="rootcontainer"]/div/div[1]/form/textarea     5    
+    Input text    xpath=//*[@id="rootcontainer"]/div/div[1]/form/textarea    ${status1}    
+    Click Element    xpath=//*[@id="rootcontainer"]/div/div[1]/form/input
+    sleep  1
+    Wait Until Element Is Visible     xpath=//*[@id="rootcontainer"]/div/div[1]/div/div[1]     5
+    Wait Until Element Contains     xpath=//*[@id="rootcontainer"]/div/div[1]/div/div[1]/div[2]    ${status1}    5
+    Input text    xpath=//*[@id="rootcontainer"]/div/div[1]/form/textarea    ${status2}
+    Wait Until Element Is Visible     xpath=//*[@id="rootcontainer"]/div/div[1]/div/div[1]     5  
+    Click Element    xpath=//*[@id="rootcontainer"]/div/div[1]/form/input
+    sleep  1
+    Wait Until Element Contains    xpath=//*[@id="rootcontainer"]/div/div[1]/div/div[1]/div[2]     ${status2}    5
+    Wait Until Element Contains    xpath=//*[@id="rootcontainer"]/div/div[1]/div/div[2]/div[2]     ${status1}    5
+
+    
+Comment Filter By Time
+    [Arguments]   ${comment1}    ${comment2}
+    Input text     xpath=//*[@id="rootcontainer"]/div/div[1]/div/div[1]/ul/li/div/form/input[1]    ${comment1}
+    Press Key    xpath=//*[@id="rootcontainer"]/div/div[1]/div/div[1]/ul/li/div/form/input[1]    \\13
+    sleep    1
+    Wait Until Element Contains    xpath=//*[@id="rootcontainer"]/div/div[1]/div/div[1]/ul/li[1]/div/div[2]     ${comment1}    5
+    Input text     xpath=//*[@id="rootcontainer"]/div/div[1]/div/div[1]/ul/li/div/form/input[1]    ${comment2}
+    Press Key    xpath=//*[@id="rootcontainer"]/div/div[1]/div/div[1]/ul/li/div/form/input[1]    \\13
+    sleep    1
+    Wait Until Element Is Visible   xpath=//*[@id="rootcontainer"]/div/div[1]/div/div[1]/ul/li[2]/div/div[2]      5
+    Wait Until Element Contains    xpath=//*[@id="rootcontainer"]/div/div[1]/div/div[1]/ul/li[2]/div/div[2]    ${comment2}    5
+
 

@@ -11,9 +11,7 @@ ${URL}    http://localhost:8000/static/index.html#/login/
 
 *** Keywords ***
 Open Browser To Login Page
-    Open Browser    ${URL}
-    Maximize Browser Window
-
+    Open Browser    ${URL}    phantomjs
 
 Login Page Should Be Open
     Title Should Be    Youniversity
