@@ -1,31 +1,31 @@
 <form action="#" class="form" ng-submit="createEvent()">
 	<div class="form-group">
 		<h4>Event name</h4>
-		<input type="text" class="form-control input-lg" ng-model = "ename">
+		<input type="text" class="form-control input-lg" ng-model = "new_event.ename">
 	</div>
 	<div class="row">
 		<div class="form-group col-sm-6">
 			<h4>Start</h4>
 			<div class="col-xs-6">
-				<input type="date" class="form-control input-lg" ng-model = "start_date">
+				<input type="date" class="form-control input-lg" ng-model = "new_event.start_date">
 			</div>
 			<div class="col-xs-6">
-				<input type="time" class="form-control input-lg" ng-model = "start_time">
+				<input type="time" class="form-control input-lg" ng-model = "new_event.start_time">
 			</div>
 		</div>
 		<div class="form-group col-sm-6">
 			<h4>End</h4>
 			<div class="col-xs-6">
-				<input type="date" class="form-control input-lg" ng-model = "end_date">
+				<input type="date" class="form-control input-lg" ng-model = "new_event.end_date">
 			</div>
 			<div class="col-xs-6">
-				<input type="time" class="form-control input-lg" ng-model = "end_time">
+				<input type="time" class="form-control input-lg" ng-model = "new_event.end_time">
 			</div>
 		</div>
 	</div>
 	<div class="form-group">
 		<h4>What's this event about</h4>
-		<textarea class="form-control" rows="3" ng-model = "edescription" placeholder="Describe your event in one or two sentences so people know what they're joining"></textarea>
+		<textarea class="form-control" rows="3" ng-model = "new_event.edescription" placeholder="Describe your event in one or two sentences so people know what they're joining"></textarea>
 	</div>
 	<input type="submit" class="btn btn-success btn-lg" value="Create event">
 </form>
