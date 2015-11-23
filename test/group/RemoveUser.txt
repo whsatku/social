@@ -27,12 +27,19 @@ Web should show member
     #------------------------------------#
 	     user1
 
-Kick
+Kick Member
 	[Template]    Kick
 	#------------------------------------#
     #    user to Kick    #
     #------------------------------------#
 	     user1
+
+Deny Member
+	[Template]    Admin deny
+	#--------------------|----------------#
+    #    user to join    |    password    #
+    #--------------------|----------------#
+			user1              123123
 
 *** Keywords ***
 Login
@@ -47,18 +54,18 @@ Login
 Join Group
 	[Arguments]    ${username}    ${password}
 	Login    ${username}    ${password}
-	go to    http://localhost:8000/static/index.html#/groups/5/feed
+	go to    http://localhost:8000/static/index.html#/groups/1/feed
 	Wait Until Page Contains    Join group
 	click element    xpath=//*[@id="rootcontainer"]/div/div[1]/div[1]/div/div/div
 	Wait Until Page Contains    Request pending
-	go to    http://localhost:8000/static/index.html#/groups/5/manage
+	go to    http://localhost:8000/static/index.html#/groups/1/manage
 	Wait Until Page Contains    Request to join
 	Logout
 
 Admin accept
 	[Arguments]    ${username}
 	Login    root    toor
-	go to    http://localhost:8000/static/index.html#/groups/5/manage
+	go to    http://localhost:8000/static/index.html#/groups/1/manage
 	Wait Until Page Contains    ${username}
 	click element    xpath=//*[@id="rootcontainer"]/div/div[1]/div[2]/div/div/div[1]/div/table/tbody/tr[1]/td[4]/button[1]
 	Logout
@@ -66,17 +73,27 @@ Admin accept
 Show Member
 	[Arguments]    ${username}
 	Login    root    toor
-	go to    http://localhost:8000/static/index.html#/groups/5/manage
+	go to    http://localhost:8000/static/index.html#/groups/1/manage
 	Wait Until Page Contains    ${username}
 	Logout
 
 Kick
 	[Arguments]    ${username}
 	Login    root    toor
-	go to    http://localhost:8000/static/index.html#/groups/5/manage
+	go to    http://localhost:8000/static/index.html#/groups/1/manage
 	click element    //*[@id="rootcontainer"]/div/div[1]/div[2]/div/div/div[1]/div/table/tbody/tr[2]/td[4]/button
 	Logout
 	Login    user1    123123
-	go to    http://localhost:8000/static/index.html#/groups/5/manage
+	go to    http://localhost:8000/static/index.html#/groups/1/manage
 	Wait Until Page Contains    Join group
+	Logout
+
+Admin deny
+	[Arguments]    ${username}    ${password}
+	Join Group    ${username}    ${password}
+	Login    root    toor
+	go to    http://localhost:8000/static/index.html#/groups/1/manage
+	Wait Until Page Contains    ${username}
+	click element    xpath=//*[@id="rootcontainer"]/div/div[1]/div[2]/div/div/div[1]/div/table/tbody/tr[1]/td[4]/button[2]
+	Wait Until Page Does Not Contain    ${username}
 	Logout
