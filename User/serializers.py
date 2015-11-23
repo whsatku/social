@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from rest_framework import serializers
 from models import *
 from newsfeed.serializer import UserSerializer
@@ -16,7 +17,6 @@ class FirstUserProfileSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = UserProfile
 		fields = ('user','faculty','country','created')
-
 
 class FriendShipSerializer(serializers.ModelSerializer):
 	user = UserSerializer(source='from_user')

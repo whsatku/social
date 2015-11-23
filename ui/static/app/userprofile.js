@@ -9,6 +9,12 @@ app.controller('UserProfileInfoController', function($scope, $http, $location, $
     });
 });
 
+app.controller('UserFriendController', function($scope, $http, $location, $stateParams){
+    $http.get('/api/user/friends').success(function(data){
+      $scope.friends = data;
+    });
+});
+
 app.controller('AddFriendController', function($scope, $http, $location, $stateParams, $rootScope){
     var userId = $rootScope.user.id;
     var otherUserId = $stateParams.user;
@@ -28,7 +34,6 @@ app.controller('AddFriendController', function($scope, $http, $location, $stateP
     };
     $scope.unFriend = function(){
     	$http.delete('/api/user/friend/' + otherUserId ).success(function(data){
-
     	});
     };
 

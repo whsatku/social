@@ -98,7 +98,8 @@ app.config(function($stateProvider, $urlRouterProvider) {
         })
         .state('root.user.friends', {
             url: '/friends',
-            templateUrl: 'templates/userfriends.html'
+            templateUrl: 'templates/userfriends.html',
+            controller: 'UserFriendController'
         })
         .state('root.user.edit', {
             url: '/edit',
@@ -201,16 +202,14 @@ app.controller('PendingFriendController', function($scope, $rootScope, $http, $i
 
     $scope.acceptFriend = function(otherUserId){
       $http.put('/api/user/friend/isFriend/' + otherUserId ).success(function(data){
-        console.log(data)
         updatePendingFriend();
-    	})
-    }
+    	});
+    };
     $scope.rejectFriend = function(otherUserId){
       $http.delete('/api/user/friend/isFriend/' + otherUserId ).success(function(data){
-        console.log(data)
         updatePendingFriend();
-    	})
-    }
+    	});
+    };
     updatePendingFriend();
     $interval(updatePendingFriend, 60000);
 
