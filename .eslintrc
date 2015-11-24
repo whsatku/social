@@ -38,8 +38,7 @@
             "beforeBlockComment": true,
             "beforeLineComment": true,
             "allowBlockStart": true,
-            "allowObjectStart": true,
-            "allowArrayStart": true
+            "allowBlockEnd": true
         }],
         // There must be a single space between the comment token and the comment text.
         "spaced-comment": [2, "always"],
