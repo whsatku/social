@@ -1,0 +1,69 @@
+// https://contribute.jquery.org/style-guide/js/
+{
+    "rules": {
+        /**
+         * Spacing
+         */
+        "indent": [2, "tab"], // Indentation with tabs
+        "no-trailing-spaces": [2], // No whitespace at the end of line or on blank lines.
+        // if/else/for/while/try always have braces and always go on multiple lines.
+        "curly": [2, "all"],
+        "brace-style": [2, "1tbs"],
+        // Unary special-character operators (e.g., !, ++) must not have space next to their operand.
+        "space-unary-ops": [1, { "nonwords": false }],
+        "comma-spacing": [2, {"before": false, "after": true}], // Any , must not have preceding space.
+        "semi-spacing": [2, {"before": false, "after": true}], // Any ; must not have preceding space.
+        // Any : after a property name in an object definition must not have preceding space.
+        "key-spacing": [2, {"beforeColon": false, "afterColon": true}],
+        // The ? and : in a ternary conditional must have space on both sides.
+        "space-infix-ops": [2],
+        // New line at the end of each file.
+        "eol-last": [2],
+
+        "space-in-parens": [2, "always", { "exceptions": ["empty"] }],
+        // When a statement is too long to fit on one line, line breaks must occur after an operator.
+        "operator-linebreak": [2, "after"],
+
+        // Constructor functions should always be invoked with argument lists, even when such lists are empty.
+        "new-parens": [2],
+
+        // Strict equality checks (===) must be used in favor of abstract equality checks (==). The only exception is when checking for undefined and null by way of null.
+        "eqeqeq": [2, "allow-null"],
+
+        /**
+         * Comments
+         */
+        // Comments are always preceded by a blank line.
+        "lines-around-comment": [2, {
+            "beforeBlockComment": true,
+            "beforeLineComment": true,
+            "allowBlockStart": true,
+            "allowObjectStart": true,
+            "allowArrayStart": true
+        }],
+        // There must be a single space between the comment token and the comment text.
+        "spaced-comment": [2, "always"],
+
+        // jQuery uses double quotes.
+        "quotes": [2, "double"],
+
+        // Semicolon: Use them. Never rely on ASI.
+        "semi": [2, "always"],
+
+        // Variable and function names should be full words, using camel case with a lowercase first letter.
+        "camelcase": [2, {"properties": "never"}],
+
+        // other rules as defined in jQuery jshint
+        "wrap-iife": [2, "inside"],
+        "no-caller": [2],
+        "no-undef": [2],
+        "no-unused-vars": [1],
+    },
+    "env": {
+        "browser": true
+    },
+    "globals": {
+        "angular": true,
+        "_": true
+    }
+}
