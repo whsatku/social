@@ -70,6 +70,10 @@ app.config(function($stateProvider, $urlRouterProvider) {
             templateUrl: 'templates/groupmanage.html',
             controller: 'GroupManageController'
         })
+        .state('root.group.createsubgroup', {
+            url: '/subgroup',
+            templateUrl: 'templates/createsubgroup.html'
+        })
         .state('root.lfg', {
             url: '/groups/browse',
             templateUrl: 'templates/groupbrowser.html',

@@ -200,6 +200,9 @@ html,body,#root{
 	margin-top: 0;
 	margin-bottom: 10px;
 }
+.subgroupmenu{
+	border-right: #ccc solid 1px;
+}
 
 /* notification */
 .notibox{
@@ -215,10 +218,10 @@ html,body,#root{
 	background: white;
 }
 .notibox .header{
-	background: #BFD74E;
+	background: #e7e7e7;
 	font-size: 13pt;
 	padding: 4px 10px;
-	color: #22733D;
+	color: black;
 	height: 36px;
 	line-height: 28px;
 }
