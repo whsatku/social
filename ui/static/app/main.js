@@ -105,6 +105,18 @@ app.config(function($stateProvider, $urlRouterProvider) {
             url: '/edit',
             templateUrl: 'templates/useredit.html'
         })
+        .state('root.event', {
+            url: '/events/{event:int}',
+            templateUrl: 'templates/event.html'
+        })
+        .state('root.eventcreate', {
+            url: '/events/create',
+            templateUrl: 'templates/eventcreate.html'
+        })
+        .state('root.eventbrowse', {
+            url: '/events/browse',
+            templateUrl: 'templates/eventbrowse.html'
+        })
         .state('login.firstlogin', {
             url: '/firstlogin',
             templateUrl: 'templates/firstlogin.html',
