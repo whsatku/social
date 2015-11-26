@@ -26,4 +26,5 @@ urlpatterns = [
     url(r'^api/group/', include('group.urls')),
     url(r'^api/notification/', include('notification.urls')),
     url(r'^api/user/', include('User.urls')),
+    url(r'^api/search/', include('search.urls')),
 ]
