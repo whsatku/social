@@ -39,7 +39,13 @@ class PostViewList(APIView):
                 else:
                     data['user_id'] = None
                 json_data = json.dumps(data)
-                notification.post(request, User.objects.all(), ContentType.objects.get(id=13), JSONRenderer().render(serializer.data), json_data)
+                notification.post(
+                    request,
+                    User.objects.all(),
+                    ContentType.objects.get(id=13),
+                    JSONRenderer().render(serializer.data).decode('utf-8'),
+                    json_data
+                )
                 return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -99,7 +105,13 @@ class CommentViewList(APIView):
                     else:
                         data['user_id'] = None
                 json_data = json.dumps(data)
-                notification.post(request, define_receiver(request.data['post']), ContentType.objects.get(id=14), JSONRenderer().render(serializer.data), json_data)
+                notification.post(
+                    request,
+                    define_receiver(request.data['post']),
+                    ContentType.objects.get(id=14),
+                    JSONRenderer().render(serializer.data).decode('utf-8'),
+                    json_data
+                )
                 return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
