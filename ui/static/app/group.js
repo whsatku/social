@@ -4,10 +4,13 @@ var app = angular.module('app.group', []);
 
 app.controller('GroupController', function($scope, $stateParams, Restangular, $http, $location, $window, $state, $rootScope){
     var redirectSubpage = function(id){
+        id = id || $stateParams.id;
         var isMember = ($rootScope.group_list || []).filter(function(item){
-            return item.id == $stateParams.id;
+            return item.id == id;
         });
-        $state.go(isMember ? 'root.group.feed' : 'root.group.info');
+        $state.go(isMember ? 'root.group.feed' : 'root.group.info', {
+            id: id
+        });
     }
     if($state.is('root.group')){
         redirectSubpage();
@@ -15,7 +18,7 @@ app.controller('GroupController', function($scope, $stateParams, Restangular, $h
     $scope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams){
         if(toState.name == 'root.group'){
             event.preventDefault();
-            redirectSubpage();
+            redirectSubpage(toParams.id);
         }
     });
 
