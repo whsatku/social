@@ -230,13 +230,21 @@ html,body,#root{
 	overflow: auto;
 }
 .notibox .item-outer{
-	padding: 6px;
+	/*padding: 6px;*/
 }
 .notibox .item{
 	margin: 0 10px;
 	border-bottom: #aaa solid 1px;
 	display: block;
 	cursor: pointer;
+	padding-top: 6px;
+	padding-bottom: 8px;
+}
+.notibox .item.new{
+	background: #D4EFFA;
+}
+.notibox .item .thumbnail{
+	margin-bottom: 0;
 }
 
 /* user page */
