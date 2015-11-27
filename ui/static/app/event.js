@@ -32,7 +32,7 @@ app.controller('CreateEventController', function($scope, $state, $http, $statePa
         // $scope.end_time = time2;
 
 
-        shit = {
+        new_event = {
             name,
             date1,
             date2,
@@ -52,7 +52,7 @@ app.controller('CreateEventController', function($scope, $state, $http, $statePa
         // };
 
 
-        $http.post('/api/event/create/' , shit ).success(function(data){
+        $http.post('/api/event/create/' , new_event ).success(function(data){
             $state.go('root.event', {
                 id: data.id
             }, {
