@@ -89,6 +89,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
         .state('root.event', {
         	url: '/event/{event:int}',
         	templateUrl: 'templates/event.html',
+            controller: 'EventController'
         })
         .state('root.eventcreate', {
         	url: '/event/create',

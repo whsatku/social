@@ -1,0 +1,9 @@
+<h4 class="modal-header">Invite</h4>
+<div class="modal-body">
+	<input type="text" ng-model="invitee" placeholder="Enter names" uib-typeahead="name for name in [1,2,3]" typeahead-loading="loading" class="form-control">
+	<i ng-show="loading" class="glyphicon glyphicon-refresh"></i>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-click="ok()">Invite</button>
+    <button class="btn btn-default" type="button" ng-click="cancel()">Cancel</button>
+</div>
