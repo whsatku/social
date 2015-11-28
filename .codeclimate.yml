@@ -1,0 +1,10 @@
+---
+engines:
+  eslint:
+   enabled: true
+ratings:
+  paths:
+  - ui/static/app
+  - ui/static/assets/css/app.css
+exclude_paths:
+- ui/static/assets/js/*

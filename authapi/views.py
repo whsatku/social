@@ -1,7 +1,9 @@
 from django.contrib.auth import authenticate, login, logout
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from newsfeed.serializer import UserSerializer
 from rest_framework.exceptions import ValidationError, PermissionDenied
+
 
 class UserViewSet(APIView):
 	"""Validate current user session
@@ -12,6 +14,7 @@ class UserViewSet(APIView):
 	It could be accessed at :http:get:`/api/auth/check`
 
 	"""
+	serializer_class = UserSerializer
 	def get(self, request):
 		"""Get logged user information
 
@@ -22,7 +25,8 @@ class UserViewSet(APIView):
 			Current logged username as string, or 403
 		"""
 		if request.user.is_authenticated():
-			return Response(request.user.get_username())
+			response = self.serializer_class(request.user)
+			return Response(response.data)
 		else:
 			raise PermissionDenied()
 
@@ -32,6 +36,7 @@ class LoginViewSet(APIView):
 	It could be accessed at :http:post:`/api/auth/login`
 
 	"""
+	serializer_class = UserSerializer
 	def post(self, request):
 		"""Log a user in
 
@@ -52,7 +57,8 @@ class LoginViewSet(APIView):
 			raise PermissionDenied('User disabled')
 
 		login(request, user)
-		return Response(user.get_username())
+		response = self.serializer_class(user)
+		return Response(response.data)
 
 class LogoutViewSet(APIView):
 	"""Logout of current session

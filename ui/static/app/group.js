@@ -4,10 +4,13 @@ var app = angular.module('app.group', []);
 
 app.controller('GroupController', function($scope, $stateParams, Restangular, $http, $location, $window, $state, $rootScope){
     var redirectSubpage = function(id){
+        id = id || $stateParams.id;
         var isMember = ($rootScope.group_list || []).filter(function(item){
-            return item.id == $stateParams.id;
+            return item.id == id;
         });
-        $state.go(isMember ? 'root.group.feed' : 'root.group.info');
+        $state.go(isMember ? 'root.group.feed' : 'root.group.info', {
+            id: id
+        });
     }
     if($state.is('root.group')){
         redirectSubpage();
@@ -15,7 +18,7 @@ app.controller('GroupController', function($scope, $stateParams, Restangular, $h
     $scope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams){
         if(toState.name == 'root.group'){
             event.preventDefault();
-            redirectSubpage();
+            redirectSubpage(toParams.id);
         }
     });
 
@@ -34,31 +37,40 @@ app.controller('GroupController', function($scope, $stateParams, Restangular, $h
 });
 
 
-app.controller('GroupFeedController', function($scope, $http, $location){
-	$scope.allowPost = true;
-	$scope.newsfeed = null;
-	$scope.nftext ="";
+app.controller('GroupFeedController', function($scope, $stateParams, $http, $location){
+  $scope.newsfeed = [];
+  $scope.nftext = "";
+  postID = $stateParams.postid;
   var groupID = $location.path().split('/')[2];
-	$http.get('/api/group/'+groupID+'/post').success(function(data){
-		$scope.newsfeed = data;
-	});
 
-	$scope.postStatus = function() {
-		postData = {
-			text : $scope.nftext,
-		};
+  if(!postID) {
+    $scope.allowPost = true;
+    $http.get('/api/group/'+groupID+'/post').success(function(data){
+      $scope.newsfeed = data;
+    });
+  }
+  else {
+    $scope.allowPost = false;
+    $http.get('/api/newsfeed/post/' + postID).success(function(data){
+      $scope.newsfeed.push(data);
+    });
+  }
 
-		if (postData.text.length > 0) {
-			$http.post('/api/group/'+groupID+'/post/', postData).then(function(response){
-				console.log(response);
+  $scope.postStatus = function() {
+    postData = {
+      text : $scope.nftext,
+    };
+
+    if (postData.text.length > 0) {
+      $http.post('/api/group/'+groupID+'/post/', postData).then(function(response){
         $scope.nftext="";
-				$scope.newsfeed.unshift(response.data);
-			}, function(xhr){
-					alert(xhr.data);
-					console.log(xhr.data);
-			});
-		}
-	};
+        $scope.newsfeed.unshift(response.data);
+      }, function(xhr){
+          alert(xhr.data);
+          console.log(xhr.data);
+      });
+    }
+  };
 
 });
 
@@ -72,30 +84,29 @@ app.controller('GroupCommentController', function($rootScope, $scope, $http){
   };
 
   loadCommentsByPostId($scope.data.id);
-  $scope.comments = null;
 
-	$scope.commentPost = function(postData) {
-		commentData = {
-			text : $scope.comment,
-			post : postData.id,
+  $scope.commentPost = function(postData) {
+    commentData = {
+      text : $scope.comment,
+      post : postData.id,
       datetime : 'Just now',
       user : {
-        username : $rootScope.user,
+        username : $rootScope.user.username,
       },
-		};
+    };
 
-		if (commentData.text.length > 0) {
+    if (commentData.text.length > 0) {
       $scope.comments.push(commentData);
       $scope.comment = "";
-			$http.post('/api/newsfeed/comment/', commentData).then(function(response){
+      $http.post('/api/newsfeed/comment/', commentData).then(function(response){
         console.log(response);
         loadCommentsByPostId($scope.data.id);
-			}, function(xhr){
-					alert(xhr.data);
-					console.log(xhr.data);
-			});
-		}
-	};
+      }, function(xhr){
+          alert(xhr.data);
+          console.log(xhr.data);
+      });
+    }
+  };
 
 });
 
@@ -155,14 +166,33 @@ app.controller('GroupManageController', function($scope, $http, $location){
 
 app.controller('GroupCategoryController', function($scope, $http, $stateParams){
     var category = $stateParams.cat;
+    var temp;
+    var groups_without_first = new Array();
     $scope.category = category;
 
+    function shuffle(o){
+    for(var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
+        return o;
+    }
+
     $http.get('/api/group/category/get/'+ category ).success(function(data){
-        $scope.groups = data;
+        shuffle(data);
+        $scope.g = data[0];
+        temp = data;
+        for (i=0; i<temp.length; i++){
+            groups_without_first.push(temp[i]);
+        }
+        groups_without_first.shift();
+        $scope.groups = groups_without_first;
     });
 
     $http.get('/api/group/category/all').success(function(data){
         $scope.allCategory = data;
+    });
+
+    $http.get('/api/group/all').success(function(data){
+        shuffle(data);
+        $scope.allGroups = data;
     });
 });
 

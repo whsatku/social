@@ -1,22 +1,18 @@
 <h4>Welcome to Youniversity</h4>
 Please let us know more about yourself
 
-<form action="">
+<form ng-submit="saveInfo()">
 	<div class="form-group">
 		<label for="name">Name</label>
-		<input type="text" class="form-control" id="name" required>
+		<input type="text" class="form-control" id="name" required ng-model = "userprofile.user">
 	</div>
 	<div class="form-group">
-		<label for="fac">Faculty and University</label>
-		<input type="text" class="form-control" id="fac">
+		<label for="faculty">Faculty and University</label>
+		<input type="text" class="form-control" id="fac" required ng-model = "userprofile.faculty">
 	</div>
 	<div class="form-group">
-		<label for="birthday">Birthday</label>
-		<input type="date" class="form-control" id="birthday">
-	</div>
-	<div class="form-group">
-		<label for="hometown">Hometown</label>
-		<input type="text" class="form-control" id="hometown">
+		<label for="hometown">Country</label>
+		<input type="text" class="form-control" id="hometown" required ng-model = "userprofile.country">
 	</div>
 	<div class="form-group">
 		<button type="submit" class="btn btn-success">Save</button>

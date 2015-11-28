@@ -18,19 +18,29 @@ app.directive('myEnter', function () {
 });
 
 
-app.controller('NewsfeedController', function($scope, $http){
-	$scope.allowPost = true;
-	$scope.newsfeed = null;
-	$scope.nftext ="";
-	$http.get('/api/newsfeed/post').success(function(data){
-		$scope.newsfeed = data;
-	});
+app.controller('NewsfeedController', function($scope, $stateParams, $http){
+  $scope.newsfeed = [];
+  $scope.nftext = "";
+  postID = $stateParams.id;
+
+  if(!postID) {
+    $scope.allowPost = true;
+    $http.get('/api/newsfeed/post/').success(function(data){
+      $scope.newsfeed = data;
+    });
+  }
+  else {
+    $scope.allowPost = false;
+  	$http.get('/api/newsfeed/post/' + postID).success(function(data){
+  		$scope.newsfeed.push(data);
+  	});
+  }
 
 	$scope.postStatus = function() {
 		postData = {
 			text : $scope.nftext,
 			target_type : 4,
-			target_id : -1,
+      target_id : null,
 		};
 
 		if (postData.text.length > 0) {
@@ -49,7 +59,7 @@ app.controller('NewsfeedController', function($scope, $http){
 
 
 
-app.controller('CommentController', function($rootScope, $scope, $http){
+app.controller('CommentController', function($rootScope, $scope, $http, $timeout){
 
   var loadCommentsByPostId = function(postID) {
     $http.get('/api/newsfeed/post/'+postID+'/comment/').success(function(commentsData){
@@ -58,15 +68,13 @@ app.controller('CommentController', function($rootScope, $scope, $http){
   };
 
   loadCommentsByPostId($scope.data.id);
-  $scope.comments = null;
-
 	$scope.commentPost = function(postData) {
-		commentData = {
+		var commentData = {
 			text : $scope.comment,
 			post : postData.id,
       datetime : 'Just now',
       user : {
-        username : $rootScope.user,
+        username : $rootScope.user.username,
       },
 		};
 

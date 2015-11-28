@@ -3,11 +3,15 @@ from django.http import Http404
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
-
 from newsfeed.models import Post
 from newsfeed.models import Comment
+from group.models import Group
 from newsfeed.serializer import PostSerializer
 from newsfeed.serializer import CommentSerializer
+from notification.views import NotificationViewList
+from django.contrib.contenttypes.models import ContentType
+from rest_framework.renderers import JSONRenderer
+import json
 
 
 class PostViewList(APIView):
@@ -21,11 +25,27 @@ class PostViewList(APIView):
 
     def post(self, request, format=None):
         serializer = PostSerializer(data=request.data)
-
+        notification = NotificationViewList()
         if serializer.is_valid():
 
             if self.request.user.is_authenticated():
                 serializer.save(user=User.objects.get(id=self.request.user.id))
+                data = {}
+                data['type'] = 'user'
+                if request.data['target_id'] != None:
+                    data['user_id'] = request.data['target_id']
+                    data['firstname'] = User.objects.get(id=request.data['target_id']).first_name
+                    data['lastname'] = User.objects.get(id=request.data['target_id']).last_name
+                else:
+                    data['user_id'] = None
+                json_data = json.dumps(data)
+                notification.post(
+                    request,
+                    User.objects.all(),
+                    ContentType.objects.get(id=13),
+                    JSONRenderer().render(serializer.data).decode('utf-8'),
+                    json_data
+                )
                 return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -63,11 +83,35 @@ class CommentViewList(APIView):
 
     def post(self, request, format=None):
         serializer = CommentSerializer(data=request.data)
+        notification = NotificationViewList()
 
         if serializer.is_valid():
-            # serializer.user = self.request.user
             if self.request.user.is_authenticated():
+                post = Post.objects.get(id=request.data['post'])
+                request.data['target_type'] = 4
+                request.data['target_id'] = request.data['post']
                 serializer.save(user=User.objects.get(id=self.request.user.id))
+                data = {}
+                if post.target_type == ContentType.objects.get(id=15):
+                    data['type'] = 'group'
+                    data['group_id'] = post.target_id
+                    data['group_name'] = Group.objects.get(id=post.target_id).name
+                if post.target_type == ContentType.objects.get(id=4):
+                    data['type'] = 'user'
+                    if post.target_id != None:
+                        data['user_id'] = post.target_id
+                        data['firstname'] = User.objects.get(id=post.target_id).first_name
+                        data['lastname'] = User.objects.get(id=post.target_id).last_name
+                    else:
+                        data['user_id'] = None
+                json_data = json.dumps(data)
+                notification.post(
+                    request,
+                    define_receiver(request.data['post']),
+                    ContentType.objects.get(id=14),
+                    JSONRenderer().render(serializer.data).decode('utf-8'),
+                    json_data
+                )
                 return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -102,3 +146,11 @@ class PostComment(APIView):
         response = self.serializer_class(comment, many=True)
 
         return Response(response.data)
+
+
+def define_receiver(post_id):
+    rec = set()
+    for i in Comment.objects.filter(post=post_id):
+        rec.add(i.user.id)
+    rec.add(Post.objects.get(id=post_id).user.id)
+    return User.objects.filter(id__in=rec)

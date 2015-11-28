@@ -2,38 +2,86 @@
 	Notifications
 </div>
 <div class="body">
-	<div class="row item-outer" ui-sref="root" ng-repeat-start="x in [1,2,3,4,5,6,7,8]" ng-if="x==1">
+
+	<!--
+		ADMIN NOTI!
+	-->
+	<div class="row item-outer" ui-sref="root" ng-repeat-start="data in notifications" ng-if="data.target_type == -1" ng-click="readNotificationId(data.id)">
 		<div class="item">
 			<div class="col-xs-2">
 				<a href="#" class="thumbnail" style="width: 40px; background: red; height: 40px;"></a>
 			</div>
 			<div class="col-xs-10">
-				Item type 1
-				<div class="metadata">11 hours ago</div>
+				{{data.text}}
+				<div class="metadata"><span am-time-ago="data.datetime"></span></div>
 			</div>
 			<div class="clearfix"></div>
 		</div>
 	</div>
-	<div class="row item-outer" ui-sref="root" ng-if="x == 2">
+
+	<!--
+		WALL!
+	-->
+	<div class="row item-outer" ui-sref="root.nfpost({id: data.link_item.id})" ng-if="data.target_type == 4 && data.target_id == null" ng-click="readNotificationId(data.id)">
 		<div class="item">
 			<div class="col-xs-2">
 				<a href="#" class="thumbnail" style="width: 40px; background: red; height: 40px;"></a>
 			</div>
 			<div class="col-xs-10">
-				<strong>Somchai</strong> posted in <strong>Test event</strong> "Item type 2"
-				<div class="metadata">11 hours ago</div>
+				<strong>{{data.user.username}}</strong> posted a status "{{data.text}}"
+				<div class="metadata"><span am-time-ago="data.datetime"></span></div>
 			</div>
 			<div class="clearfix"></div>
 		</div>
 	</div>
-	<div class="row item-outer" ui-sref="root" ng-repeat-end ng-if="x != 1 && x != 2">
+
+	<!--
+		COMMENT!
+	-->
+	<div class="row item-outer" ui-sref="root.nfpost({id: data.target_id})" ng-if="data.target_type == 4 && data.target_id != null" ng-click="readNotificationId(data.id)">
 		<div class="item">
 			<div class="col-xs-2">
 				<a href="#" class="thumbnail" style="width: 40px; background: red; height: 40px;"></a>
 			</div>
 			<div class="col-xs-10">
-				<strong>Somchai</strong> posted in <strong>Test group</strong> "Item type {{x}}"
-				<div class="metadata">11 hours ago</div>
+				<strong>{{data.user.username}}</strong> commented "{{data.text}}"
+				<span ng-if="data.reference_detail.type == 'group'">
+					in <strong>{{data.reference_detail.group_name}}</strong>
+				</span>
+				<div class="metadata"><span am-time-ago="data.datetime"></span></div>
+			</div>
+			<div class="clearfix"></div>
+		</div>
+	</div>
+
+
+	<!--
+		EVENT!
+	-->
+	<div class="row item-outer" ui-sref="root" ng-if="data.target_type == 'event' " ng-click="readNotificationId(data.id)">
+		<div class="item">
+			<div class="col-xs-2">
+				<a href="#" class="thumbnail" style="width: 40px; background: red; height: 40px;"></a>
+			</div>
+			<div class="col-xs-10">
+				<strong>{{data.user.username}}</strong> posted in <strong>Test event</strong> "{{data.text}}"
+				<div class="metadata"><span am-time-ago="data.datetime"></span></div>
+			</div>
+			<div class="clearfix"></div>
+		</div>
+	</div>
+
+	<!--
+		Group!
+	-->
+	<div class="row item-outer" ui-sref="root.group.post({id: data.target_id, postid: data.link_item.id})" ng-repeat-end ng-if="data.target_type == 15 && data.link_type.model == 'post' " ng-click="readNotificationId(data.id)">
+		<div class="item">
+			<div class="col-xs-2">
+				<a href="#" class="thumbnail" style="width: 40px; background: red; height: 40px;"></a>
+			</div>
+			<div class="col-xs-10">
+				<strong>{{data.user.username}}</strong> posted in <strong>{{data.reference_detail.group_name}}</strong> "{{data.text}}"
+				<div class="metadata"><span am-time-ago="data.datetime"></span></div>
 			</div>
 			<div class="clearfix"></div>
 		</div>

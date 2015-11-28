@@ -8,3 +8,4 @@ Modules Index
    authapi
    group
    newsfeed
+   notification

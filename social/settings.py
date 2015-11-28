@@ -46,8 +46,10 @@ INSTALLED_APPS = (
     'ui',
     'newsfeed',
     'group',
-    "User",
-    'event'
+    'User',
+    'event',
+    'friendship',
+    'notification',
 )
 
 MIDDLEWARE_CLASSES = (

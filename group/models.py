@@ -13,8 +13,8 @@ class GroupCategory(models.Model):
 
 class Group(models.Model):
     name = models.CharField(max_length=25)
-    type = models.IntegerField(default=0)
-    category = models.ForeignKey(GroupCategory, default=0)
+    type = models.IntegerField()
+    category = models.ForeignKey(GroupCategory, null=True)
     description = models.CharField(max_length=200)
     short_description = models.CharField(max_length=50)
     activities = models.CharField(max_length=200)
@@ -22,7 +22,7 @@ class Group(models.Model):
     #logo_image = ImageField(upload_to=get_image_path, blank=True, null=True)
     header = models.CharField(max_length=25)
     #header_image = ImageField(upload_to=get_image_path, blank=True, null=True)
-    permisssion = models.IntegerField(default=0)
+    permisssion = models.IntegerField(null=True)
     date = models.DateField(auto_now_add=True)
 
     def __unicode__(self):
@@ -30,13 +30,11 @@ class Group(models.Model):
 
 
 class GroupMember(models.Model):
-    group = models.ForeignKey(Group, default=0)
-    user = models.ForeignKey(User, default=0)
+    group = models.ForeignKey(Group)
+    user = models.ForeignKey(User)
     role = models.IntegerField()
 
     def create(self, new_group, new_user):
-        print new_group
-        print new_user
         self.create(new_group, new_user, 1)
 
     def __unicode__(self):
