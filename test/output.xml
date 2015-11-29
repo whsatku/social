@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generated="20151121 22:02:16.239" generator="Robot 2.9.2 (Python 2.7.10 on win32)">
+<suite source="C:\Users\Windows\Desktop\social\test\newsfeed" id="s1" name="Newsfeed">
+<suite source="C:\Users\Windows\Desktop\social\test\newsfeed\newsfeed.txt" id="s1-s1" name="Newsfeed">
+<kw type="setup" name="Pre-condition">
+<kw name="Open Browser" library="Selenium2Library">
+<doc>Opens a new browser instance to given URL.</doc>
+<arguments>
+<arg>http://localhost:8000/admin</arg>
+<arg>${BROWSER}</arg>
+</arguments>
+<msg timestamp="20151121 22:02:16.380" level="INFO">Opening browser 'phantomJS' to base url 'http://localhost:8000/admin'</msg>
+<kw name="Capture Page Screenshot" library="Selenium2Library">
+<doc>Takes a screenshot of the current page and embeds it into the log.</doc>
+<msg timestamp="20151121 22:02:16.380" level="FAIL">No browser is open</msg>
+<status status="FAIL" endtime="20151121 22:02:16.380" starttime="20151121 22:02:16.380"></status>
+</kw>
+<msg timestamp="20151121 22:02:16.380" level="WARN">Keyword 'Capture Page Screenshot' could not be run on failure: No browser is open</msg>
+<msg timestamp="20151121 22:02:16.395" level="FAIL">WebDriverException: Message: Unable to start phantomjs with ghostdriver: [Error 2] The system cannot find the file specified
+</msg>
+<status status="FAIL" endtime="20151121 22:02:16.395" starttime="20151121 22:02:16.380"></status>
+</kw>
+<status status="FAIL" endtime="20151121 22:02:16.395" starttime="20151121 22:02:16.380"></status>
+</kw>
+<test id="s1-s1-t1" name="PostStatusWithText">
+<status status="FAIL" endtime="20151121 22:02:16.395" critical="yes" starttime="20151121 22:02:16.395">Parent suite setup failed:
+WebDriverException: Message: Unable to start phantomjs with ghostdriver: [Error 2] The system cannot find the file specified
+</status>
+</test>
+<test id="s1-s1-t2" name="PostStatusWithoutText">
+<status status="FAIL" endtime="20151121 22:02:16.395" critical="yes" starttime="20151121 22:02:16.395">Parent suite setup failed:
+WebDriverException: Message: Unable to start phantomjs with ghostdriver: [Error 2] The system cannot find the file specified
+</status>
+</test>
+<test id="s1-s1-t3" name="CommentStatusWithText">
+<status status="FAIL" endtime="20151121 22:02:16.395" critical="yes" starttime="20151121 22:02:16.395">Parent suite setup failed:
+WebDriverException: Message: Unable to start phantomjs with ghostdriver: [Error 2] The system cannot find the file specified
+</status>
+</test>
+<test id="s1-s1-t4" name="CommentStatusWithoutText">
+<status status="FAIL" endtime="20151121 22:02:16.395" critical="yes" starttime="20151121 22:02:16.395">Parent suite setup failed:
+WebDriverException: Message: Unable to start phantomjs with ghostdriver: [Error 2] The system cannot find the file specified
+</status>
+</test>
+<kw type="teardown" name="Close Browser" library="Selenium2Library">
+<doc>Closes the current browser.</doc>
+<status status="PASS" endtime="20151121 22:02:16.411" starttime="20151121 22:02:16.411"></status>
+</kw>
+<status status="FAIL" endtime="20151121 22:02:16.411" starttime="20151121 22:02:16.270">Suite setup failed:
+WebDriverException: Message: Unable to start phantomjs with ghostdriver: [Error 2] The system cannot find the file specified
+</status>
+</suite>
+<status status="FAIL" endtime="20151121 22:02:16.411" starttime="20151121 22:02:16.255"></status>
+</suite>
+<statistics>
+<total>
+<stat fail="4" pass="0">Critical Tests</stat>
+<stat fail="4" pass="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat fail="4" id="s1" name="Newsfeed" pass="0">Newsfeed</stat>
+<stat fail="4" id="s1-s1" name="Newsfeed" pass="0">Newsfeed.Newsfeed</stat>
+</suite>
+</statistics>
+<errors>
+<msg timestamp="20151121 22:02:16.380" level="WARN">Keyword 'Capture Page Screenshot' could not be run on failure: No browser is open</msg>
+</errors>
+</robot>

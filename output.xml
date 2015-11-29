@@ -1,0 +1,378 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generated="20151111 11:02:14.306" generator="Robot 2.9.1 (Python 2.7.10 on linux2)">
+<suite source="/home/saint/Desktop/WSP/social/test" id="s1" name="Test">
+<suite source="/home/saint/Desktop/WSP/social/test/authenticate" id="s1-s1" name="Authenticate">
+<suite source="/home/saint/Desktop/WSP/social/test/authenticate/fblogin_test.txt" id="s1-s1-s1" name="Fblogin Test">
+<kw type="setup" name="Open Browser To Login Page" library="resource">
+<kw name="Open Browser" library="Selenium2Library">
+<doc>Opens a new browser instance to given URL.</doc>
+<arguments>
+<arg>${URL}</arg>
+<arg>phantomjs</arg>
+</arguments>
+<msg timestamp="20151111 11:02:14.412" level="INFO">Opening browser 'phantomjs' to base url 'http://localhost:8000/static/index.html#/login'</msg>
+<status status="PASS" endtime="20151111 11:02:15.585" starttime="20151111 11:02:14.411"></status>
+</kw>
+<kw name="Maximize Browser Window" library="Selenium2Library">
+<doc>Maximizes current browser window.</doc>
+<status status="PASS" endtime="20151111 11:02:15.591" starttime="20151111 11:02:15.586"></status>
+</kw>
+<status status="PASS" endtime="20151111 11:02:15.591" starttime="20151111 11:02:14.410"></status>
+</kw>
+<test id="s1-s1-s1-t1" name="Test Invalidate Login - Invalid Username and Password">
+<kw name="Invalidate Login">
+<arguments>
+<arg>invalidateusername</arg>
+<arg>invalidatepassword</arg>
+</arguments>
+<kw name="Wait Until Page Contains" library="Selenium2Library">
+<doc>Waits until `text` appears on current page.</doc>
+<arguments>
+<arg>Youniversity</arg>
+</arguments>
+<status status="PASS" endtime="20151111 11:02:15.609" starttime="20151111 11:02:15.594"></status>
+</kw>
+<kw name="Click Element" library="Selenium2Library">
+<doc>Click element identified by `locator`.</doc>
+<arguments>
+<arg>xpath=//*[@id="root"]/div/div/div/div/div/a[2]</arg>
+</arguments>
+<msg timestamp="20151111 11:02:15.611" level="INFO">Clicking element 'xpath=//*[@id="root"]/div/div/div/div/div/a[2]'.</msg>
+<status status="PASS" endtime="20151111 11:02:17.079" starttime="20151111 11:02:15.610"></status>
+</kw>
+<kw name="Wait Until Page Contains" library="Selenium2Library">
+<doc>Waits until `text` appears on current page.</doc>
+<arguments>
+<arg>Facebook</arg>
+</arguments>
+<status status="PASS" endtime="20151111 11:02:17.102" starttime="20151111 11:02:17.081"></status>
+</kw>
+<kw name="Input Text" library="Selenium2Library">
+<doc>Types the given `text` into text field identified by `locator`.</doc>
+<arguments>
+<arg>email</arg>
+<arg>${username}</arg>
+</arguments>
+<msg timestamp="20151111 11:02:17.104" level="INFO">Typing text 'invalidateusername' into text field 'email'</msg>
+<status status="PASS" endtime="20151111 11:02:17.172" starttime="20151111 11:02:17.103"></status>
+</kw>
+<kw name="Input Password" library="Selenium2Library">
+<doc>Types the given password into text field identified by `locator`.</doc>
+<arguments>
+<arg>pass</arg>
+<arg>${password}</arg>
+</arguments>
+<msg timestamp="20151111 11:02:17.173" level="INFO">Typing password into text field 'pass'</msg>
+<status status="PASS" endtime="20151111 11:02:17.230" starttime="20151111 11:02:17.172"></status>
+</kw>
+<kw name="Click Element" library="Selenium2Library">
+<doc>Click element identified by `locator`.</doc>
+<arguments>
+<arg>loginbutton</arg>
+</arguments>
+<msg timestamp="20151111 11:02:17.231" level="INFO">Clicking element 'loginbutton'.</msg>
+<status status="PASS" endtime="20151111 11:02:18.259" starttime="20151111 11:02:17.230"></status>
+</kw>
+<kw name="Wait Until Page Contains" library="Selenium2Library">
+<doc>Waits until `text` appears on current page.</doc>
+<arguments>
+<arg>error</arg>
+</arguments>
+<status status="PASS" endtime="20151111 11:02:18.269" starttime="20151111 11:02:18.260"></status>
+</kw>
+<kw name="Go To Login Page" library="resource">
+<kw name="Go To" library="Selenium2Library">
+<doc>Navigates the active browser instance to the provided URL.</doc>
+<arguments>
+<arg>${URL}</arg>
+</arguments>
+<msg timestamp="20151111 11:02:18.270" level="INFO">Opening url 'http://localhost:8000/static/index.html#/login'</msg>
+<status status="PASS" endtime="20151111 11:02:18.401" starttime="20151111 11:02:18.270"></status>
+</kw>
+<kw name="Sleep" library="BuiltIn">
+<doc>Pauses the test executed for the given time.</doc>
+<arguments>
+<arg>3</arg>
+</arguments>
+<msg timestamp="20151111 11:02:21.405" level="INFO">Slept 3 seconds</msg>
+<status status="PASS" endtime="20151111 11:02:21.406" starttime="20151111 11:02:18.402"></status>
+</kw>
+<status status="PASS" endtime="20151111 11:02:21.408" starttime="20151111 11:02:18.269"></status>
+</kw>
+<kw name="Location Should Be" library="Selenium2Library">
+<doc>Verifies that current URL is exactly `url`.</doc>
+<arguments>
+<arg>http://localhost:8000/static/index.html#/login</arg>
+</arguments>
+<msg timestamp="20151111 11:02:21.421" level="INFO">Current location is 'http://localhost:8000/static/index.html#/login'.</msg>
+<status status="PASS" endtime="20151111 11:02:21.422" starttime="20151111 11:02:21.409"></status>
+</kw>
+<status status="PASS" endtime="20151111 11:02:21.423" starttime="20151111 11:02:15.593"></status>
+</kw>
+<status status="PASS" endtime="20151111 11:02:21.425" critical="yes" starttime="20151111 11:02:15.592"></status>
+</test>
+<test id="s1-s1-s1-t2" name="Test Invalidate Login - Invalid Password">
+<kw name="Invalidate Login">
+<arguments>
+<arg>ephbxiw_thurnescu_1443348859@tfbnw.net</arg>
+<arg>invalidatepassword</arg>
+</arguments>
+<kw name="Wait Until Page Contains" library="Selenium2Library">
+<doc>Waits until `text` appears on current page.</doc>
+<arguments>
+<arg>Youniversity</arg>
+</arguments>
+<status status="PASS" endtime="20151111 11:02:21.438" starttime="20151111 11:02:21.430"></status>
+</kw>
+<kw name="Click Element" library="Selenium2Library">
+<doc>Click element identified by `locator`.</doc>
+<arguments>
+<arg>xpath=//*[@id="root"]/div/div/div/div/div/a[2]</arg>
+</arguments>
+<msg timestamp="20151111 11:02:21.440" level="INFO">Clicking element 'xpath=//*[@id="root"]/div/div/div/div/div/a[2]'.</msg>
+<kw name="Capture Page Screenshot" library="Selenium2Library">
+<doc>Takes a screenshot of the current page and embeds it into the log.</doc>
+<status status="FAIL" endtime="20151111 11:02:22.197" starttime="20151111 11:02:22.196"></status>
+</kw>
+<msg timestamp="20151111 11:02:22.197" level="WARN">Keyword 'Capture Page Screenshot' could not be run on failure: Execution terminated by signal</msg>
+<status status="FAIL" endtime="20151111 11:02:22.198" starttime="20151111 11:02:21.439"></status>
+</kw>
+<status status="FAIL" endtime="20151111 11:02:22.199" starttime="20151111 11:02:21.428"></status>
+</kw>
+<status status="FAIL" endtime="20151111 11:02:22.199" critical="yes" starttime="20151111 11:02:21.427">Execution terminated by signal</status>
+</test>
+<test id="s1-s1-s1-t3" name="Test Invalidate Login - Invalid Username">
+<tags>
+<tag>robot-exit</tag>
+</tags>
+<status status="FAIL" endtime="20151111 11:02:22.201" critical="yes" starttime="20151111 11:02:22.200">Test execution stopped due to a fatal error.</status>
+</test>
+<test id="s1-s1-s1-t4" name="Test Invalidate Login - Username is empty">
+<tags>
+<tag>robot-exit</tag>
+</tags>
+<status status="FAIL" endtime="20151111 11:02:22.203" critical="yes" starttime="20151111 11:02:22.202">Test execution stopped due to a fatal error.</status>
+</test>
+<test id="s1-s1-s1-t5" name="Test Invalidate Login - Password is empty">
+<tags>
+<tag>robot-exit</tag>
+</tags>
+<status status="FAIL" endtime="20151111 11:02:22.205" critical="yes" starttime="20151111 11:02:22.204">Test execution stopped due to a fatal error.</status>
+</test>
+<test id="s1-s1-s1-t6" name="Test Invalidate Login - Both fields are empty">
+<tags>
+<tag>robot-exit</tag>
+</tags>
+<status status="FAIL" endtime="20151111 11:02:22.206" critical="yes" starttime="20151111 11:02:22.205">Test execution stopped due to a fatal error.</status>
+</test>
+<test id="s1-s1-s1-t7" name="Test Validate Login">
+<tags>
+<tag>robot-exit</tag>
+</tags>
+<status status="FAIL" endtime="20151111 11:02:22.207" critical="yes" starttime="20151111 11:02:22.207">Test execution stopped due to a fatal error.</status>
+</test>
+<kw type="teardown" name="Close Browser" library="Selenium2Library">
+<doc>Closes the current browser.</doc>
+<status status="PASS" endtime="20151111 11:02:22.211" starttime="20151111 11:02:22.209"></status>
+</kw>
+<status status="FAIL" endtime="20151111 11:02:22.211" starttime="20151111 11:02:14.339"></status>
+</suite>
+<suite source="/home/saint/Desktop/WSP/social/test/authenticate/kulogin_test.txt" id="s1-s1-s2" name="Kulogin Test">
+<test id="s1-s1-s2-t1" name="Test Invalidate Login - Invalid Username and Password">
+<tags>
+<tag>robot-exit</tag>
+</tags>
+<status status="FAIL" endtime="20151111 11:02:22.214" critical="yes" starttime="20151111 11:02:22.214">Test execution stopped due to a fatal error.</status>
+</test>
+<test id="s1-s1-s2-t2" name="Test Invalidate Login - Invalid Password">
+<tags>
+<tag>robot-exit</tag>
+</tags>
+<status status="FAIL" endtime="20151111 11:02:22.215" critical="yes" starttime="20151111 11:02:22.215">Test execution stopped due to a fatal error.</status>
+</test>
+<test id="s1-s1-s2-t3" name="Test Invalidate Login - Invalid Username">
+<tags>
+<tag>robot-exit</tag>
+</tags>
+<status status="FAIL" endtime="20151111 11:02:22.216" critical="yes" starttime="20151111 11:02:22.216">Test execution stopped due to a fatal error.</status>
+</test>
+<test id="s1-s1-s2-t4" name="Test Invalidate Login - Username is empty">
+<tags>
+<tag>robot-exit</tag>
+</tags>
+<status status="FAIL" endtime="20151111 11:02:22.217" critical="yes" starttime="20151111 11:02:22.216">Test execution stopped due to a fatal error.</status>
+</test>
+<test id="s1-s1-s2-t5" name="Test Invalidate Login - Password is empty">
+<tags>
+<tag>robot-exit</tag>
+</tags>
+<status status="FAIL" endtime="20151111 11:02:22.217" critical="yes" starttime="20151111 11:02:22.217">Test execution stopped due to a fatal error.</status>
+</test>
+<test id="s1-s1-s2-t6" name="Test Invalidate Login - Both fields are empty">
+<tags>
+<tag>robot-exit</tag>
+</tags>
+<status status="FAIL" endtime="20151111 11:02:22.218" critical="yes" starttime="20151111 11:02:22.218">Test execution stopped due to a fatal error.</status>
+</test>
+<test id="s1-s1-s2-t7" name="Test Validate Login">
+<tags>
+<tag>robot-exit</tag>
+</tags>
+<status status="FAIL" endtime="20151111 11:02:22.219" critical="yes" starttime="20151111 11:02:22.218">Test execution stopped due to a fatal error.</status>
+</test>
+<status status="FAIL" endtime="20151111 11:02:22.219" starttime="20151111 11:02:22.213"></status>
+</suite>
+<status status="FAIL" endtime="20151111 11:02:22.221" starttime="20151111 11:02:14.337"></status>
+</suite>
+<suite source="/home/saint/Desktop/WSP/social/test/createUser.txt" id="s1-s2" name="createUser">
+<test id="s1-s2-t1" name="create dummy user">
+<tags>
+<tag>robot-exit</tag>
+</tags>
+<status status="FAIL" endtime="20151111 11:02:22.223" critical="yes" starttime="20151111 11:02:22.223">Test execution stopped due to a fatal error.</status>
+</test>
+<status status="FAIL" endtime="20151111 11:02:22.224" starttime="20151111 11:02:22.222"></status>
+</suite>
+<suite source="/home/saint/Desktop/WSP/social/test/group" id="s1-s3" name="Group">
+<suite source="/home/saint/Desktop/WSP/social/test/group/createGroup.txt" id="s1-s3-s1" name="createGroup">
+<test id="s1-s3-s1-t1" name="create dummy group">
+<tags>
+<tag>robot-exit</tag>
+</tags>
+<status status="FAIL" endtime="20151111 11:02:22.226" critical="yes" starttime="20151111 11:02:22.225">Test execution stopped due to a fatal error.</status>
+</test>
+<status status="FAIL" endtime="20151111 11:02:22.226" starttime="20151111 11:02:22.224"></status>
+</suite>
+<suite source="/home/saint/Desktop/WSP/social/test/group/EditGroupDescription.txt" id="s1-s3-s2" name="EditGroupDescription">
+<test id="s1-s3-s2-t1" name="TestEditGroupDescription">
+<tags>
+<tag>robot-exit</tag>
+</tags>
+<status status="FAIL" endtime="20151111 11:02:22.228" critical="yes" starttime="20151111 11:02:22.228">Test execution stopped due to a fatal error.</status>
+</test>
+<status status="FAIL" endtime="20151111 11:02:22.229" starttime="20151111 11:02:22.227"></status>
+</suite>
+<suite source="/home/saint/Desktop/WSP/social/test/group/group.txt" id="s1-s3-s3" name="Group">
+<test id="s1-s3-s3-t1" name="TestGroupTitle">
+<tags>
+<tag>robot-exit</tag>
+</tags>
+<status status="FAIL" endtime="20151111 11:02:22.231" critical="yes" starttime="20151111 11:02:22.230">Test execution stopped due to a fatal error.</status>
+</test>
+<status status="FAIL" endtime="20151111 11:02:22.231" starttime="20151111 11:02:22.229"></status>
+</suite>
+<suite source="/home/saint/Desktop/WSP/social/test/group/GroupFeed.txt" id="s1-s3-s4" name="GroupFeed">
+<test id="s1-s3-s4-t1" name="TestPostToGroupFeed - With Text">
+<tags>
+<tag>robot-exit</tag>
+</tags>
+<status status="FAIL" endtime="20151111 11:02:22.233" critical="yes" starttime="20151111 11:02:22.233">Test execution stopped due to a fatal error.</status>
+</test>
+<test id="s1-s3-s4-t2" name="TestPostToGroupFeed - Without Text">
+<tags>
+<tag>robot-exit</tag>
+</tags>
+<status status="FAIL" endtime="20151111 11:02:22.235" critical="yes" starttime="20151111 11:02:22.233">Test execution stopped due to a fatal error.</status>
+</test>
+<test id="s1-s3-s4-t3" name="TestCommentToGroupFeed - With Text">
+<tags>
+<tag>robot-exit</tag>
+</tags>
+<status status="FAIL" endtime="20151111 11:02:22.236" critical="yes" starttime="20151111 11:02:22.235">Test execution stopped due to a fatal error.</status>
+</test>
+<test id="s1-s3-s4-t4" name="TestCommentToGroupFeed - Without Text">
+<tags>
+<tag>robot-exit</tag>
+</tags>
+<status status="FAIL" endtime="20151111 11:02:22.236" critical="yes" starttime="20151111 11:02:22.236">Test execution stopped due to a fatal error.</status>
+</test>
+<status status="FAIL" endtime="20151111 11:02:22.237" starttime="20151111 11:02:22.232"></status>
+</suite>
+<suite source="/home/saint/Desktop/WSP/social/test/group/JoinGroupAndKickFromGroup.txt" id="s1-s3-s5" name="JoinGroupAndKickFromGroup">
+<test id="s1-s3-s5-t1" name="TestJoinGroup">
+<tags>
+<tag>robot-exit</tag>
+</tags>
+<status status="FAIL" endtime="20151111 11:02:22.238" critical="yes" starttime="20151111 11:02:22.238">Test execution stopped due to a fatal error.</status>
+</test>
+<test id="s1-s3-s5-t2" name="TestKickFromGroup">
+<tags>
+<tag>robot-exit</tag>
+</tags>
+<status status="FAIL" endtime="20151111 11:02:22.239" critical="yes" starttime="20151111 11:02:22.239">Test execution stopped due to a fatal error.</status>
+</test>
+<status status="FAIL" endtime="20151111 11:02:22.239" starttime="20151111 11:02:22.237"></status>
+</suite>
+<status status="FAIL" endtime="20151111 11:02:22.240" starttime="20151111 11:02:22.224"></status>
+</suite>
+<suite source="/home/saint/Desktop/WSP/social/test/newsfeed" id="s1-s4" name="Newsfeed">
+<suite source="/home/saint/Desktop/WSP/social/test/newsfeed/newsfeed.txt" id="s1-s4-s1" name="Newsfeed">
+<test id="s1-s4-s1-t1" name="PostStatusWithText">
+<tags>
+<tag>robot-exit</tag>
+</tags>
+<status status="FAIL" endtime="20151111 11:02:22.242" critical="yes" starttime="20151111 11:02:22.242">Test execution stopped due to a fatal error.</status>
+</test>
+<test id="s1-s4-s1-t2" name="PostStatusWithoutText">
+<tags>
+<tag>robot-exit</tag>
+</tags>
+<status status="FAIL" endtime="20151111 11:02:22.243" critical="yes" starttime="20151111 11:02:22.243">Test execution stopped due to a fatal error.</status>
+</test>
+<test id="s1-s4-s1-t3" name="CommentStatusWithText">
+<tags>
+<tag>robot-exit</tag>
+</tags>
+<status status="FAIL" endtime="20151111 11:02:22.244" critical="yes" starttime="20151111 11:02:22.243">Test execution stopped due to a fatal error.</status>
+</test>
+<test id="s1-s4-s1-t4" name="CommentStatusWithoutText">
+<tags>
+<tag>robot-exit</tag>
+</tags>
+<status status="FAIL" endtime="20151111 11:02:22.245" critical="yes" starttime="20151111 11:02:22.244">Test execution stopped due to a fatal error.</status>
+</test>
+<status status="FAIL" endtime="20151111 11:02:22.245" starttime="20151111 11:02:22.241"></status>
+</suite>
+<status status="FAIL" endtime="20151111 11:02:22.246" starttime="20151111 11:02:22.241"></status>
+</suite>
+<suite source="/home/saint/Desktop/WSP/social/test/pending.txt" id="s1-s5" name="Pending">
+<test id="s1-s5-t1" name="join group">
+<tags>
+<tag>robot-exit</tag>
+</tags>
+<status status="FAIL" endtime="20151111 11:02:22.247" critical="yes" starttime="20151111 11:02:22.247">Test execution stopped due to a fatal error.</status>
+</test>
+<status status="FAIL" endtime="20151111 11:02:22.248" starttime="20151111 11:02:22.246"></status>
+</suite>
+<status status="FAIL" endtime="20151111 11:02:22.249" starttime="20151111 11:02:14.308"></status>
+</suite>
+<statistics>
+<total>
+<stat fail="28" pass="1">Critical Tests</stat>
+<stat fail="28" pass="1">All Tests</stat>
+</total>
+<tag>
+<stat info="combined" fail="1" combined="NOT robot-exit" pass="1">NOT robot-exit</stat>
+<stat fail="27" pass="0">robot-exit</stat>
+</tag>
+<suite>
+<stat fail="28" id="s1" name="Test" pass="1">Test</stat>
+<stat fail="13" id="s1-s1" name="Authenticate" pass="1">Test.Authenticate</stat>
+<stat fail="6" id="s1-s1-s1" name="Fblogin Test" pass="1">Test.Authenticate.Fblogin Test</stat>
+<stat fail="7" id="s1-s1-s2" name="Kulogin Test" pass="0">Test.Authenticate.Kulogin Test</stat>
+<stat fail="1" id="s1-s2" name="createUser" pass="0">Test.createUser</stat>
+<stat fail="9" id="s1-s3" name="Group" pass="0">Test.Group</stat>
+<stat fail="1" id="s1-s3-s1" name="createGroup" pass="0">Test.Group.createGroup</stat>
+<stat fail="1" id="s1-s3-s2" name="EditGroupDescription" pass="0">Test.Group.EditGroupDescription</stat>
+<stat fail="1" id="s1-s3-s3" name="Group" pass="0">Test.Group.Group</stat>
+<stat fail="4" id="s1-s3-s4" name="GroupFeed" pass="0">Test.Group.GroupFeed</stat>
+<stat fail="2" id="s1-s3-s5" name="JoinGroupAndKickFromGroup" pass="0">Test.Group.JoinGroupAndKickFromGroup</stat>
+<stat fail="4" id="s1-s4" name="Newsfeed" pass="0">Test.Newsfeed</stat>
+<stat fail="4" id="s1-s4-s1" name="Newsfeed" pass="0">Test.Newsfeed.Newsfeed</stat>
+<stat fail="1" id="s1-s5" name="Pending" pass="0">Test.Pending</stat>
+</suite>
+</statistics>
+<errors>
+<msg timestamp="20151111 11:02:22.197" level="WARN">Keyword 'Capture Page Screenshot' could not be run on failure: Execution terminated by signal</msg>
+</errors>
+</robot>

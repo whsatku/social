@@ -3,8 +3,9 @@ db.sqlite3
 *.pyc
 *.pyo
 .idea/
-<<<<<<< HEAD
-=======
 docs/_build
 .DS_Store
->>>>>>> master
+test/*/report.html
+test/*/output.xml
+test/*/log.html
+selenium-screenshot-*.png

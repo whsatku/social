@@ -4,6 +4,9 @@ html,body,#root{
 #rootcontainer{
 	padding-bottom: 40px;
 }
+.clickable{
+	cursor: pointer;
+}
 .login{
 	background: #286742;
 	height: 100%;
@@ -193,4 +196,108 @@ html,body,#root{
 .groupblock .title{
 	margin-top: 0;
 	margin-bottom: 10px;
+}
+
+/* notification */
+.notibox{
+	position: absolute;
+	top: 56px;
+	right: 40px;
+	border: #aaa solid 1px;
+	border-top: none;
+	box-shadow: rgba(100,100,100, 0.4) 0px 3px 3px;
+	width: 300px;
+	height: 400px;
+	z-index: 400;
+	background: white;
+}
+.notibox .header{
+	background: #BFD74E;
+	font-size: 13pt;
+	padding: 4px 10px;
+	color: #22733D;
+	height: 36px;
+	line-height: 28px;
+}
+.notibox .body{
+	height: 364px;
+	overflow: auto;
+}
+.notibox .item-outer{
+	padding: 6px;
+}
+.notibox .item{
+	margin: 0 10px;
+	border-bottom: #aaa solid 1px;
+	display: block;
+	cursor: pointer;
+}
+
+/* user page */
+.cover .avatar{
+	position: absolute;
+	bottom: -60px;
+	margin: 0;
+	width: 140px;
+	height: 140px;
+}
+.userpage .cover h3{
+	margin-left: 160px;
+}
+.userpage .usertabs{
+	border: #ccc solid 1px;
+	border-top: none;
+	margin-bottom: 30px;
+	padding-left: 180px;
+	height: 40px;
+}
+.userpage .usertabs li:first-child{
+	border-left: #ccc solid 1px;
+}
+.userpage .usertabs li{
+	border-right: #ccc solid 1px;
+	float: left;
+}
+.userpage .usertabs li a{
+	display: block;
+	height: 40px;
+	min-width: 150px;
+	text-align: center;
+	line-height: 40px;
+	font-weight: bold;
+}
+.userpage .usertabs li a:hover, .userpage .usertabs li a:focus{
+	text-decoration: none;
+}
+.userpage .usertabs li.active{
+	background: #f5f5f5;
+}
+.userpage .usertabs li.active a{
+	color: black;
+}
+
+.friendlist .usergrid{
+	border: #ccc solid 1px;
+	border-radius: 5px;
+	margin: 5px;
+	box-shadow: rgba(100,100,100,0.1) 0px 0px 5px;
+	height: 90px;
+	background: #f5f5f5;
+}
+.friendlist .usergrid .thumbnail{
+	margin: 0;
+}
+.friendlist .usergrid h4{
+	margin: 0;
+	margin-bottom: 5px;
+}
+.friendlist .usergrid h4 a{
+	color: black;
+	text-decoration: none !important;
+}
+.friendlist .rightcol{
+	padding: 10px;
+}
+.friendlist .leftcol{
+	margin-left: -15px;
 }
