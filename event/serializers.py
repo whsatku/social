@@ -19,6 +19,10 @@ class EventMemberSerializer(serializers.ModelSerializer):
 
 class EventSerializer(serializers.ModelSerializer):
 
+    member_status = serializers.IntegerField(read_only=True, required=False)
+    member_count = serializers.IntegerField(read_only=True)
+
     class Meta:
         model = Event
-        fields = ('id', 'name', 'start_date', 'end_date', 'description')
+        fields = ('id', 'name', 'start_date', 'end_date', 'description',
+                        'member_status', 'member_count')
