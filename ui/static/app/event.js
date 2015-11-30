@@ -31,10 +31,11 @@ app.controller('CreateEventController', function($scope, $state, $http, $statePa
     }
 });
 
-app.controller('EventController', function($scope, $http, $location , $uibModal){
+app.controller('EventController', function($scope, $http, $location, $uibModal){
     var eventID = $location.path().split('/')[2];
     $http.get('/api/event/'+eventID).success(function(data){
         $scope.event = data;
+        console.log($scope.event)
     });
 
     $scope.invite = function(){

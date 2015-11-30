@@ -148,6 +148,10 @@ app.controller('MainController', function($rootScope, user, $http, $uibModal, $s
     $http.get('/api/group/').success(function(data){
         $rootScope.group_list = data;
     });
+    $http.get('/api/event/all').success(function(data){
+        $rootScope.event_list = data;
+        console.log($rootScope.event_list)
+    });
 
     $rootScope.logout = function(){
         var modal = $uibModal.open({
