@@ -10,7 +10,7 @@
 				</ul>
 			</div>
 		</div>
-		<h3>Example event</h3>
+		<h3>{{event.name}}</h3>
 		<div class="eventdate"><i class="glyphicon glyphicon-time"></i> 12 Dec 2015 9.00am - 7.00pm</div>
 	</div>
 </div>
@@ -20,9 +20,9 @@
 	</div>
 	<div class="col-md-3">
 		<p style="margin-top: 10px;">
-			<i class="glyphicon glyphicon-time"></i> 12 Dec 2015 9.00am - 7.00pm
+			<i class="glyphicon glyphicon-time"></i> {{event.start_date}} - {{event.end_date}}
 		</p>
-		<p>Event description text</p>
+		<p>{{event.description}}</p>
 		<h4>Created by</h4>
 		<a ng-href="{{member.userUrl}}" class="thumbnail" style="width: 40px; background: url('{{member.imgUrl}}'); height: 40px; background-size: cover;"></a>
 		<h4>Attending</h4>
