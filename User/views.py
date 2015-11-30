@@ -136,6 +136,31 @@ class FriendshipViewSet(APIView):
         response = self.serializer_class(friend_list, many=True)
         return Response(response.data)
 
+class FriendshipOtherUserViewSet(APIView):
+    serializer_class = UserProfileSerializer
+
+    def get_user(self, user_profile_id):
+        """Get user from user profile's database.
+
+        Args:
+                user_profile_id: ID of user profile.
+
+        Return:
+                UserProfile object by ID.
+
+        """
+        try:
+            return User.objects.get(id=user_profile_id)
+        except UserProfile.DoesNotExist:
+            raise Http404
+
+    def get(self, request,other_user_id, format=None):
+        other_user = self.get_user(other_user_id)
+        friends = Friend.objects.friends(other_user)
+        friend_list = UserProfile.objects.filter(user__in = friends)
+        response = self.serializer_class(friend_list, many=True)
+        return Response(response.data)
+
 
 class IsFriendDetail(APIView):
     serializer_class = FriendShipSerializer
