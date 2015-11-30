@@ -72,7 +72,6 @@ app.controller('CommentController', function($rootScope, $scope, $http, $timeout
 		var commentData = {
 			text : $scope.comment,
 			post : postData.id,
-      datetime : 'Just now',
       user : {
         username : $rootScope.user.username,
       },

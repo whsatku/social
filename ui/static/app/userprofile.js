@@ -5,8 +5,13 @@ var app = angular.module('app.userprofile', []);
 app.controller('UserProfileInfoController', function($scope, $http, $location, $stateParams){
     var userID = $stateParams.user;
     $http.get('/api/user/'+userID+'/userInfo').success(function(data){
-        $scope.userprofile = data;
+      $scope.userprofile = data;
     });
+
+    $http.get('/api/newsfeed/wall/' + userID).success(function (data) {
+      $scope.userfeed = data;
+    });
+
 });
 
 app.controller('UserFriendController', function($scope, $http, $location, $stateParams){
