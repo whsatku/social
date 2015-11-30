@@ -1,11 +1,12 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.dispatch import receiver
+from django.db.models.signals import post_save
 
 from allauth.account.signals import user_signed_up
 from allauth.socialaccount.models import SocialAccount
-from django.db.models.signals import post_save
 
+from stdimage.models import StdImageField
 
 GENDER = (
     ('M', 'Male'),
@@ -23,12 +24,13 @@ class UserProfile(models.Model):
     country = models.CharField(max_length=50, null=True)
     city = models.CharField(max_length=50, null=True)
     created = models.BooleanField(default=False)
-    # picture = StdImageField(null=True, blank=True, upload_to='images/profilepic',
-    #                         variations={
-    #                             'retina': (960, 960, True),
-    #                             'normal': (240, 240, True),
-    #                             'thumbnail': (160, 160, True)}
-    #                         )
+    picture = StdImageField(null=True, blank=True,
+                            upload_to='images/profilepic',
+                            variations={
+                                'retina': (960, 960, True),
+                                'normal': (240, 240, True),
+                                'thumbnail': (160, 160, True)}
+                            )
     # phone = models.CharField(max_length=20, blank=True)
 
 

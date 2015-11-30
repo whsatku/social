@@ -50,6 +50,7 @@ INSTALLED_APPS = (
     'notification',
     'User',
     'search',
+    'stdimage',
 )
 
 MIDDLEWARE_CLASSES = (
