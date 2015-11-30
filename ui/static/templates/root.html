@@ -22,7 +22,7 @@
 				<li><a href="#" class="notification" ng-click="showFriends=!showFriends;showNotification=false"><i class="glyphicon glyphicon-user"></i> <span class="count" ng-show="pendingFriends.length > 0">{{pendingFriends.length}}</span></a></li>
 				<li><a href="#" class="notification" ng-click="showNotification=!showNotification;showFriends=false"><i class="glyphicon glyphicon-globe"></i> <span class="count" ng-bind="notificationCount" ng-if="notificationCount > 0"></span></a></li>
 				<li>
-					<a href="#" ui-sref="root.user.timeline({user: user.id})">{{user.username}} </a>
+					<a href="#" ui-sref="root.user.timeline({user: user.id})">{{user.first_name}} </a>
 				</li>
 				<li uib-dropdown>
 					<a href uib-dropdown-toggle>
@@ -46,7 +46,7 @@
 			<div class="col-md-2 col-md-pull-10 sidebar" ui-view="sidebar">
 				<div class="user row" ui-sref="root.user.timeline({user: user.id})">
 					<a href="#" class="thumbnail" style="width: 50px; background: red; height: 50px;"></a>
-					<a href="#" >{{user.username}}</a>
+					<a href="#" >{{user.first_name}} {{user.last_name}}</a>
 				</div>
 				<ul>
 					<li><a ui-sref="root.newsfeed" ui-sref-active="active">News feed</a></li>

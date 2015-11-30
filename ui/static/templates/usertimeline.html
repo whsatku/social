@@ -36,7 +36,7 @@
 					<a href="#" class="thumbnail" style="width: 40px; background: red; height: 40px;"></a>
 				</div>
 				<div class="col-xs-10">
-					<a href="#" ui-sref="root.user.timeline({user: data.user.id})">{{data.user.username}}</a>
+					<a href="#" ui-sref="root.user.timeline({user: data.user.id})">{{data.user.first_name}} {{data.user.last_name}}</a>
 					<div class="metadata"><a href="#" ui-sref="root.user.timelinepost({postid: data.id})" am-time-ago="data.datetime"></a> &middot; Public</div>
 				</div>
 			</div>
@@ -54,7 +54,7 @@
 							<a href="#" class="thumbnail" style="width: 40px; background: red; height: 40px;"></a>
 						</div>
 						<div class="col-xs-10">
-							<a href="#" ui-sref="root.user.timeline({user: comment.user.id})">{{comment.user.username}}</a>
+							<a href="#" ui-sref="root.user.timeline({user: comment.user.id})">{{comment.user.first_name}} {{comment.user.last_name}}</a>
 							{{comment.text}}
 							<span class="metadata" am-time-ago="comment.datetime"></span>
 						</div>

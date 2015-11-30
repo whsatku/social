@@ -10,6 +10,7 @@ from rest_framework.views import APIView
 from django.contrib.contenttypes.models import ContentType
 from models import *
 from serializers import *
+from newsfeed.serializer import UserSerializer
 from django.http import Http404
 from rest_framework import status
 from friendship.models import Friend
@@ -66,15 +67,18 @@ class UserInformation (APIView):
                 format: pattern for Web APIs.
         Return:
                 response serializer error ????
-        """
+        """ 
         try:
             profile = UserProfile.objects.get(user_id=user_profile_id)
         except UserProfile.DoesNotExist:
             raise Http404
 
-        serializer = FirstUserProfileSerializer(profile, data=request.data)
+        serializer = UserProfileSerializer(profile, data=request.data)
         if serializer.is_valid():
             serializer.save()
+            profile.user.first_name = profile.firstname 
+            profile.user.last_name = profile.lastname
+            profile.user.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
