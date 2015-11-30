@@ -35,3 +35,9 @@ class GroupSerializer(serializers.ModelSerializer):
         extra_kwargs = {
             'category': {'required': False}
         }
+
+class SubGroupSerializer(serializers.ModelSerializer):
+    class Meta:
+        app_label= 'subgroup'
+        model = Group
+        fields = ('id', 'name')

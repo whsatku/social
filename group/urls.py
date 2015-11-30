@@ -15,4 +15,5 @@ urlpatterns = [
     url(r'^create/$', views.CreateGroup.as_view(), name='CreateGroup'),
     url(r'^$', views.GroupList.as_view(), name='GroupList'),
     url(r'^category/all/$', views.AllCategory.as_view(), name='CategoryList'),
+    url(r'^(?P<group_parent_id>[0-9]+)/subgroup$', views.SubGroupViewSet.as_view(), name='SubGroupViewSet'),
 ]

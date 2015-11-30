@@ -11,7 +11,7 @@ app.controller('GroupController', function($scope, $stateParams, Restangular, $h
         $state.go(isMember ? 'root.group.feed' : 'root.group.info', {
             id: id
         });
-    }
+    };
     if($state.is('root.group')){
         redirectSubpage();
     }
@@ -35,7 +35,16 @@ app.controller('GroupController', function($scope, $stateParams, Restangular, $h
         $scope.group = data;
     });
 });
-
+app.controller('CreateSubGroupController', function($scope, $http, $location, $stateParams){
+  $scope.name = "";
+  $scope.createSubGroup = function() {
+    var name={
+      name: $scope.name
+    };
+    $http.post('/api/group/'+ $stateParams.id + '/subgroup',name).success(function(data){
+    });
+  };
+});
 
 app.controller('GroupFeedController', function($scope, $stateParams, $http, $location){
   $scope.newsfeed = [];
@@ -120,7 +129,6 @@ app.controller('GroupInfoController', function($scope, $http, $location){
 
     $http.get('/api/group/'+groupID+'/member/accepted').then(function(data){
         $scope.memberList = data.data;
-        console.log($scope.memberList)
     });
 
 });
@@ -139,13 +147,11 @@ app.controller('GroupManageController', function($scope, $http, $location){
     fetchMember();
 
     function acceptMember(pk){
-        console.log("acceptMember : " + pk);
         $http.put('/api/group/'+groupID+'/member/'+ pk).then(function(data){
             fetchMember();
         });
     }
     function denyMember(pk){
-        console.log("delete : " + pk);
         $http.delete('/api/group/'+groupID+'/member/'+ pk).then(function(data){
             fetchMember();
         });
@@ -161,8 +167,8 @@ app.controller('GroupManageController', function($scope, $http, $location){
     $scope.editInfo = function(){
         $http.put('/api/group/'+groupID+'/edit/',$scope.group).success(function(data){
         });
-    }
-})
+    };
+});
 
 
 app.controller('GroupCategoryController', function($scope, $http, $stateParams){
@@ -225,7 +231,7 @@ app.controller('CreateGroupController', function($scope, $state, $http, $statePa
             });
         });
 
-    }
+    };
 
 });
 
