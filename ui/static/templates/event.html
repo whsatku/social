@@ -1,0 +1,48 @@
+<div class="cover">
+	<div class="cover-in">
+		<div class="pull-right toolbar">
+			<div class="btn-group" uib-dropdown>
+				<a class="btn btn-default" uib-dropdown-toggle="">Going <span class="caret"></span></a>
+				<ul class="uib-dropdown-menu" role="menu">
+					<li><a href="#">Going</a></li>
+					<li><a href="#">Maybe</a></li>
+					<li><a href="#">Decline</a></li>
+				</ul>
+			</div>
+		</div>
+		<h3>Example event</h3>
+		<div class="eventdate"><i class="glyphicon glyphicon-time"></i> 12 Dec 2015 9.00am - 7.00pm</div>
+	</div>
+</div>
+<div class="row event">
+	<div class="col-md-9">
+		Event news feed
+	</div>
+	<div class="col-md-3">
+		<p style="margin-top: 10px;">
+			<i class="glyphicon glyphicon-time"></i> 12 Dec 2015 9.00am - 7.00pm
+		</p>
+		<p>Event description text</p>
+		<h4>Created by</h4>
+		<a ng-href="{{member.userUrl}}" class="thumbnail" style="width: 40px; background: url('{{member.imgUrl}}'); height: 40px; background-size: cover;"></a>
+		<h4>Attending</h4>
+		<ul class="list-inline memberlist">
+			<li ng-repeat="member in [1,2,3]">
+				<a ng-href="{{member.userUrl}}" class="thumbnail" style="width: 40px; background: url('{{member.imgUrl}}'); height: 40px; background-size: cover;"></a>
+			</li>
+			<li>
+				<div class="thumbnail text-center plusmore">+50</div>
+			</li>
+		</ul>
+		<h4>Maybe</h4>
+		<ul class="list-inline memberlist">
+			<li ng-repeat="member in [1,2,3]">
+				<a ng-href="{{member.userUrl}}" class="thumbnail" style="width: 40px; background: url('{{member.imgUrl}}'); height: 40px; background-size: cover;"></a>
+			</li>
+			<li>
+				<div class="thumbnail text-center plusmore">+50</div>
+			</li>
+		</ul>
+		<div class="metadata"><strong>47</strong> declined</div>
+	</div>
+</div>

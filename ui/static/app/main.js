@@ -71,6 +71,10 @@ app.config(function($stateProvider, $urlRouterProvider) {
             templateUrl: 'templates/groupmanage.html',
             controller: 'GroupManageController'
         })
+        .state('root.group.createsubgroup', {
+            url: '/subgroup',
+            templateUrl: 'templates/createsubgroup.html'
+        })
         .state('root.lfg', {
             url: '/groups/browse',
             templateUrl: 'templates/groupbrowser.html',
@@ -105,6 +109,18 @@ app.config(function($stateProvider, $urlRouterProvider) {
         .state('root.user.edit', {
             url: '/edit',
             templateUrl: 'templates/useredit.html'
+        })
+        .state('root.event', {
+            url: '/events/{event:int}',
+            templateUrl: 'templates/event.html'
+        })
+        .state('root.eventcreate', {
+            url: '/events/create',
+            templateUrl: 'templates/eventcreate.html'
+        })
+        .state('root.eventbrowse', {
+            url: '/events/browse',
+            templateUrl: 'templates/eventbrowse.html'
         })
         .state('login.firstlogin', {
             url: '/firstlogin',
