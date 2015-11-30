@@ -3,29 +3,29 @@
 		<h3 class="panel-title">Edit profile</h3>
 	</div>
 	<div class="panel-body">
-		<form action="" class="form form-horizontal">
+		<form action="" class="form form-horizontal" ng-submit="saveInfo()">
 			<div class="form-group">
 				<label for="firstname" class="col-sm-3 control-label">First Name</label>
 				<div class="col-sm-9">
-					<input type="text" class="form-control" id="firstname" required>
+					<input type="text" class="form-control" id="firstname" required ng-model = "userprofile.firstname">
 				</div>
 			</div>
 			<div class="form-group">
 				<label for="lastname" class="col-sm-3 control-label">Last Name</label>
 				<div class="col-sm-9">
-					<input type="text" class="form-control" id="lastname" required>
+					<input type="text" class="form-control" id="lastname" required ng-model = "userprofile.lastname">
 				</div>
 			</div>
 			<div class="form-group">
 				<label for="birthday" class="col-sm-3 control-label">Birthday</label>
 				<div class="col-sm-9">
-					<input type="date" class="form-control" id="birthday">
+					<input type="date" class="form-control" id="birthday" ng-model = "userprofile.birthday" disabled>
 				</div>
 			</div>
 			<div class="form-group">
 				<label for="gender" class="col-sm-3 control-label">Gender</label>
 				<div class="col-sm-9">
-					<select class="form-control" name="gender">
+					<select class="form-control" name="gender" ng-model = "userprofile.gender">
 						<option value selected>--------</option>
 						<option value="M">Male</option>
 						<option value="F">Female</option>
@@ -35,25 +35,25 @@
 			<div class="form-group">
 				<label for="faculty" class="col-sm-3 control-label">Faculty</label>
 				<div class="col-sm-9">
-					<input type="text" class="form-control" id="faculty">
+					<input type="text" class="form-control" id="faculty" ng-model = "userprofile.faculty">
 				</div>
 			</div>
 			<div class="form-group">
 				<label for="major" class="col-sm-3 control-label">Major</label>
 				<div class="col-sm-9">
-					<input type="text" class="form-control" id="major">
+					<input type="text" class="form-control" id="major" ng-model = "userprofile.major">
 				</div>
 			</div>
 			<div class="form-group">
 				<label for="country" class="col-sm-3 control-label">Country</label>
 				<div class="col-sm-9">
-					<input type="text" class="form-control" id="country">
+					<input type="text" class="form-control" id="country" ng-model = "userprofile.country">
 				</div>
 			</div>
 			<div class="form-group">
 				<label for="city" class="col-sm-3 control-label">City</label>
 				<div class="col-sm-9">
-					<input type="text" class="form-control" id="city">
+					<input type="text" class="form-control" id="city" ng-model = "userprofile.city">
 				</div>
 			</div>
 			<div class="form-group">

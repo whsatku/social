@@ -43,6 +43,20 @@ app.controller('UserProfileInfoController', function($scope, $http, $location, $
 
 });
 
+  app.controller('EditUserController', function($scope, $http, $window){
+
+    var userId;
+    $http.get('/api/auth/check').success(function(data){
+      userId = data.id
+    });
+
+    $scope.saveInfo = function(){
+      $http.put('/api/user/'+userId+'/userInfo/',$scope.userprofile).success(function(data){
+            $window.location.reload();
+          });
+    }
+  });
+
 app.controller('UserFriendController', function($scope, $http, $location, $stateParams){
     var userID = $stateParams.user;
     $http.get('/api/user/friends/' + userID).success(function(data){

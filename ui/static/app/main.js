@@ -113,7 +113,8 @@ app.config(function($stateProvider, $urlRouterProvider) {
         })
         .state('root.user.edit', {
             url: '/edit',
-            templateUrl: 'templates/useredit.html'
+            templateUrl: 'templates/useredit.html',
+            controller: 'EditUserController'
         })
         .state('root.event', {
             url: '/events/{event:int}',
