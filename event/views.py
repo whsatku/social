@@ -63,6 +63,8 @@ class EventViewSet(APIView):
 
     def get(self, request, id=None, format=None):
         event = Event.objects.all()
+        for e in event:
+            e.member_count = len(EventMember.objects.filter(event=e))
         response = self.serializer_class(event, many=True)
 
         return Response(response.data)
@@ -110,3 +112,18 @@ class EventInformationViewDetail(APIView):
 
         response = self.serializer_class(event_object)
         return Response(response.data)
+
+
+class EventMemberViewSet(ListCreateAPIView):
+
+    serializer_class = EventMemberSerializer
+
+    def get_event_id(self):
+        try:
+            return int(self.kwargs['event_id'])
+        except ValueError:
+            return ValidationError('event id cannot be parsed')
+
+    def get_queryset(self):
+        this_event = Event.objects.get(id=self.get_event_id)
+        return EventMember.objects.filter(event=this_event)

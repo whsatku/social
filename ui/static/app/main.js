@@ -98,7 +98,8 @@ app.config(function($stateProvider, $urlRouterProvider) {
         })
         .state('root.eventbrowse', {
         	url: '/event/browse',
-        	templateUrl: 'templates/eventbrowse.html'
+        	templateUrl: 'templates/eventbrowse.html',
+            controller: 'EventBrowseController'
         })
         .state('root.user', {
             url: '/{user:int}',
@@ -150,7 +151,6 @@ app.controller('MainController', function($rootScope, user, $http, $uibModal, $s
     });
     $http.get('/api/event/all').success(function(data){
         $rootScope.event_list = data;
-        console.log($rootScope.event_list)
     });
 
     $rootScope.logout = function(){

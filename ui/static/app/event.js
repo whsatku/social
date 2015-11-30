@@ -56,4 +56,27 @@ app.controller('EventController', function($scope, $http, $location, $uibModal){
     };
 });
 
+app.controller('EventBrowseController', function($scope, $http){
+    var temp;
+    var events_without_first = new Array();
+
+    function shuffle(o){
+    for(var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
+        return o;
+    }
+
+    $http.get('/api/event/all').success(function(data){
+        console.log(data);
+        shuffle(data);
+        $scope.all_event = data;
+        $scope.first_event = data[0];
+        temp = data;
+        for (i=0; i<temp.length; i++){
+            events_without_first.push(temp[i]);
+        }
+        events_without_first.shift();
+        $scope.events = events_without_first;
+    });
+});
+
 })();
