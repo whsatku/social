@@ -152,7 +152,7 @@ class UserWallDetail(APIView):
     serializer_class = PostSerializer
 
     def get(self, request, id):
-        post = Post.objects.filter(user=User.objects.get(id=id),  target_type=ContentType.objects.get(id=4)) | Post.objects.filter(target_id=id , target_type=ContentType.objects.get(id=4))
+        post = (Post.objects.filter(user=User.objects.get(id=id),  target_type=ContentType.objects.get(id=4)) | Post.objects.filter(target_id=id , target_type=ContentType.objects.get(id=4))).order_by('-datetime')
         response = self.serializer_class(post, many=True)
         return Response(response.data)
 
