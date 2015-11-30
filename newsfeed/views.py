@@ -148,6 +148,15 @@ class PostComment(APIView):
         return Response(response.data)
 
 
+class UserWallDetail(APIView):
+    serializer_class = PostSerializer
+
+    def get(self, request, id):
+        post = Post.objects.filter(user=User.objects.get(id=id)) | Post.objects.filter(target_id=id , target_type=ContentType.objects.get(id=4))
+        response = self.serializer_class(post, many=True)
+        return Response(response.data)
+
+
 def define_receiver(post_id):
     rec = set()
     for i in Comment.objects.filter(post=post_id):
