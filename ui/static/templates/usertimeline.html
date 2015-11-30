@@ -19,11 +19,11 @@
 			  </div>
 			<div class="panel-body">
 				<ul class="list-inline memberlist">
-					<li ng-repeat="member in [1,2,3,4,5,6,7,8,9,10,11,12,13,14]">
-						<a href="#" ng-href="{{member.userUrl}}" class="thumbnail" style="width: 40px; background: red; height: 40px; background-size: cover;"></a>
+					<li ng-repeat="member in members">
+						<a href="#" ui-sref="root.user.timeline({user: member.user.id})" class="thumbnail" style="width: 40px; background: red; height: 40px; background-size: cover;"></a>
 					</li>
 					<li>
-						<a href="#" class="thumbnail text-center plusmore" ui-sref="root.user.friends()">+50</a>
+						<a href="#" class="thumbnail text-center plusmore" ui-sref="root.user.friends()">+{{moreFriendsCount}}</a>
 					</li>
 				</ul>
 			</div>

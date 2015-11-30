@@ -17,6 +17,18 @@ app.controller('UserProfileInfoController', function($scope, $http, $location, $
       $scope.userfeed = data;
     });
 
+    $http.get('/api/user/friends/' + userID).success(function (data) {
+      $scope.members = [];
+      for(i=0 ; i<14 ; i++) {
+        var randomIndex = Math.floor(Math.random()*data.length);
+        $scope.members.push(data.splice(randomIndex, 1)[0]);
+        if(data.length <= 0) {
+          break;
+        }
+      }
+      $scope.moreFriendsCount = data.length;
+    });
+
 });
 
 app.controller('UserFriendController', function($scope, $http, $location, $stateParams){
