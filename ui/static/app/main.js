@@ -101,6 +101,11 @@ app.config(function($stateProvider, $urlRouterProvider) {
             templateUrl: 'templates/usertimeline.html',
             controller: 'UserProfileInfoController'
         })
+        .state('root.user.timelinepost', {
+            url: '/post/{postid:int}',
+            templateUrl: 'templates/usertimeline.html',
+            controller: 'UserProfileInfoController'
+        })
         .state('root.user.friends', {
             url: '/friends',
             templateUrl: 'templates/userfriends.html',

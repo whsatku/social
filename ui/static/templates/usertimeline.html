@@ -36,8 +36,8 @@
 					<a href="#" class="thumbnail" style="width: 40px; background: red; height: 40px;"></a>
 				</div>
 				<div class="col-xs-10">
-					<a href="#">{{data.user.username}}</a>
-					<div class="metadata"><a href="#" ui-sref="root.nfpost({id: data.id})" am-time-ago="data.datetime"></a> &middot; Public</div>
+					<a href="#" ui-sref="root.user.timeline({user: data.user.id})">{{data.user.username}}</a>
+					<div class="metadata"><a href="#" ui-sref="root.user.timelinepost({postid: data.id})" am-time-ago="data.datetime"></a> &middot; Public</div>
 				</div>
 			</div>
 			<div class="message">
@@ -54,7 +54,7 @@
 							<a href="#" class="thumbnail" style="width: 40px; background: red; height: 40px;"></a>
 						</div>
 						<div class="col-xs-10">
-							<a href="#">{{comment.user.username}}</a>
+							<a href="#" ui-sref="root.user.timeline({user: comment.user.id})">{{comment.user.username}}</a>
 							{{comment.text}}
 							<span class="metadata" am-time-ago="comment.datetime"></span>
 						</div>

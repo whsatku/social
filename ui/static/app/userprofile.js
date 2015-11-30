@@ -13,9 +13,20 @@ app.controller('UserProfileInfoController', function($scope, $http, $location, $
       $scope.userprofile = data;
     });
 
-    $http.get('/api/newsfeed/wall/' + userID).success(function (data) {
-      $scope.userfeed = data;
-    });
+
+    postID = $stateParams.postid;
+
+    if(!postID) {
+      $http.get('/api/newsfeed/wall/' + userID).success(function (data) {
+        $scope.userfeed = data;
+      });
+    }
+    else {
+      $http.get('/api/newsfeed/post/' + postID).success(function(data){
+        $scope.userfeed = [];
+        $scope.userfeed.push(data);
+      });
+    }
 
     $http.get('/api/user/friends/' + userID).success(function (data) {
       $scope.members = [];
@@ -28,6 +39,7 @@ app.controller('UserProfileInfoController', function($scope, $http, $location, $
       }
       $scope.moreFriendsCount = data.length;
     });
+
 
 });
 
