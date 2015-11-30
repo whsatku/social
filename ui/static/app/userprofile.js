@@ -2,8 +2,13 @@
 
 var app = angular.module('app.userprofile', []);
 
-app.controller('UserProfileInfoController', function($scope, $http, $location, $stateParams){
+app.controller('UserProfileInfoController', function($scope, $http, $location, $stateParams, $rootScope){
     var userID = $stateParams.user;
+    $scope.allowEdit = false;
+    if(userID == $rootScope.user.id) {
+      $scope.allowEdit = true;
+    }
+
     $http.get('/api/user/'+userID+'/userInfo').success(function(data){
       $scope.userprofile = data;
     });
