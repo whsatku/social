@@ -3,7 +3,7 @@
 		<ul class="nav nav-pills nav-stacked">
 			<li><a href="#" ui-sref="root.group.createsubgroup()"><i class="glyphicon glyphicon-plus"></i> Create subgroup</a></li>
 			<li ui-sref-active="active"><a href="#" ui-sref="root.group.feed()">{{group.name}}</a></li>
-			<li ng-repeat="subgroup in subgroups"><a href="#">{{subgroup.name}}</a></li>\
+			<li ng-repeat="subgroup in subgroups" ng-click="changeSubgroup(subgroup.id)"><a href="#">{{subgroup.name}}</a></li>
 		</ul>
 	</div>
 	<div class="col-sm-10">

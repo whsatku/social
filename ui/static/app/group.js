@@ -90,6 +90,11 @@ app.controller('GroupFeedController', function($scope, $stateParams, $http, $loc
       });
     }
   };
+  $scope.changeSubgroup = function(id){
+    console.log(groupID);
+    groupID = id;
+    console.log(groupID);
+  };
 
 });
 
