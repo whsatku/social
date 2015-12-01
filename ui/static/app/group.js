@@ -70,6 +70,11 @@ app.controller('GroupFeedController', function($scope, $stateParams, $http, $loc
     });
   }
 
+  $http.get('/api/group/'+ $stateParams.id + '/subgroup').success(function(data){
+    console.log(data);
+    $scope.subgroups = data;
+  });
+
   $scope.postStatus = function() {
     postData = {
       text : $scope.nftext,
