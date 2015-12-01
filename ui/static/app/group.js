@@ -35,13 +35,18 @@ app.controller('GroupController', function($scope, $stateParams, Restangular, $h
         $scope.group = data;
     });
 });
-app.controller('CreateSubGroupController', function($scope, $http, $location, $stateParams){
+app.controller('CreateSubGroupController', function($scope, $http, $location, $stateParams, $state){
   $scope.name = "";
   $scope.createSubGroup = function() {
     var name={
       name: $scope.name
     };
     $http.post('/api/group/'+ $stateParams.id + '/subgroup',name).success(function(data){
+      $state.go('root.group.feed', {
+          id: $stateParams.id
+      }, {
+          reload: true
+      });
     });
   };
 });
