@@ -55,7 +55,14 @@ app.controller('GroupFeedController', function($scope, $stateParams, $http, $loc
   $scope.newsfeed = [];
   $scope.nftext = "";
   postID = $stateParams.postid;
-  var groupID = $location.path().split('/')[2];
+  var groupID;
+  if($stateParams.sub) {
+    var groupID = $stateParams.sub;
+  }
+  else {
+    groupID = $location.path().split('/')[2];
+  }
+
 
   if(!postID) {
     $scope.allowPost = true;
@@ -89,11 +96,6 @@ app.controller('GroupFeedController', function($scope, $stateParams, $http, $loc
           console.log(xhr.data);
       });
     }
-  };
-  $scope.changeSubgroup = function(id){
-    console.log(groupID);
-    groupID = id;
-    console.log(groupID);
   };
 
 });

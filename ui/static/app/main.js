@@ -57,7 +57,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
             controller: 'GroupInfoController'
         })
         .state('root.group.feed', {
-            url: '/feed',
+            url: '/feed?sub',
             templateUrl: 'templates/groupfeed.html',
             controller: 'GroupFeedController'
         })
