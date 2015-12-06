@@ -45,14 +45,36 @@ app.controller('UserProfileInfoController', function($scope, $http, $location, $
 
   app.controller('EditUserController', function($scope, $http, $window){
 
+
     var userId;
     $http.get('/api/auth/check').success(function(data){
       userId = data.id
     });
 
     $scope.saveInfo = function(){
-      $http.put('/api/user/'+userId+'/userInfo/',$scope.userprofile).success(function(data){
+      var firstname = $scope.userprofile.firstname;
+      var lastname = $scope.userprofile.lastname;
+      var birthday = moment($scope.userprofile.birthday);
+      var gender = $scope.userprofile.gender;
+      var faculty = $scope.userprofile.faculty;
+      var major = $scope.userprofile.major;
+      var country = $scope.userprofile.country;
+      var city = $scope.userprofile.city;
+
+      var edit_profile = {
+        firstname: firstname,
+        lastname: lastname,
+        birthday: birthday.toISOString(),
+        gender: gender,
+        faculty: faculty,
+        major: major,
+        country: country,
+        city: city
+      }
+
+      $http.put('/api/user/'+userId+'/userInfo/',edit_profile).success(function(data){
             $window.location.reload();
+            console.log(data.birthday);
           });
     }
   });
