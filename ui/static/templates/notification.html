@@ -6,7 +6,7 @@
 	<!--
 		ADMIN NOTI!
 	-->
-	<div class="row item-outer" ui-sref="root" ng-repeat-start="data in notifications" ng-if="data.target_type == -1" ng-click="readNotificationId(data.id)">
+	<div class="row item-outer" ui-sref="root" ng-repeat-start="data in notifications" ng-if="data.target_type == -1" ng-click="readNotification(data)">
 		<div class="item" ng-class="{'new':!data.read}">
 			<div class="col-xs-2">
 				<a href="#" class="thumbnail" style="width: 40px; background: red; height: 40px;"></a>
@@ -22,7 +22,7 @@
 	<!--
 		WALL!
 	-->
-	<div class="row item-outer" ui-sref="root.nfpost({id: data.link_item.id})" ng-if="data.target_type == 4 && data.target_id == null" ng-click="readNotificationId(data.id)">
+	<div class="row item-outer" ui-sref="root.nfpost({id: data.link_item.id})" ng-if="data.target_type == 4 && data.target_id == null" ng-click="readNotification(data)">
 		<div class="item" ng-class="{'new':!data.read}">
 			<div class="col-xs-2">
 				<a href="#" class="thumbnail" style="width: 40px; background: red; height: 40px;"></a>
@@ -38,7 +38,7 @@
 	<!--
 		COMMENT!
 	-->
-	<div class="row item-outer" ui-sref="root.nfpost({id: data.target_id})" ng-if="data.target_type == 4 && data.target_id != null" ng-click="readNotificationId(data.id)">
+	<div class="row item-outer" ui-sref="root.nfpost({id: data.target_id})" ng-if="data.target_type == 4 && data.target_id != null" ng-click="readNotification(data)">
 		<div class="item" ng-class="{'new':!data.read}">
 			<div class="col-xs-2">
 				<a href="#" class="thumbnail" style="width: 40px; background: red; height: 40px;"></a>
@@ -58,7 +58,7 @@
 	<!--
 		EVENT!
 	-->
-	<div class="row item-outer" ui-sref="root" ng-if="data.target_type == 'event' " ng-click="readNotificationId(data.id)">
+	<div class="row item-outer" ui-sref="root" ng-if="data.target_type == 'event' " ng-click="readNotification(data)">
 		<div class="item" ng-class="{'new':!data.read}">
 			<div class="col-xs-2">
 				<a href="#" class="thumbnail" style="width: 40px; background: red; height: 40px;"></a>
@@ -74,7 +74,7 @@
 	<!--
 		Group!
 	-->
-	<div class="row item-outer" ui-sref="root.group.post({id: data.target_id, postid: data.link_item.id})" ng-repeat-end ng-if="data.target_type == 15 && data.link_type.model == 'post' " ng-click="readNotificationId(data.id)">
+	<div class="row item-outer" ui-sref="root.group.post({id: data.target_id, postid: data.link_item.id})" ng-repeat-end ng-if="data.target_type == 15 && data.link_type.model == 'post' " ng-click="readNotification(data)">
 		<div class="item" ng-class="{'new':!data.read}">
 			<div class="col-xs-2">
 				<a href="#" class="thumbnail" style="width: 40px; background: red; height: 40px;"></a>
