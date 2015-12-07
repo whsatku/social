@@ -51,9 +51,11 @@ app.controller('CreateSubGroupController', function($scope, $http, $location, $s
   };
 });
 
-app.controller('GroupFeedController', function($scope, $stateParams, $http, $location){
+app.controller('GroupFeedController', function($scope, $stateParams, $http, $location, $state){
   $scope.newsfeed = [];
   $scope.nftext = "";
+  $scope.allowSubmission = false;
+  $scope.pin = false;
   postID = $stateParams.postid;
   var groupID;
   if($stateParams.sub) {
@@ -83,8 +85,10 @@ app.controller('GroupFeedController', function($scope, $stateParams, $http, $loc
   });
 
   $scope.postStatus = function() {
-    postData = {
+    var postData = {
       text : $scope.nftext,
+      allow_submission: $scope.allowSubmission,
+      pinned: $scope.pin
     };
 
     if (postData.text.length > 0) {
@@ -97,6 +101,12 @@ app.controller('GroupFeedController', function($scope, $stateParams, $http, $loc
       });
     }
   };
+
+  $scope.unpin = function(post){
+    $http.post('/api/group/' + groupID + '/post/' + post.id + '/unpin').then(function(response){
+      Object.assign(post, response.data);
+    });
+  }
 
 });
 
@@ -225,6 +235,7 @@ app.controller('CreateGroupController', function($scope, $state, $http, $statePa
 
     $scope.gname = "";
     $scope.gdescription = "";
+    $scope.privacy = 0;
     $scope.gtype = 0;
 
     $scope.createGroup = function(){
@@ -234,7 +245,8 @@ app.controller('CreateGroupController', function($scope, $state, $http, $statePa
             description: $scope.gdescription,
             short_description: 'default',
             activities: 'default',
-            type: $scope.gtype,
+            type: $scope.privacy,
+            gtype: $scope.gtype,
 
 
         };

@@ -9,18 +9,24 @@
 	<div class="col-sm-10">
 		<form class="nfpost well" ng-show="allowPost">
 			<textarea rows="4" ng-model="nftext" class="form-control" placeholder="What's on your mind?" autofocus></textarea>
+			<div class="checkbox" ng-if="group.gtype == 1">
+				<label><input type="checkbox" ng-model="$parent.pin"> Pin this post</label>
+			</div>
+			<div class="checkbox" ng-if="group.gtype == 1">
+				<label><input type="checkbox" ng-model="$parent.allowSubmission"> Allow homework file upload</label>
+			</div>
 			<input type="submit" ng-click="postStatus()" class="btn btn-primary pull-right" value="Share">
 			<div class="clearfix"></div>
 		</form>
 		<div class="newsfeed">
-			<div class="post" ng-repeat="data in newsfeed track by data.id">
+			<div class="post" ng-repeat="data in newsfeed track by data.id" ng-class="{pinned: data.pinned}">
 				<div class="user row">
 					<div class="col-xs-1 avatar">
 						<a href="#" class="thumbnail" style="width: 40px; background: red; height: 40px;"></a>
 					</div>
 					<div class="col-xs-11">
 						<a href="#" ui-sref="root.user.timeline({user: data.user.id})">{{data.user.first_name}} {{data.user.last_name}}</a>
-						<div class="metadata"><a href="#" ui-sref="root.group.post({postid: data.id})"><span am-time-ago="data.datetime"></span></a> &middot; Public</div>
+						<div class="metadata"><a href="#" ui-sref="root.group.post({postid: data.id})"><span am-time-ago="data.datetime"></span></a><span ng-if="data.pinned"> &middot; <a href="" ng-click="unpin(data)" ng-init="text='Pinned'" ng-mouseover="text='Unpin'" ng-mouseout="text='Pinned'" ng-bind="text">Pinned</a></span></div>
 					</div>
 				</div>
 				<div class="message">

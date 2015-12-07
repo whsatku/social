@@ -13,6 +13,9 @@ class GroupCategory(models.Model):
 
 class Group(models.Model):
     name = models.CharField(max_length=25)
+    # type
+    gtype = models.IntegerField(default=0)
+    # privacy
     type = models.IntegerField()
     category = models.ForeignKey(GroupCategory, null=True)
     description = models.CharField(max_length=200)

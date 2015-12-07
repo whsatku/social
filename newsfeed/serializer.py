@@ -31,7 +31,7 @@ class GroupPostSerializer(ModelSerializer):
     class Meta:
         model = Post
         fields = ('id', 'user', 'text', 'datetime',
-                  'target_type', 'target_id')
+                  'target_type', 'target_id', 'pinned', 'allow_submission')
 
 
 class CommentSerializer(ModelSerializer):

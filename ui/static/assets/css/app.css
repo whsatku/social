@@ -99,6 +99,9 @@ html,body,#root{
 	background: #eee;
 	margin-bottom: -5px;
 }
+.pinned{
+	background: #FAFAB4;
+}
 
 /* groups */
 .cover{

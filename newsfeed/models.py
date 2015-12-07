@@ -12,6 +12,8 @@ class Post(models.Model):
     target_type = models.ForeignKey(ContentType)
     target_id = models.PositiveIntegerField(null=True)
     target_object = GenericForeignKey('target_type', 'target_id')
+    allow_submission = models.BooleanField(default=False)
+    pinned = models.BooleanField(default=False)
 
     def FORMAT(self):
         return naturaltime(self.datetime)
