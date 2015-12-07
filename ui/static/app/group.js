@@ -68,6 +68,7 @@ app.controller('GroupFeedController', function($scope, $stateParams, $http, $loc
   if(!postID) {
     $scope.allowPost = true;
     $scope.hasMoreStory = true;
+    var newestID = 1;
     $http.get('/api/group/'+groupID+'/post&limit=' + postLimit ).success(function(data){
       $scope.newsfeed = data;
       if(data.length < postLimit) {
@@ -75,7 +76,10 @@ app.controller('GroupFeedController', function($scope, $stateParams, $http, $loc
       }
       // POLLING
       (function tick() {
-        $http.get('/api/group/' + groupID +'/post/new/' + $scope.newsfeed[0].id).success(function(data){
+        if($scope.newsfeed.length > 0) {
+          newestID = $scope.newsfeed[0].id;
+        }
+        $http.get('/api/group/' + groupID +'/post/new/' + newestID).success(function(data){
           if(data.length > 0 ){
             $scope.newstory = true;
             $timeout(function() { $scope.newstory = false; }, 3000);

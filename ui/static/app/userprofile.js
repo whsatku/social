@@ -33,6 +33,7 @@ app.controller('UserProfileInfoController', function($scope, $http, $location, $
     if(!postID) {
       $scope.allowPost = true;
       $scope.hasMoreStory = true;
+      var newestID = 1;
       $http.get('/api/newsfeed/wall/' + userID + '&limit=' + postLimit ).success(function (data) {
         $scope.userfeed = data;
         if(data.length < postLimit) {
@@ -40,7 +41,10 @@ app.controller('UserProfileInfoController', function($scope, $http, $location, $
         }
         // POLLING
         (function tick() {
-          $http.get('/api/newsfeed/wall/' + userID + '/new/' + $scope.userfeed[0].id).success(function(data){
+          if($scope.userfeed.length > 0) {
+            newestID = $scope.userfeed[0].id;
+          }
+          $http.get('/api/newsfeed/wall/' + userID + '/new/' + newestID).success(function(data){
             if(data.length > 0 ){
               $scope.newstory = true;
               $timeout(function() { $scope.newstory = false; }, 3000);

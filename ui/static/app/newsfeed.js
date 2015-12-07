@@ -27,6 +27,7 @@ app.controller('NewsfeedController', function($scope, $stateParams, $http, $time
   if(!postID) {
     $scope.allowPost = true;
     $scope.hasMoreStory = true;
+    var newestID = 1;
     $http.get('/api/newsfeed/post&limit=' + postLimit ).success(function(data){
       $scope.newsfeed = data;
       if(data.length < postLimit) {
@@ -34,7 +35,10 @@ app.controller('NewsfeedController', function($scope, $stateParams, $http, $time
       }
       // POLLING
       (function tick() {
-        $http.get('/api/newsfeed/new/' + $scope.newsfeed[0].id).success(function(data){
+        if($scope.newsfeed.length > 0) {
+          newestID = $scope.newsfeed[0].id;
+        }
+        $http.get('/api/newsfeed/new/' + newestID).success(function(data){
           if(data.length > 0 ){
             $scope.newstory = true;
             $timeout(function() { $scope.newstory = false; }, 3000);
