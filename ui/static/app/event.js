@@ -32,10 +32,10 @@ app.controller('CreateEventController', function($scope, $state, $http, $statePa
 });
 
 app.controller('EventController', function($scope, $http, $location, $uibModal){
+    
     var eventID = $location.path().split('/')[2];
     $http.get('/api/event/'+eventID).success(function(data){
         $scope.event = data;
-        console.log($scope.event)
     });
 
     $scope.invite = function(){
@@ -51,9 +51,18 @@ app.controller('EventController', function($scope, $http, $location, $uibModal){
             }
         });
         modal.result.then(function(data){
-            console.log(data);
         });
     };
+
+    $http.get('/api/event/'+eventID+'/member').success(function(data){
+        $scope.members = data;
+
+        $scope.member_count = data.length;
+        console.log($scope.member_count);
+
+        var ad = data.filter( function(member){return (member.role==1);} );
+        $scope.admin = ad[0];
+    });
 });
 
 app.controller('EventBrowseController', function($scope, $http){

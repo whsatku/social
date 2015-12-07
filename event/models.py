@@ -20,5 +20,8 @@ class EventMember(models.Model):
     user = models.ForeignKey(User, default=0)
     role = models.IntegerField()
 
+    def create(self, new_event, new_user):
+        self.create(new_event, new_user, 1)
+
     def __unicode__(self):
         return "event member : {}".format(self.user.username)
