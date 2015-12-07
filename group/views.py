@@ -316,7 +316,6 @@ class GroupPostView(APIView):
 
     """
     serializer_class = GroupPostSerializer
-    group_model_id = ContentType.objects.get(model='group', app_label='group').id
 
     def get(self, request, group_id, limit=20, format=None):
         """Get a post from database.
@@ -345,7 +344,7 @@ class GroupPostView(APIView):
         if serializer.is_valid():
             # if User.objects.get(id=self.request.user.id) in GroupMember.objects.filter(group_id=group_id):
                 if self.request.user.is_authenticated():
-                    request.data['target_type'] = group_model_id
+                    request.data['target_type'] = ContentType.objects.get(model='group', app_label='group').id
                     request.data['target_id'] = group_id
                     serializer.save(user=User.objects.get(id=self.request.user.id), target_id=group_id, target_type=ContentType.objects.get(model='group',app_label='group'))
                     data = {}
