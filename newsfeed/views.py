@@ -18,7 +18,7 @@ class PostViewList(APIView):
     serializer_class = PostSerializer
 
     def get(self, request, id=None, format=None):
-        post = Post.objects.order_by('-datetime')
+        post = Post.objects.order_by('-datetime')[:20]
         response = self.serializer_class(post, many=True)
 
         return Response(response.data)
@@ -152,7 +152,7 @@ class UserWallDetail(APIView):
     serializer_class = PostSerializer
 
     def get(self, request, id):
-        post = (Post.objects.filter(user=User.objects.get(id=id),  target_type=ContentType.objects.get(id=4)) | Post.objects.filter(target_id=id , target_type=ContentType.objects.get(id=4))).order_by('-datetime')
+        post = (Post.objects.filter(user=User.objects.get(id=id), target_type=ContentType.objects.get(id=4)) | Post.objects.filter(target_id=id , target_type=ContentType.objects.get(id=4))).order_by('-datetime')
         response = self.serializer_class(post, many=True)
         return Response(response.data)
 
@@ -163,3 +163,16 @@ def define_receiver(post_id):
         rec.add(i.user.id)
     rec.add(Post.objects.get(id=post_id).user.id)
     return User.objects.filter(id__in=rec)
+
+
+class PostPagination(APIView):
+    serializer_class = PostSerializer
+
+    def get(self, request, action, id):
+
+        if action == 'more':
+            post = Post.objects.filter(id__lt=id).order_by('-datetime')[:20]
+        if action == 'new':
+            post = Post.objects.filter(id__gt=id).order_by('-datetime')
+        response = self.serializer_class(post, many=True)
+        return Response(response.data)
