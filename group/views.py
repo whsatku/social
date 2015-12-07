@@ -326,7 +326,7 @@ class GroupPostView(APIView):
         Return:
                 post from querying group.
         """
-        post = Post.objects.filter(target_id=group_id, target_type=ContentType.objects.get(model='group',app_label='group')).order_by('-datetime')[:limit]
+        post = Post.objects.filter(target_id=group_id, target_type=ContentType.objects.get(model='group',app_label='group')).order_by('-pinned', '-datetime')[:limit]
         response = self.serializer_class(post, many=True)
         return Response(response.data)
 
@@ -418,20 +418,17 @@ class SubGroupViewSet(APIView):
 
     def post(self, request, group_parent_id, format=None):
         parent_group = self.get_group(group_parent_id)
-        print parent_group
         try:
             sub_group = Group.objects.create(
                 name=request.data.get('name'), type=1, description="Subgroup of"+parent_group.name,
                 short_description="Subgroup of"+parent_group.name, activities="somthing",
-                parent=parent_group
+                parent=parent_group, gtype=parent_group.gtype
             ).save()
-            print sub_group
             return Response(sub_group)
         except  Exception as inst:
             print type(inst)     # the exception instance
             print inst           # __str__ allows args to be printed directly
             raise Http404
-
 
 class GroupPostPegination(APIView):
 
@@ -446,3 +443,16 @@ class GroupPostPegination(APIView):
             post = Post.objects.filter(target_id=group_id, target_type=self.group_model_id).filter(id__gt=post_id).order_by('-datetime')
         response = self.serializer_class(post, many=True)
         return Response(response.data)
+
+class PostUnpin(APIView):
+    serializer_class = GroupPostSerializer
+
+    def post(self, request, group_id, post_id):
+        post = Post.objects.get(id=post_id)
+        if post.target_id != int(group_id):
+            raise Http404
+
+        post.pinned = False
+        post.save()
+
+        return Response(self.serializer_class(post).data)

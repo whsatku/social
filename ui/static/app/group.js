@@ -1,6 +1,6 @@
 (function(){
 
-var app = angular.module('app.group', []);
+var app = angular.module('app.group', ['ngFileUpload']);
 
 app.controller('GroupController', function($scope, $stateParams, Restangular, $http, $location, $window, $state, $rootScope){
     var redirectSubpage = function(id){
@@ -51,9 +51,11 @@ app.controller('CreateSubGroupController', function($scope, $http, $location, $s
   };
 });
 
-app.controller('GroupFeedController', function($scope, $stateParams, $http, $location){
+app.controller('GroupFeedController', function($scope, $stateParams, $http, $location, $state){
   $scope.newsfeed = [];
   $scope.nftext = "";
+  $scope.allowSubmission = false;
+  $scope.pin = false;
   postID = $stateParams.postid;
   var groupID;
   if($stateParams.sub) {
@@ -83,8 +85,10 @@ app.controller('GroupFeedController', function($scope, $stateParams, $http, $loc
   });
 
   $scope.postStatus = function() {
-    postData = {
+    var postData = {
       text : $scope.nftext,
+      allow_submission: $scope.allowSubmission,
+      pinned: $scope.pin
     };
 
     if (postData.text.length > 0) {
@@ -98,11 +102,20 @@ app.controller('GroupFeedController', function($scope, $stateParams, $http, $loc
     }
   };
 
+  $scope.unpin = function(post){
+    $http.post('/api/group/' + groupID + '/post/' + post.id + '/unpin').then(function(response){
+      Object.assign(post, response.data);
+    });
+  }
+
 });
 
 
 
-app.controller('GroupCommentController', function($rootScope, $scope, $http){
+app.controller('GroupCommentController', function($rootScope, $scope, $http, Upload){
+
+  $scope.comment = '';
+  $scope.file = null;
 
   var loadCommentsByPostId = function(postID) {
     $http.get('/api/newsfeed/post/'+postID+'/comment/').success(function(commentsData){
@@ -113,7 +126,7 @@ app.controller('GroupCommentController', function($rootScope, $scope, $http){
   loadCommentsByPostId($scope.data.id);
 
   $scope.commentPost = function(postData) {
-    commentData = {
+    var commentData = {
       text : $scope.comment,
       post : postData.id,
       user : {
@@ -121,7 +134,28 @@ app.controller('GroupCommentController', function($rootScope, $scope, $http){
       },
     };
 
-    if (commentData.text.length > 0) {
+    if($scope.file){
+      if(commentData.text.length === 0){
+        commentData.text = '_magic_fileupload';
+      }
+      $scope.comments.push(commentData);
+      $scope.comment = "";
+
+      commentData.file = $scope.file;
+
+      $scope.file = null;
+
+      Upload.upload({
+        url: '/api/newsfeed/comment/',
+        data: commentData
+      }).then(function(response){
+        console.log(response);
+        loadCommentsByPostId($scope.data.id);
+      }, function(xhr){
+          alert(xhr.data);
+          console.log(xhr.data);
+      });
+    }else if (commentData.text.length > 0) {
       $scope.comments.push(commentData);
       $scope.comment = "";
       $http.post('/api/newsfeed/comment/', commentData).then(function(response){
@@ -224,6 +258,7 @@ app.controller('CreateGroupController', function($scope, $state, $http, $statePa
 
     $scope.gname = "";
     $scope.gdescription = "";
+    $scope.privacy = 0;
     $scope.gtype = 0;
 
     $scope.createGroup = function(){
@@ -233,7 +268,8 @@ app.controller('CreateGroupController', function($scope, $state, $http, $statePa
             description: $scope.gdescription,
             short_description: 'default',
             activities: 'default',
-            type: $scope.gtype,
+            type: $scope.privacy,
+            gtype: $scope.gtype,
 
 
         };

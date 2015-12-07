@@ -31,7 +31,7 @@ class GroupSerializer(serializers.ModelSerializer):
         model = Group
         fields = ('id', 'name', 'description', 'short_description',
                   'activities', 'type', 'category', 'member_status',
-                  'date', 'member_count', )
+                  'date', 'member_count', 'gtype')
         extra_kwargs = {
             'category': {'required': False}
         }

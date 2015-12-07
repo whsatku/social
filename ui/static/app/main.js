@@ -161,6 +161,7 @@ app.controller('MainController', function($rootScope, user, $http, $uibModal, $s
         return;
     }
     $http.get('/api/user/'+user.id+'/userInfo/').success(function(data) {
+        $rootScope.user.picture = data.picture;
         if(!data.created){
         $state.go('login.firstlogin');
        }

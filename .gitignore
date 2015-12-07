@@ -9,3 +9,4 @@ test/*/report.html
 test/*/output.xml
 test/*/log.html
 selenium-screenshot-*.png
+media

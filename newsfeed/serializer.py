@@ -31,13 +31,14 @@ class GroupPostSerializer(ModelSerializer):
     class Meta:
         model = Post
         fields = ('id', 'user', 'text', 'datetime',
-                  'target_type', 'target_id')
+                  'target_type', 'target_id', 'pinned', 'allow_submission')
 
 
 class CommentSerializer(ModelSerializer):
     user = UserSerializer(read_only=True)
     datetime = serializers.ReadOnlyField()
+    file = serializers.FileField(read_only=True, use_url=True)
 
     class Meta:
         model = Comment
-        fields = ('id', 'post', 'user', 'text', 'datetime')
+        fields = ('id', 'post', 'user', 'text', 'datetime', 'file')
