@@ -19,8 +19,8 @@
 				<button type="submit" class="btn btn-default hide">Search</button>
 			</form>
 			<ul class="nav navbar-nav navbar-right">
-				<li><a href="#" class="notification" ng-click="showFriends=!showFriends;showNotification=false"><i class="glyphicon glyphicon-user"></i> <span class="count" ng-show="pendingFriends.length > 0">{{pendingFriends.length}}</span></a></li>
-				<li><a href="#" class="notification" ng-click="showNotification=!showNotification;showFriends=false"><i class="glyphicon glyphicon-globe"></i> <span class="count" ng-bind="notificationCount" ng-if="notificationCount > 0"></span></a></li>
+				<li data-allow-friend="true"><a href="#" class="notification" ng-click="showFriends=!showFriends"><i class="glyphicon glyphicon-user"></i> <span class="count" ng-show="pendingFriends.length > 0">{{pendingFriends.length}}</span></a></li>
+				<li data-allow-notification="true"><a href="#" class="notification" ng-click="showNotification=!showNotification"><i class="glyphicon glyphicon-globe"></i> <span class="count" ng-bind="notificationCount" ng-if="notificationCount > 0"></span></a></li>
 				<li>
 					<a href="#" ui-sref="root.user.timeline({user: user.id})">{{user.first_name}} </a>
 				</li>
@@ -37,8 +37,8 @@
 		</div>
 	</div>
 </nav>
-<div class="notibox" ng-include="'templates/notification.html'" ng-controller="NotificationController" ng-show="showNotification"></div>
-<div class="notibox" ng-include="'templates/pendingfriends.html'" ng-controller="PendingFriendController" ng-show="showFriends"></div>
+<div class="notibox" ng-include="'templates/notification.html'" ng-controller="NotificationController" ng-show="showNotification" data-allow-notification="true"></div>
+<div class="notibox" ng-include="'templates/pendingfriends.html'" ng-controller="PendingFriendController" ng-show="showFriends" data-allow-friend="true"></div>
 <div ui-view="main">
 	<div class="container" id="rootcontainer">
 		<div class="row">
