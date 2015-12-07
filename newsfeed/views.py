@@ -88,15 +88,15 @@ class CommentViewList(APIView):
         if serializer.is_valid():
             if self.request.user.is_authenticated():
                 post = Post.objects.get(id=request.data['post'])
-                request.data['target_type'] = ContentType.objects.get(model='user')
+                request.data['target_type'] = ContentType.objects.get(model='user').id
                 request.data['target_id'] = request.data['post']
                 serializer.save(user=User.objects.get(id=self.request.user.id))
                 data = {}
-                if post.target_type == ContentType.objects.get(model='comment'):
+                if post.target_type == ContentType.objects.get(model='group',app_label='group'):
                     data['type'] = 'group'
                     data['group_id'] = post.target_id
                     data['group_name'] = Group.objects.get(id=post.target_id).name
-                if post.target_type == ContentType.objects.get(model):
+                if post.target_type == ContentType.objects.get(model='user'):
                     data['type'] = 'user'
                     if post.target_id != None:
                         data['user_id'] = post.target_id
