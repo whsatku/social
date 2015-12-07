@@ -79,6 +79,7 @@ html,body,#root{
 	margin-top: 10px;
 	padding: 5px 0;
 	font-size: 12pt;
+	margin-bottom: 10px;
 }
 .comments{
 	list-style: none;
