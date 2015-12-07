@@ -10,7 +10,7 @@ app.controller('GroupController', function($scope, $stateParams, Restangular, $h
         });
         $state.go(isMember ? 'root.group.feed' : 'root.group.info', {
             id: id
-        });
+        }, {inherit: false});
     };
     if($state.is('root.group')){
         redirectSubpage();
