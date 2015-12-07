@@ -5,8 +5,7 @@ from models import *
 class GroupAdmin(admin.ModelAdmin):
     list_display = (
         'name', 'type', 'category', 'description',
-        'short_description', 'activities', 'logo',
-        'header', 'permisssion')
+        'short_description', 'activities', 'permisssion')
 
 
 class GroupMemberAdmin(admin.ModelAdmin):

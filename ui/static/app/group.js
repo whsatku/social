@@ -11,7 +11,7 @@ app.controller('GroupController', function($scope, $stateParams, Restangular, $h
         $state.go(isMember ? 'root.group.feed' : 'root.group.info', {
             id: id
         });
-    }
+    };
     if($state.is('root.group')){
         redirectSubpage();
     }
@@ -35,13 +35,34 @@ app.controller('GroupController', function($scope, $stateParams, Restangular, $h
         $scope.group = data;
     });
 });
-
+app.controller('CreateSubGroupController', function($scope, $http, $location, $stateParams, $state){
+  $scope.name = "";
+  $scope.createSubGroup = function() {
+    var name={
+      name: $scope.name
+    };
+    $http.post('/api/group/'+ $stateParams.id + '/subgroup',name).success(function(data){
+      $state.go('root.group.feed', {
+          id: $stateParams.id
+      }, {
+          reload: true
+      });
+    });
+  };
+});
 
 app.controller('GroupFeedController', function($scope, $stateParams, $http, $location){
   $scope.newsfeed = [];
   $scope.nftext = "";
   postID = $stateParams.postid;
-  var groupID = $location.path().split('/')[2];
+  var groupID;
+  if($stateParams.sub) {
+    var groupID = $stateParams.sub;
+  }
+  else {
+    groupID = $location.path().split('/')[2];
+  }
+
 
   if(!postID) {
     $scope.allowPost = true;
@@ -55,6 +76,11 @@ app.controller('GroupFeedController', function($scope, $stateParams, $http, $loc
       $scope.newsfeed.push(data);
     });
   }
+
+  $http.get('/api/group/'+ $stateParams.id + '/subgroup').success(function(data){
+    console.log(data);
+    $scope.subgroups = data;
+  });
 
   $scope.postStatus = function() {
     postData = {
@@ -120,7 +146,6 @@ app.controller('GroupInfoController', function($scope, $http, $location){
 
     $http.get('/api/group/'+groupID+'/member/accepted').then(function(data){
         $scope.memberList = data.data;
-        console.log($scope.memberList)
     });
 
 });
@@ -139,13 +164,11 @@ app.controller('GroupManageController', function($scope, $http, $location){
     fetchMember();
 
     function acceptMember(pk){
-        console.log("acceptMember : " + pk);
         $http.put('/api/group/'+groupID+'/member/'+ pk).then(function(data){
             fetchMember();
         });
     }
     function denyMember(pk){
-        console.log("delete : " + pk);
         $http.delete('/api/group/'+groupID+'/member/'+ pk).then(function(data){
             fetchMember();
         });
@@ -161,8 +184,8 @@ app.controller('GroupManageController', function($scope, $http, $location){
     $scope.editInfo = function(){
         $http.put('/api/group/'+groupID+'/edit/',$scope.group).success(function(data){
         });
-    }
-})
+    };
+});
 
 
 app.controller('GroupCategoryController', function($scope, $http, $stateParams){
@@ -225,7 +248,7 @@ app.controller('CreateGroupController', function($scope, $state, $http, $statePa
             });
         });
 
-    }
+    };
 
 });
 
