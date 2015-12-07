@@ -42,7 +42,7 @@ class PostViewList(APIView):
                 notification.post(
                     request,
                     User.objects.all(),
-                    ContentType.objects.get(id=13),
+                    ContentType.objects.get(model='post'),
                     JSONRenderer().render(serializer.data).decode('utf-8'),
                     json_data
                 )
@@ -88,15 +88,15 @@ class CommentViewList(APIView):
         if serializer.is_valid():
             if self.request.user.is_authenticated():
                 post = Post.objects.get(id=request.data['post'])
-                request.data['target_type'] = 4
+                request.data['target_type'] = ContentType.objects.get(model='user')
                 request.data['target_id'] = request.data['post']
                 serializer.save(user=User.objects.get(id=self.request.user.id))
                 data = {}
-                if post.target_type == ContentType.objects.get(id=15):
+                if post.target_type == ContentType.objects.get(model='comment'):
                     data['type'] = 'group'
                     data['group_id'] = post.target_id
                     data['group_name'] = Group.objects.get(id=post.target_id).name
-                if post.target_type == ContentType.objects.get(id=4):
+                if post.target_type == ContentType.objects.get(model):
                     data['type'] = 'user'
                     if post.target_id != None:
                         data['user_id'] = post.target_id
@@ -108,7 +108,7 @@ class CommentViewList(APIView):
                 notification.post(
                     request,
                     define_receiver(request.data['post']),
-                    ContentType.objects.get(id=14),
+                    ContentType.objects.get(model='comment'),
                     JSONRenderer().render(serializer.data).decode('utf-8'),
                     json_data
                 )
@@ -151,8 +151,8 @@ class PostComment(APIView):
 class UserWallDetail(APIView):
     serializer_class = PostSerializer
 
-    def get(self, request, id):
-        post = (Post.objects.filter(user=User.objects.get(id=id), target_type=ContentType.objects.get(id=4)) | Post.objects.filter(target_id=id , target_type=ContentType.objects.get(id=4))).order_by('-datetime')
+    def get(self, request, id, limit=20):
+        post = ((Post.objects.filter(user=User.objects.get(id=id), target_type=ContentType.objects.get(model='user')) | Post.objects.filter(target_id=id , target_type=ContentType.objects.get(model='user'))).order_by('-datetime'))[:limit]
         response = self.serializer_class(post, many=True)
         return Response(response.data)
 
@@ -174,5 +174,18 @@ class PostPagination(APIView):
             post = Post.objects.filter(id__lt=id).order_by('-datetime')[:limit]
         if action == 'new':
             post = Post.objects.filter(id__gt=id).order_by('-datetime')
+        response = self.serializer_class(post, many=True)
+        return Response(response.data)
+
+
+class UserWallPegination(APIView):
+    serializer_class = PostSerializer
+
+    def get(self, request, id, action, post_id, limit=20):
+        if action == 'more':
+            post = (Post.objects.filter(user=User.objects.get(id=id), target_type=ContentType.objects.get(model='user')) | Post.objects.filter(target_id=id , target_type=ContentType.objects.get(model='user'))).filter(id__lt=post_id).order_by('-datetime')[:limit]
+        if action == 'new':
+            post = (Post.objects.filter(user=User.objects.get(id=id), target_type=ContentType.objects.get(model='user')) | Post.objects.filter(target_id=id , target_type=ContentType.objects.get(model='user'))).filter(id__gt=post_id).order_by('-datetime')
+
         response = self.serializer_class(post, many=True)
         return Response(response.data)

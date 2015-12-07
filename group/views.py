@@ -316,9 +316,9 @@ class GroupPostView(APIView):
 
     """
     serializer_class = GroupPostSerializer
-    group_model_id = 15
+    group_model_id = ContentType.objects.get(model='group', app_label='group').id
 
-    def get(self, request, group_id, format=None):
+    def get(self, request, group_id, limit=20, format=None):
         """Get a post from database.
         Args:
                 request: Django Rest Framework request object.
@@ -327,7 +327,7 @@ class GroupPostView(APIView):
         Return:
                 post from querying group.
         """
-        post = Post.objects.filter(target_id=group_id, target_type=self.group_model_id).order_by('-datetime')
+        post = Post.objects.filter(target_id=group_id, target_type=ContentType.objects.get(model='group',app_label='group')).order_by('-datetime')[:limit]
         response = self.serializer_class(post, many=True)
         return Response(response.data)
 
@@ -345,15 +345,15 @@ class GroupPostView(APIView):
         if serializer.is_valid():
             # if User.objects.get(id=self.request.user.id) in GroupMember.objects.filter(group_id=group_id):
                 if self.request.user.is_authenticated():
-                    request.data['target_type'] = 15
+                    request.data['target_type'] = group_model_id
                     request.data['target_id'] = group_id
-                    serializer.save(user=User.objects.get(id=self.request.user.id), target_id=group_id, target_type=ContentType.objects.get(id=self.group_model_id))
+                    serializer.save(user=User.objects.get(id=self.request.user.id), target_id=group_id, target_type=ContentType.objects.get(model='group',app_label='group'))
                     data = {}
                     data['type'] = 'group'
                     data['group_id'] = group_id
                     data['group_name'] = Group.objects.get(id=group_id).name
                     json_data = json.dumps(data)
-                    notification.post(request, User.objects.filter(id__in=GroupMember.objects.values('user').filter(group_id=group_id)), ContentType.objects.get(id=13), JSONRenderer().render(serializer.data), json_data)
+                    notification.post(request, User.objects.filter(id__in=GroupMember.objects.values('user').filter(group_id=group_id)), ContentType.objects.get(model='group',app_label='group'), JSONRenderer().render(serializer.data), json_data)
                     return Response(serializer.data, status=status.HTTP_201_CREATED)
                     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
@@ -432,3 +432,18 @@ class SubGroupViewSet(APIView):
             print type(inst)     # the exception instance
             print inst           # __str__ allows args to be printed directly
             raise Http404
+
+
+class GroupPostPegination(APIView):
+
+    serializer_class = GroupPostSerializer
+    group_model_id = ContentType.objects.get(model='group', app_label='group').id
+
+    def get(self, request, group_id, action, post_id, limit=20, format=None):
+
+        if action == 'more':
+            post = Post.objects.filter(target_id=group_id, target_type=self.group_model_id).filter(id__lt=post_id).order_by('-datetime')[:limit]
+        if action == 'new':
+            post = Post.objects.filter(target_id=group_id, target_type=self.group_model_id).filter(id__gt=post_id).order_by('-datetime')
+        response = self.serializer_class(post, many=True)
+        return Response(response.data)
