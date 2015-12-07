@@ -15,7 +15,7 @@ GENDER = (
 # Create your models here.1
 class UserProfile(models.Model):
     user = models.OneToOneField(User, related_name='profile')
-    firstname = models.CharField(max_length=30, null=True)
+    firstname = models.CharField(max_length=30, null=True, blank=True)
     lastname = models.CharField(max_length=30, null=True)
     birthday = models.DateField(blank=True, null=True)
     gender = models.CharField(max_length=5, choices=GENDER, null=True)

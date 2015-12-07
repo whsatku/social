@@ -9,7 +9,8 @@ var app = angular.module('app.main', [
     'app.group',
     'app.userprofile',
     'app.firstlogin',
-		'angularMoment',
+	  'angularMoment',
+    'app.search'
 ]);
 
 app.config(function(RestangularProvider){
@@ -56,7 +57,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
             controller: 'GroupInfoController'
         })
         .state('root.group.feed', {
-            url: '/feed',
+            url: '/feed?sub',
             templateUrl: 'templates/groupfeed.html',
             controller: 'GroupFeedController'
         })
@@ -72,7 +73,8 @@ app.config(function($stateProvider, $urlRouterProvider) {
         })
         .state('root.group.createsubgroup', {
             url: '/subgroup',
-            templateUrl: 'templates/createsubgroup.html'
+            templateUrl: 'templates/createsubgroup.html',
+            controller: "CreateSubGroupController"
         })
         .state('root.lfg', {
             url: '/groups/browse',
@@ -100,6 +102,11 @@ app.config(function($stateProvider, $urlRouterProvider) {
             templateUrl: 'templates/usertimeline.html',
             controller: 'UserProfileInfoController'
         })
+        .state('root.user.timelinepost', {
+            url: '/post/{postid:int}',
+            templateUrl: 'templates/usertimeline.html',
+            controller: 'UserProfileInfoController'
+        })
         .state('root.user.friends', {
             url: '/friends',
             templateUrl: 'templates/userfriends.html',
@@ -107,7 +114,8 @@ app.config(function($stateProvider, $urlRouterProvider) {
         })
         .state('root.user.edit', {
             url: '/edit',
-            templateUrl: 'templates/useredit.html'
+            templateUrl: 'templates/useredit.html',
+            controller: 'EditUserController'
         })
         .state('root.event', {
             url: '/events/{event:int}',
@@ -133,8 +141,20 @@ app.config(function($stateProvider, $urlRouterProvider) {
         });
 });
 
+app.directive('clickTrap', function($window) {
+    return {
+        link: function(scope) {
+            angular.element($window).on('click', function(e) {
+                scope.$apply(function(){
+                    scope.$broadcast('window:click', e);
+                });
+            });
+        }
+    };
+});
 
-app.controller('MainController', function($rootScope, user, $http, $uibModal, $state){
+
+app.controller('MainController', function($rootScope, user, $http, $uibModal, $state, $scope){
     $rootScope.user = user;
     if(!user){
         $state.go('login');
@@ -175,6 +195,30 @@ app.controller('MainController', function($rootScope, user, $http, $uibModal, $s
             window.location.reload();
         });
     };
+
+    $scope.showNotification = false;
+    $scope.showFriends = false;
+
+    var checkParentsForAttr = function(node, attr){
+        if(node == document.body){
+            return false;
+        }
+
+        if(node.getAttribute(attr)){
+            return true;
+        }
+
+        return checkParentsForAttr(node.parentNode, attr);
+    };
+
+    $scope.$on('window:click', function(details, e){
+        if(!checkParentsForAttr(e.target, 'data-allow-friend')){
+            $scope.showFriends = false;
+        }
+        if(!checkParentsForAttr(e.target, 'data-allow-notification')){
+            $scope.showNotification = false;
+        }
+    });
 });
 
 app.controller('NotificationController', function($rootScope, $scope, $http, $timeout){
@@ -199,6 +243,7 @@ app.controller('NotificationController', function($rootScope, $scope, $http, $ti
 		});
 
 	})();
+
 
 	$scope.readNotificationId = function (notificationId){
 		$http.get('/api/notification/read/' + notificationId).success(function(data){

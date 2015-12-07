@@ -4,7 +4,7 @@
 	<div class="clearfix"></div>
 </form>
 <div class="newsfeed">
-	<div class="post" ng-repeat="data in newsfeed">
+	<div class="post" ng-repeat="data in newsfeed track by data.id">
 		<div class="user row">
 			<div class="col-xs-1 avatar">
 				<a href="#" class="thumbnail" style="width: 40px; background: red; height: 40px;"></a>
@@ -22,7 +22,7 @@
 			<div class="btn btn-link">Comment</div>
 		</div>
 		<ul class="row comments" ng-controller="CommentController">
-			<li ng-repeat="comment in comments">
+			<li ng-repeat="comment in comments track by comment.id">
 				<div class="row">
 					<div class="col-xs-1 avatar">
 						<a href="#" class="thumbnail" style="width: 40px; background: red; height: 40px;"></a>
@@ -47,4 +47,15 @@
 			</li>
 		</ul>
 	</div>
+	<div name="more" ng-show="allowPost">
+		<a href="" ng-if="hasMoreStory == true" ng-click="loadMoreStory()">
+			<div class="post">
+				<h4 style="text-align:center">Load more stories</h4>
+			</div>
+		</a>
+		<div class="post" ng-if="hasMoreStory == false">
+			<h4 style="text-align:center">No more story to show</h4>
+		</div>
+	</div>
 </div>
+<a href=""class="newstory animate-show animate-hide" ng-show="newstory">New Stories</a>
