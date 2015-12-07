@@ -30,7 +30,7 @@
 		</div>
 	</div>
 	<div class="col-md-8 newsfeed">
-		<div class="post" ng-repeat="data in userfeed">
+		<div class="post" ng-repeat="data in userfeed track by data.id">
 			<div class="user row">
 				<div class="col-xs-1 avatar">
 					<a href="#" class="thumbnail" style="width: 40px; background: red; height: 40px;"></a>
@@ -48,7 +48,7 @@
 				<div class="btn btn-link">Comment</div>
 			</div>
 			<ul class="row comments" ng-controller="CommentController">
-				<li ng-repeat="comment in comments">
+				<li ng-repeat="comment in comments track by comment.id">
 					<div class="row">
 						<div class="col-xs-1 avatar">
 							<a href="#" class="thumbnail" style="width: 40px; background: red; height: 40px;"></a>
