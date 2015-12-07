@@ -22,6 +22,7 @@ app.controller('NewsfeedController', function($scope, $stateParams, $http){
   $scope.newsfeed = [];
   $scope.nftext = "";
   postID = $stateParams.id;
+  $scope.isHaveMoreStory = true;
 
   if(!postID) {
     $scope.allowPost = true;
@@ -54,6 +55,18 @@ app.controller('NewsfeedController', function($scope, $stateParams, $http){
 			});
 		}
 	};
+
+  $scope.loadMoreStory = function() {
+    var oldestID = $scope.newsfeed.slice(-1)[0].id;
+    $http.get('/api/newsfeed/more/' + oldestID).success(function(data){
+      if(data.length == 0) {
+        $scope.isHaveMoreStory = false;
+      }
+      else {
+        $scope.newsfeed.push.apply($scope.newsfeed, data);
+      }
+    });
+  };
 
 });
 
