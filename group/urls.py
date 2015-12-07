@@ -11,7 +11,7 @@ urlpatterns = [
     url(r'^all/$', views.GroupViewSet.as_view(), name='LookForGroup'),
     url(r'^(?P<group_id>[0-9]+)/edit/$', views.EditInfo.as_view(), name='EditInfo'),
     url(r'^category/get/(?P<cat>[a-zA-Z]+)/$', views.GroupByCategory.as_view(), name='GroupByCategory'),
-    url(r'^(?P<group_id>[0-9]+)/post', views.GroupPostView.as_view(), name='PostDetail'),
+    url(r'^(?P<group_id>[0-9]+)/post$', views.GroupPostView.as_view(), name='PostDetail'),
     url(r'^(?P<group_id>[0-9]+)/post&limit=(?P<limit>\d+)$', views.GroupPostView.as_view(), name='PostDetail'),
     url(r'^(?P<group_id>[0-9]+)/post/(?P<action>\w+)/(?P<post_id>\d+)$', views.GroupPostPegination.as_view(), name='PostPegination'),
     url(r'^(?P<group_id>[0-9]+)/post/(?P<action>\w+)/(?P<post_id>\d+)&limit=(?P<limit>\d+)$', views.GroupPostPegination.as_view(), name='PostPegination'),
