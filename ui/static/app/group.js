@@ -116,7 +116,6 @@ app.controller('GroupCommentController', function($rootScope, $scope, $http){
     commentData = {
       text : $scope.comment,
       post : postData.id,
-      datetime : 'Just now',
       user : {
         username : $rootScope.user.username,
       },
