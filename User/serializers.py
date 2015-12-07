@@ -10,7 +10,7 @@ class UserProfileSerializer(serializers.ModelSerializer):
     user = UserSerializer(read_only=True)
     class Meta:
         model = UserProfile
-        fields = ('user', 'firstname', 'lastname', 'birthday', 'gender', 'faculty', 'major', 'types', 'country', 'city', 'created')
+        fields = ('user', 'firstname', 'lastname', 'birthday', 'gender', 'faculty', 'major', 'types', 'country', 'city', 'picture', 'created')
 
 class FriendShipSerializer(serializers.ModelSerializer):
 	user = UserSerializer(source='from_user')
