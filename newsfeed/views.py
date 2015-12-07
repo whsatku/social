@@ -168,10 +168,10 @@ def define_receiver(post_id):
 class PostPagination(APIView):
     serializer_class = PostSerializer
 
-    def get(self, request, action, id):
+    def get(self, request, action, id, limit=20):
 
         if action == 'more':
-            post = Post.objects.filter(id__lt=id).order_by('-datetime')[:20]
+            post = Post.objects.filter(id__lt=id).order_by('-datetime')[:limit]
         if action == 'new':
             post = Post.objects.filter(id__gt=id).order_by('-datetime')
         response = self.serializer_class(post, many=True)
