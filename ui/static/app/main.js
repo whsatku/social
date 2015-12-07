@@ -57,7 +57,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
             controller: 'GroupInfoController'
         })
         .state('root.group.feed', {
-            url: '/feed',
+            url: '/feed?sub',
             templateUrl: 'templates/groupfeed.html',
             controller: 'GroupFeedController'
         })
@@ -73,7 +73,8 @@ app.config(function($stateProvider, $urlRouterProvider) {
         })
         .state('root.group.createsubgroup', {
             url: '/subgroup',
-            templateUrl: 'templates/createsubgroup.html'
+            templateUrl: 'templates/createsubgroup.html',
+            controller: "CreateSubGroupController"
         })
         .state('root.lfg', {
             url: '/groups/browse',
