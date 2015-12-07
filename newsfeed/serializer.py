@@ -8,7 +8,7 @@ from newsfeed.models import Post, Comment
 class UserSerializer(ModelSerializer):
     class Meta:
         model = User
-        fields = ('id', 'username')
+        fields = ('id', 'username', 'first_name', 'last_name')
 
 
 class PostSerializer(ModelSerializer):

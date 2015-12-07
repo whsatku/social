@@ -141,7 +141,7 @@ app.controller('MainController', function($rootScope, user, $http, $uibModal, $s
         return;
     }
     $http.get('/api/user/'+user.id+'/userInfo/').success(function(data) {
-       if(!data.created){
+        if(!data.created){
         $state.go('login.firstlogin');
        }
        return;
