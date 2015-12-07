@@ -48,17 +48,27 @@
 								<span class="metadata" am-time-ago="comment.datetime"></span>
 							</div>
 						</div>
-						<div class="message">
-							{{data.text}}
-						</div>
 					</li>
 					<li class="commentform">
 						<div class="row">
 							<div class="col-xs-1 avatar">
 								<a href="#" class="thumbnail" style="width: 40px; background: red; height: 40px;"></a>
 							</div>
-							<form class="col-xs-11">
-								<input type="text" ng-model="comment" my-enter="commentPost(data)" class="form-control" placeholder="Enter comment">
+							<form class="col-xs-11" enctype="multipart/form-data" ng-if="data.allow_submission" ng-submit="commentPost(data)">
+								<div class="col-md-4">
+									Submission <em>(optional)</em>:
+									<input type="file" class="form-control">
+								</div>
+								<div class="col-md-8">
+									Remarks:
+									<input type="text" ng-model="comment" class="form-control" placeholder="Enter comment">
+								</div>
+								<div class="col-md-12">
+									<input type="submit" class="btn btn-primary" value="Submit" style="margin-top: 10px;">
+								</div>
+							</form>
+							<form class="col-xs-11" ng-if="!data.allow_submission">
+								<input type="text" ng-model="$parent.comment" my-enter="commentPost(data)" class="form-control" placeholder="Enter comment">
 								<input type="submit" class="btn btn-primary hide" value="Submit">
 							</form>
 						</div>
