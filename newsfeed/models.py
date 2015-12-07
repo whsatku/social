@@ -27,6 +27,10 @@ class Comment(models.Model):
     user = models.ForeignKey(User)
     text = models.CharField(max_length=2000)
     datetime = models.DateTimeField(auto_now_add=True)
+    file = models.FileField(
+        upload_to=lambda instance, filename: 'posts/{0}_{1}'.format(instance.id, filename),
+        null=True
+    )
 
     def __unicode__(self):
         return "{}'s comment (id={})".format(self.user.username, self.id)

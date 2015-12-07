@@ -1,6 +1,6 @@
 (function(){
 
-var app = angular.module('app.group', []);
+var app = angular.module('app.group', ['ngFileUpload']);
 
 app.controller('GroupController', function($scope, $stateParams, Restangular, $http, $location, $window, $state, $rootScope){
     var redirectSubpage = function(id){
@@ -112,7 +112,10 @@ app.controller('GroupFeedController', function($scope, $stateParams, $http, $loc
 
 
 
-app.controller('GroupCommentController', function($rootScope, $scope, $http){
+app.controller('GroupCommentController', function($rootScope, $scope, $http, Upload){
+
+  $scope.comment = '';
+  $scope.file = null;
 
   var loadCommentsByPostId = function(postID) {
     $http.get('/api/newsfeed/post/'+postID+'/comment/').success(function(commentsData){
@@ -123,7 +126,7 @@ app.controller('GroupCommentController', function($rootScope, $scope, $http){
   loadCommentsByPostId($scope.data.id);
 
   $scope.commentPost = function(postData) {
-    commentData = {
+    var commentData = {
       text : $scope.comment,
       post : postData.id,
       datetime : 'Just now',
@@ -132,7 +135,28 @@ app.controller('GroupCommentController', function($rootScope, $scope, $http){
       },
     };
 
-    if (commentData.text.length > 0) {
+    if($scope.file){
+      if(commentData.text.length === 0){
+        commentData.text = '_magic_fileupload';
+      }
+      $scope.comments.push(commentData);
+      $scope.comment = "";
+
+      commentData.file = $scope.file;
+
+      $scope.file = null;
+
+      Upload.upload({
+        url: '/api/newsfeed/comment/',
+        data: commentData
+      }).then(function(response){
+        console.log(response);
+        loadCommentsByPostId($scope.data.id);
+      }, function(xhr){
+          alert(xhr.data);
+          console.log(xhr.data);
+      });
+    }else if (commentData.text.length > 0) {
       $scope.comments.push(commentData);
       $scope.comment = "";
       $http.post('/api/newsfeed/comment/', commentData).then(function(response){

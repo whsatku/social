@@ -40,8 +40,12 @@
 							</div>
 							<div class="col-xs-11">
 								<a href="#" ui-sref="root.user.timeline({user: comment.user.id})">{{comment.user.first_name}} {{comment.user.last_name}}</a>
-								{{comment.text}}
+								<span ng-if="!(comment.text == '_magic_fileupload' && data.allow_submission)">
+									{{comment.text}}
+								</span>
 								<span class="metadata" am-time-ago="comment.datetime"></span>
+								<div ng-if="comment.file && group.member_status == 2"><a href="{{comment.file}}" target="_blank"><i class="glyphicon glyphicon-file"></i> Submission</a></div>
+								<div ng-if="comment.file && group.member_status != 2"><i class="glyphicon glyphicon-file"></i> Submission <span class="metadata">(only group admin can access)</span></div>
 							</div>
 						</div>
 					</li>
@@ -53,11 +57,11 @@
 							<form class="col-xs-11" enctype="multipart/form-data" ng-if="data.allow_submission" ng-submit="commentPost(data)">
 								<div class="col-md-4">
 									Submission <em>(optional)</em>:
-									<input type="file" class="form-control">
+									<input type="file" class="form-control" ng-model="$parent.file" ngf-select>
 								</div>
 								<div class="col-md-8">
 									Remarks:
-									<input type="text" ng-model="comment" class="form-control" placeholder="Enter comment">
+									<input type="text" ng-model="$parent.comment" class="form-control" placeholder="Enter comment">
 								</div>
 								<div class="col-md-12">
 									<input type="submit" class="btn btn-primary" value="Submit" style="margin-top: 10px;">
