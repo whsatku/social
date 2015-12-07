@@ -9,7 +9,7 @@ var app = angular.module('app.main', [
     'app.group',
     'app.userprofile',
     'app.firstlogin',
-	'angularMoment',
+	  'angularMoment',
     'app.search'
 ]);
 
