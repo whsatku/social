@@ -30,7 +30,12 @@
 		</div>
 	</div>
 	<div class="col-md-8 newsfeed">
-		<div class="post" ng-repeat="data in userfeed track by data.id">
+		<form class="nfpost well" ng-show="allowPost">
+			<textarea rows="4" ng-model="nftext" class="form-control" placeholder="What's on your mind?" autofocus></textarea>
+			<input type="submit" ng-click="postStatus()" class="btn btn-primary pull-right" value="Share">
+			<div class="clearfix"></div>
+		</form>
+		<div class="post nga-default nga-stagger nga-fade" ng-repeat="data in userfeed track by data.id">
 			<div class="user row">
 				<div class="col-xs-1 avatar">
 					<a href="#" class="thumbnail" style="width: 40px; background: red; height: 40px;"></a>
@@ -48,7 +53,7 @@
 				<div class="btn btn-link">Comment</div>
 			</div>
 			<ul class="row comments" ng-controller="CommentController">
-				<li ng-repeat="comment in comments track by comment.id">
+				<li class="nga-default nga-stagger nga-fade" ng-repeat="comment in comments track by comment.id">
 					<div class="row">
 						<div class="col-xs-1 avatar">
 							<a href="#" class="thumbnail" style="width: 40px; background: red; height: 40px;"></a>

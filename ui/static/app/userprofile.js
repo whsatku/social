@@ -5,6 +5,8 @@ var app = angular.module('app.userprofile', []);
 app.controller('UserProfileInfoController', function($scope, $http, $location, $stateParams, $rootScope){
     var userID = $stateParams.user;
     $scope.allowEdit = false;
+    $scope.allowPost = true;
+    $scope.nftext = "";
     if(userID == $rootScope.user.id) {
       $scope.allowEdit = true;
     }
@@ -39,6 +41,25 @@ app.controller('UserProfileInfoController', function($scope, $http, $location, $
       }
       $scope.moreFriendsCount = data.length;
     });
+
+    $scope.postStatus = function() {
+      postData = {
+        text : $scope.nftext,
+        target_type : 4,
+        target_id : userID,
+      };
+
+      if (postData.text.length > 0) {
+        $http.post('/api/newsfeed/post/', postData).then(function(response){
+          console.log(response);
+          $scope.nftext="";
+          $scope.userfeed.unshift(response.data);
+        }, function(xhr){
+            alert(xhr.data);
+            console.log(xhr.data);
+        });
+      }
+    };
 
 
 });
