@@ -108,11 +108,16 @@ app.controller('CommentController', function($rootScope, $scope, $http, $timeout
 		};
 
 		if (commentData.text.length > 0) {
-      $scope.comments.push(commentData);
       $scope.comment = "";
 			$http.post('/api/newsfeed/comment/', commentData).then(function(response){
         console.log(response);
-        loadCommentsByPostId($scope.data.id);
+        // POLLING
+        (function tick() {
+          loadCommentsByPostId($scope.data.id);
+          $timeout(tick, 3000);
+        })();
+        // END OF POLLING
+
 			}, function(xhr){
 					alert(xhr.data);
 					console.log(xhr.data);
