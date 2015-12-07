@@ -2,9 +2,8 @@
 	<div class="col-sm-2 subgroupmenu">
 		<ul class="nav nav-pills nav-stacked">
 			<li><a href="#" ui-sref="root.group.createsubgroup()"><i class="glyphicon glyphicon-plus"></i> Create subgroup</a></li>
-			<li ui-sref-active="active"><a href="#" ui-sref="root.group.feed()">{{group.name}}</a></li>
-			<li><a href="#">Subgroup 1</a></li>
-			<li><a href="#">Subgroup 2</a></li>
+			<li ui-sref-active="active"><a href="#" ui-sref="root.group.feed({sub : null})">{{group.name}}</a></li>
+			<li ui-sref-active="active" ng-repeat="subgroup in subgroups" ui-sref="root.group.feed({sub : subgroup.id})"><a href="#">{{subgroup.name}}</a></li>
 		</ul>
 	</div>
 	<div class="col-sm-10">

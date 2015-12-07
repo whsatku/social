@@ -18,12 +18,13 @@ class Group(models.Model):
     description = models.CharField(max_length=200)
     short_description = models.CharField(max_length=50)
     activities = models.CharField(max_length=200)
-    logo = models.CharField(max_length=25)
+    # logo = models.CharField(max_length=25)
     #logo_image = ImageField(upload_to=get_image_path, blank=True, null=True)
-    header = models.CharField(max_length=25)
+    # header = models.CharField(max_length=25)
     #header_image = ImageField(upload_to=get_image_path, blank=True, null=True)
     permisssion = models.IntegerField(null=True)
     date = models.DateField(auto_now_add=True)
+    parent = models.ForeignKey('self', null=True, blank=True, related_name='children')
 
     def __unicode__(self):
         return "group : {}".format(self.name)

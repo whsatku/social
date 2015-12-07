@@ -1,6 +1,6 @@
 (function(){
 
-var app = angular.module('app.newsfeed', []);
+var app = angular.module('app.newsfeed', ['ngAnimate']);
 
 
 app.directive('myEnter', function () {
@@ -18,15 +18,34 @@ app.directive('myEnter', function () {
 });
 
 
-app.controller('NewsfeedController', function($scope, $stateParams, $http){
+app.controller('NewsfeedController', function($scope, $stateParams, $http, $timeout){
   $scope.newsfeed = [];
   $scope.nftext = "";
   postID = $stateParams.id;
+  var postLimit = 20;
 
   if(!postID) {
     $scope.allowPost = true;
-    $http.get('/api/newsfeed/post/').success(function(data){
+    $scope.hasMoreStory = true;
+    $http.get('/api/newsfeed/post&limit=' + postLimit ).success(function(data){
       $scope.newsfeed = data;
+      if(data.length < postLimit) {
+        $scope.hasMoreStory = false;
+      }
+      // POLLING
+      (function tick() {
+        $http.get('/api/newsfeed/new/' + $scope.newsfeed[0].id).success(function(data){
+          if(data.length > 0 ){
+            $scope.newstory = true;
+            $timeout(function() { $scope.newstory = false; }, 3000);
+            //$('.newstory').stop().fadeIn(400).delay(3000).fadeOut(400); //fade
+            $scope.newsfeed.unshift.apply($scope.newsfeed, data);
+          }
+          $timeout(tick, 3000);
+        });
+
+      })();
+      // END OF POLLING
     });
   }
   else {
@@ -54,6 +73,17 @@ app.controller('NewsfeedController', function($scope, $stateParams, $http){
 			});
 		}
 	};
+
+  $scope.loadMoreStory = function() {
+    var oldestID = $scope.newsfeed.slice(-1)[0].id;
+    $http.get('/api/newsfeed/more/' + oldestID +'&limit=' + postLimit).success(function(data){
+      if(data.length < postLimit) {
+        $scope.hasMoreStory = false;
+      }
+      $scope.newsfeed.push.apply($scope.newsfeed, data);
+
+    });
+  };
 
 });
 

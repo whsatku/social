@@ -47,4 +47,15 @@
 			</li>
 		</ul>
 	</div>
+	<div name="more" ng-show="allowPost">
+		<a href="" ng-if="hasMoreStory == true" ng-click="loadMoreStory()">
+			<div class="post">
+				<h4 style="text-align:center">Load more stories</h4>
+			</div>
+		</a>
+		<div class="post" ng-if="hasMoreStory == false">
+			<h4 style="text-align:center">No more story to show</h4>
+		</div>
+	</div>
 </div>
+<a href=""class="newstory animate-show animate-hide" ng-show="newstory">New Stories</a>
