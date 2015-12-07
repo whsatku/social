@@ -78,7 +78,6 @@ app.controller('GroupFeedController', function($scope, $stateParams, $http, $loc
   }
 
   $http.get('/api/group/'+ $stateParams.id + '/subgroup').success(function(data){
-    console.log(data);
     $scope.subgroups = data;
   });
 
@@ -150,7 +149,7 @@ app.controller('GroupInfoController', function($scope, $http, $location){
 
 });
 
-app.controller('GroupManageController', function($scope, $http, $location){
+app.controller('GroupManageController', function($scope, $http, $location, $stateParams){
     var groupID = $location.path().split('/')[2];
     function fetchMember(){
         $http.get('/api/group/'+groupID+'/member/accepted').then(function(data){
@@ -176,9 +175,21 @@ app.controller('GroupManageController', function($scope, $http, $location){
     $scope.acceptMember = acceptMember;
     $scope.denyMember = denyMember;
 
+    $scope.deleteSubgroup = function (id){
+      data = {
+        group_id : id
+      };
+      $http.put('/api/group/'+ $stateParams.id + '/subgroup',data).success(function(data){
+      });
+
+    };
 
     $http.get('/api/group/'+groupID).then(function(data){
         $scope.group = data.data;
+    });
+
+    $http.get('/api/group/'+ $stateParams.id + '/subgroup').success(function(data){
+      $scope.subgroups = data;
     });
 
     $scope.editInfo = function(){

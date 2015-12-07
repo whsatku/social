@@ -419,15 +419,29 @@ class SubGroupViewSet(APIView):
 
     def post(self, request, group_parent_id, format=None):
         parent_group = self.get_group(group_parent_id)
-        print parent_group
         try:
             sub_group = Group.objects.create(
                 name=request.data.get('name'), type=1, description="Subgroup of"+parent_group.name,
                 short_description="Subgroup of"+parent_group.name, activities="somthing",
                 parent=parent_group
             ).save()
-            print sub_group
             return Response(sub_group)
+        except  Exception as inst:
+            print type(inst)     # the exception instance
+            print inst           # __str__ allows args to be printed directly
+            raise Http404
+
+    def put(self, request, group_parent_id, format=None):
+        parent_group = self.get_group(group_parent_id)
+        print request.data.get('group_id')
+        try:
+            sub_group = Group.objects.get(id=request.data.get('group_id'))
+            print sub_group
+            print sub_group.parent
+            print parent_group
+            if sub_group.parent == parent_group:
+                sub_group.delete()
+            return Response(status=status.HTTP_204_NO_CONTENT)
         except  Exception as inst:
             print type(inst)     # the exception instance
             print inst           # __str__ allows args to be printed directly

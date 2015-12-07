@@ -42,10 +42,10 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr ng-repeat="subgroup in [1,2,3]">
-						<td>Name</td>
+					<tr ng-repeat="subgroup in subgroups">
+						<td>{{subgroup.name}}</td>
 						<td>
-							<button class="btn btn-sm btn-danger">Remove</button>
+							<button ng-click="deleteSubgroup(subgroup.id)" class="btn btn-sm btn-danger">Remove</button>
 						</td>
 					</tr>
 					<tr>
