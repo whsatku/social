@@ -1,0 +1,44 @@
+*** Settings ***
+Library           String
+
+*** Variables ***
+${Browser}        ff
+${URL}            http://localhost:8000/static/index.html#/
+${root}           root
+${rootpsw}        toor
+${user1}          user_agwqpuc_one@tfbnw.net
+${user2}          user_sgecxab_two@tfbnw.net
+${user3}          user_pikzrdv_three@tfbnw.net
+${user4}          user_ipszhjx_four@tfbnw.net
+${password}       Youniversity!
+
+*** Keywords ***
+My Open Browser
+    Open Browser    ${URL}    ${Browser}
+
+FB Login
+    [Arguments]    ${username}    ${password}
+    My Open Browser
+    Go To    http://localhost:8000/accounts/facebook/login
+    Wait Until Page Contains    Facebook
+    Input Text    //*[@id="email"]    ${username}
+    Input Text    //*[@id="pass"]    ${password}
+    Click element    //*[@id="loginbutton"]
+    Wait Until Page Contains    Youniversity
+    ${isFirstLogin} =    Run Keyword And Return Status    Page Should Contain    Please let us know more about yourself
+    Run Keyword if    '${isFirstLogin}' == 'PASS'    Fill Info    ${username}
+
+Fill Info
+    [Arguments]    ${username}
+    Input Text    //*[@id="name"]    ${username}
+    Input Text    //*[@id="fac"]    Engineering KU
+    Input Text    //*[@id="hometown"]    Bangkok Thailand
+    Click element    //*[@id="root"]/div/div/div/div/form/div[4]/button
+
+Logout
+    Go To    http://localhost:8000/static/index.html#/
+    Wait Until Page Contains    Youniversity
+    Click element    //*[@id="navcollapse"]/ul/li[4]/a
+    Click element    //*[@id="navcollapse"]/ul/li[4]/ul/li/a
+    Wait Until Page Contains    logout
+    Click element    /html/body/div[3]/div/div/div[2]/button[1]

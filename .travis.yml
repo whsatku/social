@@ -36,7 +36,7 @@ script:
 - echo "from django.contrib.auth.models import User; User.objects.create_superuser('root', 'admin@example.com', 'toor')" | python manage.py shell
 - python manage.py runserver > $OUTPUT_DIR/server_log.txt 2>&1 &
 - sleep 5
-- pybot -d $OUTPUT_DIR test
+# - pybot -d $OUTPUT_DIR test
 deploy:
 - provider: script
   script: ".travis/deploy.sh"
