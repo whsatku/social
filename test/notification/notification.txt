@@ -1,0 +1,71 @@
+*** Settings ***
+Library    Selenium2Library
+
+Suite Setup    Pre-condition
+Suite Teardown    Close browser
+
+*** Variables ***
+${BROWSER}   phantomJS
+${URL}    http://localhost:8000/static/index.html#/
+
+*** Test Cases ***
+Comment on Post
+    Post Status with Text     Youniversity    TestNotification
+    sleep     1
+    LoginOtherUser    root2    toor2
+    Comment Status with Text    Youniversity
+    LoginOtherUser    root    toor
+    Check Notification    Youniversity
+
+
+*** Keywords ***
+Pre-condition
+    Open Browser    http://localhost:8000/admin    ${BROWSER}
+    MAXIMIZE BROWSER WINDOW
+    Input text    //*[@id="id_username"]    root
+    Input text    //*[@id="id_password"]    toor
+    click element    //*[@id="login-form"]/div[3]/input
+    go to    http://localhost:8000/static/index.html#/
+
+LoginOtherUser
+    [Arguments]    ${username}    ${password}
+    go to    http://localhost:8000/admin
+    Wait Until Element Is Visible   //*[@id="user-tools"]/a[3]    5
+    click element  //*[@id="user-tools"]/a[3]
+    go to    http://localhost:8000/admin
+    wait until element is visible   //*[@id="id_username"]    5
+    Input text    //*[@id="id_username"]    ${username}
+    Input text    //*[@id="id_password"]    ${password}
+    click element    //*[@id="login-form"]/div[3]/input
+    go to    http://localhost:8000/static/index.html#/
+
+
+
+Post Status with Text
+    [Arguments]    ${title}    ${status}
+    #Wait Until Page Contains    ${title}   5
+    #Title Should Be   ${title}
+    Wait Until Element Is Visible     xpath=//*[@id="rootcontainer"]/div/div[1]/form/textarea     5
+    Input text    xpath=//*[@id="rootcontainer"]/div/div[1]/form/textarea    ${status}
+    Click Element    xpath=//*[@id="rootcontainer"]/div/div[1]/form/input
+    #Wait Until Page Contains    ${status}    5
+
+Comment Status with Text
+    [Arguments]    ${comment}
+    wait until element is visible    xpath=//*[@id="rootcontainer"]/div/div[1]/div/div[1]/ul/li/div/form/input[1]    5
+    Input text     xpath=//*[@id="rootcontainer"]/div/div[1]/div/div[1]/ul/li/div/form/input[1]    ${comment}
+    Press Key    xpath=//*[@id="rootcontainer"]/div/div[1]/div/div[1]/ul/li/div/form/input[1]    \\13
+    Wait Until Page Contains    ${comment}    5
+
+Check Notification
+    [Arguments]   ${comment}
+    wait until element is visible   xpath=//*[@id="navcollapse"]/ul/li[3]/a     5
+    click element   xpath=//*[@id="navcollapse"]/ul/li[2]/a
+    wait until element is visible  xpath=//*[@id="root"]/div[1]/div[1]    5
+    #sleep  1
+    Wait Until Element Contains    xpath=//*[@id="root"]/div[1]/div[2]   ${comment}   5
+
+
+
+
+
