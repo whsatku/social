@@ -159,8 +159,14 @@ app.controller('GroupManageController', function($scope, $http, $location, $stat
             $scope.groupMember_pending = data.data;
         });
     }
+    function fetchSubgroup(){
+      $http.get('/api/group/'+ $stateParams.id + '/subgroup').success(function(data){
+        $scope.subgroups = data;
+      });
+    }
 
     fetchMember();
+    fetchSubgroup();
 
     function acceptMember(pk){
         $http.put('/api/group/'+groupID+'/member/'+ pk).then(function(data){
@@ -180,6 +186,7 @@ app.controller('GroupManageController', function($scope, $http, $location, $stat
         group_id : id
       };
       $http.put('/api/group/'+ $stateParams.id + '/subgroup',data).success(function(data){
+        fetchSubgroup();
       });
 
     };
@@ -188,9 +195,8 @@ app.controller('GroupManageController', function($scope, $http, $location, $stat
         $scope.group = data.data;
     });
 
-    $http.get('/api/group/'+ $stateParams.id + '/subgroup').success(function(data){
-      $scope.subgroups = data;
-    });
+
+
 
     $scope.editInfo = function(){
         $http.put('/api/group/'+groupID+'/edit/',$scope.group).success(function(data){
