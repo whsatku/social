@@ -22,12 +22,16 @@ app.controller('NewsfeedController', function($scope, $stateParams, $http){
   $scope.newsfeed = [];
   $scope.nftext = "";
   postID = $stateParams.id;
-  $scope.isHaveMoreStory = true;
+  var postLimit = 20;
 
   if(!postID) {
     $scope.allowPost = true;
-    $http.get('/api/newsfeed/post/').success(function(data){
+    $scope.isHaveMoreStory = true;
+    $http.get('/api/newsfeed/post&limit=' + postLimit ).success(function(data){
       $scope.newsfeed = data;
+      if(data.length < postLimit) {
+        $scope.isHaveMoreStory = false;
+      }
     });
   }
   else {
@@ -58,13 +62,12 @@ app.controller('NewsfeedController', function($scope, $stateParams, $http){
 
   $scope.loadMoreStory = function() {
     var oldestID = $scope.newsfeed.slice(-1)[0].id;
-    $http.get('/api/newsfeed/more/' + oldestID).success(function(data){
-      if(data.length == 0) {
+    $http.get('/api/newsfeed/more/' + oldestID +'&limit=' + postLimit).success(function(data){
+      if(data.length < postLimit) {
         $scope.isHaveMoreStory = false;
       }
-      else {
-        $scope.newsfeed.push.apply($scope.newsfeed, data);
-      }
+      $scope.newsfeed.push.apply($scope.newsfeed, data);
+
     });
   };
 
