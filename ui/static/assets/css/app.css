@@ -345,24 +345,3 @@ html,body,#root{
     -moz-box-shadow: 0px 0px 24px -1px rgba(56, 56, 56, 1);
     box-shadow: 0px 0px 24px -1px rgba(56, 56, 56, 1);
 }
-
-.animate-show,
-.animate-hide {
-  -webkit-transition:all linear 0.5s;
-  -moz-transition:all linear 0.5s;
-  -ms-transition:all linear 0.5s;
-  -o-transition:all linear 0.5s;
-  transition:all linear 0.5s;
-}
-
-.animate-show.ng-hide-remove,
-.animate-hide.ng-hide-add.ng-hide-add-active {
-  opacity: 0;
-  display: block !important;
-}
-
-.animate-hide.ng-hide-add,
-.animate-show.ng-hide-remove.ng-hide-remove-active {
-  opacity: 1;
-  display: block !important;
-}
