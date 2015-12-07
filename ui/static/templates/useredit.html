@@ -3,7 +3,7 @@
 		<h3 class="panel-title">Edit profile</h3>
 	</div>
 	<div class="panel-body">
-		<form action="" class="form form-horizontal" ng-submit="saveInfo()">
+		<form action="" enctype="multipart/form-data" class="form form-horizontal" ng-submit="saveInfo()">
 			<div class="form-group">
 				<label for="firstname" class="col-sm-3 control-label">First Name</label>
 				<div class="col-sm-9">
@@ -54,6 +54,24 @@
 				<label for="city" class="col-sm-3 control-label">City</label>
 				<div class="col-sm-9">
 					<input type="text" class="form-control" id="city" ng-model = "userprofile.city">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="hometown" class="col-sm-3 control-label">Profile picture</label>
+				<div class="col-sm-9">
+					<input type="file" accept="image" class="form-control">
+					<div class="help-block">
+						Should be in square aspect ratio (1:1)
+					</div>
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="hometown" class="col-sm-3 control-label">Cover image</label>
+				<div class="col-sm-9">
+					<input type="file" accept="image" class="form-control">
+					<div class="help-block">
+						945x200 pixels
+					</div>
 				</div>
 			</div>
 			<div class="form-group">
