@@ -2,9 +2,10 @@
 
 var app = angular.module('app.userprofile', []);
 
-app.controller('UserProfileInfoController', function($scope, $http, $location, $stateParams, $rootScope){
+app.controller('UserProfileInfoController', function($scope, $http, $location, $stateParams, $rootScope, $timeout){
     var userID = $stateParams.user;
     $scope.allowEdit = false;
+    $scope.nftext = "";
     if(userID == $rootScope.user.id) {
       $scope.allowEdit = true;
     }
@@ -12,21 +13,6 @@ app.controller('UserProfileInfoController', function($scope, $http, $location, $
     $http.get('/api/user/'+userID+'/userInfo').success(function(data){
       $scope.userprofile = data;
     });
-
-
-    postID = $stateParams.postid;
-
-    if(!postID) {
-      $http.get('/api/newsfeed/wall/' + userID).success(function (data) {
-        $scope.userfeed = data;
-      });
-    }
-    else {
-      $http.get('/api/newsfeed/post/' + postID).success(function(data){
-        $scope.userfeed = [];
-        $scope.userfeed.push(data);
-      });
-    }
 
     $http.get('/api/user/friends/' + userID).success(function (data) {
       $scope.members = [];
@@ -39,6 +25,75 @@ app.controller('UserProfileInfoController', function($scope, $http, $location, $
       }
       $scope.moreFriendsCount = data.length;
     });
+
+    // USERFEED
+    postID = $stateParams.postid;
+    var postLimit = 20;
+
+    if(!postID) {
+      $scope.allowPost = true;
+      $scope.hasMoreStory = true;
+      var newestID = 1;
+      $http.get('/api/newsfeed/wall/' + userID + '&limit=' + postLimit ).success(function (data) {
+        $scope.userfeed = data;
+        if(data.length < postLimit) {
+          $scope.hasMoreStory = false;
+        }
+        // POLLING
+        (function tick() {
+          if($scope.userfeed.length > 0) {
+            newestID = $scope.userfeed[0].id;
+          }
+          $http.get('/api/newsfeed/wall/' + userID + '/new/' + newestID).success(function(data){
+            if(data.length > 0 ){
+              $scope.newstory = true;
+              $timeout(function() { $scope.newstory = false; }, 3000);
+              $scope.userfeed.unshift.apply($scope.userfeed, data);
+            }
+            $timeout(tick, 3000);
+          });
+
+        })();
+        // END OF POLLING
+      });
+    }
+    else {
+      $scope.allowPost = false;
+      $http.get('/api/newsfeed/post/' + postID).success(function(data){
+        $scope.userfeed = [];
+        $scope.userfeed.push(data);
+      });
+    }
+
+    $scope.loadMoreStory = function() {
+      var oldestID = $scope.userfeed.slice(-1)[0].id;
+      $http.get('/api/newsfeed/wall/' + userID + '/more/' + oldestID +'&limit=' + postLimit).success(function(data){
+        if(data.length < postLimit) {
+          $scope.hasMoreStory = false;
+        }
+        $scope.userfeed.push.apply($scope.userfeed, data);
+
+      });
+    };
+
+    $scope.postStatus = function() {
+      postData = {
+        text : $scope.nftext,
+        target_type : 4,
+        target_id : userID,
+      };
+
+      if (postData.text.length > 0) {
+        $http.post('/api/newsfeed/post/', postData).then(function(response){
+          console.log(response);
+          $scope.nftext="";
+          $scope.userfeed.unshift(response.data);
+        }, function(xhr){
+            alert(xhr.data);
+            console.log(xhr.data);
+        });
+      }
+    };
 
 
 });

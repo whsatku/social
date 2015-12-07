@@ -30,7 +30,12 @@
 		</div>
 	</div>
 	<div class="col-md-8 newsfeed">
-		<div class="post" ng-repeat="data in userfeed track by data.id">
+		<form class="nfpost well" ng-show="allowPost">
+			<textarea rows="4" ng-model="nftext" class="form-control" placeholder="What's on your mind?" autofocus></textarea>
+			<input type="submit" ng-click="postStatus()" class="btn btn-primary pull-right" value="Share">
+			<div class="clearfix"></div>
+		</form>
+		<div class="post nga-default nga-stagger nga-fade" ng-repeat="data in userfeed track by data.id">
 			<div class="user row">
 				<div class="col-xs-1 avatar">
 					<a href="#" class="thumbnail" style="width: 40px; background: red; height: 40px;"></a>
@@ -48,7 +53,7 @@
 				<div class="btn btn-link">Comment</div>
 			</div>
 			<ul class="row comments" ng-controller="CommentController">
-				<li ng-repeat="comment in comments track by comment.id">
+				<li class="nga-default nga-stagger nga-fade" ng-repeat="comment in comments track by comment.id">
 					<div class="row">
 						<div class="col-xs-1 avatar">
 							<a href="#" class="thumbnail" style="width: 40px; background: red; height: 40px;"></a>
@@ -73,5 +78,16 @@
 				</li>
 			</ul>
 		</div>
+		<div name="more" ng-show="allowPost">
+			<a href="" ng-if="hasMoreStory == true" ng-click="loadMoreStory()">
+				<div class="post">
+					<h4 style="text-align:center">Load more stories</h4>
+				</div>
+			</a>
+			<div class="post" ng-if="hasMoreStory == false">
+				<h4 style="text-align:center">No more story to show</h4>
+			</div>
+		</div>
 	</div>
 </div>
+<a href=""class="lead btn newstory nga-default nga-stagger nga-fade" ng-show="newstory"><span class="glyphicon glyphicon-menu-up"></span> New Stories</a>

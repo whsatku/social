@@ -246,8 +246,9 @@ app.controller('NotificationController', function($rootScope, $scope, $http, $ti
 	})();
 
 
-	$scope.readNotificationId = function (notificationId){
-		$http.get('/api/notification/read/' + notificationId).success(function(data){
+	$scope.readNotification = function (notification){
+		$http.get('/api/notification/read/' + notification.id).success(function(data){
+      notification.read = true;
 			console.log(data);
 		}).error(function(err) {
 			console.log(err);

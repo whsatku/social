@@ -19,7 +19,7 @@
 			<div class="clearfix"></div>
 		</form>
 		<div class="newsfeed">
-			<div class="post" ng-repeat="data in newsfeed track by data.id" ng-class="{pinned: data.pinned}">
+			<div class="post nga-default nga-stagger nga-fade" ng-repeat="data in newsfeed track by data.id" ng-class="{pinned: data.pinned}">
 				<div class="user row">
 					<div class="col-xs-1 avatar">
 						<a href="#" class="thumbnail" style="width: 40px; background: red; height: 40px;"></a>
@@ -33,7 +33,7 @@
 					{{data.text}}
 				</div>
 				<ul class="row comments" ng-controller="GroupCommentController">
-					<li ng-repeat="comment in comments track by comment.id">
+					<li class="nga-default nga-stagger nga-fade" ng-repeat="comment in comments track by comment.id">
 						<div class="row">
 							<div class="col-xs-1 avatar">
 								<a href="#" class="thumbnail" style="width: 40px; background: red; height: 40px;"></a>
@@ -75,6 +75,17 @@
 					</li>
 				</ul>
 			</div>
+			<div name="more" ng-show="allowPost">
+				<a href="" ng-if="hasMoreStory == true" ng-click="loadMoreStory()">
+					<div class="post">
+						<h4 style="text-align:center">Load more stories</h4>
+					</div>
+				</a>
+				<div class="post" ng-if="hasMoreStory == false">
+					<h4 style="text-align:center">No more story to show</h4>
+				</div>
+			</div>
 		</div>
 	</div>
 </div>
+<a href=""class="lead btn newstory nga-default nga-stagger nga-fade" ng-show="newstory"><span class="glyphicon glyphicon-menu-up"></span> New Stories</a>

@@ -1,0 +1,12 @@
+*** Setting ***
+Library    Selenium2Library
+Resource          resource.txt
+
+
+*** Test Cases ***
+
+*** Keywords ***
+Login n Logout
+    [Arguments]    ${username}    ${password}
+    FB Login    ${username}    ${password}
+    Logout

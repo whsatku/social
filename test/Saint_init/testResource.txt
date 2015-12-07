@@ -1,0 +1,19 @@
+*** Setting ***
+Library    Selenium2Library
+Resource          resource.txt
+
+
+*** Test Cases ***
+Test Login
+	[Template]    Login n Logout
+	#--------------------|----------------#
+    #     username       |    password    #
+    #--------------------|----------------#
+		  ${user1}           ${password}
+		  ${user2}           ${password}
+
+*** Keywords ***
+Login n Logout
+	[Arguments]    ${username}    ${password}
+	FB Login    ${username}    ${password}
+	Logout
