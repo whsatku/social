@@ -101,42 +101,6 @@ app.controller('GroupFeedController', function($scope, $stateParams, $http, $loc
 });
 
 
-
-app.controller('GroupCommentController', function($rootScope, $scope, $http){
-
-  var loadCommentsByPostId = function(postID) {
-    $http.get('/api/newsfeed/post/'+postID+'/comment/').success(function(commentsData){
-      $scope.comments = commentsData;
-    });
-  };
-
-  loadCommentsByPostId($scope.data.id);
-
-  $scope.commentPost = function(postData) {
-    commentData = {
-      text : $scope.comment,
-      post : postData.id,
-      user : {
-        username : $rootScope.user.username,
-      },
-    };
-
-    if (commentData.text.length > 0) {
-      $scope.comments.push(commentData);
-      $scope.comment = "";
-      $http.post('/api/newsfeed/comment/', commentData).then(function(response){
-        console.log(response);
-        loadCommentsByPostId($scope.data.id);
-      }, function(xhr){
-          alert(xhr.data);
-          console.log(xhr.data);
-      });
-    }
-  };
-
-});
-
-
 app.controller('GroupInfoController', function($scope, $http, $location){
     var groupID = $location.path().split('/')[2];
     $http.get('/api/group/'+groupID).success(function(data){
