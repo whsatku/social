@@ -64,7 +64,7 @@ app.controller('UserProfileInfoController', function($scope, $http, $location, $
       var edit_profile = {
         firstname: firstname,
         lastname: lastname,
-        birthday: birthday.toISOString(),
+        birthday: birthday.format('YYYY-MM-DD'),
         gender: gender,
         faculty: faculty,
         major: major,
