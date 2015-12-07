@@ -17,8 +17,8 @@ import json
 class PostViewList(APIView):
     serializer_class = PostSerializer
 
-    def get(self, request, id=None, format=None):
-        post = Post.objects.order_by('-datetime')[:20]
+    def get(self, request, id=None, format=None, limit=20):
+        post = Post.objects.order_by('-datetime')[:limit]
         response = self.serializer_class(post, many=True)
 
         return Response(response.data)
