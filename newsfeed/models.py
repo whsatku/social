@@ -21,6 +21,8 @@ class Post(models.Model):
     def __unicode__(self):
         return "{}'s newsfeed (id={})".format(self.user.username, self.id)
 
+def comment_file_name(instance, filename):
+    return 'posts/{0}_{1}'.format(instance.id, filename)
 
 class Comment(models.Model):
     post = models.ForeignKey(Post)
@@ -28,7 +30,7 @@ class Comment(models.Model):
     text = models.CharField(max_length=2000)
     datetime = models.DateTimeField(auto_now_add=True)
     file = models.FileField(
-        upload_to=lambda instance, filename: 'posts/{0}_{1}'.format(instance.id, filename),
+        upload_to=comment_file_name,
         null=True
     )
 

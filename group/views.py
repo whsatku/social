@@ -430,6 +430,23 @@ class SubGroupViewSet(APIView):
             print inst           # __str__ allows args to be printed directly
             raise Http404
 
+    def put(self, request, group_parent_id, format=None):
+        parent_group = self.get_group(group_parent_id)
+        print request.data.get('group_id')
+        try:
+            sub_group = Group.objects.get(id=request.data.get('group_id'))
+            print sub_group
+            print sub_group.parent
+            print parent_group
+            if sub_group.parent == parent_group:
+                sub_group.delete()
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        except  Exception as inst:
+            print type(inst)     # the exception instance
+            print inst           # __str__ allows args to be printed directly
+            raise Http404
+
+
 class GroupPostPegination(APIView):
 
     serializer_class = GroupPostSerializer

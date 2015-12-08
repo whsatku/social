@@ -215,7 +215,7 @@ app.controller('GroupInfoController', function($scope, $http, $location){
 
 });
 
-app.controller('GroupManageController', function($scope, $http, $location){
+app.controller('GroupManageController', function($scope, $http, $location, $stateParams){
     var groupID = $location.path().split('/')[2];
     function fetchMember(){
         $http.get('/api/group/'+groupID+'/member/accepted').then(function(data){
@@ -225,8 +225,14 @@ app.controller('GroupManageController', function($scope, $http, $location){
             $scope.groupMember_pending = data.data;
         });
     }
+    function fetchSubgroup(){
+      $http.get('/api/group/'+ $stateParams.id + '/subgroup').success(function(data){
+        $scope.subgroups = data;
+      });
+    }
 
     fetchMember();
+    fetchSubgroup();
 
     function acceptMember(pk){
         $http.put('/api/group/'+groupID+'/member/'+ pk).then(function(data){
@@ -241,10 +247,22 @@ app.controller('GroupManageController', function($scope, $http, $location){
     $scope.acceptMember = acceptMember;
     $scope.denyMember = denyMember;
 
+    $scope.deleteSubgroup = function (id){
+      data = {
+        group_id : id
+      };
+      $http.put('/api/group/'+ $stateParams.id + '/subgroup',data).success(function(data){
+        fetchSubgroup();
+      });
+
+    };
 
     $http.get('/api/group/'+groupID).then(function(data){
         $scope.group = data.data;
     });
+
+
+
 
     $scope.editInfo = function(){
         $http.put('/api/group/'+groupID+'/edit/',$scope.group).success(function(data){
