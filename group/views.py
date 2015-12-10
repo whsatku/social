@@ -342,7 +342,7 @@ class GroupPostView(APIView):
         serializer = GroupPostSerializer(data=request.data)
         notification = NotificationViewList()
         if serializer.is_valid():
-            # if User.objects.get(id=self.request.user.id) in GroupMember.objects.filter(group_id=group_id):
+            if User.objects.get(id=self.request.user.id) in GroupMember.objects.filter(group_id=group_id):
                 if self.request.user.is_authenticated():
                     request.data['target_type'] = ContentType.objects.get(model='group', app_label='group').id
                     request.data['target_id'] = group_id
@@ -354,7 +354,6 @@ class GroupPostView(APIView):
                     json_data = json.dumps(data)
                     notification.post(request, User.objects.filter(id__in=GroupMember.objects.values('user').filter(group_id=group_id)), ContentType.objects.get(model='group',app_label='group'), JSONRenderer().render(serializer.data), json_data)
                     return Response(serializer.data, status=status.HTTP_201_CREATED)
-                    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 

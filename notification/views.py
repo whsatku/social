@@ -13,7 +13,8 @@ from notification.serializer import UpdateNotificationSerializer
 class NotificationViewList(APIView):
     serializer_class = NotificationSerializer
 
-    def post(self, request, receiver_set, type, link_item, reference_detail, format=None):
+    def post(self, request, receiver_set, type,
+             link_item, reference_detail, format=None):
 
         serializer = NotificationSerializer(data=request.data)
         receiver_set = receiver_set.exclude(id=request.user.id)
@@ -31,7 +32,8 @@ class NotificationViewList(APIView):
                         notification=notification,
                         receiver=i
                     ).save()
-                return Response(serializer.data, status=status.HTTP_201_CREATED)
+                return Response(serializer.data,
+                                status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def get(self, request, id=None, format=None):

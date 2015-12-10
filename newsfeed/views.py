@@ -63,7 +63,6 @@ class PostViewDetail(APIView):
 
         postObject = self.get_object(id)
         response = self.serializer_class(postObject)
-
         return Response(response.data)
 
     def delete(self, request, id, format=None):
