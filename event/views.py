@@ -144,7 +144,7 @@ class EventMemberDetail(APIView):
         try:
             return EventMember.objects.get(event=event_id, user=user_id)
         except EventMember.DoesNotExist:
-            raise Http404
+            return None
 
     def delete(self, request, event_id, pk, format=None):
         """Delete user from event.
@@ -161,15 +161,21 @@ class EventMemberDetail(APIView):
 
     def put(self, request, event_id, pk, format=None):
         """Add or update member in event.
-        Args:
+        Args1:
                 request: Django Rest Framework request object
                 event_id: ID of event
                 pk: ID of user
                 format: pattern for Web APIs
         Return:
         """
-        member = self.get_member(event_id, pk)
-        member.role = 0
+        member = self.get_member(event_id,pk)
+        if member is None:
+            member = EventMember.objects.create(
+                event=Event.objects.get(id=event_id),
+                user=User.objects.get(id=pk),
+                role=request.data['role']
+            )
+        member.role = request.data['role']
         member.save()
         return Response(status=status.HTTP_201_CREATED)
 
