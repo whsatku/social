@@ -32,9 +32,9 @@ class CreateEvent(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    def get(self, request, group_id=None, format=None):
+    def get(self, request, event_id=None, format=None):
 
-        event_object = self.get_group(group_id)
+        event_object = self.get_event(event_id)
 
         if request.user.is_authenticated():
             event_object.member_status = -1
@@ -43,13 +43,13 @@ class CreateEvent(APIView):
                 member_status = event_object.eventmember_set.filter(
                     user=request.user).get()
                 event_object.member_status = member_status.role
-            except GroupMember.DoesNotExist:
+            except eventMember.DoesNotExist:
                 pass
 
-        response = self.serializer_class(group_object)
+        response = self.serializer_class(event_object)
         return Response(response.data)
 
-    def get_group(self, event_id):
+    def get_event(self, event_id):
 
         try:
             return Event.objects.get(id=event_id)
@@ -97,7 +97,7 @@ class EventInformationViewDetail(APIView):
                 format: pattern for Web APIs
 
         Return:
-                Query group.
+                Query event.
         """
         event_object = self.get_event(event_id)
 
@@ -127,3 +127,61 @@ class EventMemberViewSet(ListCreateAPIView):
     def get_queryset(self):
         this_event = Event.objects.get(id=self.get_event_id)
         return EventMember.objects.filter(event=this_event)
+
+
+class EventMemberDetail(APIView):
+    """This class is an API for managing member in event.
+    """
+    serializer_class = EventMemberSerializer
+
+    def get_member(self, event_id, user_id):
+        """Get user from event's database.
+        Args:
+                event_id: ID of event
+                user_id: ID of user
+        Return:
+        """
+        try:
+            return EventMember.objects.get(event=event_id, user=user_id)
+        except EventMember.DoesNotExist:
+            raise Http404
+
+    def delete(self, request, event_id, pk, format=None):
+        """Delete user from event.
+        Args:
+                request: Django Rest Framework request object
+                event_id: ID of event
+                pk: ID of user
+                format: pattern for Web APIs
+        Return:
+        """
+        member = self.get_member(event_id, pk)
+        member.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+    def put(self, request, event_id, pk, format=None):
+        """Add or update member in event.
+        Args:
+                request: Django Rest Framework request object
+                event_id: ID of event
+                pk: ID of user
+                format: pattern for Web APIs
+        Return:
+        """
+        member = self.get_member(event_id, pk)
+        member.role = 0
+        member.save()
+        return Response(status=status.HTTP_201_CREATED)
+
+    def get(self, request, event_id, pk, format=None):
+        """Sending data of member in event from server to client.
+        Args:
+                request: Django Rest Framework request object
+                event_id: ID of event
+                pk: ID of user
+                format: pattern for Web APIs
+        Return:
+        """
+        event_member_object = self.get_member(event_id, pk)
+        response = self.serializer_class(event_member_object)
+        return Response(response.data)

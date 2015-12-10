@@ -41,9 +41,18 @@ app.controller('EventController', function($scope, $http, $location, $uibModal){
     $scope.invite = function(){
         var modal = $uibModal.open({
             templateUrl: 'templates/dialog/invite.html',
-            controller: function($scope, $uibModalInstance){
+            controller: function($scope, $uibModalInstance, $http){
+                $http.get('/api/user/friends/invite/').success(function(data){
+                    $scope.friends = data;
+                    console.log($scope.friends);
+                });
+                
                 $scope.ok = function(){
                     $uibModalInstance.close($scope.invitee);
+                    console.log($scope.invitee);
+                    $http.put('/api/event/'+ eventID +'member'+ $scope.invitee).then(function(data){
+
+                    });
                 };
                 $scope.cancel = function(){
                     $uibModalInstance.dismiss();
@@ -55,14 +64,26 @@ app.controller('EventController', function($scope, $http, $location, $uibModal){
     };
 
     $http.get('/api/event/'+eventID+'/member').success(function(data){
-        $scope.members = data;
 
-        $scope.member_count = data.length;
-        console.log($scope.member_count);
+        var decline = data.filter( function(member){return (member.role==4);} );
+        $scope.decline_count = decline.length;
+
+        $scope.members = data;
+        $scope.member_count = data.length - decline.length;
 
         var ad = data.filter( function(member){return (member.role==1);} );
         $scope.admin = ad[0];
+
+        var atten = data.filter( function(member){return (member.role==2);} );
+        $scope.attendants = atten;
+        $scope.attendants_count = atten.length;
+
+        var may = data.filter( function(member){return (member.role==3);} );
+        $scope.maybe = may;
+        $scope.maybe_count = may.length;
     });
+
+    
 });
 
 app.controller('EventBrowseController', function($scope, $http){
