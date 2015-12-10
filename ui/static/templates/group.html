@@ -11,6 +11,6 @@
 <ul class="nav nav-tabs nav-justified">
 	<li role="presentation" ui-sref-active="active"><a href="#" ui-sref="root.group.feed()">Feed</a></li>
 	<li role="presentation" ui-sref-active="active"><a href="#" ui-sref="root.group.info()">Group Info</a></li>
-	<li role="presentation" ui-sref-active="active"><a href="#" ui-sref="root.group.manage()">Manage</a></li>
+	<li role="presentation" ui-sref-active="active" ng-if="group.member_status == 2"><a href="#" ui-sref="root.group.manage()">Manage</a></li>
 </ul>
 <div ui-view></div>

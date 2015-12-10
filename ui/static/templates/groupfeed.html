@@ -8,10 +8,10 @@
 	<div class="col-sm-10">
 		<form class="nfpost well" ng-show="allowPost">
 			<textarea rows="4" ng-model="nftext" class="form-control" placeholder="What's on your mind?" autofocus></textarea>
-			<div class="checkbox" ng-if="group.gtype == 1">
+			<div class="checkbox" ng-if="group.gtype == 1 && group.member_status == 2">
 				<label><input type="checkbox" ng-model="$parent.pin"> Pin this post</label>
 			</div>
-			<div class="checkbox" ng-if="group.gtype == 1">
+			<div class="checkbox" ng-if="group.gtype == 1 && group.member_status == 2">
 				<label><input type="checkbox" ng-model="$parent.allowSubmission"> Allow homework file upload</label>
 			</div>
 			<input type="submit" ng-click="postStatus()" class="btn btn-primary pull-right" value="Share">

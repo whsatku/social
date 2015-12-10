@@ -84,7 +84,7 @@ class AcceptedMemberViewSet(ListCreateAPIView):
                 List of accepted member.
         """
         this_group = Group.objects.get(id=int(self.kwargs['group_id']))
-        return GroupMember.objects.filter(group=this_group, role=1)
+        return GroupMember.objects.filter(group=this_group, role__gte=1)
 
 
 class GroupViewSet(APIView):
@@ -379,7 +379,7 @@ class CreateGroup(APIView):
             GroupMember.objects.create(
                 group=this_group,
                 user=request.user,
-                role=1
+                role=2
             )
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
