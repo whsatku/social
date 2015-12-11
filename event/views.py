@@ -168,14 +168,15 @@ class EventMemberDetail(APIView):
                 format: pattern for Web APIs
         Return:
         """
-        member = self.get_member(event_id,pk)
+        member = self.get_member(event_id, pk)
+
         if member is None:
             member = EventMember.objects.create(
                 event=Event.objects.get(id=event_id),
                 user=User.objects.get(id=pk),
-                role=request.data['role']
+                role=0
             )
-        member.role = request.data['role']
+
         member.save()
         return Response(status=status.HTTP_201_CREATED)
 

@@ -50,8 +50,8 @@ app.controller('EventController', function($scope, $http, $location, $uibModal){
                 $scope.ok = function(){
                     $uibModalInstance.close($scope.invitee);
                     console.log($scope.invitee);
-                    $http.put('/api/event/'+ eventID +'member'+ $scope.invitee).then(function(data){
-
+                    $http.put('/api/event/'+ eventID +'/member/'+ $scope.invitee).success(function(data){
+                        console.log('put');
                     });
                 };
                 $scope.cancel = function(){
