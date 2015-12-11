@@ -31,7 +31,7 @@ app.controller('CreateEventController', function($scope, $state, $http, $statePa
     }
 });
 
-app.controller('EventController', function($scope, $http, $location, $uibModal){
+app.controller('EventController', function($scope, $http, $location, $uibModal, $rootScope){
     
     var eventID = $location.path().split('/')[2];
     $http.get('/api/event/'+eventID).success(function(data){
@@ -83,7 +83,27 @@ app.controller('EventController', function($scope, $http, $location, $uibModal){
         $scope.maybe_count = may.length;
     });
 
-    
+    $scope.going = function(){
+        console.log('gogogogogogokuy');
+        $http.put('/api/event/'+ eventID +'/member/'+ $rootScope.user.id + '/' + 2).success(function(data){
+            console.log('put');
+        });
+    };
+
+    $scope.decline = function(){
+        console.log('kuy im not going');
+        $http.put('/api/event/'+ eventID +'/member/'+ $rootScope.user.id + '/' + 4).success(function(data){
+            console.log('put');
+        });
+    };
+
+    $scope.maybef = function(){
+        console.log('kuy i dont know');
+        $http.put('/api/event/'+ eventID +'/member/'+ $rootScope.user.id + '/' + 3).success(function(data){
+            console.log('put');
+        });
+    };
+
 });
 
 app.controller('EventBrowseController', function($scope, $http){

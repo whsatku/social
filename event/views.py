@@ -159,7 +159,7 @@ class EventMemberDetail(APIView):
         member.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
-    def put(self, request, event_id, pk, format=None):
+    def put(self, request, event_id, pk, role=0, format=None):
         """Add or update member in event.
         Args1:
                 request: Django Rest Framework request object
@@ -171,12 +171,14 @@ class EventMemberDetail(APIView):
         member = self.get_member(event_id, pk)
 
         if member is None:
+            print('member')
             member = EventMember.objects.create(
                 event=Event.objects.get(id=event_id),
                 user=User.objects.get(id=pk),
-                role=0
+                role=role
             )
-
+        print(role)
+        member.role = role
         member.save()
         return Response(status=status.HTTP_201_CREATED)
 
