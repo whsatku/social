@@ -257,8 +257,9 @@ class EditInfo(APIView):
             return Response(status=status.HTTP_404_NOT_FOUND)
 
         serializer = GroupSerializer(group, data=request.data)
-
+        print "not valid"
         if serializer.is_valid():
+            print "valid"
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

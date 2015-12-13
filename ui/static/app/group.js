@@ -220,6 +220,7 @@ app.controller('GroupInfoController', function($scope, $http, $location){
 });
 
 app.controller('GroupManageController', function($scope, $http, $location, $stateParams){
+
     var groupID = $location.path().split('/')[2];
     function fetchMember(){
         $http.get('/api/group/'+groupID+'/member/accepted').then(function(data){
