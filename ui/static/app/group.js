@@ -79,7 +79,11 @@ app.controller('GroupFeedController', function($scope, $stateParams, $http, $loc
       // POLLING
       (function tick() {
         if($scope.newsfeed.length > 0) {
-          newestID = $scope.newsfeed[0].id;
+          newestID = $scope.newsfeed.map(function(post) {return post.id}).reduce(
+            function(thisPost, thatPost) {
+              return Math.max(thisPost,thatPost);
+            }
+          );
         }
         $http.get('/api/group/' + groupID +'/post/new/' + newestID).success(function(data){
           if(data.length > 0 ){
