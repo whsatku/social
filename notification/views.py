@@ -51,7 +51,6 @@ class NotificationView(APIView):
             receiver=self.request.user).order_by('-datetime')
         for i in noti:
             # i.read = False
-            print i.readed
             if self.request.user in i.readed.all():
                 i.read = True
             else:

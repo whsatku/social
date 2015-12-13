@@ -342,7 +342,7 @@ class GroupPostView(APIView):
         serializer = GroupPostSerializer(data=request.data)
         notification = NotificationViewList()
         if serializer.is_valid():
-            if User.objects.get(id=self.request.user.id) in GroupMember.objects.filter(group_id=group_id):
+            if self.request.user.id in GroupMember.objects.filter(group_id=group_id).values_list('user_id', flat=True):
                 if self.request.user.is_authenticated():
                     request.data['target_type'] = ContentType.objects.get(model='group', app_label='group').id
                     request.data['target_id'] = group_id
