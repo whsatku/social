@@ -63,8 +63,7 @@
 				<ul>
 					<li><a href="#" ui-sref="root.eventbrowse()" ui-sref-active="active"><i class="glyphicon glyphicon-list-alt"></i> Event directory</a></li>
 					<li><a href="#" ui-sref="root.eventcreate()" ui-sref-active="active"><i class="glyphicon glyphicon-plus"></i> Create event</a></li>
-					<li><a href="#" ui-sref="root.event({event: 1})" ui-sref-active="active">Event 1</a></li>
-					<li><a href="#">Event 2</a></li>
+					<li ng-repeat="event in event_list"><a href="#" ui-sref="root.event({event: event.id})" ui-sref-active="active">{{event.name}}</a></li>
 				</ul>
 			</div>
 		</div>

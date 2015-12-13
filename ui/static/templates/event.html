@@ -1,48 +1,56 @@
 <div class="cover">
 	<div class="cover-in">
 		<div class="pull-right toolbar">
-			<div class="btn-group" uib-dropdown>
-				<a class="btn btn-default" uib-dropdown-toggle="">Going <span class="caret"></span></a>
+			<div class="btn-group" ng-show="isSelected" uib-dropdown>
+				<a class="btn btn-default" ng-if="role == 2" uib-dropdown-toggle="">Going <span class="caret"></span></a>
+				<a class="btn btn-default" ng-if="role == 3" uib-dropdown-toggle="">Maybe <span class="caret"></span></a>
+				<a class="btn btn-default" ng-if="role == 4" uib-dropdown-toggle="">Decline <span class="caret"></span></a>
+
 				<ul class="uib-dropdown-menu" role="menu">
-					<li><a href="#">Going</a></li>
-					<li><a href="#">Maybe</a></li>
-					<li><a href="#">Decline</a></li>
+					<li><a href="#" ng-click="going()">Going</a></li>
+					<li><a href="#" ng-click="maybef()">Maybe</a></li>
+					<li><a href="#" ng-click="decline()">Decline</a></li>
 				</ul>
 			</div>
+			<div ng-show="!isSelected">
+				<a class="btn btn-default" ng-click="going()">Going</a>
+				<a class="btn btn-default" ng-click="maybef()">Maybe</a>
+			</div>
 		</div>
-		<h3>Example event</h3>
-		<div class="eventdate"><i class="glyphicon glyphicon-time"></i> 12 Dec 2015 9.00am - 7.00pm</div>
+		<h3>{{event.name}}</h3>
+		<div class="eventdate"><i class="glyphicon glyphicon-time"></i> {{event.start_date}} - {{event.end_date}} </div>
 	</div>
 </div>
 <div class="row event">
 	<div class="col-md-9">
-		Event news feed
+		<div ng-include="'templates/eventfeed.html'" ng-controller="EventFeedController"></div>
 	</div>
 	<div class="col-md-3">
 		<p style="margin-top: 10px;">
-			<i class="glyphicon glyphicon-time"></i> 12 Dec 2015 9.00am - 7.00pm
+			<i class="glyphicon glyphicon-time"></i> {{event.start_date}} - {{event.end_date}}
 		</p>
-		<p>Event description text</p>
+		<p>{{event.description}}</p>
 		<h4>Created by</h4>
-		<a ng-href="{{member.userUrl}}" class="thumbnail" style="width: 40px; background: url('{{member.imgUrl}}'); height: 40px; background-size: cover;"></a>
+		<a href="#" ui-sref="root.user.timeline({user: admin.user.id})" class="thumbnail" style="width: 40px; background: url('{{member.imgUrl}}'); height: 40px; background-size: cover;"></a>
 		<h4>Attending</h4>
 		<ul class="list-inline memberlist">
-			<li ng-repeat="member in [1,2,3]">
-				<a ng-href="{{member.userUrl}}" class="thumbnail" style="width: 40px; background: url('{{member.imgUrl}}'); height: 40px; background-size: cover;"></a>
+			<li ng-repeat="member in attendants">
+				<a href="#" ui-sref="root.user.timeline({user: member.user.id})" class="thumbnail" style="width: 40px; background: url('{{member.imgUrl}}'); height: 40px; background-size: cover;"></a>
 			</li>
 			<li>
-				<div class="thumbnail text-center plusmore">+50</div>
+				<div class="thumbnail text-center plusmore">{{attendants_count}}</div>
 			</li>
 		</ul>
+		<a href="" class="btn btn-default" ng-click="invite()">Invite</a>
 		<h4>Maybe</h4>
 		<ul class="list-inline memberlist">
-			<li ng-repeat="member in [1,2,3]">
-				<a ng-href="{{member.userUrl}}" class="thumbnail" style="width: 40px; background: url('{{member.imgUrl}}'); height: 40px; background-size: cover;"></a>
+			<li ng-repeat="member in maybe">
+				<a href="#" ui-sref="root.user.timeline({user: member.user.id})" class="thumbnail" style="width: 40px; background: url('{{member.imgUrl}}'); height: 40px; background-size: cover;"></a>
 			</li>
 			<li>
-				<div class="thumbnail text-center plusmore">+50</div>
+				<div class="thumbnail text-center plusmore">{{maybe_count}}</div>
 			</li>
 		</ul>
-		<div class="metadata"><strong>47</strong> declined</div>
+		<div class="metadata"><strong>{{decline_count}}</strong> declined</div>
 	</div>
 </div>

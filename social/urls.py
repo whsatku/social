@@ -27,6 +27,7 @@ urlpatterns = [
     url(r'^api/notification/', include('notification.urls')),
     url(r'^api/user/', include('User.urls')),
     url(r'^api/search/', include('search.urls')),
+    url(r'^api/event/', include('event.urls')),
 ]
 
 if settings.DEBUG:

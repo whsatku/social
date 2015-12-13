@@ -17,6 +17,7 @@ from friendship.models import Friend
 from friendship.models import FriendshipRequest
 from django.utils import timezone
 
+
 class UserInformation (APIView):
     """This class is an API for getting user's user information
 
@@ -82,6 +83,7 @@ class UserInformation (APIView):
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+
 class FriendshipDetail(APIView):
 
     def get_user(self, user_profile_id):
@@ -104,7 +106,6 @@ class FriendshipDetail(APIView):
     #     response = self.serializer_class(user_profile_object)
     #     return Response(response.data)
 
-
     def post(self, request, other_user_id, format=None):
         user = request.user
         other_user = self.get_user(other_user_id)
@@ -116,11 +117,12 @@ class FriendshipDetail(APIView):
             user = request.user
             other_user = self.get_user(other_user_id)
             Friend.objects.remove_friend(from_user=other_user, to_user=user)
-        except  Exception as inst:
+        except Exception as inst:
             print type(inst)     # the exception instance
             print inst           # __str__ allows args to be printed directly
             raise Http404
         return Respose(status=status.HTTP_200_OK)
+
 
 class FriendshipPendingViewSet(APIView):
     serializer_class = FriendShipSerializer
@@ -130,12 +132,13 @@ class FriendshipPendingViewSet(APIView):
         response = self.serializer_class(friend_pending, many=True)
         return Response(response.data)
 
+
 class FriendshipViewSet(APIView):
     serializer_class = UserProfileSerializer
 
     def get(self, request, format=None):
         friends = Friend.objects.friends(self.request.user)
-        friend_list = UserProfile.objects.filter(user__in = friends)
+        friend_list = UserProfile.objects.filter(user__in=friends)
 
         response = self.serializer_class(friend_list, many=True)
         return Response(response.data)
@@ -166,8 +169,19 @@ class FriendshipOtherUserViewSet(APIView):
         return Response(response.data)
 
 
+class FriendshipforInviteViewSet(APIView):
+    serializer_class = UserSerializer
+
+    def get(self, request, format=None):
+        friends = Friend.objects.friends(self.request.user)
+
+        response = self.serializer_class(friends, many=True)
+        return Response(response.data)
+
+
 class IsFriendDetail(APIView):
     serializer_class = FriendShipSerializer
+
     def get_user(self, user_profile_id):
         """Get user from user profile's database.
 
@@ -205,7 +219,7 @@ class IsFriendDetail(APIView):
         try:
             friend = FriendshipRequest.objects.get(from_user=self.get_user(other_user_id), to_user=request.user)
             friend.accept()
-        except  Exception as inst:
+        except Exception as inst:
             print type(inst)     # the exception instance
             print inst           # __str__ allows args to be printed directly
             raise Http404
@@ -215,7 +229,7 @@ class IsFriendDetail(APIView):
         try:
             friend = FriendshipRequest.objects.get(from_user=self.get_user(other_user_id), to_user=request.user)
             friend.cancel()
-        except  Exception as inst:
+        except Exception as inst:
             print type(inst)     # the exception instance
             print inst           # __str__ allows args to be printed directly
             raise Http404

@@ -46,9 +46,10 @@ INSTALLED_APPS = (
     'ui',
     'newsfeed',
     'group',
+    'User',
+    'event',
     'friendship',
     'notification',
-    'User',
     'search',
     'stdimage',
 )
@@ -102,6 +103,7 @@ DATABASES = {
 LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'UTC'
+
 
 USE_I18N = True
 
