@@ -70,7 +70,7 @@ app.controller('GroupFeedController', function($scope, $stateParams, $http, $loc
   if(!postID) {
     $scope.allowPost = true;
     $scope.hasMoreStory = true;
-    var newestID = 1;
+    var newestID = 0;
     $http.get('/api/group/'+groupID+'/post&limit=' + postLimit ).success(function(data){
       $scope.newsfeed = data;
       if(data.length < postLimit) {
