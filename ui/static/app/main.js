@@ -8,6 +8,7 @@ var app = angular.module('app.main', [
     'app.newsfeed',
     'app.group',
     'app.userprofile',
+    'app.event',
     'app.firstlogin',
 	  'angularMoment',
     'app.search'
@@ -91,6 +92,21 @@ app.config(function($stateProvider, $urlRouterProvider) {
             templateUrl: 'templates/groupcreate.html',
             controller: 'CreateGroupController'
         })
+        .state('root.event', {
+        	url: '/event/{event:int}',
+        	templateUrl: 'templates/event.html',
+            controller: 'EventController'
+        })
+        .state('root.eventcreate', {
+        	url: '/event/create',
+        	templateUrl: 'templates/eventcreate.html',
+        	controller: 'CreateEventController'
+        })
+        .state('root.eventbrowse', {
+        	url: '/event/browse',
+        	templateUrl: 'templates/eventbrowse.html',
+            controller: 'EventBrowseController'
+        })
         .state('root.user', {
             url: '/{user:int}',
             abstract: true,
@@ -169,6 +185,9 @@ app.controller('MainController', function($rootScope, user, $http, $uibModal, $s
     });
     $http.get('/api/group/').success(function(data){
         $rootScope.group_list = data;
+    });
+    $http.get('/api/event/all').success(function(data){
+        $rootScope.event_list = data;
     });
 
     $rootScope.logout = function(){

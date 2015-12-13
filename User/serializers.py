@@ -6,6 +6,12 @@ from friendship.models import Friend
 from friendship.models import Follow
 
 
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ('id', 'username', 'first_name', 'last_name')
+
+
 class UserProfileSerializer(serializers.ModelSerializer):
     user = UserSerializer(read_only=True)
 
@@ -14,6 +20,15 @@ class UserProfileSerializer(serializers.ModelSerializer):
         fields = ('user', 'firstname', 'lastname', 'birthday',
                   'gender', 'faculty', 'major', 'types',
                   'country', 'city', 'picture', 'created')
+
+
+class FirstUserProfileSerializer(serializers.ModelSerializer):
+
+    user = UserSerializer(read_only=True)
+
+    class Meta:
+        model = UserProfile
+        fields = ('user', 'faculty', 'country', 'created')
 
 
 class FriendShipSerializer(serializers.ModelSerializer):
