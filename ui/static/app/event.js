@@ -32,10 +32,22 @@ app.controller('CreateEventController', function($scope, $state, $http, $statePa
 });
 
 app.controller('EventController', function($scope, $http, $location, $uibModal, $rootScope){
-    
     var eventID = $location.path().split('/')[2];
+    $scope.isSelected = false;
+    $scope.role = 0;
     $http.get('/api/event/'+eventID).success(function(data){
         $scope.event = data;
+    });
+    
+    $http.get('/api/event/'+eventID+ '/member/' + $rootScope.user.id).success(function(data){
+        $scope.role = data.role;
+        if( data.role == 0) {
+            $scope.isSelected = false;
+        }
+        else {
+            $scope.isSelected = true;
+        }
+        console.log($scope.isSelected);
     });
 
     $scope.invite = function(){
