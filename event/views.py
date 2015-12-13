@@ -7,11 +7,16 @@ from rest_framework.exceptions import ValidationError
 from rest_framework.exceptions import NotAuthenticated
 from rest_framework.exceptions import NotFound
 from django.contrib.contenttypes.models import ContentType
+from newsfeed.serializer import EventPostSerializer
+from notification.views import NotificationViewList
 from django.contrib.auth.models import User
+from newsfeed.models import Post
 from models import *
 from serializers import *
 from django.http import Http404
 from rest_framework import status
+from rest_framework.renderers import JSONRenderer
+import json
 
 
 # Create your views here.
@@ -194,3 +199,78 @@ class EventMemberDetail(APIView):
         event_member_object = self.get_member(event_id, pk)
         response = self.serializer_class(event_member_object)
         return Response(response.data)
+
+
+class EventPostView(APIView):
+    """This class an API for managing group post.
+
+    """
+    serializer_class = EventPostSerializer
+
+    def get(self, request, event_id, limit=20, format=None):
+        """Get a post from database.
+        Args:
+                request: Django Rest Framework request object.
+                event_id: event id of querying post.
+                format: pattern for Web APIs.
+        Return:
+                post from querying event.
+        """
+        post = Post.objects.filter(target_id=event_id, target_type=ContentType.objects.get(model='event')).order_by('-pinned', '-datetime')[:limit]
+        response = self.serializer_class(post, many=True)
+        return Response(response.data)
+
+    def post(self, request, event_id, format=None):
+        """Create new post to the system.
+        Args:
+                request: Django Rest Framework request object.
+                event_id: event id that we going to post to.
+                format: pattern for Web APIs.
+        Return:
+
+        """
+        serializer = EventPostSerializer(data=request.data)
+        notification = NotificationViewList()
+        if serializer.is_valid():
+            # if self.request.user.id in EventMember.objects.filter(event_id=event_id).values_list('user_id', flat=True):
+                if self.request.user.is_authenticated():
+                    request.data['target_type'] = ContentType.objects.get(model='event').id
+                    request.data['target_id'] = event_id
+                    serializer.save(user=User.objects.get(id=self.request.user.id), target_id=event_id, target_type=ContentType.objects.get(model='event'))
+                    data = {}
+                    data['type'] = 'event'
+                    data['event_id'] = event_id
+                    data['event_name'] = Event.objects.get(id=event_id).name
+                    json_data = json.dumps(data)
+                    notification.post(request, User.objects.filter(id__in=EventMember.objects.values('user').filter(id=event_id)), ContentType.objects.get(model='event'), JSONRenderer().render(serializer.data), json_data)
+                    return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class EventPostPegination(APIView):
+
+    serializer_class = EventPostSerializer
+    event_model_id = ContentType.objects.get(model='event').id
+
+    def get(self, request, event_id, action, post_id, limit=20, format=None):
+
+        if action == 'more':
+            post = Post.objects.filter(target_id=event_id, target_type=self.event_model_id).filter(id__lt=post_id).order_by('-datetime')[:limit]
+        if action == 'new':
+            post = Post.objects.filter(target_id=event_id, target_type=self.event_model_id).filter(id__gt=post_id).order_by('-datetime')
+        response = self.serializer_class(post, many=True)
+        return Response(response.data)
+
+
+class PostUnpin(APIView):
+    serializer_class = EventPostSerializer
+
+    def post(self, request, event_id, post_id):
+        post = Post.objects.get(id=post_id)
+        if post.target_id != int(event_id):
+            raise Http404
+
+        post.pinned = False
+        post.save()
+
+        return Response(self.serializer_class(post).data)

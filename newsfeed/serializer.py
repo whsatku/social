@@ -1,5 +1,5 @@
 from django.contrib.auth.models import User
-
+from django.contrib.contenttypes.models import ContentType
 from rest_framework import serializers
 from rest_framework.serializers import ModelSerializer
 from newsfeed.models import Post, Comment
@@ -22,9 +22,20 @@ class PostSerializer(ModelSerializer):
 
 
 class GroupPostSerializer(ModelSerializer):
-    group_model_id = 15
     user = UserSerializer(read_only=True)
-    target_type = serializers.HiddenField(default=group_model_id)
+    target_type = serializers.HiddenField(default=ContentType.objects.get(model='group', app_label='group').id)
+    target_id = serializers.HiddenField(default=1)
+    datetime = serializers.ReadOnlyField()
+
+    class Meta:
+        model = Post
+        fields = ('id', 'user', 'text', 'datetime',
+                  'target_type', 'target_id', 'pinned', 'allow_submission')
+
+
+class EventPostSerializer(ModelSerializer):
+    user = UserSerializer(read_only=True)
+    target_type = serializers.HiddenField(default=ContentType.objects.get(model='event').id)
     target_id = serializers.HiddenField(default=1)
     datetime = serializers.ReadOnlyField()
 
