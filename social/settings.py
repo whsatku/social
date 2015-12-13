@@ -50,7 +50,6 @@ INSTALLED_APPS = (
     'event',
     'friendship',
     'notification',
-    'User',
     'search',
     'stdimage',
 )
