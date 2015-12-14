@@ -5,6 +5,7 @@ from rest_framework.exceptions import ValidationError
 from rest_framework.exceptions import NotAuthenticated
 from rest_framework.exceptions import NotFound
 from rest_framework.views import APIView
+from django.http import HttpResponse
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth.models import User
 from newsfeed.models import Post
@@ -35,6 +36,9 @@ class MemberViewSet(ListCreateAPIView):
         return GroupMember.objects.filter(group=this_group)
 
     def create(self, *args, **kwargs):
+        print 'Create Noti Obj'
+        notification = NotificationViewList()
+
         if not self.request.user.is_authenticated():
             raise NotAuthenticated
         try:
@@ -48,10 +52,19 @@ class MemberViewSet(ListCreateAPIView):
                 'role': 0
             }
         )
+        data_json = {}
+        data = {}
+        data_json['target_id'] = self.get_group_id()
+        data_json['target_type'] = ContentType.objects.get(model='group',app_label='group').id
+        data_json['text'] = 'requested to join a group'
+        data['type'] = 'group'
+        data['group_id'] = self.get_group_id()
+        data['group_name'] = group.name
+        json_data = json.dumps(data)
+        notification.add(self.request.user, data_json, User.objects.filter(id__in=GroupMember.objects.values('user').filter(group_id=self.get_group_id())), ContentType.objects.get(model='group',app_label='group'), '', json_data)
 
         if not created:
             raise ValidationError('request already exists')
-
         return Response(GroupMemberSerializer(member).data)
 
 
@@ -352,7 +365,7 @@ class GroupPostView(APIView):
                     data['group_id'] = group_id
                     data['group_name'] = Group.objects.get(id=group_id).name
                     json_data = json.dumps(data)
-                    notification.post(request, User.objects.filter(id__in=GroupMember.objects.values('user').filter(group_id=group_id)), ContentType.objects.get(model='group',app_label='group'), JSONRenderer().render(serializer.data), json_data)
+                    notification.add(request.user, request.data, User.objects.filter(id__in=GroupMember.objects.values('user').filter(group_id=group_id)), ContentType.objects.get(model='post'), JSONRenderer().render(serializer.data), json_data)
                     return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 

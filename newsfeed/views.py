@@ -39,8 +39,9 @@ class PostViewList(APIView):
                 else:
                     data['user_id'] = None
                 json_data = json.dumps(data)
-                notification.post(
-                    request,
+                notification.add(
+                    request.user,
+                    request.data,
                     User.objects.all(),
                     ContentType.objects.get(model='post'),
                     JSONRenderer().render(serializer.data).decode('utf-8'),
@@ -109,8 +110,9 @@ class CommentViewList(APIView):
                     else:
                         data['user_id'] = None
                 json_data = json.dumps(data)
-                notification.post(
-                    request,
+                notification.add(
+                    request.user,
+                    request.data,
                     define_receiver(request.data['post']),
                     ContentType.objects.get(model='comment'),
                     JSONRenderer().render(serializer.data).decode('utf-8'),
