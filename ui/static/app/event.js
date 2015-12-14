@@ -33,21 +33,22 @@ app.controller('CreateEventController', function($scope, $state, $http, $statePa
 
 app.controller('EventController', function($scope, $http, $location, $uibModal, $rootScope){
     var eventID = $location.path().split('/')[2];
-    $scope.isSelected = false;
-    $scope.role = 0;
+    $scope.role = 1;
     $http.get('/api/event/'+eventID).success(function(data){
         $scope.event = data;
     });
 
     $http.get('/api/event/'+eventID+ '/member/' + $rootScope.user.id).success(function(data){
         $scope.role = data.role;
-        if( data.role == 0) {
-            $scope.isSelected = false;
+        if(data.role == 2) {
+          $scope.roletext = "Going";
         }
-        else {
-            $scope.isSelected = true;
+        else if(data.role == 3) {
+          $scope.roletext = "Maybe";
         }
-        console.log($scope.isSelected);
+        else if(data.role == 4) {
+          $scope.roletext = "Decline";
+        }
     });
 
     $scope.invite = function(){
@@ -75,44 +76,50 @@ app.controller('EventController', function($scope, $http, $location, $uibModal, 
         });
     };
 
-    $http.get('/api/event/'+eventID+'/member').success(function(data){
+    var updateMember = function () {
+      $http.get('/api/event/'+eventID+'/member').success(function(data){
 
-        var decline = data.filter( function(member){return (member.role==4);} );
-        $scope.decline_count = decline.length;
+          var decline = data.filter( function(member){return (member.role==4);} );
+          $scope.decline_count = decline.length;
 
-        $scope.members = data;
-        $scope.member_count = data.length - decline.length;
+          $scope.members = data;
+          $scope.member_count = data.length - decline.length;
 
-        var ad = data.filter( function(member){return (member.role==1);} );
-        $scope.admin = ad[0];
+          var ad = data.filter( function(member){return (member.role==1);} );
+          $scope.admin = ad[0];
 
-        var atten = data.filter( function(member){return (member.role==2);} );
-        $scope.attendants = atten;
-        $scope.attendants_count = atten.length;
+          var atten = data.filter( function(member){return (member.role==2);} );
+          $scope.attendants = atten;
+          $scope.attendants_count = atten.length;
 
-        var may = data.filter( function(member){return (member.role==3);} );
-        $scope.maybe = may;
-        $scope.maybe_count = may.length;
-    });
+          var may = data.filter( function(member){return (member.role==3);} );
+          $scope.maybe = may;
+          $scope.maybe_count = may.length;
+      });
+    };
+    updateMember();
 
     $scope.going = function(){
-        console.log('gogogogogogokuy');
         $http.put('/api/event/'+ eventID +'/member/'+ $rootScope.user.id + '/' + 2).success(function(data){
-            console.log('put');
+            $scope.roletext = "Going";
+            $scope.role = 2;
+            updateMember();
         });
     };
 
     $scope.decline = function(){
-        console.log('kuy im not going');
         $http.put('/api/event/'+ eventID +'/member/'+ $rootScope.user.id + '/' + 4).success(function(data){
-            console.log('put');
+            $scope.roletext = "Decline";
+            $scope.role = 4;
+            updateMember();
         });
     };
 
     $scope.maybef = function(){
-        console.log('kuy i dont know');
         $http.put('/api/event/'+ eventID +'/member/'+ $rootScope.user.id + '/' + 3).success(function(data){
-            console.log('put');
+            $scope.roletext = "Maybe";
+            $scope.role = 3;
+            updateMember();
         });
     };
 
@@ -152,7 +159,7 @@ app.controller('EventFeedController', function($scope, $stateParams, $http, $tim
     $scope.allowPost = true;
     $scope.hasMoreStory = true;
     var newestID = 1;
-    $http.get('/api/newsfeed/post&limit=' + postLimit ).success(function(data){
+    $http.get('/api/event/' + eventID + '/post&limit=' + postLimit ).success(function(data){
       $scope.newsfeed = data;
       if(data.length < postLimit) {
         $scope.hasMoreStory = false;
@@ -160,9 +167,13 @@ app.controller('EventFeedController', function($scope, $stateParams, $http, $tim
       // POLLING
       (function tick() {
         if($scope.newsfeed.length > 0) {
-          newestID = $scope.newsfeed[0].id;
+          newestID = $scope.newsfeed.map(function(post) {return post.id}).reduce(
+            function(thisPost, thatPost) {
+              return Math.max(thisPost,thatPost);
+            }
+          );
         }
-        $http.get('/api/newsfeed/new/' + newestID).success(function(data){
+        $http.get('/api/event/' + eventID + '/post/new/' + newestID).success(function(data){
           if(data.length > 0 ){
             $scope.newstory = true;
             $timeout(function() { $scope.newstory = false; }, 3000);
@@ -178,7 +189,7 @@ app.controller('EventFeedController', function($scope, $stateParams, $http, $tim
   }
   else {
     $scope.allowPost = false;
-  	$http.get('/api/newsfeed/post/' + postID).success(function(data){
+  	$http.get('/api/event/' + eventID + '/post/' + postID).success(function(data){
   		$scope.newsfeed.push(data);
   	});
   }
@@ -186,12 +197,10 @@ app.controller('EventFeedController', function($scope, $stateParams, $http, $tim
 	$scope.postStatus = function() {
 		postData = {
 			text : $scope.nftext,
-			target_type : 4,
-      target_id : null,
 		};
 
 		if (postData.text.length > 0) {
-			$http.post('/api/newsfeed/post/', postData).then(function(response){
+			$http.post('/api/event/' + eventID + '/post', postData).then(function(response){
 				console.log(response);
         $scope.nftext="";
 				$scope.newsfeed.unshift(response.data);
@@ -204,7 +213,7 @@ app.controller('EventFeedController', function($scope, $stateParams, $http, $tim
 
   $scope.loadMoreStory = function() {
     var oldestID = $scope.newsfeed.slice(-1)[0].id;
-    $http.get('/api/newsfeed/more/' + oldestID +'&limit=' + postLimit).success(function(data){
+    $http.get('/api/event/' + eventID + '/post/more/' + oldestID +'&limit=' + postLimit).success(function(data){
       if(data.length < postLimit) {
         $scope.hasMoreStory = false;
       }

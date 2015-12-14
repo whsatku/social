@@ -1,18 +1,16 @@
 <div class="cover">
 	<div class="cover-in">
 		<div class="pull-right toolbar">
-			<div class="btn-group" ng-show="isSelected" uib-dropdown>
-				<a class="btn btn-default" ng-if="role == 2" uib-dropdown-toggle="">Going <span class="caret"></span></a>
-				<a class="btn btn-default" ng-if="role == 3" uib-dropdown-toggle="">Maybe <span class="caret"></span></a>
-				<a class="btn btn-default" ng-if="role == 4" uib-dropdown-toggle="">Decline <span class="caret"></span></a>
+			<div class="btn-group" ng-show="role!=1" uib-dropdown>
+				<a class="btn btn-default" uib-dropdown-toggle=""><span ng-bind="roletext">Going</span> <span class="caret"></span></a>
 
 				<ul class="uib-dropdown-menu" role="menu">
-					<li><a href="#" ng-click="going()">Going</a></li>
-					<li><a href="#" ng-click="maybef()">Maybe</a></li>
-					<li><a href="#" ng-click="decline()">Decline</a></li>
+					<li><a href="" ng-click="going()">Going</a></li>
+					<li><a href="" ng-click="maybef()">Maybe</a></li>
+					<li><a href="" ng-click="decline()">Decline</a></li>
 				</ul>
 			</div>
-			<div ng-show="!isSelected">
+			<div ng-show="role==1">
 				<a class="btn btn-default" ng-click="going()">Going</a>
 				<a class="btn btn-default" ng-click="maybef()">Maybe</a>
 			</div>
@@ -23,7 +21,7 @@
 </div>
 <div class="row event">
 	<div class="col-md-9">
-		<div ng-include="'templates/eventfeed.html'" ng-controller="EventFeedController"></div>
+		<div ng-include="'templates/eventfeed.html'"></div>
 	</div>
 	<div class="col-md-3">
 		<p style="margin-top: 10px;">
