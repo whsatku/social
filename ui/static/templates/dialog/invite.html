@@ -1,7 +1,7 @@
 <h4 class="modal-header">Invite</h4>
 <div class="modal-body">
 
-	<input type="text" ng-model="invitee" placeholder="Enter names" uib-typeahead="username.id as username.username for username in friends" typeahead-loading="loading" class="form-control">
+	<input type="text" ng-model="invitee" placeholder="Enter names" uib-typeahead="username as username.username for username in friends" typeahead-loading="loading" class="form-control">
 	<i ng-show="loading" class="glyphicon glyphicon-refresh"></i>
 </div>
 <div class="modal-footer">
