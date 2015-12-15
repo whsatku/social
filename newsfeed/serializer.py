@@ -3,12 +3,22 @@ from django.contrib.contenttypes.models import ContentType
 from rest_framework import serializers
 from rest_framework.serializers import ModelSerializer
 from newsfeed.models import Post, Comment
+from User.models import UserProfile
+
+
+class UserProfileSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = UserProfile
+        fields = ('picture',)
 
 
 class UserSerializer(ModelSerializer):
+    profile = UserProfileSerializer(read_only=True)
+
     class Meta:
         model = User
-        fields = ('id', 'username', 'first_name', 'last_name')
+        fields = ('id', 'username', 'first_name', 'last_name', 'profile')
 
 
 class PostSerializer(ModelSerializer):
