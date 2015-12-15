@@ -36,9 +36,7 @@ class MemberViewSet(ListCreateAPIView):
         return GroupMember.objects.filter(group=this_group)
 
     def create(self, *args, **kwargs):
-        
         notification = NotificationViewList()
-
         if not self.request.user.is_authenticated():
             raise NotAuthenticated
         try:
@@ -61,7 +59,7 @@ class MemberViewSet(ListCreateAPIView):
         data['group_id'] = self.get_group_id()
         data['group_name'] = group.name
         json_data = json.dumps(data)
-        notification.add(self.request.user, data_json, User.objects.filter(id__in=GroupMember.objects.values('user').filter(group_id=self.get_group_id(),role=2)), ContentType.objects.get(model='group member'), json.dumps({}), json_data)
+        notification.add(self.request.user, data_json, User.objects.filter(id__in=GroupMember.objects.values('user').filter(group_id=self.get_group_id(),role=2)), ContentType.objects.get(model='groupmember'), json.dumps({}), json_data)
 
         if not created:
             raise ValidationError('request already exists')

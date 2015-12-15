@@ -231,7 +231,7 @@ class IsFriendDetail(APIView):
         data_json['target_id'] = other_user_id
         data_json['target_type'] = ContentType.objects.get(model='user').id
         data_json['text'] = 'accepted your friend request'
-        notification.add(self.request.user, data_json, User.objects.filter(id=other_user_id), ContentType.objects.get(model='Friendship Request'), json.dumps({}), json.dumps({}))
+        notification.add(self.request.user, data_json, User.objects.filter(id=other_user_id), ContentType.objects.get(model='friendshiprequest'), json.dumps({}), json.dumps({}))
 
         return Response(Friend.objects.are_friends(request.user, self.get_user(other_user_id)))
 
