@@ -3,6 +3,7 @@
 var app = angular.module('app.userprofile', []);
 
 app.controller('UserProfileInfoController', function($scope, $http, $location, $stateParams, $rootScope, $timeout){
+    $scope.user = $rootScope.user;
     var userID = $stateParams.user;
     $scope.allowEdit = false;
     $scope.nftext = "";

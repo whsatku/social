@@ -33,14 +33,17 @@ app.controller('CreateEventController', function($scope, $state, $http, $statePa
 
 app.controller('EventController', function($scope, $http, $location, $uibModal, $rootScope){
     var eventID = $location.path().split('/')[2];
-    $scope.role = 1;
+    $scope.role = 0;
     $http.get('/api/event/'+eventID).success(function(data){
         $scope.event = data;
     });
 
     $http.get('/api/event/'+eventID+ '/member/' + $rootScope.user.id).success(function(data){
         $scope.role = data.role;
-        if(data.role == 2) {
+        if(data.role == null) {
+          $scope.role = 0;
+        }
+        else if(data.role == 1 || data.role == 2) {
           $scope.roletext = "Going";
         }
         else if(data.role == 3) {
@@ -146,11 +149,14 @@ app.controller('EventBrowseController', function($scope, $http){
     });
 });
 
-app.controller('EventFeedController', function($scope, $stateParams, $http, $timeout){
+app.controller('EventFeedController', function($scope, $rootScope, $stateParams, $http, $timeout){
   $scope.newsfeed = [];
   $scope.nftext = "";
+  $scope.user = $rootScope.user;
+
   postID = $stateParams.postid;
   var eventID = $stateParams.event;
+  $scope.eventID = eventID;
   var postLimit = 20;
 
   if(!postID) {
@@ -187,9 +193,9 @@ app.controller('EventFeedController', function($scope, $stateParams, $http, $tim
   }
   else {
     $scope.allowPost = false;
-  	$http.get('/api/event/' + eventID + '/post/' + postID).success(function(data){
-  		$scope.newsfeed.push(data);
-  	});
+    $http.get('/api/newsfeed/post/' + postID).success(function(data){
+      $scope.newsfeed.push(data);
+    });
   }
 
 	$scope.postStatus = function() {

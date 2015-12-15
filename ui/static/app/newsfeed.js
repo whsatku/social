@@ -18,9 +18,10 @@ app.directive('myEnter', function () {
 });
 
 
-app.controller('NewsfeedController', function($scope, $stateParams, $http, $timeout){
+app.controller('NewsfeedController', function($scope, $rootScope, $stateParams, $http, $timeout){
   $scope.newsfeed = [];
   $scope.nftext = "";
+  $scope.user = $rootScope.user;
   postID = $stateParams.id;
   var postLimit = 20;
 

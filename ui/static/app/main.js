@@ -97,6 +97,11 @@ app.config(function($stateProvider, $urlRouterProvider) {
         	templateUrl: 'templates/event.html',
             controller: 'EventController'
         })
+        .state('root.eventpost', {
+            url: '/event/{event:int}/post/{postid:int}',
+            templateUrl: 'templates/event.html',
+            controller: 'EventController'
+        })
         .state('root.eventcreate', {
         	url: '/event/create',
         	templateUrl: 'templates/eventcreate.html',
@@ -281,7 +286,7 @@ app.controller('PendingFriendController', function($scope, $rootScope, $http, $i
     	});
     };
     updatePendingFriend();
-    $interval(updatePendingFriend, 60000);
+    $interval(updatePendingFriend, 3000);
 
 
 });

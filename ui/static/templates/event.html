@@ -1,7 +1,7 @@
 <div class="cover">
 	<div class="cover-in">
 		<div class="pull-right toolbar">
-			<div class="btn-group" ng-show="role!=1" uib-dropdown>
+			<div class="btn-group" ng-show="role!=0" uib-dropdown>
 				<a class="btn btn-default" uib-dropdown-toggle=""><span ng-bind="roletext">Going</span> <span class="caret"></span></a>
 
 				<ul class="uib-dropdown-menu" role="menu">
@@ -10,7 +10,7 @@
 					<li><a href="" ng-click="decline()">Decline</a></li>
 				</ul>
 			</div>
-			<div ng-show="role==1">
+			<div ng-show="role==0">
 				<a class="btn btn-default" ng-click="going()">Going</a>
 				<a class="btn btn-default" ng-click="maybef()">Maybe</a>
 			</div>
