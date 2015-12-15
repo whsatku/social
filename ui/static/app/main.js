@@ -234,7 +234,7 @@ app.controller('MainController', function($rootScope, user, $http, $uibModal, $s
     });
 });
 
-app.controller('NotificationController', function($rootScope, $scope, $http, $timeout){
+app.controller('NotificationController', function($rootScope, $scope, $http, $interval){
 
 	var countNotification = function(notificationsData) {
 		var count = 0;
@@ -244,18 +244,17 @@ app.controller('NotificationController', function($rootScope, $scope, $http, $ti
 		return count;
 	};
 
-	(function tick() {
-		$http.get('/api/notification/get/').success(function(data){
-			$rootScope.notifications = data;
-			data.map(function(noti) {
-				noti.link_item = angular.fromJson(noti.link_item);
-				noti.reference_detail = angular.fromJson(noti.reference_detail);
-			});
-			$rootScope.notificationCount = countNotification(data);
-			$timeout(tick, 3000);
-		});
-
-	})();
+  var updateNotification = function() {
+    $http.get('/api/notification/get/').success(function(data){
+      $rootScope.notifications = data;
+      data.map(function(noti) {
+        noti.link_item = angular.fromJson(noti.link_item);
+        noti.reference_detail = angular.fromJson(noti.reference_detail);
+      });
+      $rootScope.notificationCount = countNotification(data);
+    });
+  };
+  $interval(updateNotification, 3000);
 
 
 	$scope.readNotification = function (notification){

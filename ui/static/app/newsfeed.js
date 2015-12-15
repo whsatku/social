@@ -18,7 +18,7 @@ app.directive('myEnter', function () {
 });
 
 
-app.controller('NewsfeedController', function($scope, $rootScope, $stateParams, $http, $timeout){
+app.controller('NewsfeedController', function($scope, $rootScope, $stateParams, $http, $interval){
   $scope.newsfeed = [];
   $scope.nftext = "";
   $scope.user = $rootScope.user;
@@ -34,8 +34,7 @@ app.controller('NewsfeedController', function($scope, $rootScope, $stateParams, 
       if(data.length < postLimit) {
         $scope.hasMoreStory = false;
       }
-      // POLLING
-      (function tick() {
+      var updateNewStory = function() {
         if($scope.newsfeed.length > 0) {
           newestID = $scope.newsfeed[0].id;
         }
@@ -46,11 +45,12 @@ app.controller('NewsfeedController', function($scope, $rootScope, $stateParams, 
             //$('.newstory').stop().fadeIn(400).delay(3000).fadeOut(400); //fade
             $scope.newsfeed.unshift.apply($scope.newsfeed, data);
           }
-          $timeout(tick, 3000);
         });
+      };
 
-      })();
-      // END OF POLLING
+      $interval(updateNewStory, 3000);
+
+
     });
   }
   else {
@@ -94,7 +94,7 @@ app.controller('NewsfeedController', function($scope, $rootScope, $stateParams, 
 
 
 
-app.controller('CommentController', function($rootScope, $scope, $http, $timeout){
+app.controller('CommentController', function($rootScope, $scope, $http, $interval){
 
   var loadCommentsByPostId = function(postID) {
     $http.get('/api/newsfeed/post/'+postID+'/comment/').success(function(commentsData){
@@ -116,12 +116,8 @@ app.controller('CommentController', function($rootScope, $scope, $http, $timeout
       $scope.comment = "";
 			$http.post('/api/newsfeed/comment/', commentData).then(function(response){
         console.log(response);
-        // POLLING
-        (function tick() {
-          loadCommentsByPostId($scope.data.id);
-          $timeout(tick, 3000);
-        })();
-        // END OF POLLING
+        loadCommentsByPostId($scope.data.id)
+        $interval(function() { loadCommentsByPostId($scope.data.id) }, 3000);
 
 			}, function(xhr){
 					alert(xhr.data);

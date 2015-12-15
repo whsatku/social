@@ -149,7 +149,7 @@ app.controller('EventBrowseController', function($scope, $http){
     });
 });
 
-app.controller('EventFeedController', function($scope, $rootScope, $stateParams, $http, $timeout){
+app.controller('EventFeedController', function($scope, $rootScope, $stateParams, $http, $timeout, $interval){
   $scope.newsfeed = [];
   $scope.nftext = "";
   $scope.user = $rootScope.user;
@@ -168,8 +168,8 @@ app.controller('EventFeedController', function($scope, $rootScope, $stateParams,
       if(data.length < postLimit) {
         $scope.hasMoreStory = false;
       }
-      // POLLING
-      (function tick() {
+
+      var updateNewStory = function () {
         if($scope.newsfeed.length > 0) {
           newestID = $scope.newsfeed.map(function(post) {return post.id}).reduce(
             function(thisPost, thatPost) {
@@ -181,14 +181,13 @@ app.controller('EventFeedController', function($scope, $rootScope, $stateParams,
           if(data.length > 0 ){
             $scope.newstory = true;
             $timeout(function() { $scope.newstory = false; }, 3000);
-            //$('.newstory').stop().fadeIn(400).delay(3000).fadeOut(400); //fade
             $scope.newsfeed.unshift.apply($scope.newsfeed, data);
           }
-          $timeout(tick, 3000);
         });
 
-      })();
-      // END OF POLLING
+        $interval(updateNewStory, 3000);
+
+      }
     });
   }
   else {
