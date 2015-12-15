@@ -182,8 +182,6 @@ class EventMemberDetail(APIView):
                 user=User.objects.get(id=pk),
                 role=role
             )
-            member.role = role
-            member.save()
             data_json = {}
             data_json['target_id'] = event_id
             data_json['target_type'] = ContentType.objects.get(model='event').id
@@ -194,6 +192,9 @@ class EventMemberDetail(APIView):
             data['event_name'] = Event.objects.get(id=event_id).name
             json_data = json.dumps(data)
             notification.add(request.user, data_json, User.objects.filter(id=pk), ContentType.objects.get(model='eventmember'), json.dumps({}), json_data)
+        member.role = role
+        member.save()
+
         return Response(status=status.HTTP_201_CREATED)
 
     def get(self, request, event_id, pk, format=None):
@@ -251,7 +252,7 @@ class EventPostView(APIView):
                     data['event_id'] = event_id
                     data['event_name'] = Event.objects.get(id=event_id).name
                     json_data = json.dumps(data)
-                    notification.add(request.user, request.data, User.objects.filter(id__in=EventMember.objects.values('user').filter(id=event_id),role=1,2), ContentType.objects.get(model='post'), JSONRenderer().render(serializer.data), json_data)
+                    notification.add(request.user, request.data, User.objects.filter(id__in=EventMember.objects.values('user').filter(id=event_id),role__in=[1,2]), ContentType.objects.get(model='post'), JSONRenderer().render(serializer.data), json_data)
                     return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
