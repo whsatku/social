@@ -254,12 +254,14 @@ app.controller('NotificationController', function($rootScope, $scope, $http, $in
       $rootScope.notificationCount = countNotification(data);
     });
   };
+  updateNotification();
   $interval(updateNotification, 3000);
 
 
 	$scope.readNotification = function (notification){
 		$http.get('/api/notification/read/' + notification.id).success(function(data){
       notification.read = true;
+      updateNotification();
 			console.log(data);
 		}).error(function(err) {
 			console.log(err);
