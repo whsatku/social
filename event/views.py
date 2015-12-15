@@ -193,7 +193,7 @@ class EventMemberDetail(APIView):
         data['event_id'] = event_id
         data['event_name'] = Event.objects.get(id=event_id).name
         json_data = json.dumps(data)
-        notification.add(request.user, data_json, User.objects.filter(id__in=EventMember.objects.values('user').filter(id=event_id,role=2)), ContentType.objects.get(model='event'), '', json_data)
+        notification.add(request.user, data_json, User.objects.filter(id=pk), ContentType.objects.get(model='event member'), json.dumps({}), json_data)
         return Response(status=status.HTTP_201_CREATED)
 
     def get(self, request, event_id, pk, format=None):

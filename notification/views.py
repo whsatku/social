@@ -17,7 +17,6 @@ class NotificationViewList(APIView):
     def add(self, user, data, receiver_set, type,
              link_item, reference_detail, format=None):
         receiver_set = receiver_set.exclude(id=user.id)
-        print 'Noti function'
         notification = Notification.objects.create(
             user=User.objects.get(id=user.id),
             target_id=data['target_id'],
