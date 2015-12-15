@@ -6,6 +6,7 @@ from rest_framework.views import APIView
 from newsfeed.models import Post
 from newsfeed.models import Comment
 from group.models import Group
+from event.models import Event
 from newsfeed.serializer import PostSerializer
 from newsfeed.serializer import CommentSerializer
 from notification.views import NotificationViewList
@@ -101,6 +102,10 @@ class CommentViewList(APIView):
                     data['type'] = 'group'
                     data['group_id'] = post.target_id
                     data['group_name'] = Group.objects.get(id=post.target_id).name
+                if post.target_type == ContentType.objects.get(model='event'):
+                    data['type'] = 'event'
+                    data['event_id'] = post.target_id
+                    data['event_name'] = Event.objects.get(id=post.target_id).name
                 if post.target_type == ContentType.objects.get(model='user'):
                     data['type'] = 'user'
                     if post.target_id != None:
