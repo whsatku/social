@@ -252,7 +252,7 @@ class EventPostView(APIView):
                     data['event_id'] = event_id
                     data['event_name'] = Event.objects.get(id=event_id).name
                     json_data = json.dumps(data)
-                    notification.add(request.user, request.data, User.objects.filter(id__in=EventMember.objects.values('user').filter(id=event_id),role__in=[1,2]), ContentType.objects.get(model='post'), JSONRenderer().render(serializer.data), json_data)
+                    notification.add(request.user, request.data, User.objects.filter(id__in=EventMember.objects.values('user').filter(id=event_id,role__in=[1,2])), ContentType.objects.get(model='post'), JSONRenderer().render(serializer.data), json_data)
                     return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
