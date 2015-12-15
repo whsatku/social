@@ -51,11 +51,12 @@ app.controller('CreateSubGroupController', function($scope, $http, $location, $s
   };
 });
 
-app.controller('GroupFeedController', function($scope, $stateParams, $http, $location, $state, $timeout){
+app.controller('GroupFeedController', function($scope, $rootScope, $stateParams, $http, $location, $state, $timeout, $interval){
   $scope.newsfeed = [];
   $scope.nftext = "";
   $scope.allowSubmission = false;
   $scope.pin = false;
+  $scope.user = $rootScope.user;
   postID = $stateParams.postid;
   var postLimit = 20;
   var groupID;
@@ -77,7 +78,7 @@ app.controller('GroupFeedController', function($scope, $stateParams, $http, $loc
         $scope.hasMoreStory = false;
       }
       // POLLING
-      (function tick() {
+      var updateNewStory = function () {
         if($scope.newsfeed.length > 0) {
           newestID = $scope.newsfeed.map(function(post) {return post.id}).reduce(
             function(thisPost, thatPost) {
@@ -91,11 +92,9 @@ app.controller('GroupFeedController', function($scope, $stateParams, $http, $loc
             $timeout(function() { $scope.newstory = false; }, 3000);
             $scope.newsfeed.unshift.apply($scope.newsfeed, data);
           }
-          $timeout(tick, 3000);
         });
-
-      })();
-      // END OF POLLING
+      }
+      $interval(updateNewStory, 3000)
     });
   }
   else {
@@ -148,7 +147,7 @@ app.controller('GroupFeedController', function($scope, $stateParams, $http, $loc
 
 
 
-app.controller('GroupCommentController', function($rootScope, $scope, $http, Upload){
+app.controller('GroupCommentController', function($rootScope, $scope, $http, $interval, Upload){
 
   $scope.comment = '';
   $scope.file = null;
@@ -186,17 +185,18 @@ app.controller('GroupCommentController', function($rootScope, $scope, $http, Upl
         data: commentData
       }).then(function(response){
         console.log(response);
-        loadCommentsByPostId($scope.data.id);
+        loadCommentsByPostId($scope.data.id)
+        $interval(function() {loadCommentsByPostId($scope.data.id)}, 3000);
       }, function(xhr){
           alert(xhr.data);
           console.log(xhr.data);
       });
     }else if (commentData.text.length > 0) {
-      $scope.comments.push(commentData);
+      //$scope.comments.push(commentData);
       $scope.comment = "";
       $http.post('/api/newsfeed/comment/', commentData).then(function(response){
         console.log(response);
-        loadCommentsByPostId($scope.data.id);
+        $interval(function() {loadCommentsByPostId($scope.data.id)}, 3000);
       }, function(xhr){
           alert(xhr.data);
           console.log(xhr.data);

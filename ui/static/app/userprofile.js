@@ -2,7 +2,8 @@
 
 var app = angular.module('app.userprofile', []);
 
-app.controller('UserProfileInfoController', function($scope, $http, $location, $stateParams, $rootScope, $timeout){
+app.controller('UserProfileInfoController', function($scope, $http, $location, $stateParams, $rootScope, $timeout, $interval){
+    $scope.user = $rootScope.user;
     var userID = $stateParams.user;
     $scope.allowEdit = false;
     $scope.nftext = "";
@@ -39,8 +40,8 @@ app.controller('UserProfileInfoController', function($scope, $http, $location, $
         if(data.length < postLimit) {
           $scope.hasMoreStory = false;
         }
-        // POLLING
-        (function tick() {
+
+        var updateNewStory = function() {
           if($scope.userfeed.length > 0) {
             newestID = $scope.userfeed[0].id;
           }
@@ -50,11 +51,10 @@ app.controller('UserProfileInfoController', function($scope, $http, $location, $
               $timeout(function() { $scope.newstory = false; }, 3000);
               $scope.userfeed.unshift.apply($scope.userfeed, data);
             }
-            $timeout(tick, 3000);
           });
+        }
+        $interval(updateNewStory, 3000);
 
-        })();
-        // END OF POLLING
       });
     }
     else {

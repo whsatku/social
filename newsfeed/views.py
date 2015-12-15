@@ -6,6 +6,7 @@ from rest_framework.views import APIView
 from newsfeed.models import Post
 from newsfeed.models import Comment
 from group.models import Group
+from event.models import Event
 from newsfeed.serializer import PostSerializer
 from newsfeed.serializer import CommentSerializer
 from notification.views import NotificationViewList
@@ -39,8 +40,9 @@ class PostViewList(APIView):
                 else:
                     data['user_id'] = None
                 json_data = json.dumps(data)
-                notification.post(
-                    request,
+                notification.add(
+                    request.user,
+                    request.data,
                     User.objects.all(),
                     ContentType.objects.get(model='post'),
                     JSONRenderer().render(serializer.data).decode('utf-8'),
@@ -100,6 +102,10 @@ class CommentViewList(APIView):
                     data['type'] = 'group'
                     data['group_id'] = post.target_id
                     data['group_name'] = Group.objects.get(id=post.target_id).name
+                if post.target_type == ContentType.objects.get(model='event'):
+                    data['type'] = 'event'
+                    data['event_id'] = post.target_id
+                    data['event_name'] = Event.objects.get(id=post.target_id).name
                 if post.target_type == ContentType.objects.get(model='user'):
                     data['type'] = 'user'
                     if post.target_id != None:
@@ -109,8 +115,9 @@ class CommentViewList(APIView):
                     else:
                         data['user_id'] = None
                 json_data = json.dumps(data)
-                notification.post(
-                    request,
+                notification.add(
+                    request.user,
+                    request.data,
                     define_receiver(request.data['post']),
                     ContentType.objects.get(model='comment'),
                     JSONRenderer().render(serializer.data).decode('utf-8'),

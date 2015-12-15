@@ -16,6 +16,9 @@ from rest_framework import status
 from friendship.models import Friend
 from friendship.models import FriendshipRequest
 from django.utils import timezone
+from notification.views import NotificationViewList
+from rest_framework.renderers import JSONRenderer
+import json
 
 
 class UserInformation (APIView):
@@ -216,6 +219,7 @@ class IsFriendDetail(APIView):
         return Response(friend_status)
 
     def put(self, request, other_user_id, format=None):
+        notification = NotificationViewList()
         try:
             friend = FriendshipRequest.objects.get(from_user=self.get_user(other_user_id), to_user=request.user)
             friend.accept()
@@ -223,6 +227,12 @@ class IsFriendDetail(APIView):
             print type(inst)     # the exception instance
             print inst           # __str__ allows args to be printed directly
             raise Http404
+        data_json = {}
+        data_json['target_id'] = other_user_id
+        data_json['target_type'] = ContentType.objects.get(model='user').id
+        data_json['text'] = 'accepted your friend request'
+        notification.add(self.request.user, data_json, User.objects.filter(id=other_user_id), ContentType.objects.get(model='friendshiprequest'), json.dumps({}), json.dumps({}))
+
         return Response(Friend.objects.are_friends(request.user, self.get_user(other_user_id)))
 
     def delete(self, request, other_user_id, format=None):

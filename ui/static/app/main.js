@@ -97,6 +97,11 @@ app.config(function($stateProvider, $urlRouterProvider) {
         	templateUrl: 'templates/event.html',
             controller: 'EventController'
         })
+        .state('root.eventpost', {
+            url: '/event/{event:int}/post/{postid:int}',
+            templateUrl: 'templates/event.html',
+            controller: 'EventController'
+        })
         .state('root.eventcreate', {
         	url: '/event/create',
         	templateUrl: 'templates/eventcreate.html',
@@ -229,7 +234,7 @@ app.controller('MainController', function($rootScope, user, $http, $uibModal, $s
     });
 });
 
-app.controller('NotificationController', function($rootScope, $scope, $http, $timeout){
+app.controller('NotificationController', function($rootScope, $scope, $http, $interval){
 
 	var countNotification = function(notificationsData) {
 		var count = 0;
@@ -239,23 +244,24 @@ app.controller('NotificationController', function($rootScope, $scope, $http, $ti
 		return count;
 	};
 
-	(function tick() {
-		$http.get('/api/notification/get/').success(function(data){
-			$rootScope.notifications = data;
-			data.map(function(noti) {
-				noti.link_item = angular.fromJson(noti.link_item);
-				noti.reference_detail = angular.fromJson(noti.reference_detail);
-			});
-			$rootScope.notificationCount = countNotification(data);
-			$timeout(tick, 3000);
-		});
-
-	})();
+  var updateNotification = function() {
+    $http.get('/api/notification/get/').success(function(data){
+      $rootScope.notifications = data;
+      data.map(function(noti) {
+        noti.link_item = angular.fromJson(noti.link_item);
+        noti.reference_detail = angular.fromJson(noti.reference_detail);
+      });
+      $rootScope.notificationCount = countNotification(data);
+    });
+  };
+  updateNotification();
+  $interval(updateNotification, 3000);
 
 
 	$scope.readNotification = function (notification){
 		$http.get('/api/notification/read/' + notification.id).success(function(data){
       notification.read = true;
+      updateNotification();
 			console.log(data);
 		}).error(function(err) {
 			console.log(err);
@@ -281,7 +287,7 @@ app.controller('PendingFriendController', function($scope, $rootScope, $http, $i
     	});
     };
     updatePendingFriend();
-    $interval(updatePendingFriend, 60000);
+    $interval(updatePendingFriend, 3000);
 
 
 });

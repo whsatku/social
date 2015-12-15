@@ -13,7 +13,7 @@
 						<div class="pull-right">
 							<div ng-click="unFriend(friend.user.id)" class="btn btn-default">Remove</div>
 						</div>
-						<h4><a href="" ui-sref="root.user.timeline({user: friend.user.id})">{{friend.user.username}}</a></h4>
+						<h4><a href="" ui-sref="root.user.timeline({user: friend.user.id})">{{friend.user.first_name}} {{friend.user.last_name}}</a></h4>
 						{{friend.faculty}}, {{friends.major}}
 					</div>
 				</div>

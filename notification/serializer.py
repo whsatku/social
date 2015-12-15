@@ -4,12 +4,22 @@ from rest_framework import serializers
 from django.contrib.contenttypes.models import ContentType
 from rest_framework.serializers import ModelSerializer
 from models import Notification
+from User.models import UserProfile
+
+
+class UserProfileSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = UserProfile
+        fields = ('picture', )
 
 
 class UserSerializer(ModelSerializer):
+    profile = UserProfileSerializer(read_only=True)
+
     class Meta:
         model = User
-        fields = ('id', 'username')
+        fields = ('id', 'username', 'first_name', 'last_name', 'profile')
 
 
 class UserNotificationSerializer(ModelSerializer):
@@ -17,7 +27,7 @@ class UserNotificationSerializer(ModelSerializer):
 
     class Meta:
         model = User
-        fields = ('id', 'username')
+        fields = ('id', 'username', 'first_name', 'last_name')
 
 
 class TypeSerializer(ModelSerializer):

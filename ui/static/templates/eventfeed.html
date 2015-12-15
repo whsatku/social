@@ -1,57 +1,59 @@
-<form class="nfpost well" ng-show="allowPost">
-	<textarea rows="4" ng-model="nftext" class="form-control" placeholder="What's on your mind?" autofocus></textarea>
-	<input type="submit" ng-click="postStatus()" class="btn btn-primary pull-right" value="Share">
-	<div class="clearfix"></div>
-</form>
-<div class="newsfeed">
-	<div class="post nga-default nga-stagger nga-fade" ng-repeat="data in newsfeed track by data.id">
-		<div class="user row">
-			<div class="col-xs-1 avatar">
-				<a href="#" class="thumbnail" style="width: 40px; background: red; height: 40px;"></a>
-			</div>
-			<div class="col-xs-11">
-				<a href="#" ui-sref="root.user.timeline({user: data.user.id})">{{data.user.first_name}} {{data.user.last_name}}</a>
-				<div class="metadata"><a href="#" ui-sref="root.nfpost({id: data.id})" am-time-ago="data.datetime"></a> &middot; Public</div>
-			</div>
-		</div>
-		<div class="message">
-			{{data.text}}
-		</div>
-		<ul class="row comments" ng-controller="CommentController">
-			<li class="nga-default nga-stagger nga-fade" ng-repeat="comment in comments track by comment.id">
-				<div class="row">
-					<div class="col-xs-1 avatar">
-						<a href="#" class="thumbnail" style="width: 40px; background: red; height: 40px;"></a>
-					</div>
-					<div class="col-xs-11">
-						<a href="#" ui-sref="root.user.timeline({user: comment.user.id})">{{comment.user.first_name}} {{comment.user.last_name}}</a>
-						{{comment.text}}
-						<span class="metadata" am-time-ago="comment.datetime"></span>
-					</div>
+<div ng-controller="EventFeedController">
+	<form class="nfpost well" ng-show="allowPost">
+		<textarea rows="4" ng-model="nftext" class="form-control" placeholder="What's on your mind?" autofocus></textarea>
+		<input type="submit" ng-click="postStatus()" class="btn btn-primary pull-right" value="Share">
+		<div class="clearfix"></div>
+	</form>
+	<div class="newsfeed">
+		<div class="post nga-default nga-stagger nga-fade" ng-repeat="data in newsfeed track by data.id">
+			<div class="user row">
+				<div class="col-xs-1 avatar">
+					<a href="#" ui-sref="root.user.timeline({user: data.user.id})" class="thumbnail" style="width: 40px; background: url({{data.user.profile.picture}}); height: 40px;"></a>
 				</div>
-			</li>
-			<li class="commentform">
-				<div class="row">
-					<div class="col-xs-1 avatar">
-						<a href="#" class="thumbnail" style="width: 40px; background: red; height: 40px;"></a>
-					</div>
-					<form class="col-xs-11">
-						<input type="text" ng-model="comment" my-enter="commentPost(data)" class="form-control" placeholder="Enter comment">
-						<input type="submit" class="btn btn-primary hide" value="Submit">
-					</form>
+				<div class="col-xs-10">
+					<a href="#" ui-sref="root.user.timeline({user: data.user.id})">{{data.user.first_name}} {{data.user.last_name}}</a>
+					<div class="metadata"><a href="#" ui-sref="root.eventpost({event: eventID, postid: data.id})" am-time-ago="data.datetime"></a> &middot; Public</div>
 				</div>
-			</li>
-		</ul>
-	</div>
-	<div name="more" ng-show="allowPost">
-		<a href="" ng-if="hasMoreStory == true" ng-click="loadMoreStory()">
-			<div class="post">
-				<h4 style="text-align:center">Load more stories</h4>
 			</div>
-		</a>
-		<div class="post" ng-if="hasMoreStory == false">
-			<h4 style="text-align:center">No more story to show</h4>
+			<div class="message">
+				{{data.text}}
+			</div>
+			<ul class="row comments" ng-controller="CommentController">
+				<li class="nga-default nga-stagger nga-fade" ng-repeat="comment in comments track by comment.id">
+					<div class="row">
+						<div class="col-xs-1 avatar">
+							<a href="#" ui-sref="root.user.timeline({user: comment.user.id})" class="thumbnail" style="width: 40px; background: url({{comment.user.profile.picture}}); height: 40px;"></a>
+						</div>
+						<div class="col-xs-10">
+							<a href="#" ui-sref="root.user.timeline({user: comment.user.id})">{{comment.user.first_name}} {{comment.user.last_name}}</a>
+							{{comment.text}}
+							<span class="metadata" am-time-ago="comment.datetime"></span>
+						</div>
+					</div>
+				</li>
+				<li class="commentform">
+					<div class="row">
+						<div class="col-xs-1 avatar">
+							<a href="#" ui-sref="root.user.timeline({user: user.id})" class="thumbnail" style="width: 40px; background: url({{user.picture}}); height: 40px;"></a>
+						</div>
+						<form class="col-xs-10">
+							<input type="text" ng-model="comment" my-enter="commentPost(data)" class="form-control" placeholder="Enter comment">
+							<input type="submit" class="btn btn-primary hide" value="Submit">
+						</form>
+					</div>
+				</li>
+			</ul>
+		</div>
+		<div name="more" ng-show="allowPost">
+			<a href="" ng-if="hasMoreStory == true" ng-click="loadMoreStory()">
+				<div class="post">
+					<h4 style="text-align:center">Load more stories</h4>
+				</div>
+			</a>
+			<div class="post" ng-if="hasMoreStory == false">
+				<h4 style="text-align:center">No more story to show</h4>
+			</div>
 		</div>
 	</div>
+	<a href=""class="lead btn newstory nga-default nga-stagger nga-fade" ng-show="newstory"><span class="glyphicon glyphicon-menu-up"></span> New Stories</a>
 </div>
-<a href=""class="lead btn newstory nga-default nga-stagger nga-fade" ng-show="newstory"><span class="glyphicon glyphicon-menu-up"></span> New Stories</a>
