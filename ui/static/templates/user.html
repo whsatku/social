@@ -13,10 +13,10 @@
 				</div>
 			</div>
 			<div ng-if="userId == otherUserId" ui-sref="root.user.edit()" class="thumbnail avatar">
-				<img src="{{user.picture}}" class="thumbnail" style="width: 50px; height: 50px;">
+				<img src="{{user.picture}}" class="thumbnail">
 			</div>
 			<div ng-if="userId != otherUserId" class="thumbnail avatar">
-				<img src="{{user.picture}}" class="thumbnail" style="width: 50px; height: 50px;">
+				<img src="{{user.picture}}" class="thumbnail">
 			</div>
 			<h3 class="clickable" ui-sref="root.user.timeline()">{{userprofile.user.first_name}} {{userprofile.user.last_name}}</h3>
 		</div>
