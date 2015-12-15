@@ -147,7 +147,7 @@ class GroupViewDetail(APIView):
         """
 
         try:
-            return Group.objects.get(id=group_id, parent=None)
+            return Group.objects.get(id=group_id)
         except Group.DoesNotExist:
             raise Http404
 
