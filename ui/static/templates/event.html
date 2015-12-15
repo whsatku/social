@@ -1,7 +1,8 @@
 <div class="cover">
 	<div class="cover-in">
 		<div class="pull-right toolbar">
-			<div class="btn-group" ng-show="role!=0" uib-dropdown>
+			<a class="btn btn-default active" ng-show="role==1">Going</a>
+			<div class="btn-group" ng-show="role>1" uib-dropdown>
 				<a class="btn btn-default" uib-dropdown-toggle=""><span ng-bind="roletext">Going</span> <span class="caret"></span></a>
 
 				<ul class="uib-dropdown-menu" role="menu">

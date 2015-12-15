@@ -43,7 +43,7 @@ app.controller('EventController', function($scope, $http, $location, $uibModal, 
         if(data.role == null) {
           $scope.role = 0;
         }
-        else if(data.role == 1 || data.role == 2) {
+        else if(data.role == 2) {
           $scope.roletext = "Going";
         }
         else if(data.role == 3) {
