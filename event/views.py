@@ -188,6 +188,7 @@ class EventMemberDetail(APIView):
             data_json['text'] = 'invited you to an event'
             data = {}
             data['type'] = 'event'
+            data['action'] = 'request'
             data['event_id'] = event_id
             data['event_name'] = Event.objects.get(id=event_id).name
             json_data = json.dumps(data)

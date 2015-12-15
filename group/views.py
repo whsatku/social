@@ -56,6 +56,7 @@ class MemberViewSet(ListCreateAPIView):
         data_json['target_type'] = ContentType.objects.get(model='group',app_label='group').id
         data_json['text'] = 'requested to join a group'
         data['type'] = 'group'
+        data['action'] = 'request'
         data['group_id'] = self.get_group_id()
         data['group_name'] = group.name
         json_data = json.dumps(data)
@@ -234,6 +235,18 @@ class MemberDetail(APIView):
         member = self.get_member(group_id, pk)
         member.role = 1
         member.save()
+        data_json = {}
+        data = {}
+        data_json['target_id'] = group_id
+        data_json['target_type'] = ContentType.objects.get(model='group',app_label='group').id
+        data_json['text'] = 'approved your request to join the group'
+        data['type'] = 'group'
+        data['action'] = 'approve'
+        data['group_id'] = group_id
+        data['group_name'] = group.name
+        json_data = json.dumps(data)
+        notification.add(self.request.user, data_json, User.objects.filter(id=pk), ContentType.objects.get(model='groupmember'), json.dumps({}), json_data)
+
         return Response(status=status.HTTP_201_CREATED)
 
     def get(self, request, group_id, pk, format=None):
