@@ -6,7 +6,7 @@
 	<!--
 		ADMIN NOTI!
 	-->
-	<div class="row item-outer" ui-sref="root" ng-repeat-start="data in notifications" ng-if="data.target_type == -1" ng-click="readNotification(data)">
+	<div class="row item-outer" ui-sref="root" ng-repeat-start="data in notifications track by data.id" ng-if="data.target_type == -1" ng-click="readNotification(data)">
 		<div class="item" ng-class="{'new':!data.read}">
 			<div class="col-xs-2">
 				<a href="#" class="thumbnail" style="width: 40px; background: url({{data.user.profile.picture}}); height: 40px;"></a>
@@ -29,6 +29,22 @@
 			</div>
 			<div class="col-xs-10">
 				<strong>{{data.user.first_name}} {{data.user.last_name}}</strong> posted a status "{{data.text}}"
+				<div class="metadata"><span am-time-ago="data.datetime"></span></div>
+			</div>
+			<div class="clearfix"></div>
+		</div>
+	</div>
+
+	<!--
+		POST ON User WALL!
+	-->
+	<div class="row item-outer" ui-sref="root.nfpost({id: data.link_item.id})" ng-if="data.target_type == 4 && data.target_id != null && data.link_type.model == 'post' " ng-click="readNotification(data)">
+		<div class="item" ng-class="{'new':!data.read}">
+			<div class="col-xs-2">
+				<a href="#" class="thumbnail" style="width: 40px; background: url({{data.user.profile.picture}}); height: 40px;"></a>
+			</div>
+			<div class="col-xs-10">
+				<strong>{{data.user.first_name}} {{data.user.last_name}}</strong> posted on your wall "{{data.text}}"
 				<div class="metadata"><span am-time-ago="data.datetime"></span></div>
 			</div>
 			<div class="clearfix"></div>
@@ -109,7 +125,7 @@
 	<!--
 		invite to an Event!
 	-->
-	<div class="row item-outer" ui-sref="root.group.manage({id: target_id})" ng-if="data.target_type == 24 && data.link_type.model == 'eventmember' " ng-click="readNotification(data)">
+	<div class="row item-outer" ui-sref="root.event({event: data.target_id})" ng-if="data.target_type == 24 && data.link_type.model == 'eventmember' " ng-click="readNotification(data)">
 		<div class="item" ng-class="{'new':!data.read}">
 			<div class="col-xs-2">
 				<a href="#" class="thumbnail" style="width: 40px; background: url({{data.user.profile.picture}}); height: 40px;"></a>
