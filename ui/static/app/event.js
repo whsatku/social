@@ -59,12 +59,10 @@ app.controller('EventController', function($scope, $http, $location, $uibModal, 
                     $scope.friends = data;
                     console.log($scope.friends);
                 });
-
                 $scope.ok = function(){
                     $uibModalInstance.close($scope.invitee);
-                    console.log($scope.invitee);
-                    $http.put('/api/event/'+ eventID +'/member/'+ $scope.invitee).success(function(data){
-                        console.log('put');
+                    $http.put('/api/event/'+ eventID +'/member/'+ $scope.invitee.id).success(function(data){
+                        console.log('put ' + $scope.invitee.id);
                     });
                 };
                 $scope.cancel = function(){
