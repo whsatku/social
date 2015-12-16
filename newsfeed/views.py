@@ -12,6 +12,7 @@ from newsfeed.serializer import CommentSerializer
 from notification.views import NotificationViewList
 from django.contrib.contenttypes.models import ContentType
 from rest_framework.renderers import JSONRenderer
+from friendship.models import Friend
 import json
 
 
@@ -43,7 +44,7 @@ class PostViewList(APIView):
                 notification.add(
                     request.user,
                     request.data,
-                    User.objects.all(),
+                    User.objects.filter(id__in=Friend.objects.filter(from_user=self.request.user.id).values('to_user')),
                     ContentType.objects.get(model='post'),
                     JSONRenderer().render(serializer.data).decode('utf-8'),
                     json_data
