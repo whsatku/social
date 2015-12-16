@@ -73,7 +73,7 @@
 			<div class="form-group">
 				<label for="hometown" class="col-sm-3 control-label">Profile picture</label>
 				<div class="col-sm-9">
-					<input type="file" accept="image" name="picture" class="form-control" ng-model = "file" ngf-select>
+					<input type="file" accept="image" name="picture" class="form-control" onchange="angular.element(this).scope().uploadPicture(this.files)" ngf-select>
 					<div class="help-block">
 						Should be in square aspect ratio (1:1)
 					</div>

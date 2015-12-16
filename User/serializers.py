@@ -19,10 +19,9 @@ class UserProfileSerializer(serializers.ModelSerializer):
         model = UserProfile
         fields = ('user', 'firstname', 'lastname', 'birthday',
                   'gender', 'faculty', 'major', 'types',
-                  'country', 'city', 'picture', 'cover', 'created')
+                  'country', 'city', 'created')
 
 class UserProfilePictureSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = UserProfile
         fields = ('picture',)

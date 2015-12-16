@@ -100,6 +100,22 @@ class UserProfilePicture (APIView):
 
     """
     serializer_class = UserProfilePictureSerializer
+    def get(self, request, user_profile_id, format=None):
+        """For client to get user profile's data from server.
+
+        Args:
+                request: Django Rest Framework request object.
+                user_profile_id: ID of user profile.
+                format: pattern for Web APIs.
+
+        Return:
+                UserProfile object by ID.
+
+        """
+        userprofile = UserProfile.objects.get(user_id=user_profile_id)
+        response = self.serializer_class(userprofile)
+        return Response(response.data.get('picture'))
+
     def put(self, request, user_profile_id, format=None):
         """For client to updating UserProfilePicture
 
