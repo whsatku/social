@@ -59,7 +59,7 @@
 			<div class="form-group">
 				<label for="hometown" class="col-sm-3 control-label">Profile picture</label>
 				<div class="col-sm-9">
-					<input type="file" accept="image" class="form-control">
+					<input type="file" accept="image" name="picture" class="form-control" ng-model = "file" ngf-select>
 					<div class="help-block">
 						Should be in square aspect ratio (1:1)
 					</div>
@@ -68,7 +68,7 @@
 			<div class="form-group">
 				<label for="hometown" class="col-sm-3 control-label">Cover image</label>
 				<div class="col-sm-9">
-					<input type="file" accept="image" class="form-control">
+					<input type="file" accept="image" class="form-control" ng-model = "userprofile.cover">
 					<div class="help-block">
 						945x200 pixels
 					</div>

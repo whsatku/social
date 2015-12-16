@@ -79,13 +79,15 @@ class UserInformation (APIView):
 
         serializer = UserProfileSerializer(profile, data=request.data)
         if serializer.is_valid():
-            serializer.save()
-            profile.user.first_name = profile.firstname 
-            profile.user.last_name = profile.lastname
-            profile.user.save()
+            if self.request.user.is_authenticated():
+                if 'picture' in self.request.FILES:
+                    serializer.data.picture = self.request.FILES.get('picture')
+                serializer.save()
+                profile.user.first_name = profile.firstname 
+                profile.user.last_name = profile.lastname
+                profile.user.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
 
 class FriendshipDetail(APIView):
 

@@ -1,6 +1,6 @@
 (function(){
 
-var app = angular.module('app.userprofile', []);
+var app = angular.module('app.userprofile', ['ngFileUpload']);
 
 app.controller('UserProfileInfoController', function($scope, $http, $location, $stateParams, $rootScope, $timeout, $interval){
     $scope.user = $rootScope.user;
@@ -98,39 +98,34 @@ app.controller('UserProfileInfoController', function($scope, $http, $location, $
 
 });
 
-  app.controller('EditUserController', function($scope, $http, $window){
+  app.controller('EditUserController', function($scope, $http, $state, $window, Upload){
 
 
     var userId;
+
     $http.get('/api/auth/check').success(function(data){
       userId = data.id
     });
 
     $scope.saveInfo = function(){
-      var firstname = $scope.userprofile.firstname;
-      var lastname = $scope.userprofile.lastname;
-      var birthday = moment($scope.userprofile.birthday);
-      var gender = $scope.userprofile.gender;
-      var faculty = $scope.userprofile.faculty;
-      var major = $scope.userprofile.major;
-      var country = $scope.userprofile.country;
-      var city = $scope.userprofile.city;
-
-      var edit_profile = {
-        firstname: firstname,
-        lastname: lastname,
-        birthday: birthday.format('YYYY-MM-DD'),
-        gender: gender,
-        faculty: faculty,
-        major: major,
-        country: country,
-        city: city
-      }
-
-      $http.put('/api/user/'+userId+'/userInfo/',edit_profile).success(function(data){
-            $window.location.reload();
-            console.log(data.birthday);
-          });
+      Upload.upload({
+        url: '/api/user/'+userId+'/userInfo/',
+        method: 'PUT',
+        data: {
+        firstname: $scope.userprofile.firstname,
+        lastname: $scope.userprofile.lastname,
+        birthday: moment($scope.userprofile.birthday).format('YYYY-MM-DD'),
+        gender: $scope.userprofile.gender,
+        faculty: $scope.userprofile.faculty,
+        major: $scope.userprofile.major,
+        country: $scope.userprofile.country,
+        city: $scope.userprofile.city,
+        picture: $scope.file,
+        created: true
+        }
+      }).success(function(data){
+            $state.reload();
+      });
     }
   });
 

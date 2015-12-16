@@ -16,8 +16,12 @@ GENDER = (
 )
 
 def user_picture_directory_path(instance, filename):
-    # file will be uploaded to media/user_<id>/<filename>
+    # file will be uploaded to media/profilepic/user_<id>/<filename>
     return 'profilepic/user_{0}/{1}'.format(instance.user.id, filename)
+def user_cover_directory_path(instance, filename):
+    # file will be uploaded to media/coverpic/user_<id>/<filename>
+    return 'coverpic/user_{0}/{1}'.format(instance.user.id, filename)
+
 
 # Create your models here.1
 class UserProfile(models.Model):
@@ -37,11 +41,18 @@ class UserProfile(models.Model):
         blank=True, 
         upload_to=user_picture_directory_path,
         variations={
-            'retina': (960, 960, True),
             'normal': (240, 240, True),
             'thumbnail': (160, 160, True)
         }
     )
+    # cover = StdImageField(
+    #     null=True, 
+    #     blank=True, 
+    #     upload_to=user_picture_directory_path,
+    #     variations={
+    #         'normal': (945, 200, True)
+    #     }
+    # )
     # phone = models.CharField(max_length=20, blank=True)
 
 

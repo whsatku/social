@@ -92,7 +92,6 @@ class CommentViewList(APIView):
                 request.data['target_type'] = ContentType.objects.get(model='user').id
                 request.data['target_id'] = request.data['post']
                 comment = serializer.save(user=User.objects.get(id=self.request.user.id))
-
                 if post.allow_submission and 'file' in self.request.FILES:
                     comment.file = self.request.FILES.get('file')
                     comment.save()
