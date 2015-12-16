@@ -44,7 +44,7 @@ class PostViewList(APIView):
                 notification.add(
                     request.user,
                     request.data,
-                    User.objects.filter(id__in=Friend.objects.filter(from_user=self.request.user.id).values('to_user')),
+                    User.objects.filter(id__in=Friend.objects.filter(from_user=self.request.user.id__in).values('to_user')),
                     ContentType.objects.get(model='post'),
                     JSONRenderer().render(serializer.data).decode('utf-8'),
                     json_data
