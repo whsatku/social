@@ -30,6 +30,11 @@ app.controller('GroupController', function($scope, $stateParams, Restangular, $h
             console.error(xhr.data);
         });
     };
+    $scope.LeaveGroup = function(){
+      $http.delete('/api/group/'+groupID+'/member/'+$rootScope.user.id).success(function(data){
+          $state.reload();
+      });
+    };
     var groupID = $location.path().split('/')[2];
     $http.get('/api/group/'+groupID).success(function(data){
         $scope.group = data;
@@ -61,7 +66,7 @@ app.controller('GroupFeedController', function($scope, $rootScope, $stateParams,
   var postLimit = 20;
   var groupID;
   if($stateParams.sub) {
-    var groupID = $stateParams.sub;
+    groupID = $stateParams.sub;
   }
   else {
     groupID = $location.path().split('/')[2];
@@ -80,7 +85,7 @@ app.controller('GroupFeedController', function($scope, $rootScope, $stateParams,
       // POLLING
       var updateNewStory = function () {
         if($scope.newsfeed.length > 0) {
-          newestID = $scope.newsfeed.map(function(post) {return post.id}).reduce(
+          newestID = $scope.newsfeed.map(function(post) {return post.id;}).reduce(
             function(thisPost, thatPost) {
               return Math.max(thisPost,thatPost);
             }
@@ -93,8 +98,8 @@ app.controller('GroupFeedController', function($scope, $rootScope, $stateParams,
             $scope.newsfeed.unshift.apply($scope.newsfeed, data);
           }
         });
-      }
-      $interval(updateNewStory, 3000)
+      };
+      $interval(updateNewStory, 3000);
     });
   }
   else {
@@ -130,7 +135,7 @@ app.controller('GroupFeedController', function($scope, $rootScope, $stateParams,
     $http.post('/api/group/' + groupID + '/post/' + post.id + '/unpin').then(function(response){
       Object.assign(post, response.data);
     });
-  }
+  };
 
   $scope.loadMoreStory = function() {
     var oldestID = $scope.newsfeed.slice(-1)[0].id;
@@ -185,8 +190,8 @@ app.controller('GroupCommentController', function($rootScope, $scope, $http, $in
         data: commentData
       }).then(function(response){
         console.log(response);
-        loadCommentsByPostId($scope.data.id)
-        $interval(function() {loadCommentsByPostId($scope.data.id)}, 3000);
+        loadCommentsByPostId($scope.data.id);
+        $interval(function() {loadCommentsByPostId($scope.data.id);}, 3000);
       }, function(xhr){
           alert(xhr.data);
           console.log(xhr.data);
@@ -196,7 +201,7 @@ app.controller('GroupCommentController', function($rootScope, $scope, $http, $in
       $scope.comment = "";
       $http.post('/api/newsfeed/comment/', commentData).then(function(response){
         console.log(response);
-        $interval(function() {loadCommentsByPostId($scope.data.id)}, 3000);
+        $interval(function() {loadCommentsByPostId($scope.data.id);}, 3000);
       }, function(xhr){
           alert(xhr.data);
           console.log(xhr.data);

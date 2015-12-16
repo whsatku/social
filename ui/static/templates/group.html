@@ -3,7 +3,7 @@
 		<div class="pull-right toolbar">
 			<div class="btn btn-default" ng-click="joinGroup()" ng-if="group.member_status==-1">Join group</div>
 			<div class="btn btn-default" ng-if="group.member_status==0">Request pending</div>
-			<div class="btn btn-default" ng-if="group.member_status==1">Leave group</div>
+			<div class="btn btn-default" ng-click="LeaveGroup()" ng-if="group.member_status==1">Leave group</div>
 		</div>
 		<h3>{{group.name}}</h3>
 	</div>
