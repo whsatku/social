@@ -19,7 +19,7 @@ class UserProfileSerializer(serializers.ModelSerializer):
         model = UserProfile
         fields = ('user', 'firstname', 'lastname', 'birthday',
                   'gender', 'faculty', 'major', 'types',
-                  'country', 'city', 'picture', 'created')
+                  'country', 'city', 'picture', 'cover', 'created')
 
 
 class FirstUserProfileSerializer(serializers.ModelSerializer):
