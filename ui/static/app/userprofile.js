@@ -108,6 +108,8 @@ app.controller('UserProfileInfoController', function($scope, $http, $location, $
     });
 
     $scope.saveInfo = function(){
+
+      $scope.file = null
       Upload.upload({
         url: '/api/user/'+userId+'/userInfo/',
         method: 'PUT',
