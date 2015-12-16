@@ -14,18 +14,22 @@ class UserSerializer(serializers.ModelSerializer):
 
 class UserProfileSerializer(serializers.ModelSerializer):
     user = UserSerializer(read_only=True)
-
     class Meta:
         model = UserProfile
         fields = ('user', 'firstname', 'lastname', 'birthday',
                   'gender', 'faculty', 'major', 'types',
-                  'country', 'city', 'created')
+                  'country', 'city', 'picture', 'cover', 'created')
+        read_only_fields = ('picture', 'cover')
 
 class UserProfilePictureSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserProfile
         fields = ('picture',)
 
+class UserCoverSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = UserProfile
+        fields = ('cover',)
 
 class FirstUserProfileSerializer(serializers.ModelSerializer):
 

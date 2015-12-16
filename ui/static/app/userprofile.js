@@ -145,6 +145,23 @@ app.controller('UserProfileInfoController', function($scope, $http, $location, $
           });
     };
 
+    $scope.uploadCover = function(files) {
+      $scope.file = null
+      // var picture = new FormData();
+      // //Take the first selected file
+      // picture.append("picture", files[0]);
+      $scope.file = files[0]
+      Upload.upload({
+          url: '/api/user/'+userId+'/userCover/',
+          method: 'PUT',
+          data: {
+          cover: $scope.file,
+          }
+        }).success(function(data){
+          $state.reload();
+          });
+    };
+
   });
 
 app.controller('UserFriendController', function($scope, $http, $location, $stateParams){
