@@ -21,6 +21,13 @@ class UserProfileSerializer(serializers.ModelSerializer):
                   'gender', 'faculty', 'major', 'types',
                   'country', 'city', 'picture', 'cover', 'created')
 
+class UserProfilePicture(serializers.ModelSerializer):
+    user = UserSerializer(read_only=True)
+
+    class Meta:
+        model = UserProfile
+        fields = ('picture')
+
 
 class FirstUserProfileSerializer(serializers.ModelSerializer):
 

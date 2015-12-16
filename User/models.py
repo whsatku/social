@@ -37,8 +37,8 @@ class UserProfile(models.Model):
     city = models.CharField(max_length=50, null=True)
     created = models.BooleanField(default=False)
     picture = StdImageField(
-        null=True, 
-        blank=True, 
+        null=True,
+        blank=True,
         upload_to=user_picture_directory_path,
         variations={
             'normal': (240, 240, True),
@@ -47,8 +47,8 @@ class UserProfile(models.Model):
     )
     cover = StdImageField(
         null=True, 
-        blank=True, 
-        upload_to=user_picture_directory_path,
+        blank=True,
+        upload_to=user_cover_directory_path,
         variations={
             'normal': (945, 200, True)
         }

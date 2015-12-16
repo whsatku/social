@@ -78,11 +78,14 @@ class UserInformation (APIView):
             raise Http404
 
         serializer = UserProfileSerializer(profile, data=request.data)
+        
         if serializer.is_valid():
             if self.request.user.is_authenticated():
                 if 'picture' in self.request.FILES:
                     serializer.data.picture = self.request.FILES.get('picture')
-                serializer.save()
+                if 'cover' in self.request.FILES:
+                    serializer.data.cover = self.request.FILES.get('cover')
+                serializer.update()
                 profile.user.first_name = profile.firstname 
                 profile.user.last_name = profile.lastname
                 profile.user.save()
