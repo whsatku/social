@@ -232,9 +232,12 @@ class MemberDetail(APIView):
                 format: pattern for Web APIs
         Return:
         """
+        notification = NotificationViewList()
+
         member = self.get_member(group_id, pk)
         member.role = 1
         member.save()
+
         data_json = {}
         data = {}
         data_json['target_id'] = group_id
@@ -243,9 +246,9 @@ class MemberDetail(APIView):
         data['type'] = 'group'
         data['action'] = 'approve'
         data['group_id'] = group_id
-        data['group_name'] = group.name
+        data['group_name'] = Group.objects.get(id=group_id).name
         json_data = json.dumps(data)
-        notification.add(self.request.user, data_json, User.objects.filter(id=pk), ContentType.objects.get(model='groupmember'), json.dumps({}), json_data)
+        notification.add(request.user, data_json, User.objects.filter(id=pk), ContentType.objects.get(model='groupmember'), json.dumps({}), json_data)
 
         return Response(status=status.HTTP_201_CREATED)
 
