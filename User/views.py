@@ -78,17 +78,50 @@ class UserInformation (APIView):
             raise Http404
 
         serializer = UserProfileSerializer(profile, data=request.data)
-        
+
         if serializer.is_valid():
             if self.request.user.is_authenticated():
                 if 'picture' in self.request.FILES:
                     serializer.data.picture = self.request.FILES.get('picture')
                 if 'cover' in self.request.FILES:
                     serializer.data.cover = self.request.FILES.get('cover')
-                serializer.update()
+                serializer.save()
                 profile.user.first_name = profile.firstname 
                 profile.user.last_name = profile.lastname
                 profile.user.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class UserProfilePicture (APIView):
+    """This class is an API for updating user's user profile picture
+
+    Attribute:
+            serializer_class: serializer for this class.
+
+    """
+    serializer_class = UserProfilePictureSerializer
+    def put(self, request, user_profile_id, format=None):
+        """For client to updating UserProfilePicture
+
+        Args:
+                request: Django Rest Framework request object.
+                user_profile_id: ID of user profile.
+                format: pattern for Web APIs.
+        Return:
+                response serializer error
+        """ 
+        try:
+            profile = UserProfile.objects.get(user_id=user_profile_id)
+        except UserProfile.DoesNotExist:
+            raise Http404
+
+        serializer = UserProfilePictureSerializer(profile, data=request.data)
+
+        if serializer.is_valid():
+            if self.request.user.is_authenticated():
+                if 'picture' in self.request.FILES:
+                    serializer.data.picture = self.request.FILES.get('picture')
+                serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
