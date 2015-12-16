@@ -45,14 +45,14 @@ class UserProfile(models.Model):
             'thumbnail': (160, 160, True)
         }
     )
-    # cover = StdImageField(
-    #     null=True, 
-    #     blank=True, 
-    #     upload_to=user_picture_directory_path,
-    #     variations={
-    #         'normal': (945, 200, True)
-    #     }
-    # )
+    cover = StdImageField(
+        null=True, 
+        blank=True, 
+        upload_to=user_picture_directory_path,
+        variations={
+            'normal': (945, 200, True)
+        }
+    )
     # phone = models.CharField(max_length=20, blank=True)
 
 
