@@ -13,7 +13,7 @@ class UserProfileSerializer(serializers.ModelSerializer):
     picture = PictureField(read_only=True)
     class Meta:
         model = UserProfile
-        fields = ('picture',)
+        fields = ('picture', 'cover')
 
 
 class UserSerializer(ModelSerializer):
