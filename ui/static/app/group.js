@@ -276,8 +276,8 @@ app.controller('GroupManageController', function($scope, $state, $http, $locatio
     };
 
     $scope.uploadCover = function(files) {
-      $scope.file = null
-      $scope.file = files[0]
+      $scope.file = null;
+      $scope.file = files[0];
       Upload.upload({
           url: '/api/group/'+groupID+'/editCover/',
           method: 'PUT',
@@ -293,6 +293,13 @@ app.controller('GroupManageController', function($scope, $state, $http, $locatio
           $scope.messagec.push("Invalid File Type");
         });
     };
+
+    $scope.updateMember = function(pk, this_role){
+      $http.post('/api/group/'+groupID+'/member/'+ pk + "/", {"role": this_role}).success(function(data){
+          $state.reload();
+      });
+    };
+
 });
 
 
