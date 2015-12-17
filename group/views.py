@@ -167,7 +167,8 @@ class GroupViewDetail(APIView):
             group_object.member_status = -1
 
             try:
-                member_status = group_object.groupmember_set.filter(user=request.user).get()
+                member_status = group_object.groupmember_set.filter(
+                    user=request.user).get()
                 group_object.member_status = member_status.role
             except GroupMember.DoesNotExist:
                 pass
@@ -190,6 +191,7 @@ class GroupViewDetail(APIView):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 class EditCover (APIView):
 
@@ -217,15 +219,16 @@ class EditCover (APIView):
                 format: pattern for Web APIs
         Return:
 
-        """ 
+        """
         group_object = Group.objects.get(id=group_id)
-        serializer = GroupCoverSerializer(group_object,data=request.data)
+        serializer = GroupCoverSerializer(group_object, data=request.data)
         if serializer.is_valid():
             if 'cover' in self.request.FILES:
                 serializer.data.cover = self.request.FILES.get('cover')
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 class MemberDetail(APIView):
     """This class is an API for managing member in group.
@@ -514,7 +517,8 @@ class SubGroupViewSet(APIView):
         parent_group = self.get_group(group_parent_id)
         try:
             sub_group = Group.objects.create(
-                name=request.data.get('name'), type=1, description="Subgroup of"+parent_group.name,
+                name=request.data.get('name'), type=1, description="Subgroup of"
+                +parent_group.name,
                 short_description="Subgroup of"+parent_group.name, activities="somthing",
                 parent=parent_group, gtype=parent_group.gtype
             ).save()
@@ -549,11 +553,21 @@ class SubGroupViewSet(APIView):
 
 
 class GroupPostPegination(APIView):
-
+    """This class is use for updating the group newsfeed"""
     serializer_class = GroupPostSerializer
     group_model_id = ContentType.objects.get(model='group', app_label='group').id
 
     def get(self, request, group_id, action, post_id, limit=20, format=None):
+        """Update subgroup of the requesting parent group
+        Args:
+                request: Django Rest Framework request object
+                group_id: ID of group
+                action: use 'more' to look at older post , use 'new' to request new post
+                post_id: ID of post
+                format: pattern for Web APIs
+        Return:
+                list of post
+        """
 
         if action == 'more':
             post = Post.objects.filter(target_id=group_id, target_type=self.group_model_id).filter(id__lt=post_id).order_by('-datetime')[:limit]
@@ -563,9 +577,17 @@ class GroupPostPegination(APIView):
         return Response(response.data)
 
 class PostUnpin(APIView):
+    """This class is use for removing the pinned post"""
     serializer_class = GroupPostSerializer
 
     def post(self, request, group_id, post_id):
+        """Use to unpinned requesting post
+        Args:
+                request: Django Rest Framework request object
+                group_id: ID of group
+                post_id: ID of post
+        Return:
+        """
         post = Post.objects.get(id=post_id)
         if post.target_id != int(group_id):
             raise Http404
