@@ -180,7 +180,6 @@ app.controller('MainController', function($rootScope, user, $http, $uibModal, $s
         $rootScope.group_list = data;
     });
     $http.get('/api/event/').success(function(data){
-        console.log("event JS");
         $rootScope.event_list = data;
     });
 
