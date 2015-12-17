@@ -206,7 +206,6 @@ app.controller('GroupCommentController', function($rootScope, $scope, $http, $in
         url: '/api/newsfeed/comment/',
         data: commentData
       }).then(function(response){
-        console.log(response);
         loadCommentsByPostId($scope.data.id);
         $interval(function() {loadCommentsByPostId($scope.data.id);}, 15000);
       }, function(xhr){
@@ -217,7 +216,6 @@ app.controller('GroupCommentController', function($rootScope, $scope, $http, $in
       //$scope.comments.push(commentData);
       $scope.comment = "";
       $http.post('/api/newsfeed/comment/', commentData).then(function(response){
-        console.log(response);
         $interval(function() {loadCommentsByPostId($scope.data.id);}, 15000);
       }, function(xhr){
           alert(xhr.data);
@@ -270,7 +268,6 @@ app.controller('GroupManageController', function($scope, $state, $http, $locatio
     }
     $scope.acceptMember = acceptMember;
     $scope.denyMember = denyMember;
-    console.log($rootScope.user);
 
     $scope.deleteSubgroup = function (id){
       data = {
