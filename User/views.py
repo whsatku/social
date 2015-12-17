@@ -191,6 +191,10 @@ class UserCover (APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class FriendshipDetail(APIView):
+    """This class is an API for managing friendship detail
+
+
+    """
 
     def get_user(self, user_profile_id):
         """Get user from user profile's database.
@@ -213,12 +217,33 @@ class FriendshipDetail(APIView):
     #     return Response(response.data)
 
     def post(self, request, other_user_id, format=None):
+        """Create new user to user relationship.
+
+        Args:
+                request: Django Rest Framework request object.
+                other_user_id: ID of user profile.
+                format: pattern for Web APIs.
+
+        Return:
+                UserProfile object by ID.
+
+        """
         user = request.user
         other_user = self.get_user(other_user_id)
         new_relationship = Friend.objects.add_friend(from_user=user, to_user=other_user)
         return Response(status=status.HTTP_201_CREATED)
 
     def delete(self, request, other_user_id, format=None):
+        """Delete new user to user relationship.
+
+        Args:
+                request: Django Rest Framework request object.
+                other_user_id: ID of user profile.
+                format: pattern for Web APIs.
+
+        Return:
+
+        """
         try:
             user = request.user
             other_user = self.get_user(other_user_id)
@@ -231,15 +256,35 @@ class FriendshipDetail(APIView):
 
 
 class FriendshipPendingViewSet(APIView):
+    """This class get pending friendship
+
+    Attribute:
+            serializer_class: serializer for this class.
+
+    """
     serializer_class = FriendShipSerializer
 
     def get(self, request, format=None):
+        """Get pending friendship 
+        Args:
+                request: Django Rest Framework request object.
+                format: pattern for Web APIs.
+
+        Return:
+            list of pending friendship
+        """
         friend_pending = Friend.objects.unrejected_requests(user=self.request.user)
         response = self.serializer_class(friend_pending, many=True)
         return Response(response.data)
 
 
 class FriendshipViewSet(APIView):
+    """This class get pending friendship
+
+    Attribute:
+            serializer_class: serializer for this class.
+
+    """
     serializer_class = UserProfileSerializer
 
     def get(self, request, format=None):
@@ -250,6 +295,12 @@ class FriendshipViewSet(APIView):
         return Response(response.data)
 
 class FriendshipOtherUserViewSet(APIView):
+    """This class get friendship with other user
+
+    Attribute:
+            serializer_class: serializer for this class.
+
+    """
     serializer_class = UserProfileSerializer
 
     def get_user(self, user_profile_id):
@@ -268,6 +319,16 @@ class FriendshipOtherUserViewSet(APIView):
             raise Http404
 
     def get(self, request,other_user_id, format=None):
+        """Create new user to user relationship.
+
+        Args:
+                request: Django Rest Framework request object.
+                other_user_id: ID of user profile.
+                format: pattern for Web APIs.
+
+        Return:
+                friendship with other user id.
+        """
         other_user = self.get_user(other_user_id)
         friends = Friend.objects.friends(other_user)
         friend_list = UserProfile.objects.filter(user__in = friends)
@@ -276,9 +337,24 @@ class FriendshipOtherUserViewSet(APIView):
 
 
 class FriendshipforInviteViewSet(APIView):
+    """This class get friendship for invite
+
+    Attribute:
+            serializer_class: serializer for this class.
+
+    """
     serializer_class = UserSerializer
 
     def get(self, request, format=None):
+        """Get friendship for invite.
+
+        Args:
+                request: Django Rest Framework request object.
+                format: pattern for Web APIs.
+
+        Return:
+                friendship for invite.
+        """
         friends = Friend.objects.friends(self.request.user)
 
         response = self.serializer_class(friends, many=True)
@@ -287,6 +363,12 @@ class FriendshipforInviteViewSet(APIView):
 
 class IsFriendDetail(APIView):
     serializer_class = FriendShipSerializer
+    """This class is use for managing friend detail.
+
+    Attribute:
+            serializer_class: serializer for this class.
+
+    """
 
     def get_user(self, user_profile_id):
         """Get user from user profile's database.
@@ -304,6 +386,17 @@ class IsFriendDetail(APIView):
             raise Http404
 
     def get(self, request, other_user_id, format=None):
+        """Get the friendship status of two user.
+
+        Args:
+                request: Django Rest Framework request object.
+                other_user_id: ID of user profile.
+                format: pattern for Web APIs.
+
+        Return:
+                Friend status.
+
+        """
         friend_status = 0
         other_user = self.get_user(other_user_id)
         try:
@@ -322,6 +415,16 @@ class IsFriendDetail(APIView):
         return Response(friend_status)
 
     def put(self, request, other_user_id, format=None):
+        """Edit  user to user relationship.
+
+        Args:
+                request: Django Rest Framework request object.
+                other_user_id: ID of user profile.
+                format: pattern for Web APIs.
+
+        Return:
+
+        """
         notification = NotificationViewList()
         try:
             friend = FriendshipRequest.objects.get(from_user=self.get_user(other_user_id), to_user=request.user)
@@ -339,6 +442,16 @@ class IsFriendDetail(APIView):
         return Response(Friend.objects.are_friends(request.user, self.get_user(other_user_id)))
 
     def delete(self, request, other_user_id, format=None):
+        """Delete user to user relationship.
+
+        Args:
+                request: Django Rest Framework request object.
+                other_user_id: ID of user profile.
+                format: pattern for Web APIs.
+
+        Return:
+
+        """
         try:
             friend = FriendshipRequest.objects.get(from_user=self.get_user(other_user_id), to_user=request.user)
             friend.cancel()

@@ -5,7 +5,7 @@
 	<div class="row item-outer nga-default nga-stagger nga-fade" ng-repeat="friend in pendingFriends track by friend.user.id">
 		<div class="item">
 			<div class="col-xs-2">
-				<a href="#" class="thumbnail" style="width: 40px; background: red; height: 40px;"></a>
+				<a href="#" class="thumbnail" style="width: 40px; background: url({{friend.user.profile.picture}}); height: 40px;"></a>
 			</div>
 			<div class="col-xs-10">
 				<a href="" ui-sref="root.user.timeline({user: friend.user.id})">{{friend.user.first_name}} {{friend.user.last_name}}</a>

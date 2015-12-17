@@ -248,6 +248,27 @@ class MemberDetail(APIView):
         except GroupMember.DoesNotExist:
             raise Http404
 
+    def post(self, request, group_id, pk, format=None):
+        """change user status from group.
+        Args:
+                request: Django Rest Framework request object
+                group_id: ID of group
+                pk: ID of user
+                format: pattern for Web APIs
+        Return:
+        """
+        try:
+            member = self.get_member(group_id, pk)
+            member.role = request.data.get('role');
+            member.save();
+            response = self.serializer_class(member)
+        except  Exception as inst:
+            print type(inst)     # the exception instance
+            print inst           # __str__ allows args to be printed directly
+            raise Http404
+        return Response(response.data)
+
+
     def delete(self, request, group_id, pk, format=None):
         """Delete user from group.
         Args:
@@ -462,7 +483,7 @@ class GroupList(ListAPIView):
     def get_queryset(self):
         """Get a list of group that requesting user is a member.
         Args:
-                
+
         Return:
                 list of group that requesting user is a member.
         """

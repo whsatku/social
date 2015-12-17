@@ -60,7 +60,7 @@ app.controller('UserProfileInfoController', function($scope, $http, $location, $
             }
           });
         }
-        $interval(updateNewStory, 3000);
+        $interval(updateNewStory, 60000);
 
       });
     }
@@ -193,7 +193,7 @@ app.controller('UserFriendController', function($scope, $http, $location, $state
     };
 });
 
-app.controller('AddFriendController', function($scope, $http, $location, $stateParams, $rootScope){
+app.controller('AddFriendController', function($scope, $http, $location, $stateParams, $rootScope, $state){
     $scope.userId = $rootScope.user.id;
     $scope.otherUserId = $stateParams.user;
     $scope.isFriend = false;
@@ -223,7 +223,7 @@ app.controller('AddFriendController', function($scope, $http, $location, $stateP
 
     $scope.acceptFriend = function(){
       $http.put('/api/user/friend/isFriend/' + $scope.otherUserId ).success(function(data){
-        updatePendingFriend();
+        $state.reload();
     	});
     };
     $scope.isFriendAPI();

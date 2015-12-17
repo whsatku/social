@@ -5,10 +5,11 @@ from django.contrib.contenttypes.models import ContentType
 from rest_framework.serializers import ModelSerializer
 from models import Notification
 from User.models import UserProfile
+from User.serializers import PictureField
 
 
 class UserProfileSerializer(serializers.ModelSerializer):
-
+    picture = PictureField(read_only=True)
     class Meta:
         model = UserProfile
         fields = ('picture', )
