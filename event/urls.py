@@ -14,5 +14,6 @@ urlpatterns = [
     url(r'^(?P<event_id>[0-9]+)/post/(?P<action>\w+)/(?P<post_id>\d+)$', views.EventPostPegination.as_view(), name='PostPegination'),
     url(r'^(?P<event_id>[0-9]+)/post/(?P<action>\w+)/(?P<post_id>\d+)&limit=(?P<limit>\d+)$', views.EventPostPegination.as_view(), name='PostPegination'),
     url(r'^(?P<event_id>[0-9]+)/post/(?P<post_id>\d+)/unpin$', views.PostUnpin.as_view(), name='PostUnpin'),
+    url(r'^$', views.EventList.as_view(), name='EventList'),
 
 ]

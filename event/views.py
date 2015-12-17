@@ -119,6 +119,23 @@ class EventInformationViewDetail(APIView):
         return Response(response.data)
 
 
+class EventList(ListAPIView):
+    """List events that the requesting user is going or maybe
+    It could be accessed at :http:get:`/api/group`"""
+    serializer_class = EventSerializer
+    print "Eventlist"
+
+    def get_queryset(self):
+        print "Query"
+        if not self.request.user.is_authenticated():
+            raise NotAuthenticated
+
+        return Event.objects.filter(
+            eventmember__user=self.request.user,
+            eventmember__role__in=[1, 2, 3]
+        )
+
+
 class EventMemberViewSet(ListCreateAPIView):
 
     serializer_class = EventMemberSerializer
