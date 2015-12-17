@@ -12,7 +12,7 @@
 				</thead>
 				<tbody>
 					<tr class="info" ng-repeat="user in groupMember_pending">
-						<td><a href="#" class="thumbnail" style="width: 40px; background: red; height: 40px;"></a></td>
+						<td><a href="#" class="thumbnail" style="width: 40px; background-image: url('{{user.user.profile.picture}}'); height: 40px;"></a></td>
 						<td><a href="#">{{user.user.first_name}} {{user.user.last_name}}</a></td>
 						<td>Request to join</td>
 						<td>
@@ -21,7 +21,7 @@
 						</td>
 					</tr>
 					<tr ng-repeat="user in groupMember">
-						<td><a href="#" class="thumbnail" style="width: 40px; background: red; height: 40px;"></a></td>
+						<td><a href="#" class="thumbnail" style="width: 40px; background-image: url('{{user.user.profile.picture}}'); height: 40px;"></a></td>
 						<td><a href="#">{{user.user.first_name}} {{user.user.last_name}}</a></td>
 						<td>
 							<select ng-model="user.role" ng-options="role.id as role.name for role in [{id:1, name: 'Member'}, {id: 2, name: 'Admin'}]" class="form-control"></select>
