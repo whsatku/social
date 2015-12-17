@@ -238,7 +238,7 @@ app.controller('GroupInfoController', function($scope, $http, $location){
 
 });
 
-app.controller('GroupManageController', function($scope, $state, $http, $location, $stateParams, Upload){
+app.controller('GroupManageController', function($scope, $state, $http, $location, $rootScope, $stateParams, Upload){
 
     var groupID = $location.path().split('/')[2];
     function fetchMember(){
@@ -270,6 +270,7 @@ app.controller('GroupManageController', function($scope, $state, $http, $locatio
     }
     $scope.acceptMember = acceptMember;
     $scope.denyMember = denyMember;
+    console.log($rootScope.user);
 
     $scope.deleteSubgroup = function (id){
       data = {
