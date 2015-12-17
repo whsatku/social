@@ -16,8 +16,8 @@ class Event(models.Model):
 
 
 class EventMember(models.Model):
-    event = models.ForeignKey(Event, default=0)
-    user = models.ForeignKey(User, default=0)
+    event = models.ForeignKey(Event)
+    user = models.ForeignKey(User)
     role = models.IntegerField()
 
     def create(self, new_event, new_user):

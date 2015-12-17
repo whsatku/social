@@ -20,10 +20,9 @@ def user_picture_directory_path(instance, filename):
     # file will be uploaded to media/profilepic/user_<id>/<filename>
     return 'profilepic/user_{0}/{1}'.format(instance.user.id, filename)
 
-
 def user_cover_directory_path(instance, filename):
     # file will be uploaded to media/coverpic/user_<id>/<filename>
-    return 'coverpic/user_{0}/{1}'.format(instance.user.id, filename)
+    return 'usercoverpic/user_{0}/{1}'.format(instance.user.id, filename)
 
 
 # Create your models here.1

@@ -1,5 +1,34 @@
 <div class="panel panel-default">
 	<div class="panel-heading">
+		<h3 class="panel-title">Edit picture and cover</h3>
+	</div>
+	<div class="panel-body">
+		<form action="" enctype="multipart/form-data" class="form form-horizontal" ng-submit="savePicture()">
+			<div class="form-group">
+				<label for="hometown" class="col-sm-3 control-label">Profile picture</label>
+				<div class="col-sm-9">
+					<input type="file" accept="image" name="picture" class="form-control" onchange="angular.element(this).scope().uploadPicture(this.files)" ngf-select>
+					<div class="help-block">
+						Should be in square aspect ratio (1:1)
+					</div>
+				</div>
+			</div>
+		</form>
+		<form action="" enctype="multipart/form-data" class="form form-horizontal" ng-submit="saveCover()">
+			<div class="form-group">
+				<label for="hometown" class="col-sm-3 control-label">Cover image</label>
+				<div class="col-sm-9">
+					<input type="file" accept="image" id = "cover" name="cover" class="form-control" onchange="angular.element(this).scope().uploadCover(this.files)" ngf-select>
+					<div class="help-block">
+						945x200 pixels
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+<div class="panel panel-default">
+	<div class="panel-heading">
 		<h3 class="panel-title">Edit profile</h3>
 	</div>
 	<div class="panel-body">
@@ -59,35 +88,6 @@
 			<div class="form-group">
 				<div class="col-sm-offset-3 col-sm-9">
 					<button type="submit" class="btn btn-success">Save</button>
-				</div>
-			</div>
-		</form>
-	</div>
-</div>
-<div class="panel panel-default">
-	<div class="panel-heading">
-		<h3 class="panel-title">Edit picture and cover</h3>
-	</div>
-	<div class="panel-body">
-		<form action="" enctype="multipart/form-data" class="form form-horizontal" ng-submit="savePicture()">
-			<div class="form-group">
-				<label for="hometown" class="col-sm-3 control-label">Profile picture</label>
-				<div class="col-sm-9">
-					<input type="file" accept="image" name="picture" class="form-control" onchange="angular.element(this).scope().uploadPicture(this.files)" ngf-select>
-					<div class="help-block">
-						Should be in square aspect ratio (1:1)
-					</div>
-				</div>
-			</div>
-		</form>
-		<form action="" enctype="multipart/form-data" class="form form-horizontal" ng-submit="saveCover()">
-			<div class="form-group">
-				<label for="hometown" class="col-sm-3 control-label">Cover image</label>
-				<div class="col-sm-9">
-					<input type="file" accept="image" name="cover" class="form-control" onchange="angular.element(this).scope().uploadCover(this.files)" ngf-select>
-					<div class="help-block">
-						945x200 pixels
-					</div>
 				</div>
 			</div>
 		</form>

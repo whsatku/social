@@ -5,7 +5,6 @@ from rest_framework.exceptions import ValidationError
 from rest_framework.exceptions import NotAuthenticated
 from rest_framework.exceptions import NotFound
 from rest_framework.views import APIView
-from django.forms.models import model_to_dict
 from django.http import HttpResponse
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth.models import User
@@ -192,6 +191,41 @@ class GroupViewDetail(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+class EditCover (APIView):
+
+    serializer_class = GroupCoverSerializer
+
+    def get(self, request, group_id=None, format=None):
+        """.GET function for sending the request group to the frontend
+        Args:
+                request: Django Rest Framework request object
+                group_id: id of the query group
+                format: pattern for Web APIs
+
+        Return:
+                Query group.
+        """
+        group_object = Group.objects.get(id=group_id)
+        response = self.serializer_class(group_object)
+        return Response(response.data.get('cover'))
+
+    def put(self, request, group_id, format=None):
+        """Update the group cover image.
+        Args:
+                request: Django Rest Framework request object
+                group_id: A number identification for group
+                format: pattern for Web APIs
+        Return:
+
+        """ 
+        group_object = Group.objects.get(id=group_id)
+        serializer = GroupCoverSerializer(group_object,data=request.data)
+        if serializer.is_valid():
+            if 'cover' in self.request.FILES:
+                serializer.data.cover = self.request.FILES.get('cover')
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class MemberDetail(APIView):
     """This class is an API for managing member in group.
@@ -370,8 +404,11 @@ class GroupPostView(APIView):
         """
         serializer = GroupPostSerializer(data=request.data)
         notification = NotificationViewList()
+        parent_id = None
+        if Group.objects.get(id=group_id).parent is not None:
+            parent_id = Group.objects.get(id=group_id).parent.id
         if serializer.is_valid():
-            if self.request.user.id in GroupMember.objects.filter(group_id=group_id).values_list('user_id', flat=True):
+            if self.request.user.id in GroupMember.objects.filter(group_id__in=[group_id,parent_id],role__gt=0).values_list('user_id', flat=True):
                 if self.request.user.is_authenticated():
                     request.data['target_type'] = ContentType.objects.get(model='group', app_label='group').id
                     request.data['target_id'] = group_id
