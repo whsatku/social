@@ -20,7 +20,6 @@ app.controller('CreateEventController', function($scope, $state, $http, $statePa
             description: description
         }
 
-
         $http.post('/api/event/create/' , new_event ).success(function(data){
             $state.go('root.event', {
                 event: data.id
@@ -35,6 +34,10 @@ app.controller('EventController', function($scope, $http, $location, $uibModal, 
     var eventID = $location.path().split('/')[2];
     $scope.role = 0;
     $http.get('/api/event/'+eventID).success(function(data){
+        data.start_date = data.start_date.replace("Z", " ");
+        data.end_date = data.end_date.replace("Z", " ");
+        data.start_date = data.start_date.replace("T", " ");
+        data.end_date = data.end_date.replace("T", " ");
         $scope.event = data;
     });
 
@@ -136,14 +139,23 @@ app.controller('EventBrowseController', function($scope, $http){
     }
 
     $http.get('/api/event/all').success(function(data){
-        console.log(data);
         shuffle(data);
+
+        for (i=0; i<data.length; i++){
+          data[i].start_date = data[i].start_date.replace("Z", " ");
+          data[i].end_date = data[i].end_date.replace("Z", " ");
+          data[i].start_date = data[i].start_date.replace("T", " ");
+          data[i].end_date = data[i].end_date.replace("T", " ");
+        }
+
         $scope.all_event = data;
         $scope.first_event = data[0];
         temp = data;
+
         for (i=0; i<temp.length; i++){
             events_without_first.push(temp[i]);
         }
+
         events_without_first.shift();
         $scope.events = events_without_first;
     });

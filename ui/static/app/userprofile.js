@@ -1,6 +1,6 @@
 (function(){
 
-var app = angular.module('app.userprofile', []);
+var app = angular.module('app.userprofile', ['ngFileUpload']);
 
 app.controller('UserProfileInfoController', function($scope, $http, $location, $stateParams, $rootScope, $timeout, $interval){
     $scope.user = $rootScope.user;
@@ -98,40 +98,70 @@ app.controller('UserProfileInfoController', function($scope, $http, $location, $
 
 });
 
-  app.controller('EditUserController', function($scope, $http, $window){
+  app.controller('EditUserController', function($scope, $http, $state, $window, Upload){
 
 
     var userId;
+
     $http.get('/api/auth/check').success(function(data){
       userId = data.id
     });
 
     $scope.saveInfo = function(){
-      var firstname = $scope.userprofile.firstname;
-      var lastname = $scope.userprofile.lastname;
-      var birthday = moment($scope.userprofile.birthday);
-      var gender = $scope.userprofile.gender;
-      var faculty = $scope.userprofile.faculty;
-      var major = $scope.userprofile.major;
-      var country = $scope.userprofile.country;
-      var city = $scope.userprofile.city;
 
-      var edit_profile = {
-        firstname: firstname,
-        lastname: lastname,
-        birthday: birthday.format('YYYY-MM-DD'),
-        gender: gender,
-        faculty: faculty,
-        major: major,
-        country: country,
-        city: city
-      }
+      Upload.upload({
+        url: '/api/user/'+userId+'/userInfo/',
+        method: 'PUT',
+        data: {
+        firstname: $scope.userprofile.firstname,
+        lastname: $scope.userprofile.lastname,
+        birthday: moment($scope.userprofile.birthday).format('YYYY-MM-DD'),
+        gender: $scope.userprofile.gender,
+        faculty: $scope.userprofile.faculty,
+        major: $scope.userprofile.major,
+        country: $scope.userprofile.country,
+        city: $scope.userprofile.city,
+        created: true
+        }
+      }).success(function(data){
+            $state.reload();
+      });
+    };
 
-      $http.put('/api/user/'+userId+'/userInfo/',edit_profile).success(function(data){
-            $window.location.reload();
-            console.log(data.birthday);
+    $scope.uploadPicture = function(files) {
+      $scope.file = null
+      // var picture = new FormData();
+      // //Take the first selected file
+      // picture.append("picture", files[0]);
+      $scope.file = files[0]
+      Upload.upload({
+          url: '/api/user/'+userId+'/userPicture/',
+          method: 'PUT',
+          data: {
+          picture: $scope.file,
+          }
+        }).success(function(data){
+          $state.reload();
           });
-    }
+    };
+
+    $scope.uploadCover = function(files) {
+      $scope.file = null
+      // var picture = new FormData();
+      // //Take the first selected file
+      // picture.append("picture", files[0]);
+      $scope.file = files[0]
+      Upload.upload({
+          url: '/api/user/'+userId+'/userCover/',
+          method: 'PUT',
+          data: {
+          cover: $scope.file,
+          }
+        }).success(function(data){
+          $state.reload();
+          });
+    };
+
   });
 
 app.controller('UserFriendController', function($scope, $http, $location, $stateParams){

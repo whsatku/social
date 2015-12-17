@@ -170,10 +170,9 @@ app.controller('GroupCommentController', function($rootScope, $scope, $http, $in
       text : $scope.comment,
       post : postData.id,
       user : {
-        username : $rootScope.user.username,
+      username : $rootScope.user.username,
       },
     };
-
     if($scope.file){
       if(commentData.text.length === 0){
         commentData.text = '_magic_fileupload';
@@ -182,7 +181,6 @@ app.controller('GroupCommentController', function($rootScope, $scope, $http, $in
       $scope.comment = "";
 
       commentData.file = $scope.file;
-
       $scope.file = null;
 
       Upload.upload({

@@ -18,7 +18,7 @@ app.directive('myEnter', function () {
 });
 
 
-app.controller('NewsfeedController', function($scope, $rootScope, $stateParams, $http, $interval){
+app.controller('NewsfeedController', function($scope, $rootScope, $stateParams, $http, $interval, $timeout){
   $scope.newsfeed = [];
   $scope.nftext = "";
   $scope.user = $rootScope.user;

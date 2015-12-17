@@ -78,14 +78,117 @@ class UserInformation (APIView):
             raise Http404
 
         serializer = UserProfileSerializer(profile, data=request.data)
+
         if serializer.is_valid():
-            serializer.save()
-            profile.user.first_name = profile.firstname 
-            profile.user.last_name = profile.lastname
-            profile.user.save()
+            if self.request.user.is_authenticated():
+                if 'picture' in self.request.FILES:
+                    serializer.data.picture = self.request.FILES.get('picture')
+                if 'cover' in self.request.FILES:
+                    serializer.data.cover = self.request.FILES.get('cover')
+                serializer.save()
+                profile.user.first_name = profile.firstname 
+                profile.user.last_name = profile.lastname
+                profile.user.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+class UserProfilePicture (APIView):
+    """This class is an API for updating user's user profile picture
+
+    Attribute:
+            serializer_class: serializer for this class.
+
+    """
+    serializer_class = UserProfilePictureSerializer
+    def get(self, request, user_profile_id, format=None):
+        """For client to get user profile picture's data from server.
+
+        Args:
+                request: Django Rest Framework request object.
+                user_profile_id: ID of user profile.
+                format: pattern for Web APIs.
+
+        Return:
+                UserProfile object by ID.
+
+        """
+        userprofile = UserProfile.objects.get(user_id=user_profile_id)
+        response = self.serializer_class(userprofile)
+        return Response(response.data.get('picture'))
+
+    def put(self, request, user_profile_id, format=None):
+        """For client to updating UserProfilePicture
+
+        Args:
+                request: Django Rest Framework request object.
+                user_profile_id: ID of user profile.
+                format: pattern for Web APIs.
+        Return:
+                response serializer error
+        """ 
+        try:
+            profile = UserProfile.objects.get(user_id=user_profile_id)
+        except UserProfile.DoesNotExist:
+            raise Http404
+
+        serializer = UserProfilePictureSerializer(profile, data=request.data)
+
+        if serializer.is_valid():
+            if self.request.user.is_authenticated():
+                if 'picture' in self.request.FILES:
+                    serializer.data.picture = self.request.FILES.get('picture')
+                serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class UserCover (APIView):
+    """This class is an API for updating user's cover picture
+
+    Attribute:
+            serializer_class: serializer for this class.
+
+    """
+    serializer_class = UserCoverSerializer
+    def get(self, request, user_profile_id, format=None):
+        """For client to get user cover's data from server.
+
+        Args:
+                request: Django Rest Framework request object.
+                user_profile_id: ID of user profile.
+                format: pattern for Web APIs.
+
+        Return:
+                UserProfile object by ID.
+
+        """
+        usercover = UserProfile.objects.get(user_id=user_profile_id)
+        response = self.serializer_class(usercover)
+        return Response(response.data.get('cover'))
+
+    def put(self, request, user_profile_id, format=None):
+        """For client to updating UserCover
+
+        Args:
+                request: Django Rest Framework request object.
+                user_profile_id: ID of user profile.
+                format: pattern for Web APIs.
+        Return:
+                response serializer error
+        """ 
+        try:
+            profile = UserProfile.objects.get(user_id=user_profile_id)
+        except UserProfile.DoesNotExist:
+            raise Http404
+
+        serializer = UserCoverSerializer(profile, data=request.data)
+
+        if serializer.is_valid():
+            if self.request.user.is_authenticated():
+                if 'cover' in self.request.FILES:
+                    serializer.data.cover = self.request.FILES.get('cover')
+                serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class FriendshipDetail(APIView):
 
