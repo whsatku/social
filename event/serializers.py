@@ -6,7 +6,7 @@ class UserSerializer(serializers.ModelSerializer):
     profile = UserProfilePictureSerializer(read_only=True)
     class Meta:
         model = User
-        fields = ('id', 'username', 'profile')
+        fields = ('id', 'username', 'first_name', 'last_name', 'profile')
 
 
 class EventMemberSerializer(serializers.ModelSerializer):
