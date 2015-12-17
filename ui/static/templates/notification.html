@@ -54,7 +54,7 @@
 	<!--
 		COMMENT!
 	-->
-	<div class="row item-outer" ui-sref="root.nfpost({id: data.target_id})" ng-if="data.target_type == 4 && data.link_type.model == 'comment' && data.target_id != null" ng-click="readNotification(data)">
+	<div class="row item-outer" ui-sref="root.nfpost({id: data.target_id})" ui-sref-opts="{reload: true}" ng-if="data.target_type == 4 && data.link_type.model == 'comment' && data.target_id != null" ng-click="readNotification(data)">
 		<div class="item" ng-class="{'new':!data.read}">
 			<div class="col-xs-2">
 				<a href="#" class="thumbnail" style="width: 40px; background: url({{data.user.profile.picture}}); height: 40px;"></a>
