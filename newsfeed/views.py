@@ -49,6 +49,10 @@ class PostViewList(APIView):
                     data['user_id'] = request.data['target_id']
                     data['firstname'] = User.objects.get(id=request.data['target_id']).first_name
                     data['lastname'] = User.objects.get(id=request.data['target_id']).last_name
+                else:
+                    data['user_id'] = None
+                json_data = json.dumps(data)
+                if request.data['target_id'] != None:
                     notification.add(
                         request.user,
                         request.data,
@@ -57,9 +61,6 @@ class PostViewList(APIView):
                         JSONRenderer().render(serializer.data).decode('utf-8'),
                         json_data
                     )
-                else:
-                    data['user_id'] = None
-                json_data = json.dumps(data)
                 return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
