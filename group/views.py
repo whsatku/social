@@ -650,7 +650,8 @@ class GroupPostPegination(APIView):
         Args:
                 request: Django Rest Framework request object
                 group_id: ID of group
-                action: use 'more' to look at older post , use 'new' to request new post
+                action: use 'more' to look at older post , use 'new' to request
+                new post
                 post_id: ID of post
                 format: pattern for Web APIs
         Return:
