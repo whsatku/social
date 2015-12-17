@@ -204,7 +204,11 @@ app.controller('AddFriendController', function($scope, $http, $location, $stateP
     	});
     };
 
-
+    $scope.acceptFriend = function(){
+      $http.put('/api/user/friend/isFriend/' + $scope.otherUserId ).success(function(data){
+        updatePendingFriend();
+    	});
+    };
     $scope.isFriendAPI();
 
 });
