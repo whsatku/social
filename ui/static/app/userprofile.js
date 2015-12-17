@@ -105,7 +105,7 @@ app.controller('UserProfileInfoController', function($scope, $http, $location, $
 
 });
 
-  app.controller('EditUserController', function($scope, $http, $state, $window, Upload){
+  app.controller('EditUserController', function($scope, $http, $state, $window, Upload, $timeout){
 
 
     var userId;
@@ -136,6 +136,8 @@ app.controller('UserProfileInfoController', function($scope, $http, $location, $
     };
 
     $scope.uploadPicture = function(files) {
+      $scope.message = [];
+      $scope.message.push("Loading...");
       $scope.file = null
       // var picture = new FormData();
       // //Take the first selected file
@@ -148,9 +150,12 @@ app.controller('UserProfileInfoController', function($scope, $http, $location, $
           picture: $scope.file,
           }
         }).success(function(data, status, headers, config){
-          $scope.message = [];
-          $scope.message.push("Upload Successful!");
-          $state.reload();
+          $timeout(function() {
+            $scope.message.pop();
+            $scope.message.push("Upload Successful!");
+            $timeout(function() { $state.reload(); }, 1000);
+          }, 1000);
+
         }).error(function(data, status, headers, config) {
           $scope.message = [];
           $scope.message.push("Invalid File Type");
@@ -158,6 +163,8 @@ app.controller('UserProfileInfoController', function($scope, $http, $location, $
     };
 
     $scope.uploadCover = function(files) {
+      $scope.messagec = [];
+      $scope.messagec.push("Loading...");
       $scope.file = null
       // var picture = new FormData();
       // //Take the first selected file
@@ -170,9 +177,11 @@ app.controller('UserProfileInfoController', function($scope, $http, $location, $
           cover: $scope.file,
           }
         }).success(function(data, status, headers, config){
-          $scope.messagec = [];
-          $scope.messagec.push("Upload Successful!");
-          $state.reload();
+          $timeout(function() {
+            $scope.messagec.pop();
+            $scope.messagec.push("Upload Successful!");
+            $timeout(function() { $state.reload(); }, 1000);
+          }, 1000);
         }).error(function(data, status, headers, config) {
           $scope.messagec = [];
           $scope.messagec.push("Invalid File Type");
