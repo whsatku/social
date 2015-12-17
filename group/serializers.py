@@ -21,6 +21,11 @@ class GroupCategorySerializer(serializers.ModelSerializer):
         model = GroupCategory
         fields = ('id', 'name')
 
+class GroupCoverSerializer(serializers.ModelSerializer):
+    class Meta:
+        app_label = "social_group"
+        model = Group
+        fields = ('cover',)
 
 class GroupSerializer(serializers.ModelSerializer):
     member_status = serializers.IntegerField(read_only=True, required=False)
@@ -31,7 +36,8 @@ class GroupSerializer(serializers.ModelSerializer):
         model = Group
         fields = ('id', 'name', 'description', 'short_description',
                   'activities', 'type', 'category', 'member_status',
-                  'date', 'member_count', 'gtype')
+                  'date', 'member_count', 'cover', 'gtype')
+        read_only_fields = ('cover',)
         extra_kwargs = {
             'category': {'required': False}
         }

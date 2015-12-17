@@ -1,9 +1,13 @@
 from django.db import models
 from django.contrib.auth.models import User
-
+from stdimage.models import StdImageField
 
 # Create your models here.
 
+def group_cover_directory_path(instance, filename):
+# file will be uploaded to media/coverpic/user_<id>/<filename>
+    return 'groupcoverpic/group_{0}/{1}'.format(instance.id, filename)
+    
 class GroupCategory(models.Model):
     name = models.CharField(max_length=25)
 
@@ -21,13 +25,17 @@ class Group(models.Model):
     description = models.CharField(max_length=200)
     short_description = models.CharField(max_length=50)
     activities = models.CharField(max_length=200)
-    # logo = models.CharField(max_length=25)
-    #logo_image = ImageField(upload_to=get_image_path, blank=True, null=True)
-    # header = models.CharField(max_length=25)
-    #header_image = ImageField(upload_to=get_image_path, blank=True, null=True)
     permisssion = models.IntegerField(null=True)
     date = models.DateField(auto_now_add=True)
     parent = models.ForeignKey('self', null=True, blank=True, related_name='children')
+    cover = StdImageField(
+        null=True, 
+        blank=True,
+        upload_to=group_cover_directory_path,
+        variations={
+            'normal': (945, 200, True)
+        }
+    )
 
     def __unicode__(self):
         return "group : {}".format(self.name)

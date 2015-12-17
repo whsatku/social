@@ -222,7 +222,7 @@ app.controller('GroupInfoController', function($scope, $http, $location){
 
 });
 
-app.controller('GroupManageController', function($scope, $http, $location, $stateParams){
+app.controller('GroupManageController', function($scope, $state, $http, $location, $stateParams, Upload){
 
     var groupID = $location.path().split('/')[2];
     function fetchMember(){
@@ -269,12 +269,23 @@ app.controller('GroupManageController', function($scope, $http, $location, $stat
         $scope.group = data.data;
     });
 
-
-
-
     $scope.editInfo = function(){
         $http.put('/api/group/'+groupID+'/edit/',$scope.group).success(function(data){
         });
+    };
+
+    $scope.uploadCover = function(files) {
+      $scope.file = null
+      $scope.file = files[0]
+      Upload.upload({
+          url: '/api/group/'+groupID+'/editCover/',
+          method: 'PUT',
+          data: {
+          cover: $scope.file,
+          }
+        }).success(function(data){
+          $state.reload();
+          });
     };
 });
 
