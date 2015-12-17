@@ -213,6 +213,7 @@ app.controller('AddFriendController', function($scope, $http, $location, $stateP
 
     $http.get('/api/user/'+$scope.otherUserId+'/userInfo').success(function(data){
         $scope.userprofile = data;
+        console.log($scope.userprofile);
     });
     $scope.isFriendAPI = function(){
       $http.get('/api/user/friend/isFriend/' + $scope.otherUserId ).success(function(data){
