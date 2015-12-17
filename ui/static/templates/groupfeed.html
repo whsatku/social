@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row" ng-show="group.isAuthorized">
 	<div class="col-sm-2 subgroupmenu">
 		<ul class="nav nav-pills nav-stacked">
 			<li ui-sref-active="active"><a href="#" ui-sref="root.group.feed({sub : null})">{{group.name}}</a></li>
@@ -6,7 +6,7 @@
 		</ul>
 	</div>
 	<div class="col-sm-10">
-		<form class="nfpost well" ng-show="allowPost">
+		<form class="nfpost well" ng-show="group.isPostable">
 			<textarea rows="4" ng-model="nftext" class="form-control" placeholder="What's on your mind?" autofocus></textarea>
 			<div class="checkbox" ng-if="group.gtype == 1 && group.member_status == 2">
 				<label><input type="checkbox" ng-model="$parent.pin"> Pin this post</label>
@@ -48,7 +48,7 @@
 							</div>
 						</div>
 					</li>
-					<li class="commentform">
+					<li class="commentform" ng-show="group.isPostable">
 						<div class="row">
 							<div class="col-xs-1 avatar">
 								<a href="#" ui-sref="root.user.timeline({user: user.id})" class="thumbnail" style="width: 40px; background: url({{user.picture}}); height: 40px;"></a>
@@ -87,4 +87,8 @@
 		</div>
 	</div>
 </div>
+<div class="row newsfeed" ng-show="!group.isAuthorized">
+	<div class="post">
+		<h4 style="text-align:center">Only group member can see the posts</h4>
+	</div>
 <a href=""class="lead btn newstory nga-default nga-stagger nga-fade" ng-show="newstory"><span class="glyphicon glyphicon-menu-up"></span> New Stories</a>
