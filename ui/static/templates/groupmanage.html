@@ -27,7 +27,7 @@
 							<select ng-model="userprofile.role" ng-options="role.id as role.name for role in [{id:1, name: 'Member'}, {id: 2, name: 'Admin'}]" class="form-control"></select>
 						</td>
 						<td>
-							<button ng-click="updateMember(userprofile.user.id, user.role)" ng-hide="userprofile.user.id == user.id" class="btn btn-primary">Update</button>
+							<button ng-click="updateMember(userprofile.user.id, userprofile.role)" ng-hide="userprofile.user.id == user.id" class="btn btn-primary">Update</button>
 							<button ng-click="denyMember(userprofile.user.id)" ng-hide="userprofile.user.id == user.id" class="btn btn-sm btn-danger">Kick</button>
 						</td>
 					</tr>
