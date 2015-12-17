@@ -72,6 +72,6 @@ def create_profile(sender, instance, created, **kwargs):
     if created:
         profile, new = UserProfile.objects.get_or_create(user=instance)
         if profile.gender == 'Male' or 'M':
-            profile.picture = StdImageField(upload_to='media/default/male.png')
+            profile.picture = File(open('media/default/male.png'))
         else:
-            profile.picture = StdImageField(upload_to='media/default/female.png')
+            profile.picture = File(open('media/default/female.png'))
