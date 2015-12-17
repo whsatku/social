@@ -23,6 +23,7 @@ app.controller('NewsfeedController', function($scope, $rootScope, $stateParams, 
   $scope.nftext = "";
   $scope.user = $rootScope.user;
   postID = $stateParams.id;
+  var oldestID = 0;
   var postLimit = 20;
 
   if(!postID) {
@@ -80,7 +81,9 @@ app.controller('NewsfeedController', function($scope, $rootScope, $stateParams, 
 	};
 
   $scope.loadMoreStory = function() {
-    var oldestID = $scope.newsfeed.slice(-1)[0].id;
+    if($scope.newsfeed.length > 0) {
+      oldestID = $scope.newsfeed.slice(-1)[0].id;
+    }
     $http.get('/api/newsfeed/more/' + oldestID +'&limit=' + postLimit).success(function(data){
       if(data.length < postLimit) {
         $scope.hasMoreStory = false;
