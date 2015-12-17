@@ -1,17 +1,13 @@
 from rest_framework.response import Response
 from rest_framework.generics import ListAPIView, ListCreateAPIView
-from rest_framework.decorators import api_view
 from rest_framework.exceptions import ValidationError
 from rest_framework.exceptions import NotAuthenticated
 from rest_framework.exceptions import NotFound
 from rest_framework.views import APIView
-from django.http import HttpResponse
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth.models import User
 from newsfeed.models import Post
-from newsfeed.models import Comment
 from newsfeed.serializer import GroupPostSerializer
-from newsfeed.serializer import CommentSerializer
 from notification.views import NotificationViewList
 from models import *
 from serializers import *
@@ -22,20 +18,39 @@ import json
 
 
 class MemberViewSet(ListCreateAPIView):
-
+    """This class is an API for managing member in group.
+    """
     serializer_class = GroupMemberSerializer
 
     def get_group_id(self):
+        """Get the id of the current group.
+        Args:
+
+        Return:
+            Id of the current group.
+        """
         try:
             return int(self.kwargs['group_id'])
         except ValueError:
             return ValidationError('group id cannot be parsed')
 
     def get_queryset(self):
+        """Get all members in the current group.
+        Args:
+
+        Return:
+            Query all member in the current group.
+        """
         this_group = Group.objects.get(id=self.get_group_id)
         return GroupMember.objects.filter(group=this_group)
 
     def create(self, *args, **kwargs):
+        """create a new member to group.
+        Args:
+
+        Return:
+            A response containing data of a group.
+        """
         notification = NotificationViewList()
         if not self.request.user.is_authenticated():
             raise NotAuthenticated
@@ -60,7 +75,10 @@ class MemberViewSet(ListCreateAPIView):
         data['group_id'] = self.get_group_id()
         data['group_name'] = group.name
         json_data = json.dumps(data)
-        notification.add(self.request.user, data_json, User.objects.filter(id__in=GroupMember.objects.values('user').filter(group_id=self.get_group_id(),role=2)), ContentType.objects.get(model='groupmember'), json.dumps({}), json_data)
+        notification.add(self.request.user, data_json,
+                         User.objects.filter(id__in=GroupMember.objects.values('user').filter(group_id=self.get_group_id(),role=2)),
+                         ContentType.objects.get(model='groupmember'),
+                         json.dumps({}), json_data)
 
         if not created:
             raise ValidationError('request already exists')
@@ -122,7 +140,7 @@ class GroupViewSet(APIView):
                 request: Django Rest Framework request object
                 format: pattern for Web APIs
         Return:
-
+            A response containing data of a group.
         """
         serializer = GroupSerializer(data=request.data)
 
@@ -191,8 +209,10 @@ class GroupViewDetail(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-class EditCover (APIView):
 
+class EditCover (APIView):
+    """This class is an API for managing one group.
+    """
     serializer_class = GroupCoverSerializer
 
     def get(self, request, group_id=None, format=None):
@@ -219,13 +239,14 @@ class EditCover (APIView):
 
         """
         group_object = Group.objects.get(id=group_id)
-        serializer = GroupCoverSerializer(group_object,data=request.data)
+        serializer = GroupCoverSerializer(group_object, data=request.data)
         if serializer.is_valid():
             if 'cover' in self.request.FILES:
                 serializer.data.cover = self.request.FILES.get('cover')
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 class MemberDetail(APIView):
     """This class is an API for managing member in group.
@@ -256,15 +277,14 @@ class MemberDetail(APIView):
         """
         try:
             member = self.get_member(group_id, pk)
-            member.role = request.data.get('role');
-            member.save();
+            member.role = request.data.get('role')
+            member.save()
             response = self.serializer_class(member)
-        except  Exception as inst:
+        except Exception as inst:
             print type(inst)     # the exception instance
             print inst           # __str__ allows args to be printed directly
             raise Http404
         return Response(response.data)
-
 
     def delete(self, request, group_id, pk, format=None):
         """Delete user from group.
@@ -320,6 +340,7 @@ class MemberDetail(APIView):
         group_member_object = self.get_member(group_id, pk)
         response = self.serializer_class(group_member_object)
         return Response(response.data)
+
 
 class EditInfo(APIView):
     """This class is an API for editing information in the group.
@@ -394,6 +415,7 @@ class AllCategory(APIView):
         category = GroupCategory.objects.all()
         response = self.serializer_class(category, many=True)
         return Response(response.data)
+
 
 class GroupPostView(APIView):
     """This class an API for managing group post.
@@ -492,6 +514,7 @@ class GroupList(ListAPIView):
             groupmember__role__gte=1
         )
 
+
 class SubGroupViewSet(APIView):
     """This class is api for managing subgroup"""
     serializer_class = SubGroupSerializer
@@ -518,7 +541,7 @@ class SubGroupViewSet(APIView):
         try:
             sub_group = Group.objects.filter(parent=parent_group)
             response = self.serializer_class(sub_group, many=True)
-        except  Exception as inst:
+        except Exception as inst:
             print type(inst)     # the exception instance
             print inst           # __str__ allows args to be printed directly
             raise Http404
@@ -540,7 +563,7 @@ class SubGroupViewSet(APIView):
                 parent=parent_group, gtype=parent_group.gtype
             ).save()
             return Response(sub_group)
-        except  Exception as inst:
+        except Exception as inst:
             print type(inst)     # the exception instance
             print inst           # __str__ allows args to be printed directly
             raise Http404
@@ -563,7 +586,7 @@ class SubGroupViewSet(APIView):
             if sub_group.parent == parent_group:
                 sub_group.delete()
             return Response(status=status.HTTP_204_NO_CONTENT)
-        except  Exception as inst:
+        except Exception as inst:
             print type(inst)     # the exception instance
             print inst           # __str__ allows args to be printed directly
             raise Http404
@@ -582,6 +605,7 @@ class GroupPostPegination(APIView):
             post = Post.objects.filter(target_id=group_id, target_type=self.group_model_id).filter(id__gt=post_id).order_by('-datetime')
         response = self.serializer_class(post, many=True)
         return Response(response.data)
+
 
 class PostUnpin(APIView):
     serializer_class = GroupPostSerializer
