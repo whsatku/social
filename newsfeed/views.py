@@ -19,9 +19,19 @@ import json
 
 
 class PostViewList(APIView):
+    """This class is an API for geting newsfeed posts list.
+    """
     serializer_class = PostSerializer
 
-    def get(self, request, id=None, format=None, limit=20):
+    def get(self, request, format=None, limit=20):
+        """Get a list of newsfeed post.
+        Args:
+                request: Django Rest Framework request object.
+                format: pattern for Web APIs.
+                limit: number of post in list.
+        Return:
+            List of last #limit post in database.
+        """
         user = User.objects.get(id=self.request.user.id)
         group_post = Post.objects.filter(target_type=ContentType.objects.get(model='group',app_label='group').id,target_id__in=GroupMember.objects.filter(user=user).values('group_id'))
         event_post = Post.objects.filter(target_type=ContentType.objects.get(model='event').id,target_id__in=EventMember.objects.filter(user=user,role__gt=0).values('event_id'))
@@ -33,6 +43,13 @@ class PostViewList(APIView):
         return Response(response.data)
 
     def post(self, request, format=None):
+        """Save post into database and create notification object.
+        Args:
+                request: Django Rest Framework request object.
+                format: pattern for Web APIs.
+        Return:
+            
+        """
         serializer = PostSerializer(data=request.data)
         notification = NotificationViewList()
         if serializer.is_valid():
@@ -66,36 +83,76 @@ class PostViewList(APIView):
 
 
 class PostViewDetail(APIView):
+    """This class is an API for geting newsfeed posts information.
+    """
     serializer_class = PostSerializer
 
     def get_object(self, id):
+        """Get post by id.
+        Args:
+                id: id of post.
+        Return:
+            post object.
+        """
         try:
             return Post.objects.get(id=id)
         except Post.DoesNotExist:
             raise Http404
 
     def get(self, request, id=None, format=None):
-
+        """Get single post object by id.
+        Args:
+                request: Django Rest Framework request object.
+                id: id of post.
+                format: pattern for Web APIs.
+        Return:
+            Single post object.
+        """
         postObject = self.get_object(id)
         response = self.serializer_class(postObject)
         return Response(response.data)
 
     def delete(self, request, id, format=None):
+        """Delete post in daabase.
+        Args:
+                request: Django Rest Framework request object.
+                id: id of post.
+                format: pattern for Web APIs.
+        Return:
+            
+        """
         posts = self.get_object(id)
         posts.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 
 class CommentViewList(APIView):
+    """This class is an API for geting list of comment.
+    """
     serializer_class = CommentSerializer
 
     def get(self, request, id=None, format=None):
+        """Get list of all comments in database.
+        Args:
+                request: Django Rest Framework request object.
+                id: id of post.
+                format: pattern for Web APIs.
+        Return:
+            List of comments in database.
+        """
         comment = Comment.objects.all()
         response = self.serializer_class(comment, many=True)
 
         return Response(response.data)
 
     def post(self, request, format=None):
+        """Post comment to a post.
+        Args:
+                request: Django Rest Framework request object.
+                format: pattern for Web APIs.
+        Return:
+
+        """
         serializer = CommentSerializer(data=request.data)
         notification = NotificationViewList()
 
@@ -140,31 +197,66 @@ class CommentViewList(APIView):
 
 
 class CommentViewDetail(APIView):
+    """This class is an API for geting comment of post detail.
+    """
     serializer_class = CommentSerializer
 
     def get_object(self, id):
+        """Get comment by id.
+        Args:
+                request: Django Rest Framework request object.
+                id: id of comment.
+                format: pattern for Web APIs.
+        Return:
+            comment object.
+        """
         try:
             return Comment.objects.get(id=id)
         except Comment.DoesNotExist:
             raise Http404
 
     def get(self, request, id=None, format=None):
-
+        """Get single comment object.
+        Args:
+                request: Django Rest Framework request object.
+                id: id of comment.
+                format: pattern for Web APIs.
+        Return:
+            Single object of comment.
+        """
         comment_object = self.get_object(id)
         response = self.serializer_class(comment_object)
 
         return Response(response.data)
 
     def delete(self, request, id, format=None):
+        """Delete comment from database by id.
+        Args:
+                request: Django Rest Framework request object.
+                id: id of post.
+                format: pattern for Web APIs.
+        Return:
+
+        """
         comments = self.get_object(id)
         comments.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 
 class PostComment(APIView):
+    """This class is an API for geting list of comment of post.
+    """
     serializer_class = CommentSerializer
 
     def get(self, request, id, format=None):
+        """Get list of comments of post.
+        Args:
+                request: Django Rest Framework request object.
+                id: id of post.
+                format: pattern for Web APIs.
+        Return:
+            List of comments of post.
+        """
         comment = Comment.objects.filter(post=id)
         response = self.serializer_class(comment, many=True)
 
@@ -172,15 +264,31 @@ class PostComment(APIView):
 
 
 class UserWallDetail(APIView):
+    """This class is an API for geting list of post on user wall.
+    """
     serializer_class = PostSerializer
 
     def get(self, request, id, limit=20):
+        """Get list of post on user wall.
+        Args:
+                request: Django Rest Framework request object.
+                id: id of user.
+                limit: maximum number of posts in list.
+        Return:
+            List of post on that user wall.
+        """
         post = ((Post.objects.filter(user=User.objects.get(id=id), target_type=ContentType.objects.get(model='user')) | Post.objects.filter(target_id=id , target_type=ContentType.objects.get(model='user'))).order_by('-datetime'))[:limit]
         response = self.serializer_class(post, many=True)
         return Response(response.data)
 
 
 def define_receiver(post_id):
+    """Define the receiver queryset.
+        Args:
+                post_id: id of post
+        Return:
+            Set of receiver of that notification.
+        """
     rec = set()
     for i in Comment.objects.filter(post=post_id):
         rec.add(i.user.id)
@@ -191,9 +299,20 @@ def define_receiver(post_id):
 
 
 class PostPagination(APIView):
+    """This class is an API for geting list of newer/older post of newsfeed.
+    """
     serializer_class = PostSerializer
 
     def get(self, request, action, id, limit=20):
+        """Get list of newer/older post of newsfeed.
+        Args:
+                request: Django Rest Framework request object.
+                action: 'new'/'more' command to get  newer/older post
+                id: current id of post.
+                limit: maximum number of post in list.
+        Return:
+            List of newer/older post of newsfeed.
+        """
         user = User.objects.get(id=self.request.user.id)
         group_post = Post.objects.filter(target_type=ContentType.objects.get(model='group',app_label='group').id,target_id__in=GroupMember.objects.filter(user=user).values('group_id'))
         event_post = Post.objects.filter(target_type=ContentType.objects.get(model='event').id,target_id__in=EventMember.objects.filter(user=user,role__gt=0).values('event_id'))
@@ -208,9 +327,20 @@ class PostPagination(APIView):
 
 
 class UserWallPegination(APIView):
+    """This class is an API for geting list of newer/older post of user wall.
+    """
     serializer_class = PostSerializer
 
     def get(self, request, id, action, post_id, limit=20):
+        """Get list of newer/older post of user wall.
+        Args:
+                request: Django Rest Framework request object.
+                action: 'new'/'more' command to get  newer/older post
+                id: current id of post.
+                limit: maximum number of post in list.
+        Return:
+            List of newer/older post of user wall.
+        """
         if action == 'more':
             post = (Post.objects.filter(user=User.objects.get(id=id), target_type=ContentType.objects.get(model='user')) | Post.objects.filter(target_id=id , target_type=ContentType.objects.get(model='user'))).filter(id__lt=post_id).order_by('-datetime')[:limit]
         if action == 'new':

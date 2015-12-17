@@ -4,6 +4,7 @@ from rest_framework.response import Response
 from rest_framework.generics import ListAPIView, ListCreateAPIView
 from rest_framework.exceptions import ValidationError
 from rest_framework.exceptions import NotAuthenticated
+from rest_framework.exceptions import PermissionDenied
 from django.contrib.contenttypes.models import ContentType
 from newsfeed.serializer import EventPostSerializer
 from notification.views import NotificationViewList
@@ -139,6 +140,21 @@ class EventInformationViewDetail(APIView):
                 event_object.member_status = member_status.role
             except EventMember.DoesNotExist:
                 pass
+
+        response = self.serializer_class(event_object)
+        return Response(response.data)
+
+    def post(self, request, event_id):
+        event_object = self.get_event(event_id)
+
+        if request.user.id == event_object.get_creator().user.id:
+            serializer = EventSerializer(event_object, data=request.data)
+            if serializer.is_valid():
+                event_object.start_date = serializer.validated_data['start_date']
+                event_object.end_date = serializer.validated_data['end_date']
+                event_object.save()
+        else:
+            raise PermissionDenied
 
         response = self.serializer_class(event_object)
         return Response(response.data)

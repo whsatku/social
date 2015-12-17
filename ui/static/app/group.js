@@ -3,6 +3,11 @@
 var app = angular.module('app.group', ['ngFileUpload']);
 
 app.controller('GroupController', function($scope, $stateParams, Restangular, $http, $location, $window, $state, $rootScope){
+    $scope.group = {
+      isAuthorized : false,
+      isPostable : false,
+      isInfoVisible : true,
+    };
     var redirectSubpage = function(id){
         id = id || $stateParams.id;
         var isMember = ($rootScope.group_list || []).filter(function(item){
@@ -38,6 +43,22 @@ app.controller('GroupController', function($scope, $stateParams, Restangular, $h
     var groupID = $location.path().split('/')[2];
     $http.get('/api/group/'+groupID).success(function(data){
         $scope.group = data;
+        console.log($scope.group.cover)
+        if(data.type == 0) {
+          $scope.group.isAuthorized = true;
+        }
+        else if(data.type == 1){
+          $scope.group.isInfoVisible = true;
+        }
+        else if(data.type == 2) {
+          $scope.group.isInfoVisible = false;
+        }
+        if( data.member_status == 1 || data.member_status == 2) {
+          $scope.group.isPostable = true;
+          $scope.group.isAuthorized = true;
+          $scope.group.isInfoVisible = true;
+        }
+
     });
 });
 
@@ -73,9 +94,7 @@ app.controller('GroupFeedController', function($scope, $rootScope, $stateParams,
     groupID = $location.path().split('/')[2];
   }
 
-
   if(!postID) {
-    $scope.allowPost = true;
     $scope.hasMoreStory = true;
     var newestID = 0;
     $http.get('/api/group/'+groupID+'/post&limit=' + postLimit ).success(function(data){
@@ -100,7 +119,7 @@ app.controller('GroupFeedController', function($scope, $rootScope, $stateParams,
           }
         });
       };
-      $interval(updateNewStory, 3000);
+      $interval(updateNewStory, 10000);
     });
   }
   else {
@@ -190,7 +209,7 @@ app.controller('GroupCommentController', function($rootScope, $scope, $http, $in
       }).then(function(response){
         console.log(response);
         loadCommentsByPostId($scope.data.id);
-        $interval(function() {loadCommentsByPostId($scope.data.id);}, 3000);
+        $interval(function() {loadCommentsByPostId($scope.data.id);}, 15000);
       }, function(xhr){
           alert(xhr.data);
           console.log(xhr.data);
@@ -200,7 +219,7 @@ app.controller('GroupCommentController', function($rootScope, $scope, $http, $in
       $scope.comment = "";
       $http.post('/api/newsfeed/comment/', commentData).then(function(response){
         console.log(response);
-        $interval(function() {loadCommentsByPostId($scope.data.id);}, 3000);
+        $interval(function() {loadCommentsByPostId($scope.data.id);}, 15000);
       }, function(xhr){
           alert(xhr.data);
           console.log(xhr.data);
@@ -213,9 +232,6 @@ app.controller('GroupCommentController', function($rootScope, $scope, $http, $in
 
 app.controller('GroupInfoController', function($scope, $http, $location){
     var groupID = $location.path().split('/')[2];
-    $http.get('/api/group/'+groupID).success(function(data){
-        $scope.group = data;
-    });
 
     $http.get('/api/group/'+groupID+'/member/accepted').then(function(data){
         $scope.memberList = data.data;
@@ -276,8 +292,8 @@ app.controller('GroupManageController', function($scope, $state, $http, $locatio
     };
 
     $scope.uploadCover = function(files) {
-      $scope.file = null
-      $scope.file = files[0]
+      $scope.file = null;
+      $scope.file = files[0];
       Upload.upload({
           url: '/api/group/'+groupID+'/editCover/',
           method: 'PUT',
@@ -293,6 +309,13 @@ app.controller('GroupManageController', function($scope, $state, $http, $locatio
           $scope.messagec.push("Invalid File Type");
         });
     };
+
+    $scope.updateMember = function(pk, this_role){
+      $http.post('/api/group/'+groupID+'/member/'+ pk + "/", {"role": this_role}).success(function(data){
+          $state.reload();
+      });
+    };
+
 });
 
 
