@@ -2,10 +2,8 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.generics import ListAPIView, ListCreateAPIView
-from rest_framework.decorators import api_view
 from rest_framework.exceptions import ValidationError
 from rest_framework.exceptions import NotAuthenticated
-from rest_framework.exceptions import NotFound
 from django.contrib.contenttypes.models import ContentType
 from newsfeed.serializer import EventPostSerializer
 from notification.views import NotificationViewList
@@ -21,10 +19,18 @@ import json
 
 # Create your views here.
 class CreateEvent(APIView):
-
+    """This class is an API for creating event.
+    """
     serializer_class = EventSerializer
 
     def post(self, request, format=None):
+        """Save an event to the database.
+        Args:
+                request: Django Rest Framework request object
+                format: pattern for Web APIs
+        Return:
+                A response.
+        """
         serializer = EventSerializer(data=request.data)
         print(request.data)
         if serializer.is_valid():
@@ -38,7 +44,14 @@ class CreateEvent(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def get(self, request, event_id=None, format=None):
-
+        """Get one event from the database.
+        Args:
+                request: Django Rest Framework request object
+                event_id: id of the query event
+                format: pattern for Web APIs
+        Return:
+                Query event.
+        """
         event_object = self.get_event(event_id)
 
         if request.user.is_authenticated():
@@ -55,7 +68,12 @@ class CreateEvent(APIView):
         return Response(response.data)
 
     def get_event(self, event_id):
-
+        """Get one event from the database.
+        Args:
+                event_id: id of the query event
+        Return:
+                Query event.
+        """
         try:
             return Event.objects.get(id=event_id)
         except Event.DoesNotExist:
@@ -63,10 +81,19 @@ class CreateEvent(APIView):
 
 
 class EventViewSet(APIView):
-
+    """This class is an API for querying all events.
+    """
     serializer_class = EventSerializer
 
     def get(self, request, id=None, format=None):
+        """Get all event from the database.
+        Args:
+                request: Django Rest Framework request object
+                id: id of the query event
+                format: pattern for Web APIs
+        Return:
+                Query all events.
+        """
         event = Event.objects.all()
         for e in event:
             e.member_count = len(EventMember.objects.filter(event=e))
@@ -76,7 +103,6 @@ class EventViewSet(APIView):
 
 
 class EventInformationViewDetail(APIView):
-
     """This class is an API for managing one event.
     """
     serializer_class = EventSerializer
@@ -88,7 +114,6 @@ class EventInformationViewDetail(APIView):
         Return:
                 Query event.
         """
-
         try:
             return Event.objects.get(id=event_id)
         except Event.DoesNotExist:
@@ -123,10 +148,14 @@ class EventList(ListAPIView):
     """List events that the requesting user is going or maybe
     It could be accessed at :http:get:`/api/group`"""
     serializer_class = EventSerializer
-    print "Eventlist"
 
     def get_queryset(self):
-        print "Query"
+        """Get user from event's database.
+        Args:
+                event_id: ID of event
+                user_id: ID of user
+        Return:
+        """
         if not self.request.user.is_authenticated():
             raise NotAuthenticated
 
@@ -137,16 +166,29 @@ class EventList(ListAPIView):
 
 
 class EventMemberViewSet(ListCreateAPIView):
-
+    """This class is an API for getting all users in event.
+    """
     serializer_class = EventMemberSerializer
 
     def get_event_id(self):
+        """Get id of the current event database.
+        Args:
+        Return:
+                id of the current event.
+        """
         try:
             return int(self.kwargs['event_id'])
         except ValueError:
             return ValidationError('event id cannot be parsed')
 
     def get_queryset(self):
+        """Get user from event's database.
+        Args:
+                event_id: ID of event
+                user_id: ID of user
+        Return:
+                Query the current event.
+        """
         this_event = Event.objects.get(id=self.get_event_id)
         return EventMember.objects.filter(event=this_event)
 
@@ -162,6 +204,7 @@ class EventMemberDetail(APIView):
                 event_id: ID of event
                 user_id: ID of user
         Return:
+                Query a member in event.
         """
         try:
             return EventMember.objects.get(event=event_id, user=user_id)
@@ -176,6 +219,7 @@ class EventMemberDetail(APIView):
                 pk: ID of user
                 format: pattern for Web APIs
         Return:
+                A response.
         """
         member = self.get_member(event_id, pk)
         member.delete()
@@ -183,12 +227,13 @@ class EventMemberDetail(APIView):
 
     def put(self, request, event_id, pk, role=0, format=None):
         """Add or update member in event.
-        Args1:
+        Args:
                 request: Django Rest Framework request object
                 event_id: ID of event
                 pk: ID of user
                 format: pattern for Web APIs
         Return:
+                A response.
         """
         notification = NotificationViewList()
         member = self.get_member(event_id, pk)
@@ -223,6 +268,7 @@ class EventMemberDetail(APIView):
                 pk: ID of user
                 format: pattern for Web APIs
         Return:
+                A respone containing data of member.
         """
         event_member_object = self.get_member(event_id, pk)
         response = self.serializer_class(event_member_object)
@@ -230,8 +276,7 @@ class EventMemberDetail(APIView):
 
 
 class EventPostView(APIView):
-    """This class an API for managing group post.
-
+    """This class an API for managing event post.
     """
     serializer_class = EventPostSerializer
 
@@ -240,6 +285,7 @@ class EventPostView(APIView):
         Args:
                 request: Django Rest Framework request object.
                 event_id: event id of querying post.
+                limit: maximum number of post in list.
                 format: pattern for Web APIs.
         Return:
                 post from querying event.
@@ -255,12 +301,11 @@ class EventPostView(APIView):
                 event_id: event id that we going to post to.
                 format: pattern for Web APIs.
         Return:
-
+                A response.
         """
         serializer = EventPostSerializer(data=request.data)
         notification = NotificationViewList()
         if serializer.is_valid():
-            # if self.request.user.id in EventMember.objects.filter(event_id=event_id).values_list('user_id', flat=True):
                 if self.request.user.is_authenticated():
                     request.data['target_type'] = ContentType.objects.get(model='event').id
                     request.data['target_id'] = event_id
@@ -277,12 +322,23 @@ class EventPostView(APIView):
 
 
 class EventPostPegination(APIView):
-
+    """This class an API for getting newer/older event post.
+    """
     serializer_class = EventPostSerializer
     event_model_id = ContentType.objects.get(model='event').id
 
     def get(self, request, event_id, action, post_id, limit=20, format=None):
-
+        """Get list of newer/older event post.
+        Args:
+                request: Django Rest Framework request object.
+                action: 'new'/'more' command to get  newer/older post
+                event_id: id of an event.
+                post_id: current id of post.
+                limit: maximum number of post in list.
+                format: pattern for Web APIs.
+        Return:
+            List of newer/older event post.
+        """
         if action == 'more':
             post = Post.objects.filter(target_id=event_id, target_type=self.event_model_id).filter(id__lt=post_id).order_by('-datetime')[:limit]
         if action == 'new':
@@ -292,9 +348,19 @@ class EventPostPegination(APIView):
 
 
 class PostUnpin(APIView):
+    """This class an API for getting newer/older event post.
+    """
     serializer_class = EventPostSerializer
 
     def post(self, request, event_id, post_id):
+        """Update a post to unpinned.
+        Args:
+                request: Django Rest Framework request object.
+                event_id: id of an event.
+                post_id: current id of post.
+        Return:
+            A response.
+        """
         post = Post.objects.get(id=post_id)
         if post.target_id != int(event_id):
             raise Http404
