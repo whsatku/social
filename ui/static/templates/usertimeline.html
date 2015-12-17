@@ -20,7 +20,7 @@
 			<div class="panel-body">
 				<ul class="list-inline memberlist">
 					<li ng-repeat="member in members">
-						<a href="#" ui-sref="root.user.timeline({user: member.user.id})" class="thumbnail" style="width: 40px; background: url({{member.picture}}); height: 40px; background-size: cover;"></a>
+						<a href="#" ui-sref="root.user.timeline({user: member.user.id})" class="thumbnail" style="width: 40px; background-img: url({{member.picture}}); height: 40px; background-size: cover;"></a>
 					</li>
 					<li>
 						<a href="#" class="thumbnail text-center plusmore" ui-sref="root.user.friends()">+{{moreFriendsCount}}</a>
@@ -38,7 +38,7 @@
 		<div class="post nga-default nga-stagger nga-fade" ng-repeat="data in userfeed track by data.id">
 			<div class="user row">
 				<div class="col-xs-1 avatar">
-					<a href="#" ui-sref="root.user.timeline({user: data.user.id})" class="thumbnail" style="width: 40px; background: url({{data.user.profile.picture}}); height: 40px;"></a>
+					<a href="#" ui-sref="root.user.timeline({user: data.user.id})" class="thumbnail" style="width: 40px; background-img: url({{data.user.profile.picture}}); height: 40px;"></a>
 				</div>
 				<div class="col-xs-10">
 					<a href="#" ui-sref="root.user.timeline({user: data.user.id})">{{data.user.first_name}} {{data.user.last_name}}</a>
@@ -56,7 +56,7 @@
 				<li class="nga-default nga-stagger nga-fade" ng-repeat="comment in comments track by comment.id">
 					<div class="row">
 						<div class="col-xs-1 avatar">
-							<a href="#" ui-sref="root.user.timeline({user: comment.user.id})" class="thumbnail" style="width: 40px; background: url({{comment.user.profile.picture}}); height: 40px;"></a>
+							<a href="#" ui-sref="root.user.timeline({user: comment.user.id})" class="thumbnail" style="width: 40px; background-img: url({{comment.user.profile.picture}}); height: 40px;"></a>
 						</div>
 						<div class="col-xs-10">
 							<a href="#" ui-sref="root.user.timeline({user: comment.user.id})">{{comment.user.first_name}} {{comment.user.last_name}}</a>
@@ -68,7 +68,7 @@
 				<li class="commentform">
 					<div class="row">
 						<div class="col-xs-1 avatar">
-							<a href="#" ui-sref="root.user.timeline({user: user.id})" class="thumbnail" style="width: 40px; background: url({{user.picture}}); height: 40px;"></a>
+							<a href="#" ui-sref="root.user.timeline({user: user.id})" class="thumbnail" style="width: 40px; background-img: url({{user.picture}}); height: 40px;"></a>
 						</div>
 						<form class="col-xs-10">
 							<input type="text" ng-model="comment" my-enter="commentPost(data)" class="form-control" placeholder="Enter comment">
