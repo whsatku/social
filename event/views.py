@@ -135,7 +135,8 @@ class EventInformationViewDetail(APIView):
             event_object.member_status = -1
 
             try:
-                member_status = event_object.eventmember_set.filter(user=request.user).get()
+                member_status = event_object.eventmember_set.filter(
+                    user=request.user).get()
                 event_object.member_status = member_status.role
             except EventMember.DoesNotExist:
                 pass
@@ -149,7 +150,8 @@ class EventInformationViewDetail(APIView):
         if request.user.id == event_object.get_creator().user.id:
             serializer = EventSerializer(event_object, data=request.data)
             if serializer.is_valid():
-                event_object.start_date = serializer.validated_data['start_date']
+                event_object.start_date = serializer.validated_data[
+                    'start_date']
                 event_object.end_date = serializer.validated_data['end_date']
                 event_object.save()
         else:
@@ -261,7 +263,8 @@ class EventMemberDetail(APIView):
             )
             data_json = {}
             data_json['target_id'] = event_id
-            data_json['target_type'] = ContentType.objects.get(model='event').id
+            data_json['target_type'] = ContentType.objects.get(
+                model='event').id
             data_json['text'] = 'invited you to an event'
             data = {}
             data['type'] = 'event'
@@ -269,7 +272,13 @@ class EventMemberDetail(APIView):
             data['event_id'] = event_id
             data['event_name'] = Event.objects.get(id=event_id).name
             json_data = json.dumps(data)
-            notification.add(request.user, data_json, User.objects.filter(id=pk), ContentType.objects.get(model='eventmember'), json.dumps({}), json_data)
+            notification.add(
+                request.user,
+                data_json, User.objects.filter(id=pk),
+                ContentType.objects.get(model='eventmember'),
+                json.dumps({}),
+                json_data
+            )
         member.role = role
         member.save()
 
@@ -305,7 +314,10 @@ class EventPostView(APIView):
         Return:
                 post from querying event.
         """
-        post = Post.objects.filter(target_id=event_id, target_type=ContentType.objects.get(model='event')).order_by('-pinned', '-datetime')[:limit]
+        post = Post.objects.filter(
+            target_id=event_id,
+            target_type=ContentType.objects.get(
+                model='event')).order_by('-pinned', '-datetime')[:limit]
         response = self.serializer_class(post, many=True)
         return Response(response.data)
 
@@ -322,17 +334,33 @@ class EventPostView(APIView):
         notification = NotificationViewList()
         if serializer.is_valid():
                 if self.request.user.is_authenticated():
-                    request.data['target_type'] = ContentType.objects.get(model='event').id
+                    request.data['target_type'] = ContentType.objects.get(
+                        model='event').id
                     request.data['target_id'] = event_id
                     target = Event.objects.get(id=request.data['target_id'])
-                    serializer.save(user=User.objects.get(id=self.request.user.id), target_id=event_id, target_type=ContentType.objects.get(model='event'),target_name=target.name)
+                    serializer.save(
+                        user=User.objects.get(id=self.request.user.id),
+                        target_id=event_id,
+                        target_type=ContentType.objects.get(model='event'),
+                        target_name=target.name)
                     data = {}
                     data['type'] = 'event'
                     data['event_id'] = event_id
                     data['event_name'] = Event.objects.get(id=event_id).name
                     json_data = json.dumps(data)
-                    notification.add(request.user, request.data, User.objects.filter(id__in=EventMember.objects.filter(event=Event.objects.get(id=event_id),role__in=[1,2]).values('user')) , ContentType.objects.get(model='post'), JSONRenderer().render(serializer.data), json_data)
-                    return Response(serializer.data, status=status.HTTP_201_CREATED)
+                    notification.add(
+                        request.user,
+                        request.data,
+                        User.objects.filter(
+                            id__in=EventMember.objects.filter(
+                                event=Event.objects.get(
+                                    id=event_id), role__in=[1, 2]).values(
+                                'user')),
+                        ContentType.objects.get(model='post'),
+                        JSONRenderer().render(serializer.data), json_data)
+                    return Response(
+                        serializer.data,
+                        status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
@@ -355,9 +383,15 @@ class EventPostPegination(APIView):
             List of newer/older event post.
         """
         if action == 'more':
-            post = Post.objects.filter(target_id=event_id, target_type=self.event_model_id).filter(id__lt=post_id).order_by('-datetime')[:limit]
+            post = Post.objects.filter(
+                target_id=event_id,
+                target_type=self.event_model_id).filter(
+                id__lt=post_id).order_by('-datetime')[:limit]
         if action == 'new':
-            post = Post.objects.filter(target_id=event_id, target_type=self.event_model_id).filter(id__gt=post_id).order_by('-datetime')
+            post = Post.objects.filter(
+                target_id=event_id,
+                target_type=self.event_model_id).filter(
+                id__gt=post_id).order_by('-datetime')
         response = self.serializer_class(post, many=True)
         return Response(response.data)
 
