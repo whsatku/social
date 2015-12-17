@@ -1,0 +1,28 @@
+<h4 class="modal-header">Change event time</h4>
+<div class="modal-body">
+	<div class="alert alert-danger" ng-bind="error" ng-if="error"></div>
+	<div class="row">
+		<div class="form-group col-sm-6">
+			<h4>Start</h4>
+			<div class="col-xs-6">
+				<input type="date" class="form-control" ng-model = "event.start_date">
+			</div>
+			<div class="col-xs-6">
+				<input type="time" class="form-control" ng-model = "event.start_date">
+			</div>
+		</div>
+		<div class="form-group col-sm-6">
+			<h4>End</h4>
+			<div class="col-xs-6">
+				<input type="date" class="form-control" ng-model = "event.end_date">
+			</div>
+			<div class="col-xs-6">
+				<input type="time" class="form-control" ng-model = "event.end_date">
+			</div>
+		</div>
+	</div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-click="ok()">Change</button>
+    <button class="btn btn-default" type="button" ng-click="cancel()">Cancel</button>
+</div>

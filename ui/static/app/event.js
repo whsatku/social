@@ -35,7 +35,7 @@ app.controller('CreateEventController', function($scope, $state, $http, $statePa
     }
 });
 
-app.controller('EventController', function($scope, $http, $location, $uibModal, $rootScope){
+app.controller('EventController', function($scope, $http, $location, $uibModal, $rootScope, $state){
     var eventID = $location.path().split('/')[2];
     $scope.role = 0;
     $http.get('/api/event/'+eventID).success(function(data){
@@ -82,6 +82,35 @@ app.controller('EventController', function($scope, $http, $location, $uibModal, 
             }
         });
         modal.result.then(function(data){
+        });
+    };
+
+    $scope.changeTime = function(){
+        var mainScope = $scope;
+        var modal = $uibModal.open({
+            templateUrl: 'templates/dialog/changetime.html',
+            controller: function($scope, $uibModalInstance, $http){
+                $scope.event = angular.copy(mainScope.event);
+                $scope.event.start_date = moment($scope.event.start_date).toDate();
+                $scope.event.end_date = moment($scope.event.end_date).toDate();
+                $scope.ok = function(){
+                    if(moment($scope.event.start_date).isAfter($scope.event.end_date)){
+                      $scope.error = 'Start cannot be after end date';
+                      return;
+                    }
+                    $uibModalInstance.close($scope.event);
+                };
+                $scope.cancel = function(){
+                    $uibModalInstance.dismiss();
+                };
+            }
+        });
+        modal.result.then(function(data){
+          $scope.event.start_date = data.start_date;
+          $scope.event.end_date = data.end_date;
+          $http.post('/api/event/'+ $scope.event.id + '/', $scope.event).success(function(){
+            $state.reload();
+          });
         });
     };
 
