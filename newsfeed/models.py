@@ -12,7 +12,7 @@ class Post(models.Model):
     target_type = models.ForeignKey(ContentType)
     target_id = models.PositiveIntegerField(null=True)
     target_object = GenericForeignKey('target_type', 'target_id')
-    target_name = models.CharField(max_length=20000,null=True)
+    target_name = models.TextField(blank=True, null=True)
     allow_submission = models.BooleanField(default=False)
     pinned = models.BooleanField(default=False)
 
