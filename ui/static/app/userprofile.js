@@ -60,7 +60,7 @@ app.controller('UserProfileInfoController', function($scope, $http, $location, $
             }
           });
         }
-        $interval(updateNewStory, 3000);
+        $interval(updateNewStory, 60000);
 
       });
     }
