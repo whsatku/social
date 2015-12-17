@@ -95,8 +95,9 @@ html,body,#root{
 }
 .avatar{
 	width: 60px;
+}
+.avatar .a{
 	background-size: contain !important;
-
 }
 .commentform{
 	background: #eee;
