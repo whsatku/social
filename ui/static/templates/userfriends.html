@@ -7,7 +7,7 @@
 			<li class="col-sm-6" ng-repeat="friend in friends">
 				<div class="usergrid row clickable" ui-sref="root.user.timeline({user: friend.user.id})">
 					<div class="col-xs-3 leftcol">
-						<a href="#" style="display: block; width: 90px; background: red; height: 90px;"></a>
+						<a href="" style="display: block; width: 90px; background: url({{friend.picture}}); height: 90px;"></a>
 					</div>
 					<div class="col-xs-9 rightcol">
 						<div class="pull-right">
