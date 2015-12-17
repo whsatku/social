@@ -98,6 +98,7 @@ html,body,#root{
 }
 .avatar .a{
 	background-size: contain !important;
+	background-repeat: no-repeat;
 }
 .commentform{
 	background: #eee;
@@ -155,7 +156,7 @@ html,body,#root{
 .lfg header{
 	text-align: center;
 	height: 200px;
-	background-image: url(../img/directory.jpg) no-repeat;
+	background: url(../img/directory.jpg) no-repeat;
 	background-size: cover;
 	margin-top: -20px;
 	margin-bottom: 50px;
@@ -262,6 +263,7 @@ html,body,#root{
 	width: 140px;
 	height: 140px;
 	background-size: contain;
+	background-repeat: no-repeat;
 }
 .userpage .cover h3{
 	margin-left: 160px;
@@ -331,10 +333,10 @@ html,body,#root{
 	color: #aaa;
 }
 .event header{
-	background-image: url(../img/events.jpg) no-repeat;
+	background: url(../img/events.jpg) no-repeat;
 }
 .eventcover{
-	background-image: url(../img/events.jpg)
+	background: url(../img/events.jpg)
 }
 
 .newstory {
