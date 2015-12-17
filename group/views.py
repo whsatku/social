@@ -404,12 +404,16 @@ class GroupPostView(APIView):
         """
         serializer = GroupPostSerializer(data=request.data)
         notification = NotificationViewList()
+        parent_id = None
+        if Group.objects.get(id=group_id).parent is not None:
+            parent_id = Group.objects.get(id=group_id).parent.id
         if serializer.is_valid():
-            if self.request.user.id in GroupMember.objects.filter(group_id=group_id).values_list('user_id', flat=True):
+            if self.request.user.id in GroupMember.objects.filter(group_id__in=[group_id,parent_id],role__gt=0).values_list('user_id', flat=True):
                 if self.request.user.is_authenticated():
                     request.data['target_type'] = ContentType.objects.get(model='group', app_label='group').id
                     request.data['target_id'] = group_id
-                    serializer.save(user=User.objects.get(id=self.request.user.id), target_id=group_id, target_type=ContentType.objects.get(model='group',app_label='group'))
+                    target = Group.objects.get(id=request.data['target_id'])
+                    serializer.save(user=User.objects.get(id=self.request.user.id), target_id=group_id, target_type=ContentType.objects.get(model='group',app_label='group'),target_name=target.name)
                     data = {}
                     data['type'] = 'group'
                     data['group_id'] = group_id

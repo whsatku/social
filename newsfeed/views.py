@@ -13,6 +13,8 @@ from notification.views import NotificationViewList
 from django.contrib.contenttypes.models import ContentType
 from rest_framework.renderers import JSONRenderer
 from friendship.models import Friend
+from group.models import GroupMember
+from event.models import EventMember
 import json
 
 
@@ -20,7 +22,12 @@ class PostViewList(APIView):
     serializer_class = PostSerializer
 
     def get(self, request, id=None, format=None, limit=20):
-        post = Post.objects.order_by('-datetime')[:limit]
+        user = User.objects.get(id=self.request.user.id)
+        group_post = Post.objects.filter(target_type=ContentType.objects.get(model='group',app_label='group').id,target_id__in=GroupMember.objects.filter(user=user).values('group_id'))
+        event_post = Post.objects.filter(target_type=ContentType.objects.get(model='event').id,target_id__in=EventMember.objects.filter(user=user,role__gt=0).values('event_id'))
+        friend_post = Post.objects.filter(target_type=ContentType.objects.get(model='user').id,target_id__in=Friend.objects.filter(from_user=self.request.user.id).values('to_user'),user__in=Friend.objects.filter(from_user=self.request.user.id).values('to_user')) | Post.objects.filter(target_type=ContentType.objects.get(model='user').id,target_id=None,user__in=Friend.objects.filter(from_user=self.request.user.id).values('to_user'))
+        user_post = Post.objects.filter(user=user, target_type=ContentType.objects.get(model='user')) | Post.objects.filter(target_id=user.id , target_type=ContentType.objects.get(model='user'))
+        post = (group_post|event_post|friend_post|user_post).order_by('-datetime')[:limit]
         response = self.serializer_class(post, many=True)
 
         return Response(response.data)
@@ -31,7 +38,11 @@ class PostViewList(APIView):
         if serializer.is_valid():
 
             if self.request.user.is_authenticated():
-                serializer.save(user=User.objects.get(id=self.request.user.id))
+                try :
+                    target = User.objects.get(id=request.data['target_id'])
+                    serializer.save(user=User.objects.get(id=self.request.user.id),target_name=(target.first_name+' '+target.last_name))
+                except User.DoesNotExist :
+                    serializer.save(user=User.objects.get(id=self.request.user.id),target_name='')
                 data = {}
                 data['type'] = 'user'
                 if request.data['target_id'] != None:
@@ -41,14 +52,15 @@ class PostViewList(APIView):
                 else:
                     data['user_id'] = None
                 json_data = json.dumps(data)
-                notification.add(
-                    request.user,
-                    request.data,
-                    User.objects.filter(id__in=Friend.objects.filter(from_user=self.request.user.id).values('to_user')),
-                    ContentType.objects.get(model='post'),
-                    JSONRenderer().render(serializer.data).decode('utf-8'),
-                    json_data
-                )
+                if request.data['target_id'] != None:
+                    notification.add(
+                        request.user,
+                        request.data,
+                        User.objects.filter(id__in=Friend.objects.filter(from_user=self.request.user.id).values('to_user')),
+                        ContentType.objects.get(model='post'),
+                        JSONRenderer().render(serializer.data).decode('utf-8'),
+                        json_data
+                    )
                 return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -173,6 +185,8 @@ def define_receiver(post_id):
     for i in Comment.objects.filter(post=post_id):
         rec.add(i.user.id)
     rec.add(Post.objects.get(id=post_id).user.id)
+    if Post.objects.get(id=post_id).target_type == ContentType.objects.get(model='user'):
+        rec.add(Post.objects.get(id=post_id).target_id)
     return User.objects.filter(id__in=rec)
 
 
@@ -180,11 +194,15 @@ class PostPagination(APIView):
     serializer_class = PostSerializer
 
     def get(self, request, action, id, limit=20):
-
+        user = User.objects.get(id=self.request.user.id)
+        group_post = Post.objects.filter(target_type=ContentType.objects.get(model='group',app_label='group').id,target_id__in=GroupMember.objects.filter(user=user).values('group_id'))
+        event_post = Post.objects.filter(target_type=ContentType.objects.get(model='event').id,target_id__in=EventMember.objects.filter(user=user,role__gt=0).values('event_id'))
+        friend_post = Post.objects.filter(target_type=ContentType.objects.get(model='user').id,target_id__in=Friend.objects.filter(from_user=self.request.user.id).values('to_user'),user__in=Friend.objects.filter(from_user=self.request.user.id).values('to_user')) | Post.objects.filter(target_type=ContentType.objects.get(model='user').id,target_id=None,user__in=Friend.objects.filter(from_user=self.request.user.id).values('to_user'))
+        user_post = Post.objects.filter(user=user, target_type=ContentType.objects.get(model='user')) | Post.objects.filter(target_id=user.id , target_type=ContentType.objects.get(model='user'))
         if action == 'more':
-            post = Post.objects.filter(id__lt=id).order_by('-datetime')[:limit]
+            post = (group_post|event_post|friend_post|user_post).filter(id__lt=id).order_by('-datetime')[:limit]
         if action == 'new':
-            post = Post.objects.filter(id__gt=id).order_by('-datetime')
+            post = (group_post|event_post|friend_post|user_post).filter(id__gt=id).order_by('-datetime')
         response = self.serializer_class(post, many=True)
         return Response(response.data)
 
