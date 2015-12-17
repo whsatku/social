@@ -196,12 +196,10 @@ class PostPagination(APIView):
         event_post = Post.objects.filter(target_type=ContentType.objects.get(model='event').id,target_id__in=EventMember.objects.filter(user=user,role__gt=0).values('event_id'))
         friend_post = Post.objects.filter(target_type=ContentType.objects.get(model='user').id,target_id__in=Friend.objects.filter(from_user=self.request.user.id).values('to_user'),user__in=Friend.objects.filter(from_user=self.request.user.id).values('to_user')) | Post.objects.filter(target_type=ContentType.objects.get(model='user').id,target_id=None,user__in=Friend.objects.filter(from_user=self.request.user.id).values('to_user'))
         user_post = Post.objects.filter(user=user, target_type=ContentType.objects.get(model='user')) | Post.objects.filter(target_id=user.id , target_type=ContentType.objects.get(model='user'))
-        post = (group_post|event_post|friend_post|user_post).order_by('-datetime')[:limit]
-
         if action == 'more':
-            post = post.filter(id__lt=id).order_by('-datetime')[:limit]
+            post = (group_post|event_post|friend_post|user_post).filter(id__lt=id).order_by('-datetime')[:limit]
         if action == 'new':
-            post = post.filter(id__gt=id).order_by('-datetime')
+            post = (group_post|event_post|friend_post|user_post).filter(id__gt=id).order_by('-datetime')
         response = self.serializer_class(post, many=True)
         return Response(response.data)
 
