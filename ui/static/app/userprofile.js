@@ -13,12 +13,6 @@ app.controller('UserProfileInfoController', function($scope, $http, $location, $
       $scope.allowPost = true;
     }
 
-    $http.get('/api/user/'+userID+'/userInfo').then(function(data){
-      $scope.userprofile = data;
-    }, function(xhr) {
-      $state.go("root.newsfeed");
-    });
-
     $http.get('/api/user/friends/' + userID).success(function (data) {
       $scope.members = [];
       for(i=0 ; i<14 ; i++) {
@@ -213,7 +207,9 @@ app.controller('AddFriendController', function($scope, $http, $location, $stateP
 
     $http.get('/api/user/'+$scope.otherUserId+'/userInfo').success(function(data){
         $scope.userprofile = data;
-    });
+      }).error(function(xhr) {
+        $state.go("root.newsfeed");
+    }) ;
     $scope.isFriendAPI = function(){
       $http.get('/api/user/friend/isFriend/' + $scope.otherUserId ).success(function(data){
         $scope.isFriend = data;
