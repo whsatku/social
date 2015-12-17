@@ -15,9 +15,11 @@ GENDER = (
     ('F', 'Female'),
 )
 
+
 def user_picture_directory_path(instance, filename):
     # file will be uploaded to media/profilepic/user_<id>/<filename>
-    return 'userprofilepic/user_{0}/{1}'.format(instance.user.id, filename)
+    return 'profilepic/user_{0}/{1}'.format(instance.user.id, filename)
+
 def user_cover_directory_path(instance, filename):
     # file will be uploaded to media/coverpic/user_<id>/<filename>
     return 'usercoverpic/user_{0}/{1}'.format(instance.user.id, filename)
@@ -46,7 +48,7 @@ class UserProfile(models.Model):
         }
     )
     cover = StdImageField(
-        null=True, 
+        null=True,
         blank=True,
         upload_to=user_cover_directory_path,
         variations={
@@ -54,6 +56,7 @@ class UserProfile(models.Model):
         }
     )
     # phone = models.CharField(max_length=20, blank=True)
+
 
 
     def __unicode__(self):
@@ -68,3 +71,7 @@ def create_profile(sender, instance, created, **kwargs):
     """Create a matching profile whenever a user object is created."""
     if created:
         profile, new = UserProfile.objects.get_or_create(user=instance)
+        if profile.gender == 'Male' or 'M':
+            profile.picture = File(open('media/default/male.png'))
+        else:
+            profile.picture = File(open('media/default/female.png'))

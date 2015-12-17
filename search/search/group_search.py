@@ -1,8 +1,11 @@
+from django.db.models import Q
+
 from group.models import Group
 
 class GroupSearch:
 	def search(self, query):
 		groups = Group.objects.filter(
+			~Q(type=2),
 			name__icontains=query,
 			parent=None
 		)

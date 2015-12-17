@@ -64,6 +64,9 @@
 			<div class="form-group">
 				<h4>Cover image</h4>
 				<input type="file" accept="image" id = "cover" name="cover" class="form-control" onchange="angular.element(this).scope().uploadCover(this.files)" ngf-select>
+				<div role="alert" ng-show="messagec.length>0">
+        			<li ng-repeat="msg in messagec">{{msg}}</li>
+    			</div>
 				<div class="help-block">
 					945x200 pixels
 				</div>
