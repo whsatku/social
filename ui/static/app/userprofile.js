@@ -147,9 +147,14 @@ app.controller('UserProfileInfoController', function($scope, $http, $location, $
           data: {
           picture: $scope.file,
           }
-        }).success(function(data){
+        }).success(function(data, status, headers, config){
+          $scope.message = [];
+          $scope.message.push("Upload Successful!");
           $state.reload();
-          });
+        }).error(function(data, status, headers, config) {
+          $scope.message = [];
+          $scope.message.push("Invalid File Type");
+        });
     };
 
     $scope.uploadCover = function(files) {
@@ -164,9 +169,14 @@ app.controller('UserProfileInfoController', function($scope, $http, $location, $
           data: {
           cover: $scope.file,
           }
-        }).success(function(data){
+        }).success(function(data, status, headers, config){
+          $scope.messagec = [];
+          $scope.messagec.push("Upload Successful!");
           $state.reload();
-          });
+        }).error(function(data, status, headers, config) {
+          $scope.messagec = [];
+          $scope.messagec.push("Invalid File Type");
+        });
     };
 
   });
