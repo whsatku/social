@@ -480,7 +480,7 @@ class GroupList(ListAPIView):
     def get_queryset(self):
         """Get a list of group that requesting user is a member.
         Args:
-                
+
         Return:
                 list of group that requesting user is a member.
         """
