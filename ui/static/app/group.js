@@ -51,7 +51,6 @@ app.controller('GroupController', function($scope, $stateParams, Restangular, $h
           $scope.group.isInfoVisible = true;
         }
         else if(data.type == 2) {
-          console.log("dasdsa");
           $scope.group.isInfoVisible = false;
         }
         if( data.member_status == 1 || data.member_status == 2) {
