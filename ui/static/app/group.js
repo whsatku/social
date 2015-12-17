@@ -284,9 +284,14 @@ app.controller('GroupManageController', function($scope, $state, $http, $locatio
           data: {
           cover: $scope.file,
           }
-        }).success(function(data){
+        }).success(function(data, status, headers, config){
+          $scope.messagec = [];
+          $scope.messagec.push("Upload Successful!");
           $state.reload();
-          });
+        }).error(function(data, status, headers, config) {
+          $scope.messagec = [];
+          $scope.messagec.push("Invalid File Type");
+        });
     };
 });
 
