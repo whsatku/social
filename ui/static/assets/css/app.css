@@ -96,6 +96,10 @@ html,body,#root{
 .avatar{
 	width: 60px;
 }
+.avatar a{
+	background-size: contain !important;
+	background-repeat: no-repeat;
+}
 .commentform{
 	background: #eee;
 	margin-bottom: -5px;
@@ -258,6 +262,8 @@ html,body,#root{
 	margin: 0;
 	width: 140px;
 	height: 140px;
+	background-size: contain;
+	background-repeat: no-repeat;
 }
 .userpage .cover h3{
 	margin-left: 160px;

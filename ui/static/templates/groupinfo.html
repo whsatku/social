@@ -1,7 +1,7 @@
 <div class="row groupinfo">
 	<div class="col-md-9">
 		<h4>What's this group about?</h4>
-		<div class="message">
+		<div ng-show="group.isInfoVisible" class="message">
 			<p>{{group.description}}</p>
 		</div>
 
@@ -24,19 +24,19 @@
 
 
 			</p>
-			<p>{{group.short_description}}</p>
+			<p ng-show="group.isInfoVisible">{{group.short_description}}</p>
 		</div>
 
 		<h4>Your activities?</h4>
 		<div class="message">
-			<p>{{group.activities}}</p>
+			<p ng-show="group.isInfoVisible">{{group.activities}}</p>
 		</div>
 	</div>
 	<div class="col-md-3">
 		<h4>Members</h4>
-		<ul class="list-inline memberlist">
+		<ul class="list-inline memberlist" ng-show="group.isInfoVisible">
 			<li ng-repeat="member in memberList">
-				<a ng-href="{{member.userUrl}}" class="thumbnail" style="width: 40px; background: url('{{member.imgUrl}}'); height: 40px; background-size: cover;">{{member.user.first_name}}</a>
+				<a href="" ui-sref="root.user.timeline({user: member.user.id})" class="thumbnail" style="width: 40px; background-image: url('{{member.imgUrl}}'); height: 40px; background-size: cover;">{{member.user.first_name}}</a>
 			</li>
 		</ul>
 	</div>

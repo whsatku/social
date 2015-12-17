@@ -11,6 +11,9 @@ class Event(models.Model):
     # start_time = models.TimeField(auto_now_add=False)
     # end_time = models.TimeField(auto_now_add=False)
 
+    def get_creator(self):
+        return self.eventmember_set.all()[0]
+
     def __unicode__(self):
         return "event : {}".format(self.name)
 
