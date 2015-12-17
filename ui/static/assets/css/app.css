@@ -261,6 +261,7 @@ html,body,#root{
 	margin: 0;
 	width: 140px;
 	height: 140px;
+	background-size: contain;
 }
 .userpage .cover h3{
 	margin-left: 160px;
