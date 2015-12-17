@@ -141,7 +141,7 @@
 	<!--
 		Approve request to join GROUP
 	-->
-	<div class="row item-outer" ui-sref="root.group.feed({id: data.target_id})" ng-if="data.target_type == 16 && data.link_type.model == 'groupmember' && data.reference_detail.action == 'approve' " ng-click="readNotification(data)">
+	<div class="row item-outer" ui-sref="root.group.feed({id: data.target_id})" ui-sref-opts="{reload: true}" ng-if="data.target_type == 16 && data.link_type.model == 'groupmember' && data.reference_detail.action == 'approve' " ng-click="readNotification(data)">
 		<div class="item" ng-class="{'new':!data.read}">
 			<div class="col-xs-2">
 				<a href="#" class="thumbnail" style="width: 40px; background: url({{data.user.profile.picture}}); height: 40px;"></a>
@@ -157,7 +157,7 @@
 	<!--
 		Request to join a Group!
 	-->
-	<div class="row item-outer" ui-sref="root.group.manage({id: data.target_id})" ng-repeat-end ng-if="data.target_type == 16 && data.link_type.model == 'groupmember' && data.reference_detail.action == 'request' " ng-click="readNotification(data)">
+	<div class="row item-outer" ui-sref="root.group.manage({id: data.target_id})" ui-sref-opts="{reload: true}" ng-repeat-end ng-if="data.target_type == 16 && data.link_type.model == 'groupmember' && data.reference_detail.action == 'request' " ng-click="readNotification(data)">
 		<div class="item" ng-class="{'new':!data.read}">
 			<div class="col-xs-2">
 				<a href="#" class="thumbnail" style="width: 40px; background: url({{data.user.profile.picture}}); height: 40px;"></a>
