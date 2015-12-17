@@ -231,7 +231,7 @@ app.controller('EventFeedController', function($scope, $rootScope, $stateParams,
           }
         });
 
-        $interval(updateNewStory, 3000);
+        $interval(updateNewStory, 30000);
 
       }
     });
