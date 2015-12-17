@@ -68,17 +68,25 @@ class MemberViewSet(ListCreateAPIView):
         data_json = {}
         data = {}
         data_json['target_id'] = self.get_group_id()
-        data_json['target_type'] = ContentType.objects.get(model='group',app_label='group').id
+        data_json['target_type'] = ContentType.objects.get(
+            model='group', app_label='group').id
         data_json['text'] = 'requested to join a group'
         data['type'] = 'group'
         data['action'] = 'request'
         data['group_id'] = self.get_group_id()
         data['group_name'] = group.name
         json_data = json.dumps(data)
-        notification.add(self.request.user, data_json,
-                         User.objects.filter(id__in=GroupMember.objects.values('user').filter(group_id=self.get_group_id(),role=2)),
-                         ContentType.objects.get(model='groupmember'),
-                         json.dumps({}), json_data)
+        notification.add(
+            self.request.user,
+            data_json,
+            User.objects.filter(
+                id__in=GroupMember.objects.values(
+                    'user'
+                ).filter(group_id=self.get_group_id(), role=2)),
+            ContentType.objects.get(model='groupmember'),
+            json.dumps({}),
+            json_data
+        )
 
         if not created:
             raise ValidationError('request already exists')
@@ -185,7 +193,8 @@ class GroupViewDetail(APIView):
             group_object.member_status = -1
 
             try:
-                member_status = group_object.groupmember_set.filter(user=request.user).get()
+                member_status = group_object.groupmember_set.filter(
+                    user=request.user).get()
                 group_object.member_status = member_status.role
             except GroupMember.DoesNotExist:
                 pass
@@ -317,14 +326,22 @@ class MemberDetail(APIView):
         data_json = {}
         data = {}
         data_json['target_id'] = group_id
-        data_json['target_type'] = ContentType.objects.get(model='group',app_label='group').id
+        data_json['target_type'] = ContentType.objects.get(
+            model='group', app_label='group').id
         data_json['text'] = 'approved your request to join the group'
         data['type'] = 'group'
         data['action'] = 'approve'
         data['group_id'] = group_id
         data['group_name'] = Group.objects.get(id=group_id).name
         json_data = json.dumps(data)
-        notification.add(request.user, data_json, User.objects.filter(id=pk), ContentType.objects.get(model='groupmember'), json.dumps({}), json_data)
+        notification.add(
+            request.user,
+            data_json,
+            User.objects.filter(id=pk),
+            ContentType.objects.get(model='groupmember'),
+            json.dumps({}),
+            json_data
+        )
 
         return Response(status=status.HTTP_201_CREATED)
 
@@ -432,7 +449,11 @@ class GroupPostView(APIView):
         Return:
                 post from querying group.
         """
-        post = Post.objects.filter(target_id=group_id, target_type=ContentType.objects.get(model='group',app_label='group')).order_by('-pinned', '-datetime')[:limit]
+        post = Post.objects.filter(
+            target_id=group_id,
+            target_type=ContentType.objects.get(
+                model='group', app_label='group'
+            )).order_by('-pinned', '-datetime')[:limit]
         response = self.serializer_class(post, many=True)
         return Response(response.data)
 
@@ -451,19 +472,41 @@ class GroupPostView(APIView):
         if Group.objects.get(id=group_id).parent is not None:
             parent_id = Group.objects.get(id=group_id).parent.id
         if serializer.is_valid():
-            if self.request.user.id in GroupMember.objects.filter(group_id__in=[group_id,parent_id],role__gt=0).values_list('user_id', flat=True):
+            if self.request.user.id in GroupMember.objects.filter(
+                group_id__in=[group_id, parent_id],
+                role__gt=0
+            ).values_list('user_id', flat=True):
                 if self.request.user.is_authenticated():
-                    request.data['target_type'] = ContentType.objects.get(model='group', app_label='group').id
+                    request.data['target_type'] = ContentType.objects.get(
+                        model='group', app_label='group').id
                     request.data['target_id'] = group_id
                     target = Group.objects.get(id=request.data['target_id'])
-                    serializer.save(user=User.objects.get(id=self.request.user.id), target_id=group_id, target_type=ContentType.objects.get(model='group',app_label='group'),target_name=target.name)
+                    serializer.save(
+                        user=User.objects.get(
+                            id=self.request.user.id),
+                        target_id=group_id,
+                        target_type=ContentType.objects.get(
+                            model='group', app_label='group'),
+                        target_name=target.name
+                    )
                     data = {}
                     data['type'] = 'group'
                     data['group_id'] = group_id
                     data['group_name'] = Group.objects.get(id=group_id).name
                     json_data = json.dumps(data)
-                    notification.add(request.user, request.data, User.objects.filter(id__in=GroupMember.objects.values('user').filter(group_id=group_id)), ContentType.objects.get(model='post'), JSONRenderer().render(serializer.data), json_data)
-                    return Response(serializer.data, status=status.HTTP_201_CREATED)
+                    notification.add(
+                        request.user,
+                        request.data,
+                        User.objects.filter(
+                            id__in=GroupMember.objects.values(
+                                'user'
+                            ).filter(group_id=group_id)),
+                        ContentType.objects.get(model='post'),
+                        JSONRenderer().render(serializer.data), json_data
+                    )
+                    return Response(
+                        serializer.data, status=status.HTTP_201_CREATED
+                    )
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
@@ -558,8 +601,10 @@ class SubGroupViewSet(APIView):
         parent_group = self.get_group(group_parent_id)
         try:
             sub_group = Group.objects.create(
-                name=request.data.get('name'), type=1, description="Subgroup of"+parent_group.name,
-                short_description="Subgroup of"+parent_group.name, activities="somthing",
+                name=request.data.get('name'), type=1,
+                description="Subgroup of" + parent_group.name,
+                short_description="Subgroup of" + parent_group.name,
+                activities="somthing",
                 parent=parent_group, gtype=parent_group.gtype
             ).save()
             return Response(sub_group)
@@ -595,14 +640,25 @@ class SubGroupViewSet(APIView):
 class GroupPostPegination(APIView):
 
     serializer_class = GroupPostSerializer
-    group_model_id = ContentType.objects.get(model='group', app_label='group').id
+    group_model_id = ContentType.objects.get(
+        model='group',
+        app_label='group'
+    ).id
 
     def get(self, request, group_id, action, post_id, limit=20, format=None):
 
         if action == 'more':
-            post = Post.objects.filter(target_id=group_id, target_type=self.group_model_id).filter(id__lt=post_id).order_by('-datetime')[:limit]
+            post = Post.objects.filter(
+                target_id=group_id,
+                target_type=self.group_model_id).filter(
+                    id__lt=post_id
+            ).order_by('-datetime')[:limit]
         if action == 'new':
-            post = Post.objects.filter(target_id=group_id, target_type=self.group_model_id).filter(id__gt=post_id).order_by('-datetime')
+            post = Post.objects.filter(
+                target_id=group_id,
+                target_type=self.group_model_id).filter(
+                    id__gt=post_id
+            ).order_by('-datetime')
         response = self.serializer_class(post, many=True)
         return Response(response.data)
 
