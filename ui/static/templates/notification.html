@@ -9,7 +9,7 @@
 	<div class="row item-outer" ui-sref="root" ng-repeat-start="data in notifications track by data.id" ng-if="data.target_type == -1" ng-click="readNotification(data)">
 		<div class="item" ng-class="{'new':!data.read}">
 			<div class="col-xs-2">
-				<a href="#" class="thumbnail" style="width: 40px; background-img: url({{data.user.profile.picture}}); height: 40px;"></a>
+				<a href="#" class="thumbnail" style="width: 40px; background-image: url({{data.user.profile.picture}}); height: 40px;"></a>
 			</div>
 			<div class="col-xs-10">
 				{{data.text}}
@@ -25,7 +25,7 @@
 	<div class="row item-outer" ui-sref="root.nfpost({id: data.link_item.id})" ng-if="data.target_type == 4 && data.target_id == null" ng-click="readNotification(data)">
 		<div class="item" ng-class="{'new':!data.read}">
 			<div class="col-xs-2">
-				<a href="#" class="thumbnail" style="width: 40px; background-img: url({{data.user.profile.picture}}); height: 40px;"></a>
+				<a href="#" class="thumbnail" style="width: 40px; background-image: url({{data.user.profile.picture}}); height: 40px;"></a>
 			</div>
 			<div class="col-xs-10">
 				<strong>{{data.user.first_name}} {{data.user.last_name}}</strong> posted a status "{{data.text}}"
@@ -41,7 +41,7 @@
 	<div class="row item-outer" ui-sref="root.nfpost({id: data.link_item.id})" ng-if="data.target_type == 4 && data.target_id != null && data.link_type.model == 'post' " ng-click="readNotification(data)">
 		<div class="item" ng-class="{'new':!data.read}">
 			<div class="col-xs-2">
-				<a href="#" class="thumbnail" style="width: 40px; background-img: url({{data.user.profile.picture}}); height: 40px;"></a>
+				<a href="#" class="thumbnail" style="width: 40px; background-image: url({{data.user.profile.picture}}); height: 40px;"></a>
 			</div>
 			<div class="col-xs-10">
 				<strong>{{data.user.first_name}} {{data.user.last_name}}</strong> posted on your wall "{{data.text}}"
@@ -57,7 +57,7 @@
 	<div class="row item-outer" ui-sref="root.nfpost({id: data.target_id})" ui-sref-opts="{reload: true}" ng-if="data.target_type == 4 && data.link_type.model == 'comment' && data.target_id != null" ng-click="readNotification(data)">
 		<div class="item" ng-class="{'new':!data.read}">
 			<div class="col-xs-2">
-				<a href="#" class="thumbnail" style="width: 40px; background-img: url({{data.user.profile.picture}}); height: 40px;"></a>
+				<a href="#" class="thumbnail" style="width: 40px; background-image: url({{data.user.profile.picture}}); height: 40px;"></a>
 			</div>
 			<div class="col-xs-10">
 				<strong>{{data.user.first_name}} {{data.user.last_name}}</strong> commented "{{data.text}}"
@@ -79,7 +79,7 @@
 	<div class="row item-outer" ui-sref="root.group.post({id: data.target_id, postid: data.link_item.id})" ng-if="data.target_type == 16 && data.link_type.model == 'post' " ng-click="readNotification(data)">
 		<div class="item" ng-class="{'new':!data.read}">
 			<div class="col-xs-2">
-				<a href="#" class="thumbnail" style="width: 40px; background-img: url({{data.user.profile.picture}}); height: 40px;"></a>
+				<a href="#" class="thumbnail" style="width: 40px; background-image: url({{data.user.profile.picture}}); height: 40px;"></a>
 			</div>
 			<div class="col-xs-10">
 				<strong>{{data.user.first_name}} {{data.user.last_name}}</strong> posted in a group <strong>{{data.reference_detail.group_name}}</strong> "{{data.text}}"
@@ -96,7 +96,7 @@
 	<div class="row item-outer" ui-sref="root.event({event: data.target_id})" ng-if="data.target_type == 24 && data.link_type.model == 'post' " ng-click="readNotification(data)">
 		<div class="item" ng-class="{'new':!data.read}">
 			<div class="col-xs-2">
-				<a href="#" class="thumbnail" style="width: 40px; background-img: url({{data.user.profile.picture}}); height: 40px;"></a>
+				<a href="#" class="thumbnail" style="width: 40px; background-image: url({{data.user.profile.picture}}); height: 40px;"></a>
 			</div>
 			<div class="col-xs-10">
 				<strong>{{data.user.first_name}} {{data.user.last_name}}</strong> posted in an event <strong>{{data.reference_detail.event_name}}</strong> "{{data.text}}"
@@ -112,7 +112,7 @@
 	<div class="row item-outer" ui-sref="root.user.timeline({user: data.user.id})" ui-sref-opts="{reload: true}" ng-if="data.target_type == 4 && data.link_type.model == 'friendshiprequest' " ng-click="readNotification(data)">
 		<div class="item" ng-class="{'new':!data.read}">
 			<div class="col-xs-2">
-				<a href="#" class="thumbnail" style="width: 40px; background-img: url({{data.user.profile.picture}}); height: 40px;"></a>
+				<a href="#" class="thumbnail" style="width: 40px; background-image: url({{data.user.profile.picture}}); height: 40px;"></a>
 			</div>
 			<div class="col-xs-10">
 				<strong>{{data.user.first_name}} {{data.user.last_name}}</strong> {{data.text}}
@@ -128,7 +128,7 @@
 	<div class="row item-outer" ui-sref="root.event({event: data.target_id})" ng-if="data.target_type == 24 && data.link_type.model == 'eventmember' " ng-click="readNotification(data)">
 		<div class="item" ng-class="{'new':!data.read}">
 			<div class="col-xs-2">
-				<a href="#" class="thumbnail" style="width: 40px; background-img: url({{data.user.profile.picture}}); height: 40px;"></a>
+				<a href="#" class="thumbnail" style="width: 40px; background-image: url({{data.user.profile.picture}}); height: 40px;"></a>
 			</div>
 			<div class="col-xs-10">
 				<strong>{{data.user.first_name}} {{data.user.last_name}}</strong> {{data.text}} <strong>{{data.reference_detail.event_name}}</strong>
@@ -144,7 +144,7 @@
 	<div class="row item-outer" ui-sref="root.group.feed({id: data.target_id})" ui-sref-opts="{reload: true}" ng-if="data.target_type == 16 && data.link_type.model == 'groupmember' && data.reference_detail.action == 'approve' " ng-click="readNotification(data)">
 		<div class="item" ng-class="{'new':!data.read}">
 			<div class="col-xs-2">
-				<a href="#" class="thumbnail" style="width: 40px; background-img: url({{data.user.profile.picture}}); height: 40px;"></a>
+				<a href="#" class="thumbnail" style="width: 40px; background-image: url({{data.user.profile.picture}}); height: 40px;"></a>
 			</div>
 			<div class="col-xs-10">
 				<strong>{{data.user.first_name}} {{data.user.last_name}}</strong> {{data.text}} <strong>{{data.reference_detail.group_name}}</strong>
@@ -160,7 +160,7 @@
 	<div class="row item-outer" ui-sref="root.group.manage({id: data.target_id})" ui-sref-opts="{reload: true}" ng-repeat-end ng-if="data.target_type == 16 && data.link_type.model == 'groupmember' && data.reference_detail.action == 'request' " ng-click="readNotification(data)">
 		<div class="item" ng-class="{'new':!data.read}">
 			<div class="col-xs-2">
-				<a href="#" class="thumbnail" style="width: 40px; background-img: url({{data.user.profile.picture}}); height: 40px;"></a>
+				<a href="#" class="thumbnail" style="width: 40px; background-image: url({{data.user.profile.picture}}); height: 40px;"></a>
 			</div>
 			<div class="col-xs-10">
 				<strong>{{data.user.first_name}} {{data.user.last_name}}</strong> {{data.text}} <strong>{{data.reference_detail.group_name}}</strong>

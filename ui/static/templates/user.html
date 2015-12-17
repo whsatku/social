@@ -12,10 +12,9 @@
 					</div>
 				</div>
 			</div>
-			<div ng-if="userId == otherUserId" ui-sref="root.user.edit()" class="thumbnail avatar">
-				<img src="{{user.picture}}" class="thumbnail">
+			<div ng-if="userId == otherUserId" ui-sref="root.user.edit()" class="thumbnail avatar" style="background-image: url({{data.user.profile.picture}});">
 			</div>
-			<div ng-if="userId != otherUserId" class="thumbnail avatar" style="background-img: url({{data.user.profile.picture}}); background-size:cover;">
+			<div ng-if="userId != otherUserId" class="thumbnail avatar" style="background-image: url({{data.user.profile.picture}});">
 			</div>
 			<h3 class="clickable" ui-sref="root.user.timeline()">{{userprofile.user.first_name}} {{userprofile.user.last_name}}</h3>
 		</div>
