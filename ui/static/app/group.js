@@ -6,7 +6,7 @@ app.controller('GroupController', function($scope, $stateParams, Restangular, $h
     $scope.group = {
       isAuthorized : false,
       isPostable : false,
-      isInfoVisible : false,
+      isInfoVisible : true,
     };
     var redirectSubpage = function(id){
         id = id || $stateParams.id;
@@ -46,9 +46,12 @@ app.controller('GroupController', function($scope, $stateParams, Restangular, $h
         console.log($scope.group.cover)
         if(data.type == 0) {
           $scope.group.isAuthorized = true;
-          console.log($scope.group.isAuthorized);
+        }
+        else if(data.type == 1){
+          $scope.group.isInfoVisible = true;
         }
         else if(data.type == 2) {
+          console.log("dasdsa");
           $scope.group.isInfoVisible = false;
         }
         if( data.member_status == 1 || data.member_status == 2) {
