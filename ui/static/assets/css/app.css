@@ -96,6 +96,9 @@ html,body,#root{
 .avatar{
 	width: 60px;
 }
+.avatar .thumbnail{
+	background-size: contain !important;
+}
 .commentform{
 	background: #eee;
 	margin-bottom: -5px;

@@ -5,11 +5,12 @@ from rest_framework import serializers
 from group.serializers import GroupSerializer
 from rest_framework.serializers import ModelSerializer
 from newsfeed.models import Post, Comment
+from User.serializers import PictureField
 from User.models import UserProfile
 
 
 class UserProfileSerializer(serializers.ModelSerializer):
-
+    picture = PictureField(read_only=True)
     class Meta:
         model = UserProfile
         fields = ('picture',)
