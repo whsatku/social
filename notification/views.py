@@ -17,12 +17,13 @@ class NotificationViewList(APIView):
     serializer_class = NotificationSerializer
 
     def add(self, user, data, receiver_set, type,
-             link_item, reference_detail, format=None):
+            link_item, reference_detail, format=None):
         """Create and save notification to database.
         Args:
                 user: user who create notification.
                 data: Json information of target of post
-                receiver_set: set of receiver who will receive this notification.
+                receiver_set: set of receiver who will receive
+                              this notification.
                 type: type of action that create this notification.
                 link_item: information of action that create this notification.
                 reference_detail: information of the post target object

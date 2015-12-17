@@ -33,11 +33,45 @@ class PostViewList(APIView):
             List of last #limit post in database.
         """
         user = User.objects.get(id=self.request.user.id)
-        group_post = Post.objects.filter(target_type=ContentType.objects.get(model='group',app_label='group').id,target_id__in=GroupMember.objects.filter(user=user).values('group_id'))
-        event_post = Post.objects.filter(target_type=ContentType.objects.get(model='event').id,target_id__in=EventMember.objects.filter(user=user,role__gt=0).values('event_id'))
-        friend_post = Post.objects.filter(target_type=ContentType.objects.get(model='user').id,target_id__in=Friend.objects.filter(from_user=self.request.user.id).values('to_user'),user__in=Friend.objects.filter(from_user=self.request.user.id).values('to_user')) | Post.objects.filter(target_type=ContentType.objects.get(model='user').id,target_id=None,user__in=Friend.objects.filter(from_user=self.request.user.id).values('to_user'))
-        user_post = Post.objects.filter(user=user, target_type=ContentType.objects.get(model='user')) | Post.objects.filter(target_id=user.id , target_type=ContentType.objects.get(model='user'))
-        post = (group_post|event_post|friend_post|user_post).order_by('-datetime')[:limit]
+        group_post = Post.objects.filter(
+            target_type=ContentType.objects.get(
+                model='group',
+                app_label='group'
+                ).id,
+            target_id__in=GroupMember.objects.filter(
+                user=user
+                ).values('group_id')
+        )
+        event_post = Post.objects.filter(
+            target_type=ContentType.objects.get(model='event').id,
+            target_id__in=EventMember.objects.filter(
+                user=user,
+                role__gt=0
+                ).values('event_id')
+        )
+        friend_post = Post.objects.filter(
+            target_type=ContentType.objects.get(model='user').id,
+            target_id__in=Friend.objects.filter(
+                from_user=self.request.user.id).values('to_user'),
+            user__in=Friend.objects.filter(
+                    from_user=self.request.user.id
+                ).values('to_user')
+            ) | Post.objects.filter(
+            target_type=ContentType.objects.get(model='user').id,
+            target_id=None,
+            user__in=Friend.objects.filter(
+                from_user=self.request.user.id
+                ).values('to_user')
+            )
+        user_post = Post.objects.filter(
+            user=user,
+            target_type=ContentType.objects.get(model='user')
+            ) | Post.objects.filter(
+            target_id=user.id,
+            target_type=ContentType.objects.get(model='user')
+            )
+        post = (group_post | event_post | friend_post | user_post).order_by(
+            '-datetime')[:limit]
         response = self.serializer_class(post, many=True)
 
         return Response(response.data)
@@ -48,37 +82,53 @@ class PostViewList(APIView):
                 request: Django Rest Framework request object.
                 format: pattern for Web APIs.
         Return:
-            
+
         """
         serializer = PostSerializer(data=request.data)
         notification = NotificationViewList()
         if serializer.is_valid():
 
             if self.request.user.is_authenticated():
-                try :
+                try:
                     target = User.objects.get(id=request.data['target_id'])
-                    serializer.save(user=User.objects.get(id=self.request.user.id),target_name=(target.first_name+' '+target.last_name))
-                except User.DoesNotExist :
-                    serializer.save(user=User.objects.get(id=self.request.user.id),target_name='')
+                    serializer.save(
+                        user=User.objects.get(id=self.request.user.id),
+                        target_name=(target.first_name+' '+target.last_name)
+                    )
+                except User.DoesNotExist:
+                    serializer.save(
+                        user=User.objects.get(id=self.request.user.id),
+                        target_name=''
+                    )
                 data = {}
                 data['type'] = 'user'
-                if request.data['target_id'] != None:
+                if request.data['target_id'] is not None:
                     data['user_id'] = request.data['target_id']
-                    data['firstname'] = User.objects.get(id=request.data['target_id']).first_name
-                    data['lastname'] = User.objects.get(id=request.data['target_id']).last_name
+                    data['firstname'] = User.objects.get(
+                        id=request.data['target_id']
+                    ).first_name
+                    data['lastname'] = User.objects.get(
+                        id=request.data['target_id']
+                    ).last_name
                 else:
                     data['user_id'] = None
                 json_data = json.dumps(data)
-                if request.data['target_id'] != None:
+                if request.data['target_id'] is not None:
                     notification.add(
                         request.user,
                         request.data,
-                        User.objects.filter(id__in=Friend.objects.filter(from_user=self.request.user.id).values('to_user')),
+                        User.objects.filter(
+                            id__in=Friend.objects.filter(
+                                from_user=self.request.user.id
+                            ).values('to_user')),
                         ContentType.objects.get(model='post'),
                         JSONRenderer().render(serializer.data).decode('utf-8'),
                         json_data
                     )
-                return Response(serializer.data, status=status.HTTP_201_CREATED)
+                return Response(
+                    serializer.data,
+                    status=status.HTTP_201_CREATED
+                    )
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
@@ -119,7 +169,7 @@ class PostViewDetail(APIView):
                 id: id of post.
                 format: pattern for Web APIs.
         Return:
-            
+
         """
         posts = self.get_object(id)
         posts.delete()
@@ -159,28 +209,43 @@ class CommentViewList(APIView):
         if serializer.is_valid():
             if self.request.user.is_authenticated():
                 post = Post.objects.get(id=request.data['post'])
-                request.data['target_type'] = ContentType.objects.get(model='user').id
+                request.data['target_type'] = ContentType.objects.get(
+                    model='user'
+                ).id
                 request.data['target_id'] = request.data['post']
-                comment = serializer.save(user=User.objects.get(id=self.request.user.id))
+                comment = serializer.save(
+                    user=User.objects.get(id=self.request.user.id)
+                )
                 if post.allow_submission and 'file' in self.request.FILES:
                     comment.file = self.request.FILES.get('file')
                     comment.save()
 
                 data = {}
-                if post.target_type == ContentType.objects.get(model='group',app_label='group'):
+                if post.target_type == ContentType.objects.get(
+                    model='group',
+                    app_label='group'
+                ):
                     data['type'] = 'group'
                     data['group_id'] = post.target_id
-                    data['group_name'] = Group.objects.get(id=post.target_id).name
+                    data['group_name'] = Group.objects.get(
+                        id=post.target_id
+                    ).name
                 if post.target_type == ContentType.objects.get(model='event'):
                     data['type'] = 'event'
                     data['event_id'] = post.target_id
-                    data['event_name'] = Event.objects.get(id=post.target_id).name
+                    data['event_name'] = Event.objects.get(
+                        id=post.target_id
+                    ).name
                 if post.target_type == ContentType.objects.get(model='user'):
                     data['type'] = 'user'
-                    if post.target_id != None:
+                    if post.target_id is not None:
                         data['user_id'] = post.target_id
-                        data['firstname'] = User.objects.get(id=post.target_id).first_name
-                        data['lastname'] = User.objects.get(id=post.target_id).last_name
+                        data['firstname'] = User.objects.get(
+                            id=post.target_id
+                        ).first_name
+                        data['lastname'] = User.objects.get(
+                            id=post.target_id
+                        ).last_name
                     else:
                         data['user_id'] = None
                 json_data = json.dumps(data)
@@ -192,7 +257,10 @@ class CommentViewList(APIView):
                     JSONRenderer().render(serializer.data).decode('utf-8'),
                     json_data
                 )
-                return Response(serializer.data, status=status.HTTP_201_CREATED)
+                return Response(
+                    serializer.data,
+                    status=status.HTTP_201_CREATED
+                )
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
@@ -277,7 +345,14 @@ class UserWallDetail(APIView):
         Return:
             List of post on that user wall.
         """
-        post = ((Post.objects.filter(user=User.objects.get(id=id), target_type=ContentType.objects.get(model='user')) | Post.objects.filter(target_id=id , target_type=ContentType.objects.get(model='user'))).order_by('-datetime'))[:limit]
+        post = ((Post.objects.filter(
+            user=User.objects.get(id=id),
+            target_type=ContentType.objects.get(model='user')
+            ) | Post.objects.filter(
+            target_id=id,
+            target_type=ContentType.objects.get(model='user')
+            )
+        ).order_by('-datetime'))[:limit]
         response = self.serializer_class(post, many=True)
         return Response(response.data)
 
@@ -293,7 +368,9 @@ def define_receiver(post_id):
     for i in Comment.objects.filter(post=post_id):
         rec.add(i.user.id)
     rec.add(Post.objects.get(id=post_id).user.id)
-    if Post.objects.get(id=post_id).target_type == ContentType.objects.get(model='user'):
+    if Post.objects.get(
+            id=post_id
+            ).target_type == ContentType.objects.get(model='user'):
         rec.add(Post.objects.get(id=post_id).target_id)
     return User.objects.filter(id__in=rec)
 
@@ -314,14 +391,51 @@ class PostPagination(APIView):
             List of newer/older post of newsfeed.
         """
         user = User.objects.get(id=self.request.user.id)
-        group_post = Post.objects.filter(target_type=ContentType.objects.get(model='group',app_label='group').id,target_id__in=GroupMember.objects.filter(user=user).values('group_id'))
-        event_post = Post.objects.filter(target_type=ContentType.objects.get(model='event').id,target_id__in=EventMember.objects.filter(user=user,role__gt=0).values('event_id'))
-        friend_post = Post.objects.filter(target_type=ContentType.objects.get(model='user').id,target_id__in=Friend.objects.filter(from_user=self.request.user.id).values('to_user'),user__in=Friend.objects.filter(from_user=self.request.user.id).values('to_user')) | Post.objects.filter(target_type=ContentType.objects.get(model='user').id,target_id=None,user__in=Friend.objects.filter(from_user=self.request.user.id).values('to_user'))
-        user_post = Post.objects.filter(user=user, target_type=ContentType.objects.get(model='user')) | Post.objects.filter(target_id=user.id , target_type=ContentType.objects.get(model='user'))
+        group_post = Post.objects.filter(
+            target_type=ContentType.objects.get(
+                model='group',
+                app_label='group').id,
+            target_id__in=GroupMember.objects.filter(
+                user=user
+            ).values('group_id')
+        )
+        event_post = Post.objects.filter(
+            target_type=ContentType.objects.get(
+                model='event').id,
+            target_id__in=EventMember.objects.filter(
+                user=user, role__gt=0
+                ).values('event_id')
+        )
+        friend_post = Post.objects.filter(
+            target_type=ContentType.objects.get(
+                model='user').id,
+            target_id__in=Friend.objects.filter(
+                from_user=self.request.user.id
+                ).values('to_user'),
+            user__in=Friend.objects.filter(
+                from_user=self.request.user.id
+                ).values('to_user')
+            ) | Post.objects.filter(
+            target_type=ContentType.objects.get(
+                model='user').id,
+            target_id=None,
+            user__in=Friend.objects.filter(
+                from_user=self.request.user.id
+            ).values('to_user')
+        )
+        user_post = Post.objects.filter(
+            user=user,
+            target_type=ContentType.objects.get(model='user')
+            ) | Post.objects.filter(
+            target_id=user.id,
+            target_type=ContentType.objects.get(model='user')
+        )
         if action == 'more':
-            post = (group_post|event_post|friend_post|user_post).filter(id__lt=id).order_by('-datetime')[:limit]
+            post = (group_post | event_post | friend_post | user_post).filter(
+                id__lt=id).order_by('-datetime')[:limit]
         if action == 'new':
-            post = (group_post|event_post|friend_post|user_post).filter(id__gt=id).order_by('-datetime')
+            post = (group_post | event_post | friend_post | user_post).filter(
+                id__gt=id).order_by('-datetime')
         response = self.serializer_class(post, many=True)
         return Response(response.data)
 
@@ -342,9 +456,21 @@ class UserWallPegination(APIView):
             List of newer/older post of user wall.
         """
         if action == 'more':
-            post = (Post.objects.filter(user=User.objects.get(id=id), target_type=ContentType.objects.get(model='user')) | Post.objects.filter(target_id=id , target_type=ContentType.objects.get(model='user'))).filter(id__lt=post_id).order_by('-datetime')[:limit]
+            post = (Post.objects.filter(
+                user=User.objects.get(id=id),
+                target_type=ContentType.objects.get(model='user')
+                ) | Post.objects.filter(
+                target_id=id,
+                target_type=ContentType.objects.get(model='user')
+            )).filter(id__lt=post_id).order_by('-datetime')[:limit]
         if action == 'new':
-            post = (Post.objects.filter(user=User.objects.get(id=id), target_type=ContentType.objects.get(model='user')) | Post.objects.filter(target_id=id , target_type=ContentType.objects.get(model='user'))).filter(id__gt=post_id).order_by('-datetime')
+            post = (Post.objects.filter(
+                user=User.objects.get(id=id),
+                target_type=ContentType.objects.get(model='user')
+                ) | Post.objects.filter(
+                target_id=id,
+                target_type=ContentType.objects.get(model='user')
+            )).filter(id__gt=post_id).order_by('-datetime')
 
         response = self.serializer_class(post, many=True)
         return Response(response.data)
