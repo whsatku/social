@@ -17,8 +17,8 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('name', models.CharField(max_length=25)),
-                ('start_date', models.DateField(auto_now_add=True)),
-                ('end_date', models.DateField()),
+                ('start_date', models.DateTimeField()),
+                ('end_date', models.DateTimeField()),
                 ('description', models.CharField(max_length=200)),
             ],
         ),
@@ -27,8 +27,8 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('role', models.IntegerField()),
-                ('event', models.ForeignKey(default=0, to='event.Event')),
-                ('user', models.ForeignKey(default=0, to=settings.AUTH_USER_MODEL)),
+                ('event', models.ForeignKey(to='event.Event')),
+                ('user', models.ForeignKey(to=settings.AUTH_USER_MODEL)),
             ],
         ),
     ]
