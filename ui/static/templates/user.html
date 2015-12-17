@@ -1,5 +1,5 @@
 <div class="userpage">
-	<div class="cover" style="background-image: url({{user.profile.cover}})">
+	<div class="cover" style="background-image: url({{userprofile.cover}})">
 		<div class="cover-in">
 			<div class="pull-right toolbar" ng-if="userId != otherUserId ">
 				<a ng-click="addFriend()" ng-if="isFriend == 0" class="btn btn-default">Add friend</a>
@@ -14,7 +14,7 @@
 			</div>
 			<div ng-if="userId == otherUserId" ui-sref="root.user.edit()" class="thumbnail avatar" style="background-image: url({{user.profile.picture}});">
 			</div>
-			<div ng-if="userId != otherUserId" class="thumbnail avatar" style="background-image: url({{user.profile.picture}});">
+			<div ng-if="userId != otherUserId" class="thumbnail avatar" style="background-image: url({{userprofile.picture}});">
 			</div>
 			<h3 class="clickable" ui-sref="root.user.timeline()">{{userprofile.user.first_name}} {{userprofile.user.last_name}}</h3>
 		</div>

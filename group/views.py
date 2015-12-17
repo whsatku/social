@@ -638,7 +638,7 @@ class SubGroupViewSet(APIView):
 
 
 class GroupPostPegination(APIView):
-
+    """This class is use for updating the group newsfeed"""
     serializer_class = GroupPostSerializer
     group_model_id = ContentType.objects.get(
         model='group',
@@ -646,6 +646,16 @@ class GroupPostPegination(APIView):
     ).id
 
     def get(self, request, group_id, action, post_id, limit=20, format=None):
+        """Update subgroup of the requesting parent group
+        Args:
+                request: Django Rest Framework request object
+                group_id: ID of group
+                action: use 'more' to look at older post , use 'new' to request new post
+                post_id: ID of post
+                format: pattern for Web APIs
+        Return:
+                list of post
+        """
 
         if action == 'more':
             post = Post.objects.filter(
@@ -664,9 +674,17 @@ class GroupPostPegination(APIView):
 
 
 class PostUnpin(APIView):
+    """This class is use for removing the pinned post"""
     serializer_class = GroupPostSerializer
 
     def post(self, request, group_id, post_id):
+        """Use to unpinned requesting post
+        Args:
+                request: Django Rest Framework request object
+                group_id: ID of group
+                post_id: ID of post
+        Return:
+        """
         post = Post.objects.get(id=post_id)
         if post.target_id != int(group_id):
             raise Http404
