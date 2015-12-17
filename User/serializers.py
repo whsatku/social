@@ -1,7 +1,9 @@
 from django.contrib.auth.models import User
+from django.contrib.staticfiles.templatetags.staticfiles import static
+
 from rest_framework import serializers
+
 from models import *
-from newsfeed.serializer import UserSerializer
 from friendship.models import Friend
 from friendship.models import Follow
 
@@ -11,9 +13,17 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         fields = ('id', 'username', 'first_name', 'last_name')
 
+class PictureField(serializers.Field):
+    def to_representation(self, obj):
+        if obj:
+            return obj.url
+        else:
+            return static('assets/img/default.jpg')
+
 
 class UserProfileSerializer(serializers.ModelSerializer):
     user = UserSerializer(read_only=True)
+    picture = PictureField(read_only=True)
     class Meta:
         model = UserProfile
         fields = ('user', 'firstname', 'lastname', 'birthday',

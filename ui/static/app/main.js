@@ -255,7 +255,7 @@ app.controller('NotificationController', function($rootScope, $scope, $http, $in
     });
   };
   updateNotification();
-  $interval(updateNotification, 3000);
+  $interval(updateNotification, 15000);
 
 
 	$scope.readNotification = function (notification){
@@ -287,7 +287,7 @@ app.controller('PendingFriendController', function($scope, $rootScope, $http, $i
     	});
     };
     updatePendingFriend();
-    $interval(updatePendingFriend, 3000);
+    $interval(updatePendingFriend, 60000);
 
 
 });

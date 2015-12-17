@@ -15,7 +15,8 @@ Including another URLconf
 """
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
-import settings
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
@@ -28,9 +29,4 @@ urlpatterns = [
     url(r'^api/user/', include('User.urls')),
     url(r'^api/search/', include('search.urls')),
     url(r'^api/event/', include('event.urls')),
-]
-
-if settings.DEBUG:
-    urlpatterns += patterns('',
-        url(r'^/media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT, 'show_indexes': True}),
-)
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

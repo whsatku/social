@@ -217,7 +217,7 @@ class EditCover (APIView):
                 format: pattern for Web APIs
         Return:
 
-        """ 
+        """
         group_object = Group.objects.get(id=group_id)
         serializer = GroupCoverSerializer(group_object,data=request.data)
         if serializer.is_valid():
@@ -244,6 +244,27 @@ class MemberDetail(APIView):
             return GroupMember.objects.get(group=group_id, user=user_id)
         except GroupMember.DoesNotExist:
             raise Http404
+
+    def post(self, request, group_id, pk, format=None):
+        """change user status from group.
+        Args:
+                request: Django Rest Framework request object
+                group_id: ID of group
+                pk: ID of user
+                format: pattern for Web APIs
+        Return:
+        """
+        try:
+            member = self.get_member(group_id, pk)
+            member.role = request.data.get('role');
+            member.save();
+            response = self.serializer_class(member)
+        except  Exception as inst:
+            print type(inst)     # the exception instance
+            print inst           # __str__ allows args to be printed directly
+            raise Http404
+        return Response(response.data)
+
 
     def delete(self, request, group_id, pk, format=None):
         """Delete user from group.
@@ -431,7 +452,7 @@ class CreateGroup(APIView):
     serializer_class = GroupSerializer
 
     def post(self, request, format=None):
-        """Get a list of all category.
+        """Create new group
         Args:
                 request: Django Rest Framework request object.
                 format: pattern for Web APIs.
@@ -457,6 +478,12 @@ class GroupList(ListAPIView):
     serializer_class = GroupSerializer
 
     def get_queryset(self):
+        """Get a list of group that requesting user is a member.
+        Args:
+                
+        Return:
+                list of group that requesting user is a member.
+        """
         if not self.request.user.is_authenticated():
             raise NotAuthenticated
 
@@ -466,12 +493,27 @@ class GroupList(ListAPIView):
         )
 
 class SubGroupViewSet(APIView):
+    """This class is api for managing subgroup"""
     serializer_class = SubGroupSerializer
 
     def get_group(self, group_id):
+        """Get one group from the database.
+        Args:
+                group_id: id of the query group
+        Return:
+                Query group.
+        """
         return Group.objects.get(id=group_id)
 
     def get(self, request, group_parent_id, format=None):
+        """Get subgroup of the requesting parent group
+        Args:
+                request: Django Rest Framework request object
+                group_parent_id: ID of parent group
+                format: pattern for Web APIs
+        Return:
+            Requesting Subgroup
+        """
         parent_group = self.get_group(group_parent_id)
         try:
             sub_group = Group.objects.filter(parent=parent_group)
@@ -483,6 +525,13 @@ class SubGroupViewSet(APIView):
         return Response(response.data)
 
     def post(self, request, group_parent_id, format=None):
+        """Create subgroup of the requesting parent group
+        Args:
+                request: Django Rest Framework request object
+                group_parent_id: ID of parent group
+                format: pattern for Web APIs
+        Return:
+        """
         parent_group = self.get_group(group_parent_id)
         try:
             sub_group = Group.objects.create(
@@ -497,6 +546,13 @@ class SubGroupViewSet(APIView):
             raise Http404
 
     def put(self, request, group_parent_id, format=None):
+        """Update subgroup of the requesting parent group
+        Args:
+                request: Django Rest Framework request object
+                group_parent_id: ID of parent group
+                format: pattern for Web APIs
+        Return:
+        """
         parent_group = self.get_group(group_parent_id)
         print request.data.get('group_id')
         try:

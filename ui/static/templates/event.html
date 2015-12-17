@@ -1,4 +1,4 @@
-<div class="cover">
+<div class="cover eventcover">
 	<div class="cover-in">
 		<div class="pull-right toolbar">
 			<a class="btn btn-default active" ng-show="role==1">Going</a>
@@ -27,14 +27,15 @@
 	<div class="col-md-3">
 		<p style="margin-top: 10px;">
 			<i class="glyphicon glyphicon-time"></i> {{event.start_date}} - {{event.end_date}}
+			<a href="" class="btn btn-link btn-sm" ng-if="admin.user.id == user.id" ng-click="changeTime()">Change</a>
 		</p>
 		<p>{{event.description}}</p>
 		<h4>Created by</h4>
-		<a href="#" ui-sref="root.user.timeline({user: admin.user.id})" class="thumbnail" style="width: 40px; background: url('{{member.imgUrl}}'); height: 40px; background-size: cover;"></a>
+		<a href="#" ui-sref="root.user.timeline({user: admin.user.id})" class="thumbnail" style="width: 40px; background-image: url('{{member.imgUrl}}'); height: 40px; background-size: cover;"></a>
 		<h4>Attending</h4>
 		<ul class="list-inline memberlist">
 			<li ng-repeat="member in attendants">
-				<a href="" ui-sref="root.user.timeline({user: member.user.id})" class="thumbnail" style="width: 40px; background: url('{{member.imgUrl}}'); height: 40px; background-size: cover;"></a>
+				<a href="" ui-sref="root.user.timeline({user: member.user.id})" class="thumbnail" style="width: 40px; background-image: url('{{member.imgUrl}}'); height: 40px; background-size: cover;"></a>
 			</li>
 			<li>
 				<div class="thumbnail text-center plusmore">{{attendants_count}}</div>
@@ -44,7 +45,7 @@
 		<h4>Maybe</h4>
 		<ul class="list-inline memberlist">
 			<li ng-repeat="member in maybe">
-				<a href="" ui-sref="root.user.timeline({user: member.user.id})" class="thumbnail" style="width: 40px; background: url('{{member.imgUrl}}'); height: 40px; background-size: cover;"></a>
+				<a href="" ui-sref="root.user.timeline({user: member.user.id})" class="thumbnail" style="width: 40px; background-image: url('{{member.imgUrl}}'); height: 40px; background-size: cover;"></a>
 			</li>
 			<li>
 				<div class="thumbnail text-center plusmore">{{maybe_count}}</div>
