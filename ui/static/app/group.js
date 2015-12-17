@@ -3,6 +3,11 @@
 var app = angular.module('app.group', ['ngFileUpload']);
 
 app.controller('GroupController', function($scope, $stateParams, Restangular, $http, $location, $window, $state, $rootScope){
+    $scope.group = {
+      isAuthorized : false,
+      isPostable : false,
+      isInfoVisible : false,
+    };
     var redirectSubpage = function(id){
         id = id || $stateParams.id;
         var isMember = ($rootScope.group_list || []).filter(function(item){
@@ -38,6 +43,19 @@ app.controller('GroupController', function($scope, $stateParams, Restangular, $h
     var groupID = $location.path().split('/')[2];
     $http.get('/api/group/'+groupID).success(function(data){
         $scope.group = data;
+        if(data.type == 0) {
+          $scope.group.isAuthorized = true;
+          console.log($scope.group.isAuthorized);
+        }
+        else if(data.type == 2) {
+          $scope.group.isInfoVisible = false;
+        }
+        if( data.member_status == 1 || data.member_status == 2) {
+          $scope.group.isPostable = true;
+          $scope.group.isAuthorized = true;
+          $scope.group.isInfoVisible = true;
+        }
+
     });
 });
 
@@ -73,9 +91,7 @@ app.controller('GroupFeedController', function($scope, $rootScope, $stateParams,
     groupID = $location.path().split('/')[2];
   }
 
-
   if(!postID) {
-    $scope.allowPost = true;
     $scope.hasMoreStory = true;
     var newestID = 0;
     $http.get('/api/group/'+groupID+'/post&limit=' + postLimit ).success(function(data){
@@ -213,9 +229,6 @@ app.controller('GroupCommentController', function($rootScope, $scope, $http, $in
 
 app.controller('GroupInfoController', function($scope, $http, $location){
     var groupID = $location.path().split('/')[2];
-    $http.get('/api/group/'+groupID).success(function(data){
-        $scope.group = data;
-    });
 
     $http.get('/api/group/'+groupID+'/member/accepted').then(function(data){
         $scope.memberList = data.data;
