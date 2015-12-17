@@ -207,6 +207,9 @@ app.controller('AddFriendController', function($scope, $http, $location, $stateP
 
     $http.get('/api/user/'+$scope.otherUserId+'/userInfo').success(function(data){
         $scope.userprofile = data;
+        if($scope.userprofile.city == "null") {
+          $scope.userprofile.city = "";
+        }
       }).error(function(xhr) {
         $state.go("root.newsfeed");
     }) ;
