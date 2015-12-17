@@ -13,6 +13,11 @@ app.controller('CreateEventController', function($scope, $state, $http, $statePa
         var end_date = moment($scope.new_event.end_date)
             .add($scope.new_event.end_time);
 
+        if(start_date.isAfter(end_date)){
+          $scope.error = 'Start cannot be after end date';
+          return;
+        }
+
         var new_event = {
             name: name,
             start_date: start_date.toISOString(),
