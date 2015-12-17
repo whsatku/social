@@ -185,7 +185,7 @@ def define_receiver(post_id):
     for i in Comment.objects.filter(post=post_id):
         rec.add(i.user.id)
     rec.add(Post.objects.get(id=post_id).user.id)
-    if target_type == ContentType.objects.get(model='user'):
+    if Post.objects.get(id=post_id).target_type == ContentType.objects.get(model='user'):
         rec.add(Post.objects.get(id=post_id).target_id)
     return User.objects.filter(id__in=rec)
 
