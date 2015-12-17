@@ -70,8 +70,7 @@ app.controller('NewsfeedController', function($scope, $rootScope, $stateParams, 
 
 		if (postData.text.length > 0) {
 			$http.post('/api/newsfeed/post/', postData).then(function(response){
-				console.log(response);
-        $scope.nftext="";
+				$scope.nftext="";
 				$scope.newsfeed.unshift(response.data);
 			}, function(xhr){
 					alert(xhr.data);
@@ -118,7 +117,6 @@ app.controller('CommentController', function($rootScope, $scope, $http, $interva
 		if (commentData.text.length > 0) {
       $scope.comment = "";
 			$http.post('/api/newsfeed/comment/', commentData).then(function(response){
-        console.log(response);
         loadCommentsByPostId($scope.data.id)
         $interval(function() { loadCommentsByPostId($scope.data.id) }, 15000);
 

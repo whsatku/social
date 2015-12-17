@@ -68,12 +68,10 @@ app.controller('EventController', function($scope, $http, $location, $uibModal, 
             controller: function($scope, $uibModalInstance, $http){
                 $http.get('/api/user/friends/invite/').success(function(data){
                     $scope.friends = data;
-                    console.log($scope.friends);
                 });
                 $scope.ok = function(){
                     $uibModalInstance.close($scope.invitee);
                     $http.put('/api/event/'+ eventID +'/member/'+ $scope.invitee.id).success(function(data){
-                        console.log('put ' + $scope.invitee.id);
                     });
                 };
                 $scope.cancel = function(){
@@ -250,8 +248,7 @@ app.controller('EventFeedController', function($scope, $rootScope, $stateParams,
 
 		if (postData.text.length > 0) {
 			$http.post('/api/event/' + eventID + '/post', postData).then(function(response){
-				console.log(response);
-        $scope.nftext="";
+				$scope.nftext="";
 				$scope.newsfeed.unshift(response.data);
 			}, function(xhr){
 					alert(xhr.data);
