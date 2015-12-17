@@ -100,7 +100,7 @@ app.controller('GroupFeedController', function($scope, $rootScope, $stateParams,
           }
         });
       };
-      $interval(updateNewStory, 3000);
+      $interval(updateNewStory, 10000);
     });
   }
   else {
@@ -190,7 +190,7 @@ app.controller('GroupCommentController', function($rootScope, $scope, $http, $in
       }).then(function(response){
         console.log(response);
         loadCommentsByPostId($scope.data.id);
-        $interval(function() {loadCommentsByPostId($scope.data.id);}, 3000);
+        $interval(function() {loadCommentsByPostId($scope.data.id);}, 15000);
       }, function(xhr){
           alert(xhr.data);
           console.log(xhr.data);
@@ -200,7 +200,7 @@ app.controller('GroupCommentController', function($rootScope, $scope, $http, $in
       $scope.comment = "";
       $http.post('/api/newsfeed/comment/', commentData).then(function(response){
         console.log(response);
-        $interval(function() {loadCommentsByPostId($scope.data.id);}, 3000);
+        $interval(function() {loadCommentsByPostId($scope.data.id);}, 15000);
       }, function(xhr){
           alert(xhr.data);
           console.log(xhr.data);
