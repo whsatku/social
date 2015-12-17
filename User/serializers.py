@@ -8,10 +8,17 @@ from friendship.models import Friend
 from friendship.models import Follow
 
 
+class UserProfilePictureSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = UserProfile
+        fields = ( 'picture',)
+
+
 class UserSerializer(serializers.ModelSerializer):
+    profile = UserProfilePictureSerializer(read_only=True)
     class Meta:
         model = User
-        fields = ('id', 'username', 'first_name', 'last_name')
+        fields = ('id', 'username', 'first_name', 'last_name', 'profile')
 
 class PictureField(serializers.Field):
     def to_representation(self, obj):
@@ -30,11 +37,6 @@ class UserProfileSerializer(serializers.ModelSerializer):
                   'gender', 'faculty', 'major', 'types',
                   'country', 'city', 'picture', 'cover', 'created')
         read_only_fields = ('picture', 'cover')
-
-class UserProfilePictureSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = UserProfile
-        fields = ('picture',)
 
 class UserCoverSerializer(serializers.ModelSerializer):
     class Meta:
