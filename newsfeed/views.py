@@ -31,7 +31,8 @@ class PostViewList(APIView):
         if serializer.is_valid():
 
             if self.request.user.is_authenticated():
-                serializer.save(user=User.objects.get(id=self.request.user.id))
+                target = User.objects.get(id=request.data['target_id'])
+                serializer.save(user=User.objects.get(id=self.request.user.id),target_name=(target.first_name+' '+target.last_name))
                 data = {}
                 data['type'] = 'user'
                 if request.data['target_id'] != None:
@@ -44,7 +45,7 @@ class PostViewList(APIView):
                 notification.add(
                     request.user,
                     request.data,
-                    User.objects.filter(id__in=Friend.objects.filter(from_user=self.request.user.id__in).values('to_user')),
+                    User.objects.filter(id__in=Friend.objects.filter(from_user=self.request.user.id).values('to_user')),
                     ContentType.objects.get(model='post'),
                     JSONRenderer().render(serializer.data).decode('utf-8'),
                     json_data

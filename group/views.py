@@ -5,6 +5,7 @@ from rest_framework.exceptions import ValidationError
 from rest_framework.exceptions import NotAuthenticated
 from rest_framework.exceptions import NotFound
 from rest_framework.views import APIView
+from django.forms.models import model_to_dict
 from django.http import HttpResponse
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth.models import User
@@ -374,7 +375,8 @@ class GroupPostView(APIView):
                 if self.request.user.is_authenticated():
                     request.data['target_type'] = ContentType.objects.get(model='group', app_label='group').id
                     request.data['target_id'] = group_id
-                    serializer.save(user=User.objects.get(id=self.request.user.id), target_id=group_id, target_type=ContentType.objects.get(model='group',app_label='group'))
+                    target = Group.objects.get(id=request.data['target_id'])
+                    serializer.save(user=User.objects.get(id=self.request.user.id), target_id=group_id, target_type=ContentType.objects.get(model='group',app_label='group'),target_name=target.name)
                     data = {}
                     data['type'] = 'group'
                     data['group_id'] = group_id

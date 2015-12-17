@@ -247,7 +247,8 @@ class EventPostView(APIView):
                 if self.request.user.is_authenticated():
                     request.data['target_type'] = ContentType.objects.get(model='event').id
                     request.data['target_id'] = event_id
-                    serializer.save(user=User.objects.get(id=self.request.user.id), target_id=event_id, target_type=ContentType.objects.get(model='event'))
+                    target = Event.objects.get(id=request.data['target_id'])
+                    serializer.save(user=User.objects.get(id=self.request.user.id), target_id=event_id, target_type=ContentType.objects.get(model='event'),target_name=target.name)
                     data = {}
                     data['type'] = 'event'
                     data['event_id'] = event_id
