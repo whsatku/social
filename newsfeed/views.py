@@ -31,8 +31,12 @@ class PostViewList(APIView):
         if serializer.is_valid():
 
             if self.request.user.is_authenticated():
-                target = User.objects.get(id=request.data['target_id'])
-                serializer.save(user=User.objects.get(id=self.request.user.id),target_name=(target.first_name+' '+target.last_name))
+                try :
+                    target = User.objects.get(id=request.data['target_id'])
+                    serializer.save(user=User.objects.get(id=self.request.user.id),target_name=(target.first_name+' '+target.last_name))
+                except User.DoesNotExist :
+                    serializer.save(user=User.objects.get(id=self.request.user.id),target_name='')
+                # serializer.save(user=User.objects.get(id=self.request.user.id),target_name=(target.first_name+' '+target.last_name))
                 data = {}
                 data['type'] = 'user'
                 if request.data['target_id'] != None:
