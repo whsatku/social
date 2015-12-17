@@ -2,17 +2,21 @@
 
 var app = angular.module('app.userprofile', ['ngFileUpload']);
 
-app.controller('UserProfileInfoController', function($scope, $http, $location, $stateParams, $rootScope, $timeout, $interval){
+app.controller('UserProfileInfoController', function($scope, $http, $location, $stateParams, $rootScope, $timeout, $interval, $state){
     $scope.user = $rootScope.user;
     var userID = $stateParams.user;
     $scope.allowEdit = false;
+    $scope.allowPost = false;
     $scope.nftext = "";
     if(userID == $rootScope.user.id) {
       $scope.allowEdit = true;
+      $scope.allowPost = true;
     }
 
-    $http.get('/api/user/'+userID+'/userInfo').success(function(data){
+    $http.get('/api/user/'+userID+'/userInfo').then(function(data){
       $scope.userprofile = data;
+    }, function(xhr) {
+      $state.go("root.newsfeed");
     });
 
     $http.get('/api/user/friends/' + userID).success(function (data) {
@@ -30,9 +34,12 @@ app.controller('UserProfileInfoController', function($scope, $http, $location, $
     // USERFEED
     postID = $stateParams.postid;
     var postLimit = 20;
-
     if(!postID) {
-      $scope.allowPost = true;
+      $http.get('/api/user/friend/isFriend/' + $stateParams.user ).success(function(data){
+        if(data == 3) {
+          $scope.allowPost = true;
+        }
+      });
       $scope.hasMoreStory = true;
       var newestID = 1;
       $http.get('/api/newsfeed/wall/' + userID + '&limit=' + postLimit ).success(function (data) {
@@ -214,7 +221,11 @@ app.controller('AddFriendController', function($scope, $http, $location, $stateP
     	});
     };
 
-
+    $scope.acceptFriend = function(){
+      $http.put('/api/user/friend/isFriend/' + $scope.otherUserId ).success(function(data){
+        updatePendingFriend();
+    	});
+    };
     $scope.isFriendAPI();
 
 });

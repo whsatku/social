@@ -40,6 +40,7 @@ app.controller('GroupController', function($scope, $stateParams, Restangular, $h
         $scope.group = data;
     });
 });
+
 app.controller('CreateSubGroupController', function($scope, $http, $location, $stateParams, $state){
   $scope.name = "";
   $scope.createSubGroup = function() {

@@ -329,6 +329,9 @@ html,body,#root{
 .event header{
 	background: url(../img/events.jpg) no-repeat;
 }
+.eventcover{
+	background: url(../img/events.jpg)
+}
 
 .newstory {
 		z-index: 1;

@@ -179,7 +179,7 @@ app.controller('MainController', function($rootScope, user, $http, $uibModal, $s
     $http.get('/api/group/').success(function(data){
         $rootScope.group_list = data;
     });
-    $http.get('/api/event/all').success(function(data){
+    $http.get('/api/event/').success(function(data){
         $rootScope.event_list = data;
     });
 
