@@ -43,6 +43,7 @@ app.controller('GroupController', function($scope, $stateParams, Restangular, $h
     var groupID = $location.path().split('/')[2];
     $http.get('/api/group/'+groupID).success(function(data){
         $scope.group = data;
+        console.log($scope.group.cover)
         if(data.type == 0) {
           $scope.group.isAuthorized = true;
           console.log($scope.group.isAuthorized);
