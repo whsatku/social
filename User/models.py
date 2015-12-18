@@ -71,7 +71,3 @@ def create_profile(sender, instance, created, **kwargs):
     """Create a matching profile whenever a user object is created."""
     if created:
         profile, new = UserProfile.objects.get_or_create(user=instance)
-        if profile.gender == 'Male' or 'M':
-            profile.picture = File(open('media/default/male.png'))
-        else:
-            profile.picture = File(open('media/default/female.png'))

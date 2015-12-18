@@ -6,7 +6,7 @@
 		<h2>Featured group</h2>
 
 		<div class="largegroup" ui-sref="root.group.info({id: allGroups[0].id})">
-			<div class="image col-sm-3" style="background: #ccc"></div>
+			<div class="image col-sm-3" style="background: url({{allGroups[0].cover}}) #ccc center center no-repeat; background-size: contain;"></div>
 			<div class="col-sm-9 description">
 				<h3 class="title">{{allGroups[0].name}}</h3>
 				<div class="message">

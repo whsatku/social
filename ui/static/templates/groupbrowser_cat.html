@@ -4,7 +4,7 @@
 	</header>
 
 	<div class="largegroup" ui-sref="root.group.info({id: g.id})">
-		<div class="image col-sm-3" style="background: #ccc"></div>
+		<div class="image col-sm-3" style="background: url({{g.cover}}) #ccc center center no-repeat; background-size: contain;"></div>
 		<div class="col-sm-9 description">
 			<h3 class="title">{{g.name}}</h3>
 			<div class="message">
@@ -19,7 +19,7 @@
 	<div class="row">
 		<div class="col-md-4" ng-repeat="data in groups">
 			<div class="groupblock" ui-sref="root.group.info({id: data.id})">
-				<div class="image" style="background: #ccc"></div>
+				<div class="image" style="background: url({{data.cover}}) #ccc center center no-repeat; background-size: contain;"></div>
 				<div class="description">
 					<h4 class="title">{{data.name}}</h4>
 					<div class="message">
